@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct MessageRow: Identifiable {
+struct MessageRow: Identifiable, Encodable, Decodable {
     
-    let id = UUID()
+    var id = UUID()
     
     var isInteractingWithChatGPT: Bool
     

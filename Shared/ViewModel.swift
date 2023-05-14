@@ -15,6 +15,15 @@ class ViewModel: ObservableObject {
     @Published var messages: [MessageRow] = []
     @Published var inputMessage: String = ""
     
+    
+    private let messagesKey = "messages"
+
+    @MainActor
+    func saveMessages() {
+        let data = try? JSONEncoder().encode(messages)
+        UserDefaults.standard.set(data, forKey: messagesKey)
+    }
+    
     #if !os(watchOS)
     private var synthesizer: AVSpeechSynthesizer?
     #endif
@@ -28,6 +37,11 @@ class ViewModel: ObservableObject {
             synthesizer = .init()
         }
         #endif
+        
+        if let meesageData = UserDefaults.standard.data(forKey: messagesKey),
+           let messages = try? JSONDecoder().decode([MessageRow].self, from: meesageData) {
+            self.messages = messages
+        }
     }
     
     @MainActor
@@ -41,9 +55,17 @@ class ViewModel: ObservableObject {
     func clearMessages() {
         stopSpeaking()
         api.deleteHistoryList()
+        UserDefaults.standard.removeObject(forKey: "messages")
+        UserDefaults.standard.removeObject(forKey: "historyList")
         withAnimation { [weak self] in
             self?.messages = []
         }
+    }
+    
+    @MainActor
+    func removeAccount() {
+        UserDefaults.standard.removeObject(forKey: "messages")
+        UserDefaults.standard.removeObject(forKey: "historyList")
     }
     
     @MainActor
@@ -61,9 +83,9 @@ class ViewModel: ObservableObject {
         var streamText = ""
         var messageRow = MessageRow(
             isInteractingWithChatGPT: true,
-            sendImage: "profile",
+            sendImage: "person",
             sendText: text,
-            responseImage: "openai",
+            responseImage: "circle",
             responseText: streamText,
             responseError: nil)
         
@@ -84,7 +106,7 @@ class ViewModel: ObservableObject {
         self.messages[self.messages.count - 1] = messageRow
         isInteractingWithChatGPT = false
         speakLastResponse()
-        
+        saveMessages()
     }
     
     func speakLastResponse() {

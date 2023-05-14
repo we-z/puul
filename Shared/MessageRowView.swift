@@ -25,11 +25,11 @@ struct MessageRowView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            messageRow(text: message.sendText, image: message.sendImage, bgColor: colorScheme == .light ? .white : Color(red: 52/255, green: 53/255, blue: 65/255, opacity: 0.5))
+            messageRow(text: message.sendText, image: message.sendImage, bgColor: colorScheme == .light ? .white : Color.primary.opacity(0.06))
             
             if let text = message.responseText {
                 Divider()
-                messageRow(text: text, image: message.responseImage, bgColor: colorScheme == .light ? .gray.opacity(0.1) : Color(red: 52/255, green: 53/255, blue: 65/255, opacity: 1), responseError: message.responseError, showDotLoading: message.isInteractingWithChatGPT)
+                messageRow(text: text, image: message.responseImage, bgColor: colorScheme == .light ? .gray.opacity(0.1) : Color.primary.opacity(0.11), responseError: message.responseError, showDotLoading: message.isInteractingWithChatGPT)
                 Divider()
             }
         }
@@ -70,7 +70,7 @@ struct MessageRowView: View {
             }
 
         } else {
-            Image(image)
+            Image(systemName: image)
                 .resizable()
                 .frame(width: imageSize.width, height: imageSize.height)
         }
@@ -81,6 +81,7 @@ struct MessageRowView: View {
                 responseTextView(text: text)
                 #else
                 Text(text)
+                    .font(.system(size: 21))
                     .multilineTextAlignment(.leading)
                     #if os(iOS) || os(macOS)
                     .textSelection(.enabled)
@@ -150,35 +151,35 @@ struct MessageRowView: View {
     
 }
 
-struct MessageRowView_Previews: PreviewProvider {
-    
-    static let message = MessageRow(
-        isInteractingWithChatGPT: true, sendImage: "profile",
-        sendText: "What is SwiftUI?",
-        responseImage: "openai",
-        responseText: "SwiftUI is a user interface framework that allows developers to design and develop user interfaces for iOS, macOS, watchOS, and tvOS applications using Swift, a programming language developed by Apple Inc.")
-    
-    static let message2 = MessageRow(
-        isInteractingWithChatGPT: false, sendImage: "profile",
-        sendText: "What is SwiftUI?",
-        responseImage: "openai",
-        responseText: "",
-        responseError: "ChatGPT is currently not available")
-        
-    static var previews: some View {
-        NavigationStack {
-            ScrollView {
-                MessageRowView(message: message, retryCallback: { messageRow in
-                    
-                })
-                    
-                MessageRowView(message: message2, retryCallback: { messageRow in
-                    
-                })
-                  
-            }
-            .frame(width: 400)
-            .previewLayout(.sizeThatFits)
-        }
-    }
-}
+//struct MessageRowView_Previews: PreviewProvider {
+//
+//    static let message = MessageRow(
+//        isInteractingWithChatGPT: true, sendImage: "profile",
+//        sendText: "What is SwiftUI?",
+//        responseImage: "openai",
+//        responseText: "SwiftUI is a user interface framework that allows developers to design and develop user interfaces for iOS, macOS, watchOS, and tvOS applications using Swift, a programming language developed by Apple Inc.")
+//
+//    static let message2 = MessageRow(
+//        isInteractingWithChatGPT: false, sendImage: "profile",
+//        sendText: "What is SwiftUI?",
+//        responseImage: "openai",
+//        responseText: "",
+//        responseError: "ChatGPT is currently not available")
+//
+//    static var previews: some View {
+//        NavigationStack {
+//            ScrollView {
+//                MessageRowView(message: message, retryCallback: { messageRow in
+//
+//                })
+//
+//                MessageRowView(message: message2, retryCallback: { messageRow in
+//
+//                })
+//
+//            }
+//            .frame(width: 400)
+//            .previewLayout(.sizeThatFits)
+//        }
+//    }
+//}

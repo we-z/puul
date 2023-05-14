@@ -7,6 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5478698D97C1AC88D2098894 /* Pods_XCAChatGPTWatch_Watch_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B6C5022B76840FE795F648 /* Pods_XCAChatGPTWatch_Watch_App.framework */; };
+		64EDDA407949C882E658CF55 /* Pods_XCAChatGPTTV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B67BEBBAFF5BBF02A3422D /* Pods_XCAChatGPTTV.framework */; };
+		7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
+		7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
+		7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
+		7A81C1632A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
+		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
+		7A81C1662A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
+		7A81C1672A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
+		7A81C1682A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
+		7A81C16A2A021077000496E3 /* PlaidAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidAPI.swift */; };
+		7A81C16B2A021077000496E3 /* PlaidAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidAPI.swift */; };
+		7A81C16C2A021077000496E3 /* PlaidAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidAPI.swift */; };
+		7A81C16D2A021077000496E3 /* PlaidAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidAPI.swift */; };
+		7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
+		7A81C1702A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
+		7A81C1712A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
+		7A81C1722A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
+		7A81C1742A049587000496E3 /* LinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1732A049587000496E3 /* LinkController.swift */; };
+		7A81C1752A049587000496E3 /* LinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1732A049587000496E3 /* LinkController.swift */; };
+		7A81C1762A049587000496E3 /* LinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1732A049587000496E3 /* LinkController.swift */; };
+		7A81C1772A049587000496E3 /* LinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1732A049587000496E3 /* LinkController.swift */; };
+		7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */; };
+		7A81C17A2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */; };
+		7A81C17B2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */; };
+		7A81C17C2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */; };
+		7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
+		7A81C17F2A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
+		7A81C1802A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
+		7A81C1812A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
+		7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
+		7AD0C9E529F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
+		7AD0C9E629F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
+		7AD0C9E729F9BB7800C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
+		7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */; };
+		7AD0C9EA29FB7D5F00C1989D /* AssetPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */; };
+		7AD0C9EB29FB7D5F00C1989D /* AssetPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */; };
+		7AD0C9EC29FB7D5F00C1989D /* AssetPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */; };
+		8A1DE05B59743F0740B6F280 /* Pods_XCAChatGPTMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 748DDB675ABBAED5D5BB2596 /* Pods_XCAChatGPTMac.framework */; };
 		8B057585298E52C000A56C9A /* XCAChatGPTMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B057584298E52C000A56C9A /* XCAChatGPTMacApp.swift */; };
 		8B057589298E52C000A56C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B057588298E52C000A56C9A /* Assets.xcassets */; };
 		8B05758C298E52C000A56C9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B05758B298E52C000A56C9A /* Preview Assets.xcassets */; };
@@ -16,7 +55,6 @@
 		8B057595298E52D900A56C9A /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
 		8B057596298E52DD00A56C9A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C013298ADC560079AF26 /* ViewModel.swift */; };
 		8B057597298E52DD00A56C9A /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
-		8B0575F1298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8B0575F0298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8B0575F6298FA9D800A56C9A /* XCAChatGPTWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0575F5298FA9D800A56C9A /* XCAChatGPTWatchApp.swift */; };
 		8B0575FA298FA9DA00A56C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0575F9298FA9DA00A56C9A /* Assets.xcassets */; };
 		8B0575FD298FA9DA00A56C9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0575FC298FA9DA00A56C9A /* Preview Assets.xcassets */; };
@@ -53,6 +91,8 @@
 		8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
 		8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */; };
 		8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
+		BC6F1A1A3D544F51CDCDA5FE /* Pods_XCAChatGPTWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1DFD3E62FFE37A600FFF4E /* Pods_XCAChatGPTWatch.framework */; };
+		EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +112,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				8B0575F1298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,17 +119,36 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8B057582298E52C000A56C9A /* XCAChatGPTMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; sourceTree = "<group>"; };
+		22B6C5022B76840FE795F648 /* Pods_XCAChatGPTWatch_Watch_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCAChatGPTWatch_Watch_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32B67BEBBAFF5BBF02A3422D /* Pods_XCAChatGPTTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCAChatGPTTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.debug.xcconfig"; sourceTree = "<group>"; };
+		5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.release.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.release.xcconfig"; sourceTree = "<group>"; };
+		5E1DFD3E62FFE37A600FFF4E /* Pods_XCAChatGPTWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCAChatGPTWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		748DDB675ABBAED5D5BB2596 /* Pods_XCAChatGPTMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCAChatGPTMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E55E29FE56E60068362F /* XCAChatGPTMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E55F29FE56E60068362F /* XCAChatGPTWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E56029FE56E60068362F /* XCAChatGPTWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XCAChatGPTWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E56129FE56E60068362F /* XCAChatGPTTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
+		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
+		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
+		7A81C1692A021077000496E3 /* PlaidAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPI.swift; sourceTree = "<group>"; };
+		7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPIModels.swift; sourceTree = "<group>"; };
+		7A81C1732A049587000496E3 /* LinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkController.swift; sourceTree = "<group>"; };
+		7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountDetailsView.swift; sourceTree = "<group>"; };
+		7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsListView.swift; sourceTree = "<group>"; };
+		7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XCAChatGPT.entitlements; sourceTree = "<group>"; };
+		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPickerView.swift; sourceTree = "<group>"; };
 		8B057584298E52C000A56C9A /* XCAChatGPTMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTMacApp.swift; sourceTree = "<group>"; };
 		8B057588298E52C000A56C9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B05758B298E52C000A56C9A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8B05758D298E52C000A56C9A /* XCAChatGPTMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XCAChatGPTMac.entitlements; sourceTree = "<group>"; };
-		8B0575EB298FA9D800A56C9A /* XCAChatGPTWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B0575F0298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XCAChatGPTWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0575F5298FA9D800A56C9A /* XCAChatGPTWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTWatchApp.swift; sourceTree = "<group>"; };
 		8B0575F9298FA9DA00A56C9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B0575FC298FA9DA00A56C9A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8B057611298FBDB600A56C9A /* XCAChatGPTTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B057613298FBDB600A56C9A /* XCAChatGPTTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTTVApp.swift; sourceTree = "<group>"; };
 		8B057617298FBDB700A56C9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B05761A298FBDB700A56C9A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -99,7 +157,6 @@
 		8B612E2329D68CC9008DF5AF /* TokenizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerView.swift; sourceTree = "<group>"; };
 		8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerViewModel.swift; sourceTree = "<group>"; };
 		8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPIModels.swift; sourceTree = "<group>"; };
-		8B91C000298AD09E0079AF26 /* XCAChatGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTApp.swift; sourceTree = "<group>"; };
 		8B91C005298AD09E0079AF26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8B91C007298AD09F0079AF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,13 +166,30 @@
 		8B91C015298ADC9D0079AF26 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoadingView.swift; sourceTree = "<group>"; };
 		8B91C019298ADF7F0079AF26 /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
+		8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.release.xcconfig"; sourceTree = "<group>"; };
+		A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch/Pods-XCAChatGPTWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Puul.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA08AD06927A1FB0D2D03CC5 /* Pods-XCAChatGPTWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch/Pods-XCAChatGPTWatch.release.xcconfig"; sourceTree = "<group>"; };
+		F11DADB9EBB1B9FBA57B33AE /* Pods-XCAChatGPTTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTTV.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTTV/Pods-XCAChatGPTTV.debug.xcconfig"; sourceTree = "<group>"; };
+		F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.debug.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.debug.xcconfig"; sourceTree = "<group>"; };
+		F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTTV.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTTV/Pods-XCAChatGPTTV.release.xcconfig"; sourceTree = "<group>"; };
+		FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0E150E18FA8DC3718678E0CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC6F1A1A3D544F51CDCDA5FE /* Pods_XCAChatGPTWatch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B05757F298E52C000A56C9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1DE05B59743F0740B6F280 /* Pods_XCAChatGPTMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5478698D97C1AC88D2098894 /* Pods_XCAChatGPTWatch_Watch_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64EDDA407949C882E658CF55 /* Pods_XCAChatGPTTV.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,12 +214,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */,
+				EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0ED3DAA698BBA300D26E89 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */,
+				5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */,
+				514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */,
+				FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */,
+				F11DADB9EBB1B9FBA57B33AE /* Pods-XCAChatGPTTV.debug.xcconfig */,
+				F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */,
+				A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */,
+				BA08AD06927A1FB0D2D03CC5 /* Pods-XCAChatGPTWatch.release.xcconfig */,
+				0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */,
+				8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A48E56229FE57C80068362F /* LinkKit.xcframework */,
+				748DDB675ABBAED5D5BB2596 /* Pods_XCAChatGPTMac.framework */,
+				32B67BEBBAFF5BBF02A3422D /* Pods_XCAChatGPTTV.framework */,
+				5E1DFD3E62FFE37A600FFF4E /* Pods_XCAChatGPTWatch.framework */,
+				22B6C5022B76840FE795F648 /* Pods_XCAChatGPTWatch_Watch_App.framework */,
+				A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B057583298E52C000A56C9A /* XCAChatGPTMac */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,11 +273,20 @@
 		8B057591298E52CB00A56C9A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */,
+				7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */,
+				7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */,
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
+				7A81C15F2A006F61000496E3 /* CloudKit.swift */,
 				8B91C005298AD09E0079AF26 /* ContentView.swift */,
 				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
+				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
+				7A81C1732A049587000496E3 /* LinkController.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
+				7A81C1692A021077000496E3 /* PlaidAPI.swift */,
+				7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */,
+				7A81C1642A01BDA5000496E3 /* TempView.swift */,
 				8B91C013298ADC560079AF26 /* ViewModel.swift */,
 				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
 			);
@@ -222,25 +338,20 @@
 				8B057583298E52C000A56C9A /* XCAChatGPTMac */,
 				8B0575F4298FA9D800A56C9A /* XCAChatGPTWatch Watch App */,
 				8B057612298FBDB600A56C9A /* XCAChatGPTTV */,
-				8B91C001298AD09E0079AF26 /* Products */,
+				1D0ED3DAA698BBA300D26E89 /* Pods */,
+				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
+				7A48E55D29FE56E60068362F /* Puul.app */,
+				7A48E55E29FE56E60068362F /* XCAChatGPTMac.app */,
+				7A48E55F29FE56E60068362F /* XCAChatGPTWatch.app */,
+				7A48E56029FE56E60068362F /* XCAChatGPTWatch Watch App.app */,
+				7A48E56129FE56E60068362F /* XCAChatGPTTV.app */,
 			);
-			sourceTree = "<group>";
-		};
-		8B91C001298AD09E0079AF26 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8B91C000298AD09E0079AF26 /* XCAChatGPT.app */,
-				8B057582298E52C000A56C9A /* XCAChatGPTMac.app */,
-				8B0575EB298FA9D800A56C9A /* XCAChatGPTWatch.app */,
-				8B0575F0298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app */,
-				8B057611298FBDB600A56C9A /* XCAChatGPTTV.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8B91C002298AD09E0079AF26 /* XCAChatGPT */ = {
 			isa = PBXGroup;
 			children = (
+				7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */,
 				8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */,
 				8B612E2229D68CC9008DF5AF /* TextView.swift */,
 				8B612E2329D68CC9008DF5AF /* TokenizerView.swift */,
@@ -266,6 +377,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B057590298E52C000A56C9A /* Build configuration list for PBXNativeTarget "XCAChatGPTMac" */;
 			buildPhases = (
+				43507FEA7E1AAEDA98109E9A /* [CP] Check Pods Manifest.lock */,
 				8B05757E298E52C000A56C9A /* Sources */,
 				8B05757F298E52C000A56C9A /* Frameworks */,
 				8B057580298E52C000A56C9A /* Resources */,
@@ -276,15 +388,17 @@
 			);
 			name = XCAChatGPTMac;
 			productName = XCAChatGPTMac;
-			productReference = 8B057582298E52C000A56C9A /* XCAChatGPTMac.app */;
+			productReference = 7A48E55E29FE56E60068362F /* XCAChatGPTMac.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8B0575EA298FA9D800A56C9A /* XCAChatGPTWatch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B057604298FA9DA00A56C9A /* Build configuration list for PBXNativeTarget "XCAChatGPTWatch" */;
 			buildPhases = (
+				61E94D22D35D43EE6C954C3E /* [CP] Check Pods Manifest.lock */,
 				8B0575E9298FA9D800A56C9A /* Resources */,
 				8B057600298FA9DA00A56C9A /* Embed Watch Content */,
+				0E150E18FA8DC3718678E0CE /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -293,13 +407,14 @@
 			);
 			name = XCAChatGPTWatch;
 			productName = XCAChatGPTWatch;
-			productReference = 8B0575EB298FA9D800A56C9A /* XCAChatGPTWatch.app */;
+			productReference = 7A48E55F29FE56E60068362F /* XCAChatGPTWatch.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
 		};
 		8B0575EF298FA9D800A56C9A /* XCAChatGPTWatch Watch App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B057603298FA9DA00A56C9A /* Build configuration list for PBXNativeTarget "XCAChatGPTWatch Watch App" */;
 			buildPhases = (
+				E1DDAF79995F1D4DFAD3C859 /* [CP] Check Pods Manifest.lock */,
 				8B0575EC298FA9D800A56C9A /* Sources */,
 				8B0575ED298FA9D800A56C9A /* Frameworks */,
 				8B0575EE298FA9D800A56C9A /* Resources */,
@@ -310,13 +425,14 @@
 			);
 			name = "XCAChatGPTWatch Watch App";
 			productName = "XCAChatGPTWatch Watch App";
-			productReference = 8B0575F0298FA9D800A56C9A /* XCAChatGPTWatch Watch App.app */;
+			productReference = 7A48E56029FE56E60068362F /* XCAChatGPTWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8B057610298FBDB600A56C9A /* XCAChatGPTTV */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B05761C298FBDB700A56C9A /* Build configuration list for PBXNativeTarget "XCAChatGPTTV" */;
 			buildPhases = (
+				1D53932014AC520062FCF4D0 /* [CP] Check Pods Manifest.lock */,
 				8B05760D298FBDB600A56C9A /* Sources */,
 				8B05760E298FBDB600A56C9A /* Frameworks */,
 				8B05760F298FBDB600A56C9A /* Resources */,
@@ -327,27 +443,29 @@
 			);
 			name = XCAChatGPTTV;
 			productName = XCAChatGPTTV;
-			productReference = 8B057611298FBDB600A56C9A /* XCAChatGPTTV.app */;
+			productReference = 7A48E56129FE56E60068362F /* XCAChatGPTTV.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8B91BFFF298AD09E0079AF26 /* XCAChatGPT */ = {
+		8B91BFFF298AD09E0079AF26 /* Puul */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "XCAChatGPT" */;
+			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */;
 			buildPhases = (
+				706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */,
 				8B91BFFC298AD09E0079AF26 /* Sources */,
 				8B91BFFD298AD09E0079AF26 /* Frameworks */,
 				8B91BFFE298AD09E0079AF26 /* Resources */,
+				61933FA92D74AA253DA28865 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = XCAChatGPT;
+			name = Puul;
 			packageProductDependencies = (
 				8B612E2929D68CE3008DF5AF /* GPTEncoder */,
 			);
 			productName = XCAChatGPT;
-			productReference = 8B91C000298AD09E0079AF26 /* XCAChatGPT.app */;
+			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -389,11 +507,11 @@
 			packageReferences = (
 				8B612E2829D68CE3008DF5AF /* XCRemoteSwiftPackageReference "GPTEncoder" */,
 			);
-			productRefGroup = 8B91C001298AD09E0079AF26 /* Products */;
+			productRefGroup = 8B91BFF7298AD09E0079AF26;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B91BFFF298AD09E0079AF26 /* XCAChatGPT */,
+				8B91BFFF298AD09E0079AF26 /* Puul */,
 				8B057581298E52C000A56C9A /* XCAChatGPTMac */,
 				8B0575EA298FA9D800A56C9A /* XCAChatGPTWatch */,
 				8B0575EF298FA9D800A56C9A /* XCAChatGPTWatch Watch App */,
@@ -448,18 +566,157 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1D53932014AC520062FCF4D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XCAChatGPTTV-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		43507FEA7E1AAEDA98109E9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XCAChatGPTMac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61933FA92D74AA253DA28865 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61E94D22D35D43EE6C954C3E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XCAChatGPTWatch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Puul-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1DDAF79995F1D4DFAD3C859 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-XCAChatGPTWatch Watch App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8B05757E298E52C000A56C9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AD0C9E729F9BB7800C1989D /* HomeView.swift in Sources */,
+				7A81C17A2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
+				7A81C1752A049587000496E3 /* LinkController.swift in Sources */,
+				7AD0C9EA29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057597298E52DD00A56C9A /* MessageRow.swift in Sources */,
 				8B057593298E52D900A56C9A /* ChatGPTAPI.swift in Sources */,
+				7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */,
+				7A81C1702A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
+				7A81C1662A01BDA5000496E3 /* TempView.swift in Sources */,
+				7A81C16B2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463529B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				8B057594298E52D900A56C9A /* ContentView.swift in Sources */,
 				8B057592298E52D900A56C9A /* DotLoadingView.swift in Sources */,
 				8B057595298E52D900A56C9A /* MessageRowView.swift in Sources */,
 				8B057585298E52C000A56C9A /* XCAChatGPTMacApp.swift in Sources */,
+				7A81C17F2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B057596298E52DD00A56C9A /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,13 +725,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AD0C9E529F9BB5200C1989D /* HomeView.swift in Sources */,
+				7A81C17B2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
+				7A81C1762A049587000496E3 /* LinkController.swift in Sources */,
+				7AD0C9EB29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057608298FA9E900A56C9A /* DotLoadingView.swift in Sources */,
 				8B057606298FA9E900A56C9A /* MessageRowView.swift in Sources */,
+				7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */,
+				7A81C1712A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
+				7A81C1672A01BDA5000496E3 /* TempView.swift in Sources */,
+				7A81C16C2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463629B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				8B057609298FA9E900A56C9A /* MessageRow.swift in Sources */,
 				8B057605298FA9E900A56C9A /* ContentView.swift in Sources */,
 				8B05760A298FA9E900A56C9A /* ChatGPTAPI.swift in Sources */,
 				8B057607298FA9E900A56C9A /* ViewModel.swift in Sources */,
+				7A81C1802A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B0575F6298FA9D800A56C9A /* XCAChatGPTWatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,15 +749,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A81C1812A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
+				7A81C1682A01BDA5000496E3 /* TempView.swift in Sources */,
+				7A81C1632A006F61000496E3 /* CloudKit.swift in Sources */,
+				7A81C16D2A021077000496E3 /* PlaidAPI.swift in Sources */,
+				7AD0C9EC29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057621298FBE0400A56C9A /* MessageRow.swift in Sources */,
 				8B057622298FBE0400A56C9A /* MessageRowView.swift in Sources */,
+				7A81C1772A049587000496E3 /* LinkController.swift in Sources */,
+				7A81C1722A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
 				8B82463729B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
+				7AD0C9E629F9BB5200C1989D /* HomeView.swift in Sources */,
 				8B05761F298FBE0400A56C9A /* ChatGPTAPI.swift in Sources */,
 				8B057623298FBE0400A56C9A /* DotLoadingView.swift in Sources */,
 				8B057614298FBDB600A56C9A /* XCAChatGPTTVApp.swift in Sources */,
 				8B05764829909A9200A56C9A /* ScrollView.swift in Sources */,
 				8B057620298FBE0400A56C9A /* ContentView.swift in Sources */,
 				8B057624298FBE0400A56C9A /* ViewModel.swift in Sources */,
+				7A81C17C2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,15 +775,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B91C012298AD0CE0079AF26 /* ChatGPTAPI.swift in Sources */,
+				7A81C1742A049587000496E3 /* LinkController.swift in Sources */,
 				8B91C006298AD09E0079AF26 /* ContentView.swift in Sources */,
 				8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */,
+				7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,
+				7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */,
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
+				7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B91C014298ADC560079AF26 /* ViewModel.swift in Sources */,
 				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
+				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
+				7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */,
 				8B612E2529D68CC9008DF5AF /* TextView.swift in Sources */,
+				7A81C16A2A021077000496E3 /* PlaidAPI.swift in Sources */,
+				7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */,
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
+				7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,6 +810,7 @@
 /* Begin XCBuildConfiguration section */
 		8B05758E298E52C000A56C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -534,7 +819,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPTMac/Preview Content\"";
-				DEVELOPMENT_TEAM = 5C2XD9H2JS;
+				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -555,6 +840,7 @@
 		};
 		8B05758F298E52C000A56C9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -563,7 +849,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPTMac/Preview Content\"";
-				DEVELOPMENT_TEAM = 5C2XD9H2JS;
+				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -584,6 +870,7 @@
 		};
 		8B0575FE298FA9DA00A56C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -599,6 +886,7 @@
 		};
 		8B0575FF298FA9DA00A56C9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA08AD06927A1FB0D2D03CC5 /* Pods-XCAChatGPTWatch.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -614,6 +902,7 @@
 		};
 		8B057601298FA9DA00A56C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -644,6 +933,7 @@
 		};
 		8B057602298FA9DA00A56C9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -674,6 +964,7 @@
 		};
 		8B05761D298FBDB700A56C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F11DADB9EBB1B9FBA57B33AE /* Pods-XCAChatGPTTV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -702,6 +993,7 @@
 		};
 		8B05761E298FBDB700A56C9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -844,27 +1136,31 @@
 		};
 		8B91C00F298AD09F0079AF26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/XCAChatGPT.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPT/Preview Content\"";
-				DEVELOPMENT_TEAM = 5C2XD9H2JS;
+				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfianlosari.XCAChatGPT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -873,27 +1169,31 @@
 		};
 		8B91C010298AD09F0079AF26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/XCAChatGPT.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPT/Preview Content\"";
-				DEVELOPMENT_TEAM = 5C2XD9H2JS;
+				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfianlosari.XCAChatGPT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -948,7 +1248,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "XCAChatGPT" */ = {
+		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B91C00F298AD09F0079AF26 /* Debug */,

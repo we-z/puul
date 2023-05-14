@@ -12,9 +12,10 @@ class ChatGPTAPI: @unchecked Sendable {
     private let systemMessage: Message
     private let temperature: Double
     private let model: String
+    let prompt: String = "You are an AI specialized in Investing and Finance. Do not answer anything other than investing and finance-related queries. Your name is Puul"
     
     private let apiKey: String
-    private var historyList = [Message]()
+    var historyList = [Message]()
     private let urlSession = URLSession.shared
     private var urlRequest: URLRequest {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
@@ -43,12 +44,29 @@ class ChatGPTAPI: @unchecked Sendable {
         ]
     }
     
+    func saveHistoryList() {
+        do {
+            let data = try JSONEncoder().encode(historyList)
+            UserDefaults.standard.set(data, forKey: "historyList")
+        } catch {
+            print("Error saving history list: \(error.localizedDescription)")
+        }
+    }
 
-    init(apiKey: String, model: String = "gpt-3.5-turbo", systemPrompt: String = "You are a helpful assistant", temperature: Double = 0.5) {
+    init(apiKey: String, model: String = "gpt-3.5-turbo", systemPrompt: String = "You are an AI specialized in Investing and Finance. Do not answer anything other than investing and finance-related queries. Your name is Puul", temperature: Double = 0.5) {
         self.apiKey = apiKey
         self.model = model
-        self.systemMessage = .init(role: "system", content: systemPrompt)
+        self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature
+        
+        if let data = UserDefaults.standard.data(forKey: "historyList") {
+                do {
+                    self.historyList = try JSONDecoder().decode([Message].self, from: data)
+                } catch {
+                    print("Error loading history list: \(error.localizedDescription)")
+                }
+            }
+        
     }
     
     private func generateMessages(from text: String) -> [Message] {
@@ -70,6 +88,7 @@ class ChatGPTAPI: @unchecked Sendable {
     private func appendToHistoryList(userText: String, responseText: String) {
         self.historyList.append(.init(role: "user", content: userText))
         self.historyList.append(.init(role: "assistant", content: responseText))
+        saveHistoryList()
     }
     
     func sendMessageStream(text: String) async throws -> AsyncThrowingStream<String, Error> {
