@@ -10,54 +10,16 @@ import SwiftUI
 @main
 struct XCAChatGPTApp: App {
     
-    @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "PROVIDE_API_KEY"))
-    @State var isShowingTokenizer = false
+    @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "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"))
+    @StateObject var plaidModel: PlaidModel = PlaidModel()
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                ContentView(vm: vm)
-                    .toolbar {
-                        ToolbarItem {
-                            Button("Clear") {
-                                vm.clearMessages()
-                            }
-                            .disabled(vm.isInteractingWithChatGPT)
-                        }
-                        
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button("Tokenizer") {
-                                self.isShowingTokenizer = true
-                            }
-                            .disabled(vm.isInteractingWithChatGPT)
-                        }
-                    }
+                HomeView()
             }
-            .fullScreenCover(isPresented: $isShowingTokenizer) {
-                NavigationTokenView()
-            }
+            .environmentObject(plaidModel)
+            .accentColor(.primary)
         }
     }
 }
-
-
-struct NavigationTokenView: View {
-    
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        NavigationStack {
-            TokenizerView()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Close") {
-                            dismiss()
-                        }
-                    }
-                }
-        }
-        .interactiveDismissDisabled()
-    }
-}
-
-

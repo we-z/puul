@@ -9,23 +9,25 @@ import Foundation
 import SwiftUI
 
 class PlaidModel: ObservableObject {
-    let bankAccountsKey: String = "accounts"
+    let bankAccountsKey: String = "bankaccounts"
+    let brokerAccountsKey: String = "brokeraccounts"
     let networthKey: String = "networth"
     @Published var totalNetWorth: Double = 0
     @Published var brokerAccounts: [BrokerAccount] = [] {
         didSet{
-            saveAccounts()
+            saveBrokerAccounts()
         }
     }
     @Published var bankAccounts: [BankAccount] = [] {
         didSet{
-            saveAccounts()
+            saveBankAccounts()
             print("List of bank accounts: \(bankAccounts)")
         }
     }
     
     init() {
         getBankAccounts()
+        getBrokerAccounts()
         calculateNetworth()
     }
     
@@ -34,11 +36,18 @@ class PlaidModel: ObservableObject {
         bankAccounts.forEach { account in
             self.totalNetWorth += account.balance
         }
+        brokerAccounts.forEach { account in
+            self.totalNetWorth += account.balance
+        }
     }
 
 
     func deleteBankAccount(indexSet: IndexSet) {
         bankAccounts.remove(atOffsets: indexSet)
+    }
+    
+    func deleteBrokerAccount(indexSet: IndexSet) {
+        brokerAccounts.remove(atOffsets: indexSet)
     }
     
     func getBankAccounts(){
@@ -49,6 +58,16 @@ class PlaidModel: ObservableObject {
         
         self.bankAccounts = savedAccounts
     }
+    
+    func getBrokerAccounts(){
+        guard
+            let accountData = UserDefaults.standard.data(forKey: brokerAccountsKey),
+            let savedAccounts = try? JSONDecoder().decode([BrokerAccount].self, from: accountData)
+        else {return}
+        
+        self.brokerAccounts = savedAccounts
+    }
+    
     func clearBankAccounts(){
         self.bankAccounts = []
         self.totalNetWorth = 0
@@ -62,9 +81,24 @@ class PlaidModel: ObservableObject {
         
     }
     
-    func saveAccounts() {
-        if let data = try? JSONEncoder().encode(bankAccounts){
-            UserDefaults.standard.set(data, forKey: bankAccountsKey)
+    func addBrokerAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, holdings: [Security]){
+        let newAccount = BrokerAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, holdings: holdings)
+        DispatchQueue.main.async {
+            self.brokerAccounts.append(newAccount)
+        }
+        
+    }
+    
+    func saveBankAccounts() {
+        if let bankData = try? JSONEncoder().encode(bankAccounts){
+            UserDefaults.standard.set(bankData, forKey: bankAccountsKey)
+        }
+        self.calculateNetworth()
+    }
+    
+    func saveBrokerAccounts() {
+        if let brokerData = try? JSONEncoder().encode(brokerAccounts){
+            UserDefaults.standard.set(brokerData, forKey: brokerAccountsKey)
         }
         self.calculateNetworth()
     }
@@ -75,6 +109,7 @@ extension Double {
     func withCommas() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 0
         return numberFormatter.string(from: NSNumber(value:self))!
     }
 }
@@ -90,13 +125,14 @@ struct BankAccount: Identifiable, Encodable, Decodable {
 
 struct Transaction: Identifiable, Encodable, Decodable {
     var id = UUID()
-    var amount: String
+    var amount: Double
     var merchant: String
     var dateTime: String
 }
 
 struct BrokerAccount: Identifiable, Encodable, Decodable {
     var id = UUID()
+    var institution_id: String
     var access_token: String
     var institution_name: String
     var balance: Double
@@ -107,5 +143,5 @@ struct Security: Identifiable, Encodable, Decodable {
     var id = UUID()
     var ticker: String
     var name: String
-    var closePrice: Double
+    var value: Double
 }

@@ -76,6 +76,7 @@ public struct PlaidLinkFlow: View {
             linkToken = ""
             showLink = false
             pm.getBankAccounts()
+            pm.getBrokerAccounts()
         }
         
 
@@ -267,7 +268,7 @@ public struct PlaidLinkFlow: View {
                 
                 getBankName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance)
 
-                print("Account balance fetched: \(totalBalance) \(institutionId)")
+                print("Bank account balance fetched: \(totalBalance) \(institutionId)")
                 
             } catch let error {
                 print("Error parsing JSON: \(error.localizedDescription)")
@@ -310,7 +311,7 @@ public struct PlaidLinkFlow: View {
                 
                 getBrokerName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance)
 
-                print("Account balance fetched: \(totalBalance) \(institutionId)")
+                print("Broker account balance fetched: \(totalBalance) \(institutionId)")
                 
             } catch let error {
                 print("Error parsing JSON: \(error.localizedDescription)")
@@ -342,6 +343,7 @@ public struct PlaidLinkFlow: View {
                 let institutionName = institution["name"] as! String
                 print(institutionName) // Do something with the institution name, e.g. return it or store it in a variable
                 //pm.addBankAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance)
+                getBrokerholdings(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
             } catch {
                 print("Error decoding JSON: \(error)")
             }
@@ -371,7 +373,6 @@ public struct PlaidLinkFlow: View {
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
                 print(institutionName) // Do something with the institution name, e.g. return it or store it in a variable
-//                pm.addBankAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance)
                 
                 getBankTransactions(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
 
@@ -423,8 +424,7 @@ public struct PlaidLinkFlow: View {
                     if let amount = transactionData["amount"] as? Double,
                        let dateTime = transactionData["date"] as? String,
                        let name = transactionData["merchant_name"] as? String {
-                        let formattedAmount = String(amount)
-                        let transaction = Transaction(amount: formattedAmount, merchant: name, dateTime: dateTime)
+                        let transaction = Transaction(amount: amount, merchant: name, dateTime: dateTime)
                         transactions.append(transaction)
                     }
                 }
@@ -432,6 +432,54 @@ public struct PlaidLinkFlow: View {
                 
             } catch {
                 print("Error getting trasactions: \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    func getBrokerholdings(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
+        let url = URL(string: "https://sandbox.plaid.com/investments/holdings/get")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        let endDate = Date()
+        let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
+        
+        let requestData: [String: Any] = [
+            "client_id": "63d411aa2bcbe80013f42ad7",
+            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "access_token": accessToken
+        ]
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: requestData)
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                let securitiesData = json["securities"] as! [[String: Any]]
+                                
+                var securities: [Security] = []
+                
+                for position in securitiesData {
+                    if let value = position["close_price"] as? Double,
+                       let ticker = position["ticker_symbol"] as? String,
+                       let name = position["name"] as? String {
+                        let security = Security(ticker: ticker, name: name, value: value)
+                        securities.append(security)
+                    }
+                }
+                pm.addBrokerAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, holdings: securities)
+                
+            } catch {
+                print("Error getting holdings: \(error)")
             }
             
         }

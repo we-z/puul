@@ -1,14 +1,14 @@
 //
-//  AccountDetailsView.swift
+//  BrokerAccountDetailsView.swift
 //  XCAChatGPT
 //
-//  Created by Wheezy Salem on 5/9/23.
+//  Created by Wheezy Salem on 5/14/23.
 //
 
 import SwiftUI
 
-struct BankAccountDetailsView: View {
-    @State var viewdata: BankAccount
+struct BrokerAccountDetailsView: View {
+    @State var viewdata: BrokerAccount
     var body: some View {
         VStack{
             HStack{
@@ -28,16 +28,16 @@ struct BankAccountDetailsView: View {
                 Spacer()
             }
             List{
-                ForEach(viewdata.transactions) { transaction in
+                ForEach(viewdata.holdings) { position in
                     HStack{
                         VStack(alignment: .leading, spacing: 6){
-                            Text(transaction.merchant)
+                            Text(position.name)
                                 .bold()
                                 .font(.system(size: 21))
-                            Text(transaction.dateTime)
+                            Text(position.ticker)
                         }
                         Spacer()
-                        Text("$" + transaction.amount.withCommas())
+                        Text("$" + position.value.withCommas())
                             .bold()
                             .font(.system(size: 27))
                     }
@@ -48,17 +48,15 @@ struct BankAccountDetailsView: View {
     }
 }
 
-struct BankAccountDetailsView_Previews: PreviewProvider {
+struct BrokerAccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String", institution_name: "Chase", balance: 0, transactions:
+        BrokerAccountDetailsView(viewdata: BrokerAccount(institution_id: "String", access_token: "String", institution_name: "Vanguard", balance: 9043, holdings:
                 [
-                    Transaction(amount: 746, merchant: "Apple", dateTime: "String"),
-                    Transaction(amount: 37, merchant: "Uber", dateTime: "String"),
-                    Transaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
-                    Transaction(amount: 920, merchant: "Zara", dateTime: "String"),
-                    Transaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
+                    Security(ticker: "AAPL", name: "Apple Inc.", value: 432.42),
+                    Security(ticker: "TSLA", name: "Tesla Inc.", value: 325.93),
+                    Security(ticker: "AMZN", name: "Amazon Inc.", value: 922.75),
+                    Security(ticker: "SPY", name: "S&P 500", value: 6782.43),
+                    Security(ticker: "TWTR", name: "Twitter Inc", value: 1673.43)
                 ]))
     }
 }
-
-

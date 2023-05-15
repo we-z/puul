@@ -51,6 +51,9 @@ struct HomeView: View {
                         if !pm.bankAccounts.isEmpty{
                             BankAccountsListView()
                         }
+                        if !pm.brokerAccounts.isEmpty{
+                            BrokerAccountsListView()
+                        }
                     }
                     .refreshable {
                         print("refresh")

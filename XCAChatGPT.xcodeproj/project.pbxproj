@@ -37,6 +37,14 @@
 		7A81C17F2A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
 		7A81C1802A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
 		7A81C1812A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
+		7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
+		7A81C1842A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
+		7A81C1852A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
+		7A81C1862A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
+		7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
+		7A81C1892A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
+		7A81C18A2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
+		7A81C18B2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
 		7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
 		7AD0C9E529F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
 		7AD0C9E629F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
@@ -139,6 +147,8 @@
 		7A81C1732A049587000496E3 /* LinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkController.swift; sourceTree = "<group>"; };
 		7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountDetailsView.swift; sourceTree = "<group>"; };
 		7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsListView.swift; sourceTree = "<group>"; };
+		7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountsListView.swift; sourceTree = "<group>"; };
+		7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountDetailsView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XCAChatGPT.entitlements; sourceTree = "<group>"; };
 		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPickerView.swift; sourceTree = "<group>"; };
@@ -276,6 +286,8 @@
 				7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */,
 				7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */,
 				7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */,
+				7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */,
+				7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */,
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
 				7A81C15F2A006F61000496E3 /* CloudKit.swift */,
@@ -705,6 +717,7 @@
 				7A81C17A2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				7A81C1752A049587000496E3 /* LinkController.swift in Sources */,
 				7AD0C9EA29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
+				7A81C1892A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				8B057597298E52DD00A56C9A /* MessageRow.swift in Sources */,
 				8B057593298E52D900A56C9A /* ChatGPTAPI.swift in Sources */,
 				7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */,
@@ -718,6 +731,7 @@
 				8B057585298E52C000A56C9A /* XCAChatGPTMacApp.swift in Sources */,
 				7A81C17F2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B057596298E52DD00A56C9A /* ViewModel.swift in Sources */,
+				7A81C1842A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +743,7 @@
 				7A81C17B2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				7A81C1762A049587000496E3 /* LinkController.swift in Sources */,
 				7AD0C9EB29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
+				7A81C18A2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				8B057608298FA9E900A56C9A /* DotLoadingView.swift in Sources */,
 				8B057606298FA9E900A56C9A /* MessageRowView.swift in Sources */,
 				7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */,
@@ -742,6 +757,7 @@
 				8B057607298FA9E900A56C9A /* ViewModel.swift in Sources */,
 				7A81C1802A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B0575F6298FA9D800A56C9A /* XCAChatGPTWatchApp.swift in Sources */,
+				7A81C1852A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +769,7 @@
 				7A81C1682A01BDA5000496E3 /* TempView.swift in Sources */,
 				7A81C1632A006F61000496E3 /* CloudKit.swift in Sources */,
 				7A81C16D2A021077000496E3 /* PlaidAPI.swift in Sources */,
+				7A81C18B2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				7AD0C9EC29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057621298FBE0400A56C9A /* MessageRow.swift in Sources */,
 				8B057622298FBE0400A56C9A /* MessageRowView.swift in Sources */,
@@ -767,6 +784,7 @@
 				8B057620298FBE0400A56C9A /* ContentView.swift in Sources */,
 				8B057624298FBE0400A56C9A /* ViewModel.swift in Sources */,
 				7A81C17C2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
+				7A81C1862A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +802,9 @@
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B91C014298ADC560079AF26 /* ViewModel.swift in Sources */,
+				7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
+				7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
 				7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */,
