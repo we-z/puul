@@ -63,12 +63,6 @@ class ViewModel: ObservableObject {
     }
     
     @MainActor
-    func removeAccount() {
-        UserDefaults.standard.removeObject(forKey: "messages")
-        UserDefaults.standard.removeObject(forKey: "historyList")
-    }
-    
-    @MainActor
     func retry(message: MessageRow) async {
         guard let index = messages.firstIndex(where: { $0.id == message.id }) else {
             return

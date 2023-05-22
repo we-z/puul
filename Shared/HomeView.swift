@@ -66,7 +66,7 @@ struct HomeView: View {
                             self.showSteve = true
                         }) {
                             Spacer()
-                            Text("Talk to Puul")
+                            Text("Chat with Steve")
                                 .padding()
                             Spacer()
                         }

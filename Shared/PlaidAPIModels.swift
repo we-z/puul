@@ -12,6 +12,7 @@ class PlaidModel: ObservableObject {
     let bankAccountsKey: String = "bankaccounts"
     let brokerAccountsKey: String = "brokeraccounts"
     let networthKey: String = "networth"
+    var transactionsString: String = ""
     @Published var totalNetWorth: Double = 0
     @Published var brokerAccounts: [BrokerAccount] = [] {
         didSet{
@@ -21,7 +22,7 @@ class PlaidModel: ObservableObject {
     @Published var bankAccounts: [BankAccount] = [] {
         didSet{
             saveBankAccounts()
-            print("List of bank accounts: \(bankAccounts)")
+            updateTransactions()
         }
     }
     
@@ -29,6 +30,17 @@ class PlaidModel: ObservableObject {
         getBankAccounts()
         getBrokerAccounts()
         calculateNetworth()
+    }
+    
+    func updateTransactions(){
+        transactionsString = ""
+        bankAccounts.forEach { account in
+            transactionsString += "From my " + account.institution_name + " account I spent:\n"
+            account.transactions.forEach{ transaction in
+                transactionsString += "$" + transaction.amount.withCommas() + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
+            }
+        }
+        print(transactionsString)
     }
     
     func calculateNetworth() {

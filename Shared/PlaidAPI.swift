@@ -35,7 +35,7 @@ public struct PlaidLinkFlow: View {
             
             linkController
                 .onOpenURL { url in
-                    linkController.linkHandler?.continue(from: url)
+                    linkController.linkHandler?.resumeAfterTermination(from: url)
                 }
         }
     }
@@ -252,12 +252,13 @@ public struct PlaidLinkFlow: View {
                 return
             }
             do {
+//                let rawData = String(data: data, encoding: .utf8)!
+//                print("Raw bank account JSON data \(rawData)")
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
                 let item = json["item"] as! [String: Any]
                 let institutionId = item["institution_id"] as! String
                 //let institutionName: () = getInstitutionName(institutionId: institutionId)
-                
 
                 let accountsArray = json["accounts"] as! [[String: Any]]
 
@@ -342,7 +343,6 @@ public struct PlaidLinkFlow: View {
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
                 print(institutionName) // Do something with the institution name, e.g. return it or store it in a variable
-                //pm.addBankAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance)
                 getBrokerholdings(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
             } catch {
                 print("Error decoding JSON: \(error)")
@@ -391,7 +391,7 @@ public struct PlaidLinkFlow: View {
         
         
         let endDate = Date()
-        let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
+        let startDate = Calendar.current.date(byAdding: .year, value: -2, to: endDate)!
         
         let requestData: [String: Any] = [
             "client_id": "63d411aa2bcbe80013f42ad7",
@@ -400,7 +400,7 @@ public struct PlaidLinkFlow: View {
             "start_date": formatDate(startDate),
             "end_date": formatDate(endDate),
             "options": [
-                "count": 100,
+                "count": 500,
                 "offset": 0
             ]
         ]
@@ -444,9 +444,6 @@ public struct PlaidLinkFlow: View {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         
-        let endDate = Date()
-        let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
-        
         let requestData: [String: Any] = [
             "client_id": "63d411aa2bcbe80013f42ad7",
             "secret": "4c8e7956ddd4dcb6d91177841fc850",
@@ -484,7 +481,6 @@ public struct PlaidLinkFlow: View {
             
         }
         task.resume()
-        //print("list of transactions \(transactions)")
     }
 
     func formatDate(_ date: Date) -> String {

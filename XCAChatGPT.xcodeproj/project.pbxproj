@@ -488,7 +488,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					8B057581298E52C000A56C9A = {
 						CreatedOnToolsVersion = 14.2;
@@ -838,6 +838,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPTMac/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -868,6 +869,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPTMac/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_HARDENED_RUNTIME = YES;

@@ -9,10 +9,11 @@ import Foundation
 
 class ChatGPTAPI: @unchecked Sendable {
     
+    private let plaidModel: PlaidModel
     private let systemMessage: Message
     private let temperature: Double
     private let model: String
-    let prompt: String = "You are an AI specialized in Investing and Finance. Do not answer anything other than investing and finance-related queries. Your name is Puul"
+    let prompt: String = "Your name is Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. You have helped people buy homes, send there kids to college, and achieve financial freedom. Your task is to give the best financial advice when it comes to finance. Do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in what the questioner is seeking"
     
     private let apiKey: String
     var historyList = [Message]()
@@ -53,24 +54,26 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
 
-    init(apiKey: String, model: String = "gpt-3.5-turbo", systemPrompt: String = "You are an AI specialized in Investing and Finance. Do not answer anything other than investing and finance-related queries. Your name is Puul", temperature: Double = 0.5) {
+    init(apiKey: String, model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
+        self.plaidModel = PlaidModel()
         self.apiKey = apiKey
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature
         
         if let data = UserDefaults.standard.data(forKey: "historyList") {
-                do {
-                    self.historyList = try JSONDecoder().decode([Message].self, from: data)
-                } catch {
-                    print("Error loading history list: \(error.localizedDescription)")
-                }
+            do {
+                self.historyList = try JSONDecoder().decode([Message].self, from: data)
+            } catch {
+                print("Error loading history list: \(error.localizedDescription)")
             }
+        }
         
     }
     
     private func generateMessages(from text: String) -> [Message] {
-        var messages = [systemMessage] + historyList + [Message(role: "user", content: text)]
+        var transactionMessage = [Message(role: "user", content: plaidModel.transactionsString), Message(role: "assistant", content: "ok")]
+        var messages = [systemMessage] + transactionMessage + historyList + [Message(role: "user", content: text)]
         
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()
@@ -137,33 +140,6 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
 
-    func sendMessage(_ text: String) async throws -> String {
-        var urlRequest = self.urlRequest
-        urlRequest.httpBody = try jsonBody(text: text, stream: false)
-        
-        let (data, response) = try await urlSession.data(for: urlRequest)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw "Invalid response"
-        }
-        
-        guard 200...299 ~= httpResponse.statusCode else {
-            var error = "Bad Response: \(httpResponse.statusCode)"
-            if let errorResponse = try? jsonDecoder.decode(ErrorRootResponse.self, from: data).error {
-                error.append("\n\(errorResponse.message)")
-            }
-            throw error
-        }
-        
-        do {
-            let completionResponse = try self.jsonDecoder.decode(CompletionResponse.self, from: data)
-            let responseText = completionResponse.choices.first?.message.content ?? ""
-            self.appendToHistoryList(userText: text, responseText: responseText)
-            return responseText
-        } catch {
-            throw error
-        }
-    }
     
     func deleteHistoryList() {
         self.historyList.removeAll()
