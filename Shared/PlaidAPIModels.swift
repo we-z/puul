@@ -34,11 +34,22 @@ class PlaidModel: ObservableObject {
     
     func updateTransactions(){
         transactionsString = ""
+        
         bankAccounts.forEach { account in
             transactionsString += "From my " + account.institution_name + " account I spent:\n"
             account.transactions.forEach{ transaction in
-                transactionsString += "$" + transaction.amount.withCommas() + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                if transaction.amount > 0 {
+                    transactionsString += "$" + String(transaction.amount) + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                }
             }
+            transactionsString += " \n"
+            transactionsString += "Deposited to my " + account.institution_name + " account:\n"
+            account.transactions.forEach{ transaction in
+                if transaction.amount < 0 {
+                    transactionsString += "$" + String(transaction.amount) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                }
+            }
+            transactionsString += " \n"
         }
         print(transactionsString)
     }
