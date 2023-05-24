@@ -12,17 +12,19 @@ class PlaidModel: ObservableObject {
     let bankAccountsKey: String = "bankaccounts"
     let brokerAccountsKey: String = "brokeraccounts"
     let networthKey: String = "networth"
-    var transactionsString: String = ""
+    var bankString: String = ""
+    var brokerString: String = ""
     @Published var totalNetWorth: Double = 0
-    @Published var brokerAccounts: [BrokerAccount] = [] {
-        didSet{
-            saveBrokerAccounts()
-        }
-    }
     @Published var bankAccounts: [BankAccount] = [] {
         didSet{
             saveBankAccounts()
-            updateTransactions()
+            updateBankString()
+        }
+    }
+    @Published var brokerAccounts: [BrokerAccount] = [] {
+        didSet{
+            saveBrokerAccounts()
+            updateBrokerString()
         }
     }
     
@@ -32,26 +34,41 @@ class PlaidModel: ObservableObject {
         calculateNetworth()
     }
     
-    func updateTransactions(){
-        transactionsString = ""
+    func updateBankString(){
+        bankString = ""
         
         bankAccounts.forEach { account in
-            transactionsString += "From my " + account.institution_name + " account I spent:\n"
+            bankString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " bank account\n"
+            bankString += "From my " + account.institution_name + " account I spent:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount > 0 {
-                    transactionsString += "$" + String(transaction.amount) + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                    bankString += "$" + String(transaction.amount) + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
                 }
             }
-            transactionsString += " \n"
-            transactionsString += "Deposited to my " + account.institution_name + " account:\n"
+            bankString += " \n"
+            bankString += "Deposited to my " + account.institution_name + " account:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount < 0 {
-                    transactionsString += "$" + String(transaction.amount) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                    bankString += "$" + String(transaction.amount) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
                 }
             }
-            transactionsString += " \n"
+            bankString += " \n"
         }
-        print(transactionsString)
+        print(bankString)
+    }
+    
+    func updateBrokerString(){
+        brokerString = ""
+        
+        brokerAccounts.forEach { account in
+            brokerString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " investing account\n"
+            brokerString += "in my " + account.institution_name + " investing account I have:\n"
+            account.holdings.forEach{ security in
+                brokerString += "$" + String(security.value) + " of " + security.name + "\n"
+            }
+            brokerString += " \n"
+        }
+        print(brokerString)
     }
     
     func calculateNetworth() {
