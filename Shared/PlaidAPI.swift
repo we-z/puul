@@ -15,6 +15,8 @@ public struct PlaidLinkFlow: View {
     @State var linkToken = ""
     @EnvironmentObject var pm: PlaidModel
     
+    let plaidEnvironment = "https://sandbox.plaid.com/"
+    
     public var body: some View {
         if linkToken.isEmpty{
             ProgressView()
@@ -84,7 +86,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func createBrokerLinkToken() {
-        guard let url = URL(string: "https://sandbox.plaid.com/link/token/create") else {
+        guard let url = URL(string: plaidEnvironment + "link/token/create") else {
             print("Invalid URL")
             return
         }
@@ -136,7 +138,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func createBankLinkToken() {
-        guard let url = URL(string: "https://sandbox.plaid.com/link/token/create") else {
+        guard let url = URL(string: plaidEnvironment + "link/token/create") else {
             print("Invalid URL")
             return
         }
@@ -188,7 +190,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func exchangePublicToken(publicToken: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let apiUrl = "https://sandbox.plaid.com/item/public_token/exchange"
+        let apiUrl = plaidEnvironment + "item/public_token/exchange"
         guard let url = URL(string: apiUrl) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
@@ -236,7 +238,7 @@ public struct PlaidLinkFlow: View {
     
     func getBankAccount(accessToken: String) {
         var totalBalance = 0.0
-        let url = URL(string: "https://sandbox.plaid.com/accounts/get")!
+        let url = URL(string: plaidEnvironment + "accounts/get")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -280,7 +282,7 @@ public struct PlaidLinkFlow: View {
     
     func getBrokerAccount(accessToken: String) {
         var totalBalance = 0.0
-        let url = URL(string: "https://sandbox.plaid.com/accounts/get")!
+        let url = URL(string: plaidEnvironment + "accounts/get")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -322,7 +324,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func getBrokerName(institutionId: String, accessToken: String, totalBalance: Double) {
-        let url = URL(string: "https://sandbox.plaid.com/institutions/get_by_id")!
+        let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -342,7 +344,7 @@ public struct PlaidLinkFlow: View {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
-                print(institutionName) // Do something with the institution name, e.g. return it or store it in a variable
+                print("Broker: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
                 getBrokerholdings(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
             } catch {
                 print("Error decoding JSON: \(error)")
@@ -352,7 +354,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func getBankName(institutionId: String, accessToken: String, totalBalance: Double) {
-        let url = URL(string: "https://sandbox.plaid.com/institutions/get_by_id")!
+        let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -372,7 +374,7 @@ public struct PlaidLinkFlow: View {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
-                print(institutionName) // Do something with the institution name, e.g. return it or store it in a variable
+                print("Bank name: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
                 
                 getBankTransactions(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
 
@@ -384,11 +386,12 @@ public struct PlaidLinkFlow: View {
     }
 
     func getBankTransactions(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
-        let url = URL(string: "https://sandbox.plaid.com/transactions/get")!
+        let url = URL(string: plaidEnvironment + "transactions/get")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        var transactions: [Transaction] = []
         
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .year, value: -2, to: endDate)!
@@ -417,8 +420,6 @@ public struct PlaidLinkFlow: View {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let transactionsData = json["transactions"] as! [[String: Any]]
-                                
-                var transactions: [Transaction] = []
                 
                 for transactionData in transactionsData {
                     if let amount = transactionData["amount"] as? Double,
@@ -438,7 +439,7 @@ public struct PlaidLinkFlow: View {
     }
     
     func getBrokerholdings(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
-        let url = URL(string: "https://sandbox.plaid.com/investments/holdings/get")!
+        let url = URL(string: plaidEnvironment + "investments/holdings/get")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -38,21 +38,23 @@ class PlaidModel: ObservableObject {
         bankString = ""
         
         bankAccounts.forEach { account in
-            bankString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " bank account\n"
-            bankString += "From my " + account.institution_name + " account I spent:\n"
+            bankString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " bank account\n\n"
+            bankString += "I spent:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount > 0 {
                     bankString += "$" + String(transaction.amount) + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
                 }
             }
             bankString += " \n"
-            bankString += "Deposited to my " + account.institution_name + " account:\n"
+            bankString += "I made:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount < 0 {
-                    bankString += "$" + String(transaction.amount) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                    bankString += "$" + String(abs(transaction.amount)) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
                 }
             }
             bankString += " \n"
+            
+            
         }
         print(bankString)
     }
@@ -61,8 +63,8 @@ class PlaidModel: ObservableObject {
         brokerString = ""
         
         brokerAccounts.forEach { account in
-            brokerString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " investing account\n"
-            brokerString += "in my " + account.institution_name + " investing account I have:\n"
+            brokerString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " investing account:\n"
+            //brokerString += "in my " + account.institution_name + " investing account I have:\n"
             account.holdings.forEach{ security in
                 brokerString += "$" + String(security.value) + " of " + security.name + "\n"
             }

@@ -32,7 +32,7 @@ struct ContentView: View {
                         }
                     }
                     Spacer()
-                    Text("Puul")
+                    Text("Steve")
                         .bold()
                     Spacer()
                     Button("Clear") {

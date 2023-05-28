@@ -12,6 +12,7 @@ struct AssetPickerView: View {
     
     @State public var showLink = false
     @State public var isBank = false
+    @State public var showProperties = false
     // it's either a bank or brokerage account 
     @EnvironmentObject var pm: PlaidModel
         
@@ -30,14 +31,7 @@ struct AssetPickerView: View {
                 .background(.primary.opacity(0.15))
                 .cornerRadius(15)
             }
-            HStack{
-                Image(systemName: "house.fill")
-                Text("Properties")
-                Spacer()
-            }
-            .padding()
-            .background(.primary.opacity(0.15))
-            .cornerRadius(15)
+            
             Button(action: {
                 self.isBank = false
                 self.showLink = true
@@ -50,6 +44,21 @@ struct AssetPickerView: View {
                 .padding()
                 .background(.primary.opacity(0.15))
                 .cornerRadius(15)
+            }
+            Button(action: {
+                self.showProperties = true
+            }) {
+                HStack{
+                    Image(systemName: "house.fill")
+                    Text("Properties")
+                    Spacer()
+                }
+                .padding()
+                .background(.primary.opacity(0.15))
+                .cornerRadius(15)
+            }
+            .alert("Coming Soon", isPresented: $showProperties) {
+                Button("OK", role: .cancel) { }
             }
         }
         .padding()

@@ -11,6 +11,9 @@ struct BrokerAccountsListView: View {
     @EnvironmentObject var pm: PlaidModel
     @State var accountPage : BrokerAccount?
     
+    @State private var toBeDeleted: IndexSet?
+    @State private var showingDeleteAlert = false
+    
     var body: some View {
         Section(header: Text("Broker Accounts").bold().font(.system(size: 18)).padding(.bottom, 9)){
             ForEach(pm.brokerAccounts) { account in
@@ -35,11 +38,21 @@ struct BrokerAccountsListView: View {
                     }
                 }
                 .sheet(item: $accountPage){ rs in
-                    //BankAccountDetailsView(viewdata: rs)
                     BrokerAccountDetailsView(viewdata: rs)
                 }
+                .alert(isPresented: self.$showingDeleteAlert) {
+                    Alert(title: Text("Are you sure?"),
+                          message: Text("All data associated with this account will be permenantly deleted"),
+                          primaryButton: .destructive(Text("Delete")) {
+                                pm.deleteBrokerAccount(indexSet: toBeDeleted!)
+                                self.toBeDeleted = nil
+                            }, secondaryButton: .cancel() {
+                                self.toBeDeleted = nil
+                            }
+                    )
+                }
             }
-            .onDelete(perform: pm.deleteBrokerAccount)
+            .onDelete(perform: deleteRow)
             .listRowBackground(
                 ZStack{
                     Color.primary.colorInvert()
@@ -48,6 +61,10 @@ struct BrokerAccountsListView: View {
             )
         }
         .textCase(nil)
+    }
+    func deleteRow(at indexSet: IndexSet) {
+        self.toBeDeleted = indexSet           // store rows for delete
+        self.showingDeleteAlert = true
     }
 }
 
