@@ -47,19 +47,35 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .background(.primary.opacity(0.03))
                     
-                    List{
-                        if !pm.bankAccounts.isEmpty{
-                            BankAccountsListView()
+                    if !pm.bankAccounts.isEmpty || !pm.brokerAccounts.isEmpty {
+                        List{
+                            if !pm.bankAccounts.isEmpty{
+                                BankAccountsListView()
+                            }
+                            if !pm.brokerAccounts.isEmpty{
+                                BrokerAccountsListView()
+                            }
                         }
-                        if !pm.brokerAccounts.isEmpty{
-                            BrokerAccountsListView()
+                        .refreshable {
+                            print("refresh")
                         }
+                        .background(.primary.opacity(0.11))
+                        .scrollContentBackground(.hidden)
+                    } else {
+                        
+                        HStack{
+                            Text("Press plus to add an asset class")
+                            VStack{
+                                Image(systemName: "arrow.turn.right.up")
+                                
+                            }
+                        }
+                        .padding(.top)
+                        .font(.system(size: 60))
+                        .padding(.horizontal, 35)
+                        //.bold()
+                        Spacer()
                     }
-                    .refreshable {
-                        print("refresh")
-                    }
-                    .background(.primary.opacity(0.11))
-                    .scrollContentBackground(.hidden)
                         
                     HStack{
                         Button(action: {
