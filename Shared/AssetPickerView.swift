@@ -57,7 +57,7 @@ struct AssetPickerView: View {
                 .background(.primary.opacity(0.15))
                 .cornerRadius(15)
             }
-            .alert("Coming Soon", isPresented: $showProperties) {
+            .alert("Properties coming Soon", isPresented: $showProperties) {
                 Button("OK", role: .cancel) { }
             }
         }

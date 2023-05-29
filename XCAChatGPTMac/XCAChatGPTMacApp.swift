@@ -44,7 +44,7 @@ struct XCAChatGPTMacApp: App {
                 }
                 .padding()
                 
-                ContentView(vm: vm)
+                ChatView(vm: vm)
             }
             .frame(width: 480, height: 576)
         }.menuBarExtraStyle(.window)

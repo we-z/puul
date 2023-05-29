@@ -87,7 +87,9 @@ extension LinkController: UIViewControllerRepresentable {
         switch handlerResult {
         case .success(let handler):
             context.coordinator.present(handler, in: viewController)
-            linkHandler = handler
+            DispatchQueue.main.async {
+                linkHandler = handler
+            }
         case .failure(let createError):
             onCreateError?(createError)
         }

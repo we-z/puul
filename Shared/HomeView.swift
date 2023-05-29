@@ -45,7 +45,7 @@ struct HomeView: View {
                             .frame(maxHeight: 21)
                     }
                     .padding(.horizontal)
-                    .background(.primary.opacity(0.03))
+                    .background(.primary.opacity(0.1))
                     
                     if !pm.bankAccounts.isEmpty || !pm.brokerAccounts.isEmpty {
                         List{
@@ -57,23 +57,25 @@ struct HomeView: View {
                             }
                         }
                         .refreshable {
+//                            pm.updateBankAccounts()
+//                            pm.updateBrokerAccounts()
                             print("refresh")
                         }
-                        .background(.primary.opacity(0.11))
+                        //.background(.primary.opacity(0.01))
                         .scrollContentBackground(.hidden)
                     } else {
                         
                         HStack{
                             Text("Press plus to add an asset class")
+                            Spacer()
                             VStack{
                                 Image(systemName: "arrow.turn.right.up")
                                 
                             }
                         }
                         .padding(.top)
-                        .font(.system(size: 60))
+                        .font(.system(size: UIScreen.main.bounds.width * 0.14))
                         .padding(.horizontal, 35)
-                        //.bold()
                         Spacer()
                     }
                         
@@ -91,18 +93,18 @@ struct HomeView: View {
                         .background(
                             ZStack{
                                 Color.primary.colorInvert()
-                                Color.primary.opacity(0.12)
+                                Color.primary.opacity(0.18)
                             }
                         )
                         .cornerRadius(32)
                         .padding(.horizontal)
                         .padding(.top)
                     }
-                    .background(.primary.opacity(0.03))
+                    .background(.primary.opacity(0.1))
                 }
         }
         .fullScreenCover(isPresented: $showSteve){
-            ContentView(vm: vm)
+            ChatView(vm: vm)
         }
         .sheet(isPresented: self.$showLink,
             onDismiss: {

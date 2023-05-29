@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-struct ContentView: View {
+struct ChatView: View {
         
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var vm: ViewModel
@@ -65,7 +65,6 @@ struct ContentView: View {
             .onChange(of: vm.messages.last?.responseText) { _ in  scrollToBottom(proxy: proxy)
             }
         }
-        //.scrollDismissesKeyboard(.immediately)
     }
     
     func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
@@ -113,11 +112,3 @@ struct ContentView: View {
         proxy.scrollTo(id, anchor: .bottomTrailing)
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack {
-//            ContentView(vm: ViewModel(api: ChatGPTAPI(apiKey: "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")))
-//        }.accentColor(.primary)
-//    }
-//}

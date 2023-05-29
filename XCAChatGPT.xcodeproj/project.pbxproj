@@ -59,14 +59,14 @@
 		8B05758C298E52C000A56C9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B05758B298E52C000A56C9A /* Preview Assets.xcassets */; };
 		8B057592298E52D900A56C9A /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */; };
 		8B057593298E52D900A56C9A /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */; };
-		8B057594298E52D900A56C9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ContentView.swift */; };
+		8B057594298E52D900A56C9A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B057595298E52D900A56C9A /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
 		8B057596298E52DD00A56C9A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C013298ADC560079AF26 /* ViewModel.swift */; };
 		8B057597298E52DD00A56C9A /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
 		8B0575F6298FA9D800A56C9A /* XCAChatGPTWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0575F5298FA9D800A56C9A /* XCAChatGPTWatchApp.swift */; };
 		8B0575FA298FA9DA00A56C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0575F9298FA9DA00A56C9A /* Assets.xcassets */; };
 		8B0575FD298FA9DA00A56C9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0575FC298FA9DA00A56C9A /* Preview Assets.xcassets */; };
-		8B057605298FA9E900A56C9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ContentView.swift */; };
+		8B057605298FA9E900A56C9A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B057606298FA9E900A56C9A /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
 		8B057607298FA9E900A56C9A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C013298ADC560079AF26 /* ViewModel.swift */; };
 		8B057608298FA9E900A56C9A /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */; };
@@ -76,7 +76,7 @@
 		8B057618298FBDB700A56C9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B057617298FBDB700A56C9A /* Assets.xcassets */; };
 		8B05761B298FBDB700A56C9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B05761A298FBDB700A56C9A /* Preview Assets.xcassets */; };
 		8B05761F298FBE0400A56C9A /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */; };
-		8B057620298FBE0400A56C9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ContentView.swift */; };
+		8B057620298FBE0400A56C9A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B057621298FBE0400A56C9A /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
 		8B057622298FBE0400A56C9A /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
 		8B057623298FBE0400A56C9A /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */; };
@@ -91,7 +91,7 @@
 		8B82463629B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */; };
 		8B82463729B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */; };
 		8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */; };
-		8B91C006298AD09E0079AF26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ContentView.swift */; };
+		8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C007298AD09F0079AF26 /* Assets.xcassets */; };
 		8B91C00B298AD09F0079AF26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C00A298AD09F0079AF26 /* Preview Assets.xcassets */; };
 		8B91C012298AD0CE0079AF26 /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */; };
@@ -140,6 +140,7 @@
 		7A48E56029FE56E60068362F /* XCAChatGPTWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XCAChatGPTWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A48E56129FE56E60068362F /* XCAChatGPTTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCAChatGPTTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
+		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPI.swift; sourceTree = "<group>"; };
@@ -168,7 +169,7 @@
 		8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerViewModel.swift; sourceTree = "<group>"; };
 		8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPIModels.swift; sourceTree = "<group>"; };
 		8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTApp.swift; sourceTree = "<group>"; };
-		8B91C005298AD09E0079AF26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8B91C005298AD09E0079AF26 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8B91C007298AD09F0079AF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B91C00A298AD09F0079AF26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPI.swift; sourceTree = "<group>"; };
@@ -291,13 +292,14 @@
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
 				7A81C15F2A006F61000496E3 /* CloudKit.swift */,
-				8B91C005298AD09E0079AF26 /* ContentView.swift */,
+				8B91C005298AD09E0079AF26 /* ChatView.swift */,
 				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
 				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
 				7A81C1732A049587000496E3 /* LinkController.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
 				7A81C1692A021077000496E3 /* PlaidAPI.swift */,
 				7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */,
+				7A4B73E42A24684B0064800C /* products.storekit */,
 				7A81C1642A01BDA5000496E3 /* TempView.swift */,
 				8B91C013298ADC560079AF26 /* ViewModel.swift */,
 				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
@@ -725,7 +727,7 @@
 				7A81C1662A01BDA5000496E3 /* TempView.swift in Sources */,
 				7A81C16B2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463529B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
-				8B057594298E52D900A56C9A /* ContentView.swift in Sources */,
+				8B057594298E52D900A56C9A /* ChatView.swift in Sources */,
 				8B057592298E52D900A56C9A /* DotLoadingView.swift in Sources */,
 				8B057595298E52D900A56C9A /* MessageRowView.swift in Sources */,
 				8B057585298E52C000A56C9A /* XCAChatGPTMacApp.swift in Sources */,
@@ -752,7 +754,7 @@
 				7A81C16C2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463629B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				8B057609298FA9E900A56C9A /* MessageRow.swift in Sources */,
-				8B057605298FA9E900A56C9A /* ContentView.swift in Sources */,
+				8B057605298FA9E900A56C9A /* ChatView.swift in Sources */,
 				8B05760A298FA9E900A56C9A /* ChatGPTAPI.swift in Sources */,
 				8B057607298FA9E900A56C9A /* ViewModel.swift in Sources */,
 				7A81C1802A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
@@ -781,7 +783,7 @@
 				8B057623298FBE0400A56C9A /* DotLoadingView.swift in Sources */,
 				8B057614298FBDB600A56C9A /* XCAChatGPTTVApp.swift in Sources */,
 				8B05764829909A9200A56C9A /* ScrollView.swift in Sources */,
-				8B057620298FBE0400A56C9A /* ContentView.swift in Sources */,
+				8B057620298FBE0400A56C9A /* ChatView.swift in Sources */,
 				8B057624298FBE0400A56C9A /* ViewModel.swift in Sources */,
 				7A81C17C2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				7A81C1862A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
@@ -794,7 +796,7 @@
 			files = (
 				8B91C012298AD0CE0079AF26 /* ChatGPTAPI.swift in Sources */,
 				7A81C1742A049587000496E3 /* LinkController.swift in Sources */,
-				8B91C006298AD09E0079AF26 /* ContentView.swift in Sources */,
+				8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */,
 				8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */,
 				7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,

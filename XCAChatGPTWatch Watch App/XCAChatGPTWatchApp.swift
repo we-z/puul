@@ -15,7 +15,7 @@ struct XCAChatGPTWatch_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                ContentView(vm: vm)
+                ChatView(vm: vm)
                     .edgesIgnoringSafeArea([.horizontal, .bottom])
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {

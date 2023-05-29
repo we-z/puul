@@ -19,7 +19,7 @@ struct XCAChatGPTTVApp: App {
             VStack {
                 Text("XCA ChatGPT").font(.largeTitle)
                 HStack(alignment: .top) {
-                    ContentView(vm: vm)
+                    ChatView(vm: vm)
                         .cornerRadius(32)
                         .overlay {
                             if vm.messages.isEmpty {

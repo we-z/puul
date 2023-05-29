@@ -12,19 +12,17 @@ import SwiftUI
 public struct PlaidLinkFlow: View {
     @Binding var showLink: Bool
     @Binding var isBank: Bool
-    @State var linkToken = ""
+    
     @EnvironmentObject var pm: PlaidModel
     
-    let plaidEnvironment = "https://sandbox.plaid.com/"
-    
     public var body: some View {
-        if linkToken.isEmpty{
+        if pm.linkToken.isEmpty{
             ProgressView()
                 .onAppear{
                     if isBank == true {
-                        createBankLinkToken()
+                        pm.createBankLinkToken()
                     } else {
-                        createBrokerLinkToken()
+                        pm.createBrokerLinkToken()
                     }
                 }
         } else {
@@ -42,21 +40,21 @@ public struct PlaidLinkFlow: View {
         }
     }
     
-    public func createLinkTokenConfiguration() -> LinkTokenConfiguration {
+    func createLinkTokenConfiguration() -> LinkTokenConfiguration {
         
         var configuration = LinkTokenConfiguration(
-            token: linkToken,
+            token: pm.linkToken,
             onSuccess: { success in
                 print("public-token: \(success.publicToken) metadata: \(success.metadata)")
                 showLink = false
-                exchangePublicToken(publicToken: success.publicToken) { result in
+                pm.exchangePublicToken(publicToken: success.publicToken) { result in
                     switch result {
                     case .success(let accessToken):
                         print("access_token: \(accessToken)")
                         if isBank == true {
-                            getBankAccount(accessToken: accessToken)
+                            pm.getBankAccount(accessToken: accessToken)
                         } else {
-                            getBrokerAccount(accessToken: accessToken)
+                            pm.getBrokerAccount(accessToken: accessToken)
                         }
                     case .failure(let error):
                         print("Error exchanging public token: \(error)")
@@ -75,7 +73,7 @@ public struct PlaidLinkFlow: View {
             } else {
                 print("exit with \(exit.metadata)")
             }
-            linkToken = ""
+            pm.linkToken = ""
             showLink = false
             pm.getBankAccounts()
             pm.getBrokerAccounts()
@@ -84,412 +82,4 @@ public struct PlaidLinkFlow: View {
 
         return configuration
     }
-    
-    func createBrokerLinkToken() {
-        guard let url = URL(string: plaidEnvironment + "link/token/create") else {
-            print("Invalid URL")
-            return
-        }
-        
-        let parameters = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "user": [
-                "client_user_id": "unique-per-user"
-            ],
-            "client_name": "Puul",
-            "products": ["investments"],
-            "country_codes": ["US"],
-            "language": "en",
-            "redirect_uri": "https://cdn-testing.plaid.com/link/v2/stable/sandbox-oauth-a2a-redirect.html",
-            "account_filters": [
-                "investment": [
-                    "account_subtypes": ["ira", "401k"]
-                ]
-            ]
-        ] as [String : Any]
-        
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            print("Invalid body parameters")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error fetching linkToken: \(error.localizedDescription)")
-            } else if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    if let linkToken = json?["link_token"] as? String {
-                        self.linkToken = linkToken
-                        print("Link token: \(self.linkToken)")
-                    }
-                } catch {
-                    print("Error decoding response: \(error.localizedDescription)")
-                }
-            }
-        }.resume()
-    }
-    
-    func createBankLinkToken() {
-        guard let url = URL(string: plaidEnvironment + "link/token/create") else {
-            print("Invalid URL")
-            return
-        }
-        
-        let parameters = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "user": [
-                "client_user_id": "unique-per-user"
-            ],
-            "client_name": "Puul",
-            "products": ["auth", "transactions"],
-            "country_codes": ["US"],
-            "language": "en",
-            "redirect_uri": "https://cdn-testing.plaid.com/link/v2/stable/sandbox-oauth-a2a-redirect.html",
-            "account_filters": [
-                "depository": [
-                    "account_subtypes": ["checking"]
-                ]
-            ]
-        ] as [String : Any]
-        
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            print("Invalid body parameters")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error fetching linkToken: \(error.localizedDescription)")
-            } else if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    if let linkToken = json?["link_token"] as? String {
-                        self.linkToken = linkToken
-                        print("Link token: \(self.linkToken)")
-                    }
-                } catch {
-                    print("Error decoding response: \(error.localizedDescription)")
-                }
-            }
-        }.resume()
-    }
-    
-    func exchangePublicToken(publicToken: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let apiUrl = plaidEnvironment + "item/public_token/exchange"
-        guard let url = URL(string: apiUrl) else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
-            return
-        }
-        
-        let requestBody = ["client_id": "63d411aa2bcbe80013f42ad7", "secret": "4c8e7956ddd4dcb6d91177841fc850", "public_token": publicToken]
-        
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(.failure(NSError(domain: "No data returned", code: 0, userInfo: nil)))
-                    return
-                }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    if let accessToken = json?["access_token"] as? String {
-                        completion(.success(accessToken))
-                    } else {
-                        completion(.failure(NSError(domain: "No access_token found in response", code: 0, userInfo: nil)))
-                    }
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-            
-            task.resume()
-            
-        } catch {
-            completion(.failure(error))
-        }
-    }
-    
-    func getBankAccount(accessToken: String) {
-        var totalBalance = 0.0
-        let url = URL(string: plaidEnvironment + "accounts/get")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let requestBody: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "access_token": accessToken
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            do {
-//                let rawData = String(data: data, encoding: .utf8)!
-//                print("Raw bank account JSON data \(rawData)")
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-
-                let item = json["item"] as! [String: Any]
-                let institutionId = item["institution_id"] as! String
-                //let institutionName: () = getInstitutionName(institutionId: institutionId)
-
-                let accountsArray = json["accounts"] as! [[String: Any]]
-
-                for account in accountsArray {
-                    let balance = account["balances"] as! [String: Any]
-                    totalBalance += balance["current"] as! Double
-                }
-                
-                getBankName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance)
-
-                print("Bank account balance fetched: \(totalBalance) \(institutionId)")
-                
-            } catch let error {
-                print("Error parsing JSON: \(error.localizedDescription)")
-            }
-        }
-        task.resume()
-    }
-    
-    func getBrokerAccount(accessToken: String) {
-        var totalBalance = 0.0
-        let url = URL(string: plaidEnvironment + "accounts/get")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let requestBody: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "access_token": accessToken
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-
-                let item = json["item"] as! [String: Any]
-                let institutionId = item["institution_id"] as! String
-                //let institutionName: () = getInstitutionName(institutionId: institutionId)
-                
-
-                let accountsArray = json["accounts"] as! [[String: Any]]
-
-                for account in accountsArray {
-                    let balance = account["balances"] as! [String: Any]
-                    totalBalance += balance["current"] as! Double
-                }
-                
-                getBrokerName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance)
-
-                print("Broker account balance fetched: \(totalBalance) \(institutionId)")
-                
-            } catch let error {
-                print("Error parsing JSON: \(error.localizedDescription)")
-            }
-        }
-        task.resume()
-    }
-    
-    func getBrokerName(institutionId: String, accessToken: String, totalBalance: Double) {
-        let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let requestBody: [String: Any] = [
-            "institution_id": institutionId,
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let institution = json["institution"] as! [String: Any]
-                let institutionName = institution["name"] as! String
-                print("Broker: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
-                getBrokerholdings(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
-        }
-        task.resume()
-    }
-    
-    func getBankName(institutionId: String, accessToken: String, totalBalance: Double) {
-        let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let requestBody: [String: Any] = [
-            "institution_id": institutionId,
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let institution = json["institution"] as! [String: Any]
-                let institutionName = institution["name"] as! String
-                print("Bank name: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
-                
-                getBankTransactions(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
-
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
-        }
-        task.resume()
-    }
-
-    func getBankTransactions(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
-        let url = URL(string: plaidEnvironment + "transactions/get")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        var transactions: [Transaction] = []
-        
-        let endDate = Date()
-        let startDate = Calendar.current.date(byAdding: .year, value: -2, to: endDate)!
-        
-        let requestData: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "access_token": accessToken,
-            "start_date": formatDate(startDate),
-            "end_date": formatDate(endDate),
-            "options": [
-                "count": 500,
-                "offset": 0
-            ]
-        ]
-        
-        let jsonData = try! JSONSerialization.data(withJSONObject: requestData)
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let transactionsData = json["transactions"] as! [[String: Any]]
-                
-                for transactionData in transactionsData {
-                    if let amount = transactionData["amount"] as? Double,
-                       let dateTime = transactionData["date"] as? String,
-                       let name = transactionData["merchant_name"] as? String {
-                        let transaction = Transaction(amount: amount, merchant: name, dateTime: dateTime)
-                        transactions.append(transaction)
-                    }
-                }
-                pm.addBankAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, transactions: transactions)
-                
-            } catch {
-                print("Error getting trasactions: \(error)")
-            }
-        }
-        task.resume()
-    }
-    
-    func getBrokerholdings(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
-        let url = URL(string: plaidEnvironment + "investments/holdings/get")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
-        let requestData: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
-            "access_token": accessToken
-        ]
-        
-        let jsonData = try! JSONSerialization.data(withJSONObject: requestData)
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let securitiesData = json["securities"] as! [[String: Any]]
-                                
-                var securities: [Security] = []
-                
-                for position in securitiesData {
-                    if let value = position["close_price"] as? Double,
-                       let ticker = position["ticker_symbol"] as? String,
-                       let name = position["name"] as? String {
-                        let security = Security(ticker: ticker, name: name, value: value)
-                        securities.append(security)
-                    }
-                }
-                pm.addBrokerAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, holdings: securities)
-                
-            } catch {
-                print("Error getting holdings: \(error)")
-            }
-            
-        }
-        task.resume()
-    }
-
-    func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-
-
-    
 }
