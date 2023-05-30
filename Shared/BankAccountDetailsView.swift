@@ -52,11 +52,11 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String", institution_name: "Chase", balance: 0, transactions:
                 [
-                    Transaction(amount: 746, merchant: "Apple", dateTime: "String"),
-                    Transaction(amount: 37, merchant: "Uber", dateTime: "String"),
-                    Transaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
-                    Transaction(amount: 920, merchant: "Zara", dateTime: "String"),
-                    Transaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
+                    BankTransaction(amount: 746, merchant: "Apple", dateTime: "String"),
+                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
+                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
+                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
+                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
                 ]))
     }
 }

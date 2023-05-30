@@ -140,7 +140,7 @@ class PlaidModel: ObservableObject {
         self.totalNetWorth = 0
     }
     
-    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, transactions: [Transaction]){
+    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, transactions: [BankTransaction]){
         let newAccount = BankAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, transactions: transactions)
         if (isUpdating) {
             DispatchQueue.main.async {
@@ -495,7 +495,7 @@ class PlaidModel: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        var transactions: [Transaction] = []
+        var transactions: [BankTransaction] = []
         
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .year, value: -2, to: endDate)!
@@ -529,7 +529,7 @@ class PlaidModel: ObservableObject {
                     if let amount = transactionData["amount"] as? Double,
                        let dateTime = transactionData["date"] as? String,
                        let name = transactionData["merchant_name"] as? String {
-                        let transaction = Transaction(amount: amount, merchant: name, dateTime: dateTime)
+                        let transaction = BankTransaction(amount: amount, merchant: name, dateTime: dateTime)
                         transactions.append(transaction)
                     }
                 }
@@ -611,10 +611,10 @@ struct BankAccount: Identifiable, Encodable, Decodable {
     var access_token: String
     var institution_name: String
     var balance: Double
-    var transactions: [Transaction]
+    var transactions: [BankTransaction]
 }
 
-struct Transaction: Identifiable, Encodable, Decodable {
+struct BankTransaction: Identifiable, Encodable, Decodable {
     var id = UUID()
     var amount: Double
     var merchant: String
