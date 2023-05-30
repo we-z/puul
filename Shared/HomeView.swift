@@ -57,23 +57,33 @@ struct HomeView: View {
                             }
                         }
                         .refreshable {
-//                            pm.updateBankAccounts()
-//                            pm.updateBrokerAccounts()
+                            pm.updateAccounts()
                             print("refresh")
                         }
-                        //.background(.primary.opacity(0.01))
                         .scrollContentBackground(.hidden)
                     } else {
-                        
-                        HStack{
-                            Text("Press plus to add an asset class")
+                        VStack {
+                            HStack{
+                                Text("Press plus to add an asset class")
+                                Spacer()
+                                VStack{
+                                    Image(systemName: "arrow.turn.right.up")
+                                    Spacer()
+                                        .frame(maxHeight: 120)
+                                }
+                            }
                             Spacer()
-                            VStack{
-                                Image(systemName: "arrow.turn.right.up")
-                                
+                            HStack{
+                                Text("Ask Steve for financial advice")
+                                Spacer()
+                                VStack{
+                                    Spacer()
+                                        .frame(maxHeight: 120)
+                                    Image(systemName: "arrow.turn.right.down")
+                                }
                             }
                         }
-                        .padding(.top)
+                        .padding(.vertical)
                         .font(.system(size: UIScreen.main.bounds.width * 0.14))
                         .padding(.horizontal, 35)
                         Spacer()

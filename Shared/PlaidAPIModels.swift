@@ -14,11 +14,12 @@ class PlaidModel: ObservableObject {
     let networthKey: String = "networth"
     var bankString: String = ""
     var brokerString: String = ""
+    var isUpdating = false
     let plaidEnvironment = "https://sandbox.plaid.com/"
     @Published var linkToken = ""
     @Published var totalNetWorth: Double = 0
-    @Published var oldBankAccounts: [BankAccount] = []
-    @Published var oldBrokerAccounts: [BankAccount] = []
+    var newBankAccounts: [BankAccount] = []
+    var newBrokerAccounts: [BrokerAccount] = []
     @Published var bankAccounts: [BankAccount] = [] {
         didSet{
             saveBankAccounts()
@@ -38,24 +39,26 @@ class PlaidModel: ObservableObject {
         calculateNetworth()
     }
     
-//    // call when refreshing
-//    func updateBankAccounts(){
-//        // store list of bank accounts in a safe variable for reference and fall back
-//        oldBankAccounts = bankAccounts
-//        // re-initialize list of bank accounts
-//        bankAccounts = []
-//        oldBankAccounts.forEach { account in
-//            self.getBankAccount(accessToken: account.access_token)
-//        }
-//    }
-//
-//    // call when refreshing
-//    func updateBrokerAccounts(){
-//        brokerAccounts.forEach { account in
-//
-//        }
-//    }
-//
+    // call when refreshing
+    func updateAccounts(){
+        isUpdating = true
+        bankAccounts.forEach { account in
+            self.getBankAccount(accessToken: account.access_token)
+        }
+        if bankAccounts.count == newBankAccounts.count{
+            bankAccounts = newBankAccounts
+            newBankAccounts = []
+        }
+        
+        brokerAccounts.forEach { account in
+            self.getBrokerAccount(accessToken: account.access_token)
+        }
+        if brokerAccounts.count == newBrokerAccounts.count {
+            brokerAccounts = newBrokerAccounts
+        }
+        
+    }
+
     func updateBankString(){
         bankString = ""
         
@@ -78,7 +81,7 @@ class PlaidModel: ObservableObject {
             
             
         }
-        print(bankString)
+        //print(bankString)
     }
     
     func updateBrokerString(){
@@ -139,16 +142,32 @@ class PlaidModel: ObservableObject {
     
     func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, transactions: [Transaction]){
         let newAccount = BankAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, transactions: transactions)
-        DispatchQueue.main.async {
-            self.bankAccounts.append(newAccount)
+        if (isUpdating) {
+            DispatchQueue.main.async {
+                self.newBankAccounts.append(newAccount)
+            }
+            print("Bank Refresh worked")
+        } else {
+            DispatchQueue.main.async {
+                self.bankAccounts.append(newAccount)
+            }
+            print("New Bank account added")
         }
         
     }
     
     func addBrokerAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, holdings: [Security]){
         let newAccount = BrokerAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, holdings: holdings)
-        DispatchQueue.main.async {
-            self.brokerAccounts.append(newAccount)
+        if (isUpdating) {
+            DispatchQueue.main.async {
+                self.newBrokerAccounts.append(newAccount)
+            }
+            print("Broker Refresh worked")
+        } else {
+            DispatchQueue.main.async {
+                self.brokerAccounts.append(newAccount)
+            }
+            print("New Broker account added")
         }
         
     }
@@ -277,6 +296,7 @@ class PlaidModel: ObservableObject {
     }
     
     func exchangePublicToken(publicToken: String, completion: @escaping (Result<String, Error>) -> Void) {
+        isUpdating = false
         let apiUrl = plaidEnvironment + "item/public_token/exchange"
         guard let url = URL(string: apiUrl) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
