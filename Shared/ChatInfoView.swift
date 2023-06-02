@@ -11,43 +11,54 @@ struct ChatInfoView: View {
     @State private var showingAlert = false
     @Environment(\.dismiss) private var dismiss
     @Binding var shouldClearConversation: Bool
+    @State private var selectedRiskLevel = ""
+    let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
     var body: some View {
         VStack{
-            HStack{
-                Text("Who is Steve?")
-                    .font(.system(size: UIScreen.main.bounds.width * 0.12))
-                    .bold()
-                Spacer()
-            }
-            .padding(.top)
-            .padding()
-            HStack{
-                Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planing for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert.")
-                    .font(.system(size: UIScreen.main.bounds.width * 0.06))
-                    .multilineTextAlignment(.leading)
-                    .italic()
-                Spacer()
-            }
-            .padding(.vertical, 3)
-            .padding()
-            HStack{
-                Text("What's happening to my data?")
-                    .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                    .bold()
-                Spacer()
-            }
-            .padding()
-            HStack{
-                Text("All conversations between you and steve live on your device and are only accesible to you. You may feel free to clear your entire thread at any time by pressing clear chat history")
-                    .font(.system(size: UIScreen.main.bounds.width * 0.06))
-                    .multilineTextAlignment(.leading)
-                    .italic()
-                Spacer()
-            }
-            .padding()
-            .padding(.vertical, 3)
-            Text("Risk Level")
             Spacer()
+            HStack{
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle")
+                }
+                .accentColor(.primary)
+                Spacer()
+                Text("About Steve")
+                    
+                Spacer()
+                Text("     ")
+            }
+            .bold()
+            .font(.system(size: 21))
+            .padding()
+                HStack{
+                    Text("Who is Steve?")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                HStack{
+                    Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planing for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
+                        .multilineTextAlignment(.leading)
+                        .italic()
+                    Spacer()
+                }
+                .padding(.vertical, 3)
+                .padding()
+            
+            Form {
+                Picker("Risk Level", selection: $selectedRiskLevel) {
+                    ForEach(levels, id: \.self) {
+                        Text($0)
+                    }
+                }
+                .pickerStyle(.inline)
+                .accentColor(.primary)
+            }
+            .scrollDisabled(true)
             HStack{
                 Button(action: {
                     self.showingAlert = true
@@ -67,7 +78,6 @@ struct ChatInfoView: View {
                 )
                 .cornerRadius(32)
                 .padding(.horizontal)
-                .padding(.top)
             }
         }
         .alert(isPresented: self.$showingAlert) {
