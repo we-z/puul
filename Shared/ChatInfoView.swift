@@ -38,7 +38,7 @@ struct ChatInfoView: View {
             }
             .padding()
             HStack{
-                Text("All conversations between you and steve live on your device and are only accesible to you. You may feel free to clear your entire thread at any time by pressing clear conversation")
+                Text("All conversations between you and steve live on your device and are only accesible to you. You may feel free to clear your entire thread at any time by pressing clear chat history")
                     .font(.system(size: UIScreen.main.bounds.width * 0.06))
                     .multilineTextAlignment(.leading)
                     .italic()
@@ -46,13 +46,14 @@ struct ChatInfoView: View {
             }
             .padding()
             .padding(.vertical, 3)
+            Text("Risk Level")
             Spacer()
             HStack{
                 Button(action: {
                     self.showingAlert = true
                 }) {
                     Spacer()
-                    Text("Clear Conversations")
+                    Text("Clear chat history")
                         .padding()
                     Spacer()
                 }

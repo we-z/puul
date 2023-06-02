@@ -28,20 +28,22 @@ struct BrokerAccountDetailsView: View {
                 Spacer()
             }
             List{
-                ForEach(viewdata.holdings) { position in
-                    HStack{
-                        VStack(alignment: .leading, spacing: 6){
-                            Text(position.name)
+                Section(header: Text("Current Holdings").bold().padding(.bottom, 9)){
+                    ForEach(viewdata.holdings) { position in
+                        HStack{
+                            VStack(alignment: .leading, spacing: 6){
+                                Text(position.name)
+                                    .bold()
+                                    .font(.system(size: 21))
+                                Text(position.ticker)
+                            }
+                            Spacer()
+                            Text("$" + position.value.withCommas())
                                 .bold()
-                                .font(.system(size: 21))
-                            Text(position.ticker)
+                                .font(.system(size: 27))
                         }
-                        Spacer()
-                        Text("$" + position.value.withCommas())
-                            .bold()
-                            .font(.system(size: 27))
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
                 }
             }
         }

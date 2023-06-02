@@ -40,7 +40,7 @@ struct SubscriptionView: View {
                 VStack(alignment: .leading, spacing: 30){
                     HStack{
                         Image(systemName: "message")
-                        Text("Ask unlimited questions")
+                        Text("Unlimited questions")
                     }
                     HStack{
                         Image(systemName: "dollarsign.circle")
@@ -48,13 +48,13 @@ struct SubscriptionView: View {
                     }
                     HStack{
                         Image(systemName: "house")
-                        Text("Ai Real estate Advisor")
+                        Text("Ai Real Estate Advisor")
                     }
                 }
                 .bold()
                 .font(.system(size: UIScreen.main.bounds.width * 0.07))
                 .padding(.horizontal)
-                Spacer()
+                //Spacer()
             }
             .padding(.top, UIScreen.main.bounds.height * 0.06)
             Spacer()

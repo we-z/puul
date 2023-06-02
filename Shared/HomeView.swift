@@ -11,10 +11,9 @@ struct HomeView: View {
     
     @StateObject var vm = ViewModel(api: ChatGPTAPI())
     @State private var showLink = false
+    @State private var showAccount = false
     @State private var showSteve = false
-    @State private var showSubscriptions = false
     @EnvironmentObject var pm: PlaidModel
-    @StateObject var storeVM = StoreVM()
     
     var body: some View {
         NavigationStack{
@@ -22,12 +21,11 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         HStack{
                             Button(action: {
-                                self.showSubscriptions = true
+                                self.showAccount = true
                             }) {
-                                Text("Puul")
-                                    .bold()
+                                Image(systemName: "person.crop.circle")
                                     .foregroundColor(.primary)
-                                    .font(.largeTitle)
+                                    .font(.system(size: 30))
                             }
                             Spacer()
                             Button(action: {
@@ -91,7 +89,7 @@ struct HomeView: View {
                             }
                         }
                         .padding(.vertical)
-                        .font(.system(size: UIScreen.main.bounds.width * 0.14))
+                        .font(.system(size: UIScreen.main.bounds.width * 0.13))
                         .padding(.horizontal, 35)
                         Spacer()
                     }
@@ -123,9 +121,14 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $showSteve){
             ChatView(vm: vm)
         }
-        .fullScreenCover(isPresented: $showSubscriptions){
-            SubscriptionView()
-        }
+        .sheet(isPresented: self.$showAccount,
+            onDismiss: {
+                self.showAccount = false
+            }, content: {
+                AccountView()
+                    .presentationDragIndicator(.visible)
+            }
+        )
         .sheet(isPresented: self.$showLink,
             onDismiss: {
                 self.showLink = false
@@ -136,7 +139,6 @@ struct HomeView: View {
             }
         )
         .accentColor(.primary)
-        .environmentObject(storeVM)
     }
 }
 

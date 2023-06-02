@@ -15,7 +15,6 @@ struct ChatView: View {
     @ObservedObject var vm: ViewModel
     @FocusState var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.refresh) var refreshAction: RefreshAction?
     @State private var showInfoPage = false
     @State private var shouldClearConversation = false
     
@@ -44,15 +43,12 @@ struct ChatView: View {
                         .font(.system(size: 21))
                         .bold()
                     Spacer()
-//                    Button("Clear") {
-//                        vm.clearMessages()
                     Button {
                         showInfoPage.toggle()
                     } label: {
                         Image(systemName: "info.circle")
                             .font(.system(size: 24))
                     }
-                    //.disabled(vm.isInteractingWithChatGPT)
                 }
                 .padding()
                 

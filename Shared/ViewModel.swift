@@ -57,9 +57,7 @@ class ViewModel: ObservableObject {
         api.deleteHistoryList()
         UserDefaults.standard.removeObject(forKey: "messages")
         UserDefaults.standard.removeObject(forKey: "historyList")
-        //withAnimation { [weak self] in
         self.messages = []
-        //}
     }
     
     @MainActor

@@ -21,6 +21,14 @@
 		7A4B73F12A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
 		7A4B73F22A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
 		7A4B73F32A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
+		7A4B73F52A29B5BC0064800C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F42A29B5BC0064800C /* AccountView.swift */; };
+		7A4B73F62A29B5BC0064800C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F42A29B5BC0064800C /* AccountView.swift */; };
+		7A4B73F72A29B5BC0064800C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F42A29B5BC0064800C /* AccountView.swift */; };
+		7A4B73F82A29B5BC0064800C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F42A29B5BC0064800C /* AccountView.swift */; };
+		7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
+		7A4B73FB2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
+		7A4B73FC2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
+		7A4B73FD2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
@@ -156,6 +164,8 @@
 		7A4B73E52A267E1C0064800C /* StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKit.swift; sourceTree = "<group>"; };
 		7A4B73EA2A267F900064800C /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
+		7A4B73F42A29B5BC0064800C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		7A4B73F92A2A84900064800C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPI.swift; sourceTree = "<group>"; };
@@ -300,6 +310,8 @@
 			isa = PBXGroup;
 			children = (
 				7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */,
+				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
+				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
 				7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */,
 				7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */,
 				7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */,
@@ -741,9 +753,11 @@
 				7A81C1892A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				7A4B73EC2A267F900064800C /* SubscriptionView.swift in Sources */,
 				8B057597298E52DD00A56C9A /* MessageRow.swift in Sources */,
+				7A4B73F62A29B5BC0064800C /* AccountView.swift in Sources */,
 				8B057593298E52D900A56C9A /* ChatGPTAPI.swift in Sources */,
 				7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */,
 				7A81C1702A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
+				7A4B73FB2A2A84900064800C /* AppInfoView.swift in Sources */,
 				7A81C1662A01BDA5000496E3 /* TempView.swift in Sources */,
 				7A81C16B2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463529B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
@@ -770,9 +784,11 @@
 				7A81C18A2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				7A4B73ED2A267F900064800C /* SubscriptionView.swift in Sources */,
 				8B057608298FA9E900A56C9A /* DotLoadingView.swift in Sources */,
+				7A4B73F72A29B5BC0064800C /* AccountView.swift in Sources */,
 				8B057606298FA9E900A56C9A /* MessageRowView.swift in Sources */,
 				7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */,
 				7A81C1712A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
+				7A4B73FC2A2A84900064800C /* AppInfoView.swift in Sources */,
 				7A81C1672A01BDA5000496E3 /* TempView.swift in Sources */,
 				7A81C16C2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				8B82463629B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
@@ -800,9 +816,11 @@
 				7A81C18B2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				7AD0C9EC29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057621298FBE0400A56C9A /* MessageRow.swift in Sources */,
+				7A4B73FD2A2A84900064800C /* AppInfoView.swift in Sources */,
 				8B057622298FBE0400A56C9A /* MessageRowView.swift in Sources */,
 				7A81C1772A049587000496E3 /* LinkController.swift in Sources */,
 				7A81C1722A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
+				7A4B73F82A29B5BC0064800C /* AccountView.swift in Sources */,
 				8B82463729B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7AD0C9E629F9BB5200C1989D /* HomeView.swift in Sources */,
 				8B05761F298FBE0400A56C9A /* ChatGPTAPI.swift in Sources */,
@@ -824,6 +842,7 @@
 				8B91C012298AD0CE0079AF26 /* ChatGPTAPI.swift in Sources */,
 				7A81C1742A049587000496E3 /* LinkController.swift in Sources */,
 				8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */,
+				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
 				8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */,
 				7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,
@@ -845,6 +864,7 @@
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
 				7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
+				7A4B73F52A29B5BC0064800C /* AccountView.swift in Sources */,
 				7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
