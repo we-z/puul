@@ -17,6 +17,10 @@
 		7A4B73EC2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
 		7A4B73ED2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
 		7A4B73EE2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
+		7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
+		7A4B73F12A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
+		7A4B73F22A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
+		7A4B73F32A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
 		7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
@@ -151,6 +155,7 @@
 		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7A4B73E52A267E1C0064800C /* StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKit.swift; sourceTree = "<group>"; };
 		7A4B73EA2A267F900064800C /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPI.swift; sourceTree = "<group>"; };
@@ -302,6 +307,7 @@
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
 				7A81C15F2A006F61000496E3 /* CloudKit.swift */,
+				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
 				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
 				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
@@ -729,6 +735,7 @@
 			files = (
 				7AD0C9E729F9BB7800C1989D /* HomeView.swift in Sources */,
 				7A81C17A2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
+				7A4B73F12A26C17F0064800C /* ChatInfoView.swift in Sources */,
 				7A81C1752A049587000496E3 /* LinkController.swift in Sources */,
 				7AD0C9EA29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				7A81C1892A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
@@ -757,6 +764,7 @@
 			files = (
 				7AD0C9E529F9BB5200C1989D /* HomeView.swift in Sources */,
 				7A81C17B2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
+				7A4B73F22A26C17F0064800C /* ChatInfoView.swift in Sources */,
 				7A81C1762A049587000496E3 /* LinkController.swift in Sources */,
 				7AD0C9EB29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				7A81C18A2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
@@ -805,6 +813,7 @@
 				8B057624298FBE0400A56C9A /* ViewModel.swift in Sources */,
 				7A81C17C2A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				7A81C1862A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
+				7A4B73F32A26C17F0064800C /* ChatInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +845,7 @@
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
 				7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
+				7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

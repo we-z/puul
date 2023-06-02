@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "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"))
+    @StateObject var vm = ViewModel(api: ChatGPTAPI())
     @State private var showLink = false
     @State private var showSteve = false
     @State private var showSubscriptions = false

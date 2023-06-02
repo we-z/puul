@@ -95,7 +95,7 @@ class PlaidModel: ObservableObject {
             }
             brokerString += " \n"
         }
-        print(brokerString)
+        //print(brokerString)
     }
     
     func calculateNetworth() {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import Combine
 
 struct ChatView: View {
         
@@ -14,9 +15,18 @@ struct ChatView: View {
     @ObservedObject var vm: ViewModel
     @FocusState var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.refresh) var refreshAction: RefreshAction?
+    @State private var showInfoPage = false
+    @State private var shouldClearConversation = false
     
     var body: some View {
         chatListView
+            .onReceive(Just(shouldClearConversation), perform: { shouldClear in
+                if shouldClear {
+                    vm.clearMessages()  // Call clearMessages() when shouldClearConversation is true
+                    shouldClearConversation = false  // Reset the binding value after clearing
+                }
+            })
     }
     
     var chatListView: some View {
@@ -26,33 +36,56 @@ struct ChatView: View {
                     Button {
                         dismiss()
                     } label: {
-                        HStack {
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 24))
-                        }
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 24))
                     }
                     Spacer()
                     Text("Steve")
+                        .font(.system(size: 21))
                         .bold()
                     Spacer()
-                    Button("Clear") {
-                        vm.clearMessages()
+//                    Button("Clear") {
+//                        vm.clearMessages()
+                    Button {
+                        showInfoPage.toggle()
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 24))
                     }
-                    .disabled(vm.isInteractingWithChatGPT)
+                    //.disabled(vm.isInteractingWithChatGPT)
                 }
                 .padding()
-                ScrollView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(vm.messages) { message in
-                            MessageRowView(message: message) { message in
-                                Task { @MainActor in
-                                    await vm.retry(message: message)
-                                }
+                
+                if vm.messages.isEmpty{
+                    VStack{
+                        Spacer()
+                        HStack{
+                            Text("Say Hello, Ask your first question")
+                            Spacer()
+                            VStack{
+                                Spacer()
+                                    .frame(maxHeight: 120)
+                                Image(systemName: "arrow.turn.right.down")
                             }
                         }
                     }
-                    .onTapGesture {
-                        isTextFieldFocused = false
+                    .padding(.vertical)
+                    .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                    .padding(.horizontal, 35)
+                } else {
+                    ScrollView {
+                        LazyVStack(spacing: 0) {
+                            ForEach(vm.messages) { message in
+                                MessageRowView(message: message) { message in
+                                    Task { @MainActor in
+                                        await vm.retry(message: message)
+                                    }
+                                }
+                            }
+                        }
+                        .onTapGesture {
+                            isTextFieldFocused = false
+                        }
                     }
                 }
                 #if os(iOS) || os(macOS)
@@ -65,6 +98,15 @@ struct ChatView: View {
             .onChange(of: vm.messages.last?.responseText) { _ in  scrollToBottom(proxy: proxy)
             }
         }
+        
+        .sheet(isPresented: self.$showInfoPage,
+           onDismiss: {
+               self.showInfoPage = false
+           }, content: {
+               ChatInfoView(shouldClearConversation: $shouldClearConversation)
+                   .presentationDragIndicator(.visible)
+           }
+       )
     }
     
     func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
@@ -110,5 +152,11 @@ struct ChatView: View {
     private func scrollToBottom(proxy: ScrollViewProxy) {
         guard let id = vm.messages.last?.id else { return }
         proxy.scrollTo(id, anchor: .bottomTrailing)
+    }
+}
+
+struct ChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatView(vm: ViewModel(api: ChatGPTAPI()))
     }
 }

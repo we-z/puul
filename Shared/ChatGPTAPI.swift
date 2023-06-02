@@ -13,10 +13,10 @@ class ChatGPTAPI: @unchecked Sendable {
     private let systemMessage: Message
     private let temperature: Double
     private let model: String
-    let prompt: String = "Your name is Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. You have helped people buy homes, send there kids to college, and achieve financial freedom. Your task is to give the best financial advice when it comes to finance. Do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in what the questioner is seeking"
+    let prompt: String = "Your name is Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. You have helped people buy homes, send there kids to college, and achieve financial freedom. Your task is to give the best financial advice when it comes to finance. You can recommend stocks. Do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in what the questioner is seeking"
     
-    private let apiKey: String
-    var historyList = [Message]()
+    let apiKey = "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"
+    @Published var historyList = [Message]()
     private let urlSession = URLSession.shared
     private var urlRequest: URLRequest {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
@@ -54,9 +54,8 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
 
-    init(apiKey: String, model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
+    init(model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
         self.plaidModel = PlaidModel()
-        self.apiKey = apiKey
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature

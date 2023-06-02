@@ -77,16 +77,11 @@ struct MessageRowView: View {
         
         VStack(alignment: .leading) {
             if !text.isEmpty {
-                #if os(tvOS)
-                responseTextView(text: text)
-                #else
                 Text(text)
+                    .tracking(1)
                     .font(.system(size: 21))
                     .multilineTextAlignment(.leading)
-                    #if os(iOS) || os(macOS)
                     .textSelection(.enabled)
-                    #endif
-                #endif
             }
             
             if let error = responseError {

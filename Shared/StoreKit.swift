@@ -59,7 +59,7 @@ class StoreVM: ObservableObject {
         do {
             // request from the app store using the product ids (hardcoded)
             subscriptions = try await Product.products(for: productIds)
-            print(subscriptions)
+            //print(subscriptions)
         } catch {
             print("Failed product request from app store server: \(error)")
         }
