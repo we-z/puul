@@ -8,16 +8,18 @@
 import SwiftUI
 
 @main
-struct XCAChatGPTApp: App {
+struct PuulApp: App {
     
-    @StateObject var vm = ViewModel(api: ChatGPTAPI())
+    @StateObject public var appModel: AppModel = AppModel()
     @StateObject var plaidModel: PlaidModel = PlaidModel()
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 HomeView()
+                    .preferredColorScheme(appModel.isLightMode ? .light : .dark)
             }
+            .environmentObject(appModel)
             .environmentObject(plaidModel)
             .accentColor(.primary)
         }

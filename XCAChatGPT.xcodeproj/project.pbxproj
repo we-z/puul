@@ -29,6 +29,10 @@
 		7A4B73FB2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A4B73FC2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A4B73FD2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
+		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
+		7A4B74002A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
+		7A4B74012A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
+		7A4B74022A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
 		7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1612A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
 		7A81C1622A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
@@ -166,6 +170,7 @@
 		7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		7A4B73F42A29B5BC0064800C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		7A4B73F92A2A84900064800C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPI.swift; sourceTree = "<group>"; };
@@ -312,6 +317,7 @@
 				7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */,
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
+				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
 				7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */,
 				7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */,
 				7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */,
@@ -763,6 +769,7 @@
 				8B82463529B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				8B057594298E52D900A56C9A /* ChatView.swift in Sources */,
 				8B057592298E52D900A56C9A /* DotLoadingView.swift in Sources */,
+				7A4B74002A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A4B73E72A267E1C0064800C /* StoreKit.swift in Sources */,
 				8B057595298E52D900A56C9A /* MessageRowView.swift in Sources */,
 				8B057585298E52C000A56C9A /* XCAChatGPTMacApp.swift in Sources */,
@@ -794,6 +801,7 @@
 				8B82463629B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				8B057609298FA9E900A56C9A /* MessageRow.swift in Sources */,
 				8B057605298FA9E900A56C9A /* ChatView.swift in Sources */,
+				7A4B74012A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A4B73E82A267E1C0064800C /* StoreKit.swift in Sources */,
 				8B05760A298FA9E900A56C9A /* ChatGPTAPI.swift in Sources */,
 				8B057607298FA9E900A56C9A /* ViewModel.swift in Sources */,
@@ -814,6 +822,7 @@
 				7A4B73E92A267E1C0064800C /* StoreKit.swift in Sources */,
 				7A81C16D2A021077000496E3 /* PlaidAPI.swift in Sources */,
 				7A81C18B2A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
+				7A4B74022A2ADBC50064800C /* AppModel.swift in Sources */,
 				7AD0C9EC29FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B057621298FBE0400A56C9A /* MessageRow.swift in Sources */,
 				7A4B73FD2A2A84900064800C /* AppInfoView.swift in Sources */,
@@ -846,6 +855,7 @@
 				8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */,
 				7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,
+				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */,
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,

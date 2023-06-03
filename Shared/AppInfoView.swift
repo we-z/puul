@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct AppInfoView: View {
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack{
+            HStack{
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle")
+                }
+                .accentColor(.primary)
+                Spacer()
+                Text("Data Info")
+                    
+                Spacer()
+                Text("     ")
+            }
+            .bold()
+            .font(.system(size: 21))
+            .padding()
             HStack{
                 Text("Where is my financial data?")
                     .font(.system(size: UIScreen.main.bounds.width * 0.1))
@@ -25,6 +42,7 @@ struct AppInfoView: View {
                 Spacer()
             }
             .padding()
+            Spacer()
         }
     }
 }

@@ -11,8 +11,11 @@ struct AccountView: View {
     @State var isLightMode = false
     @State var hapticModeOn = false
     @State private var showSubscriptions = false
+    @State private var showDataInfo = false
     @Environment(\.dismiss) private var dismiss
     @StateObject var storeVM = StoreVM()
+    @EnvironmentObject public var model: AppModel
+    
     var body: some View {
         VStack{
             Spacer()
@@ -34,20 +37,28 @@ struct AccountView: View {
             .padding()
             List{
                 Section(header: Text("Account")){
-                    HStack{
-                        Image(systemName: "arrow.clockwise")
-                        Text("Subscription")
-                        Spacer()
-                        Text("Free Plan")
-                            .foregroundColor(.gray)
+                    Button(action: {
+                        self.showSubscriptions = true
+                    }) {
+                        HStack{
+                            Image(systemName: "arrow.clockwise")
+                            Text("Subscription")
+                            Spacer()
+                            Text("Free Plan")
+                                .foregroundColor(.gray)
+                        }
                     }
-                    HStack{
-                        Image(systemName: "info.circle")
-                        Text("Data Info")
+                    Button(action: {
+                        self.showDataInfo = true
+                    }) {
+                        HStack{
+                            Image(systemName: "info.circle")
+                            Text("Data Info")
+                        }
                     }
                 }
                 Section(header: Text("Settings")){
-                    Toggle(isOn: $isLightMode) {
+                    Toggle(isOn: $model.isLightMode) {
                         HStack{
                             Image(systemName: "sun.max")
                             Text("Light Mode")
@@ -61,7 +72,6 @@ struct AccountView: View {
                     }
 
                 }
-                .padding(.vertical, 6)
                 
                 Section(header: Text("About")){
                     HStack{
@@ -97,12 +107,22 @@ struct AccountView: View {
                 .padding(.horizontal)
                 .font(.system(size: 30))
                 .bold()
-                .accentColor(.primary)
+                
             }
         }
+        .accentColor(.primary)
         .fullScreenCover(isPresented: $showSubscriptions){
             SubscriptionView()
         }
+        .sheet(isPresented: self.$showDataInfo,
+               onDismiss: {
+                   self.showDataInfo = false
+               },
+            content: {
+                AppInfoView()
+            }
+        )
+        .preferredColorScheme(model.isLightMode ? .light : .dark)
         .environmentObject(storeVM)
     }
 }
@@ -110,5 +130,6 @@ struct AccountView: View {
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
+            .environmentObject(AppModel())
     }
 }
