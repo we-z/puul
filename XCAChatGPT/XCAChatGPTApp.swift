@@ -18,6 +18,7 @@ struct PuulApp: App {
             NavigationStack {
                 HomeView()
                     .preferredColorScheme(appModel.isLightMode ? .light : .dark)
+                    .buttonStyle(HapticButtonStyle())
             }
             .environmentObject(appModel)
             .environmentObject(plaidModel)

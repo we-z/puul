@@ -56,9 +56,11 @@ struct HomeView: View {
                         List{
                             if !pm.bankAccounts.isEmpty{
                                 BankAccountsListView()
+                                    .buttonStyle(HapticButtonStyle())
                             }
                             if !pm.brokerAccounts.isEmpty{
                                 BrokerAccountsListView()
+                                    .buttonStyle(HapticButtonStyle())
                             }
                         }
                         .refreshable {
@@ -98,20 +100,24 @@ struct HomeView: View {
                         Button(action: {
                             self.showSteve = true
                         }) {
-                            Spacer()
-                            Text("Chat with Steve")
-                                .padding()
-                            Spacer()
-                        }
-                        .foregroundColor(.primary)
-                        .bold()
-                        .background(
-                            ZStack{
-                                Color.primary.colorInvert()
-                                Color.primary.opacity(0.18)
+                            HStack{
+                                Spacer()
+                                Text("Chat with Steve")
+                                    .padding()
+                                    .foregroundColor(.primary)
+                                    .bold()
+                                    
+                                Spacer()
                             }
-                        )
-                        .cornerRadius(32)
+                            .background(
+                                ZStack{
+                                    Color.primary.colorInvert()
+                                    Color.primary.opacity(0.18)
+                                }
+                            )
+                            .cornerRadius(32)
+                        }
+                        
                         .padding(.horizontal)
                         .padding(.top)
                     }
@@ -120,6 +126,7 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showSteve){
             ChatView(vm: vm)
+                .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showAccount,
             onDismiss: {
@@ -127,6 +134,7 @@ struct HomeView: View {
             }, content: {
                 AccountView()
                     .presentationDragIndicator(.visible)
+                    .buttonStyle(HapticButtonStyle())
             }
         )
         .sheet(isPresented: self.$showLink,
@@ -136,6 +144,7 @@ struct HomeView: View {
                 AssetPickerView()
                     .presentationDetents([.fraction(0.39)])
                     .presentationDragIndicator(.visible)
+                    .buttonStyle(HapticButtonStyle())
             }
         )
         .accentColor(.primary)

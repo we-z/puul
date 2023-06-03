@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct AccountView: View {
-    @State var isLightMode = false
-    @State var hapticModeOn = false
     @State private var showSubscriptions = false
     @State private var showDataInfo = false
     @Environment(\.dismiss) private var dismiss
@@ -64,7 +62,7 @@ struct AccountView: View {
                             Text("Light Mode")
                         }
                     }
-                    Toggle(isOn: $hapticModeOn) {
+                    Toggle(isOn: $model.hapticModeOn) {
                         HStack{
                             Image(systemName: "waveform")
                             Text("Haptic Feedback")
@@ -113,6 +111,7 @@ struct AccountView: View {
         .accentColor(.primary)
         .fullScreenCover(isPresented: $showSubscriptions){
             SubscriptionView()
+                .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showDataInfo,
                onDismiss: {
@@ -120,6 +119,7 @@ struct AccountView: View {
                },
             content: {
                 AppInfoView()
+                .buttonStyle(HapticButtonStyle())
             }
         )
         .preferredColorScheme(model.isLightMode ? .light : .dark)

@@ -101,6 +101,7 @@ struct ChatView: View {
            }, content: {
                ChatInfoView(shouldClearConversation: $shouldClearConversation)
                    .presentationDragIndicator(.visible)
+                   .buttonStyle(HapticButtonStyle())
            }
        )
     }
