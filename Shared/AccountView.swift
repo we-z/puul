@@ -72,17 +72,38 @@ struct AccountView: View {
                 }
                 
                 Section(header: Text("About")){
-                    HStack{
-                        Image(systemName: "newspaper")
-                        Text("Terms of Use")
+                    Button(action: {
+                        if let url = URL(string: "https://puul.ai/terms-of-use") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        HStack{
+                            Image(systemName: "newspaper")
+                            Text("Terms of Use")
+                        }
                     }
-                    HStack{
-                        Image(systemName: "lock")
-                        Text("Privacy Policy")
+                    Button(action: {
+                        if let url = URL(string: "https://puul.ai/privacy-policy") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        HStack{
+                            Image(systemName: "lock")
+                            Text("Privacy Policy")
+                        }
                     }
-                    HStack{
-                        Image(systemName: "questionmark.circle")
-                        Text("Contact Us")
+                    Button(action: {
+                        let mailtoString = "mailto:inquiries@puul.ai".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                        let mailtoUrl = URL(string: mailtoString!)!
+                        if UIApplication.shared.canOpenURL(mailtoUrl) {
+                                UIApplication.shared.open(mailtoUrl, options: [:])
+                        }
+
+                    }) {
+                        HStack{
+                            Image(systemName: "questionmark.circle")
+                            Text("Contact Us")
+                        }
                     }
                     HStack{
                         Image(systemName: "star")

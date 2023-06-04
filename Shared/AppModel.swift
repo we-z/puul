@@ -17,7 +17,7 @@ private func hapticFeedbackImpact(style: UIImpactFeedbackGenerator.FeedbackStyle
 
 class AppModel: ObservableObject {
     @Published public var isLightMode: Bool = false
-    @Published public var hapticModeOn: Bool = false
+    @Published public var hapticModeOn: Bool = true
 }
 
 
