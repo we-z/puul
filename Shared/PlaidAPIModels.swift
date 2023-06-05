@@ -495,10 +495,8 @@ class PlaidModel: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        var transactions: [BankTransaction] = []
-        
         let endDate = Date()
-        let startDate = Calendar.current.date(byAdding: .year, value: -2, to: endDate)!
+        let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
         
         let requestData: [String: Any] = [
             "client_id": "63d411aa2bcbe80013f42ad7",
@@ -507,7 +505,7 @@ class PlaidModel: ObservableObject {
             "start_date": formatDate(startDate),
             "end_date": formatDate(endDate),
             "options": [
-                "count": 500,
+                "count": 11,
                 "offset": 0
             ]
         ]
@@ -524,6 +522,8 @@ class PlaidModel: ObservableObject {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let transactionsData = json["transactions"] as! [[String: Any]]
+                
+                var transactions: [BankTransaction] = []
                 
                 for transactionData in transactionsData {
                     if let amount = transactionData["amount"] as? Double,

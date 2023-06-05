@@ -60,7 +60,6 @@ struct BankAccountsListView: View {
                 }
             )
         }
-        .textCase(nil)
     }
     
     func deleteRow(at indexSet: IndexSet) {

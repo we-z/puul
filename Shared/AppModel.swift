@@ -16,8 +16,48 @@ private func hapticFeedbackImpact(style: UIImpactFeedbackGenerator.FeedbackStyle
 }
 
 class AppModel: ObservableObject {
-    @Published public var isLightMode: Bool = false
-    @Published public var hapticModeOn: Bool = true
+    let lightModeKey: String = "bankaccounts"
+    let hapticKey: String = "brokeraccounts"
+    @Published public var isLightMode: Bool = false {
+        didSet{
+            saveSettings()
+        }
+    }
+    @Published public var hapticModeOn: Bool = true {
+        didSet{
+            saveSettings()
+        }
+    }
+    
+    func saveSettings() {
+        if let lightSetting = try? JSONEncoder().encode(isLightMode){
+            UserDefaults.standard.set(lightSetting, forKey: lightModeKey)
+        }
+        if let hapticSetting = try? JSONEncoder().encode(hapticModeOn){
+            UserDefaults.standard.set(hapticSetting, forKey: hapticKey)
+        }
+    }
+    
+    init() {
+        getSettings()
+    }
+    
+    func getSettings(){
+        guard
+            let lightData = UserDefaults.standard.data(forKey: lightModeKey),
+            let savedLightSetting = try? JSONDecoder().decode(Bool.self, from: lightData)
+        else {return}
+        
+        self.isLightMode = savedLightSetting
+        
+        guard
+            let hapticData = UserDefaults.standard.data(forKey: hapticKey),
+            let savedHapticSetting = try? JSONDecoder().decode(Bool.self, from: hapticData)
+        else {return}
+        
+        self.hapticModeOn = savedHapticSetting
+        
+    }
 }
 
 

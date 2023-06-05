@@ -72,9 +72,14 @@ class ChatGPTAPI: @unchecked Sendable {
     
     private func generateMessages(from text: String) -> [Message] {
         let networthMessage = [Message(role: "user", content: "My total networth is $" + plaidModel.totalNetWorth.withCommas()), Message(role: "assistant", content: "ok")]
-        let bankMessage = [Message(role: "user", content: plaidModel.bankString), Message(role: "assistant", content: "ok")]
-        let brokerMessage = [Message(role: "user", content: plaidModel.brokerString), Message(role: "assistant", content: "ok")]
-        var messages = [systemMessage] + bankMessage + brokerMessage + networthMessage + historyList + [Message(role: "user", content: text)]
+        //let bankMessage = [Message(role: "user", content: plaidModel.bankString), Message(role: "assistant", content: "ok")]
+        //let brokerMessage = [Message(role: "user", content: plaidModel.brokerString), Message(role: "assistant", content: "ok")]
+        var messages = [systemMessage]
+            //+ bankMessage
+            //+ brokerMessage
+            + networthMessage
+            + historyList
+            + [Message(role: "user", content: text)]
         
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()

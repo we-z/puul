@@ -63,20 +63,23 @@ struct ChatInfoView: View {
                 Button(action: {
                     self.showingAlert = true
                 }) {
-                    Spacer()
-                    Text("Clear chat history")
-                        .padding()
-                    Spacer()
-                }
-                .foregroundColor(.primary)
-                .bold()
-                .background(
-                    ZStack{
-                        Color.primary.colorInvert()
-                        Color.primary.opacity(0.18)
+                    HStack{
+                        Spacer()
+                        Text("Chat with Steve")
+                            .padding()
+                            .foregroundColor(.primary)
+                            .bold()
+                            
+                        Spacer()
                     }
-                )
-                .cornerRadius(32)
+                    .background(
+                        ZStack{
+                            Color.primary.colorInvert()
+                            Color.primary.opacity(0.12)
+                        }
+                    )
+                    .cornerRadius(32)
+                }
                 .padding(.horizontal)
             }
         }

@@ -13,6 +13,7 @@ struct AccountView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var storeVM = StoreVM()
     @EnvironmentObject public var model: AppModel
+    @Environment(\.requestReview) private var requestReview
     
     var body: some View {
         VStack{
@@ -105,9 +106,13 @@ struct AccountView: View {
                             Text("Contact Us")
                         }
                     }
-                    HStack{
-                        Image(systemName: "star")
-                        Text("Rate Us")
+                    Button(action: {
+                        requestReview()
+                    }) {
+                        HStack{
+                            Image(systemName: "star")
+                            Text("Rate Us")
+                        }
                     }
                 }
             }

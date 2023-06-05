@@ -60,7 +60,6 @@ struct BrokerAccountsListView: View {
                 }
             )
         }
-        .textCase(nil)
     }
     func deleteRow(at indexSet: IndexSet) {
         self.toBeDeleted = indexSet           // store rows for delete
