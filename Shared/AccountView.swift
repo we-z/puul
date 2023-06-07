@@ -137,7 +137,7 @@ struct AccountView: View {
         .accentColor(.primary)
         .fullScreenCover(isPresented: $showSubscriptions){
             SubscriptionView()
-                .buttonStyle(HapticButtonStyle())
+                //.buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showDataInfo,
                onDismiss: {
@@ -145,7 +145,7 @@ struct AccountView: View {
                },
             content: {
                 AppInfoView()
-                .buttonStyle(HapticButtonStyle())
+                //.buttonStyle(HapticButtonStyle())
             }
         )
         .preferredColorScheme(model.isLightMode ? .light : .dark)

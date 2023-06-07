@@ -16,6 +16,9 @@ class PlaidModel: ObservableObject {
     var brokerString: String = ""
     var isUpdating = false
     let plaidEnvironment = "https://sandbox.plaid.com/"
+    let client_id = "63d411aa2bcbe80013f42ad7"
+    let sandbox_secret = "4c8e7956ddd4dcb6d91177841fc850"
+    let development_secret = "eaeb3902e92ac2fb678511ee863160"
     @Published var linkToken = ""
     @Published var totalNetWorth: Double = 0
     var newBankAccounts: [BankAccount] = []
@@ -44,6 +47,8 @@ class PlaidModel: ObservableObject {
         isUpdating = true
         bankAccounts.forEach { account in
             self.getBankAccount(accessToken: account.access_token)
+            print(bankString)
+            print("number of transactions: " + String(account.transactions.count))
         }
         if bankAccounts.count == newBankAccounts.count{
             bankAccounts = newBankAccounts
@@ -79,9 +84,7 @@ class PlaidModel: ObservableObject {
             }
             bankString += " \n"
             
-            
         }
-        //print(bankString)
     }
     
     func updateBrokerString(){
@@ -194,8 +197,8 @@ class PlaidModel: ObservableObject {
         }
         
         let parameters = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "user": [
                 "client_user_id": "unique-per-user"
             ],
@@ -242,14 +245,15 @@ class PlaidModel: ObservableObject {
     }
     
     func createBankLinkToken() {
+        print ("Creting bank link token")
         guard let url = URL(string: plaidEnvironment + "link/token/create") else {
             print("Invalid URL")
             return
         }
         
         let parameters = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "user": [
                 "client_user_id": "unique-per-user"
             ],
@@ -303,7 +307,7 @@ class PlaidModel: ObservableObject {
             return
         }
         
-        let requestBody = ["client_id": "63d411aa2bcbe80013f42ad7", "secret": "4c8e7956ddd4dcb6d91177841fc850", "public_token": publicToken]
+        let requestBody = ["client_id": client_id, "secret": sandbox_secret, "public_token": publicToken]
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
@@ -350,8 +354,8 @@ class PlaidModel: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -391,8 +395,8 @@ class PlaidModel: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -434,8 +438,8 @@ class PlaidModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
             "institution_id": institutionId,
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -464,8 +468,8 @@ class PlaidModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
             "institution_id": institutionId,
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -499,8 +503,8 @@ class PlaidModel: ObservableObject {
         let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
         
         let requestData: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "access_token": accessToken,
             "start_date": formatDate(startDate),
             "end_date": formatDate(endDate),
@@ -550,8 +554,8 @@ class PlaidModel: ObservableObject {
         
         
         let requestData: [String: Any] = [
-            "client_id": "63d411aa2bcbe80013f42ad7",
-            "secret": "4c8e7956ddd4dcb6d91177841fc850",
+            "client_id": client_id,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         
@@ -567,16 +571,19 @@ class PlaidModel: ObservableObject {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let securitiesData = json["securities"] as! [[String: Any]]
+                let holdingsData = json["holdings"] as! [[String: Any]]
                                 
                 var securities: [Security] = []
                 
-                for position in securitiesData {
+                for (index, position) in securitiesData.enumerated() {
                     if let value = position["close_price"] as? Double,
+                       let quantity = holdingsData[index]["quantity"] as? Double,
                        let ticker = position["ticker_symbol"] as? String,
                        let name = position["name"] as? String {
-                        let security = Security(ticker: ticker, name: name, value: value)
+                        let security = Security(ticker: ticker, name: name, value: value * quantity)
                         securities.append(security)
                     }
+                    
                 }
                 self.addBrokerAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, holdings: securities)
                 

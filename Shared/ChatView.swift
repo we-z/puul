@@ -101,7 +101,7 @@ struct ChatView: View {
            }, content: {
                ChatInfoView(shouldClearConversation: $shouldClearConversation)
                    .presentationDragIndicator(.visible)
-                   .buttonStyle(HapticButtonStyle())
+                   //.buttonStyle(HapticButtonStyle())
            }
        )
     }
@@ -130,12 +130,6 @@ struct ChatView: View {
                         .rotationEffect(.degrees(45))
                         .font(.system(size: 30))
                 }
-                #if os(macOS)
-                .buttonStyle(.borderless)
-                .keyboardShortcut(.defaultAction)
-                .foregroundColor(.primary)
-                
-                #endif
                 .disabled(vm.inputMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }

@@ -14,7 +14,7 @@ struct HomeView: View {
     @State private var showAccount = false
     @State private var showSteve = false
     @EnvironmentObject var pm: PlaidModel
-    
+        
     var body: some View {
         NavigationStack{
                 VStack(spacing: 0){
@@ -27,6 +27,7 @@ struct HomeView: View {
                                     .foregroundColor(.primary)
                                     .font(.system(size: 30))
                             }
+                            .buttonStyle(HapticButtonStyle())
                             Spacer()
                             Button(action: {
                                 self.showLink = true
@@ -34,6 +35,7 @@ struct HomeView: View {
                                 Image(systemName: "plus")
                                     .font(.system(size: 30))
                             }
+                            .buttonStyle(HapticButtonStyle())
                         }
                         
                         Text("Total net worth")
@@ -56,11 +58,9 @@ struct HomeView: View {
                         List{
                             if !pm.bankAccounts.isEmpty{
                                 BankAccountsListView()
-                                    .buttonStyle(HapticButtonStyle())
                             }
                             if !pm.brokerAccounts.isEmpty{
                                 BrokerAccountsListView()
-                                    .buttonStyle(HapticButtonStyle())
                             }
                         }
                         .refreshable {
@@ -69,31 +69,32 @@ struct HomeView: View {
                         }
                         .scrollContentBackground(.hidden)
                     } else {
-                        VStack {
-                            HStack{
-                                Text("Press plus to add an asset class")
-                                Spacer()
-                                VStack{
-                                    Image(systemName: "arrow.turn.right.up")
+                        ScrollView{
+                            VStack {
+                                HStack{
+                                    Text("Press plus to add an asset class")
                                     Spacer()
-                                        .frame(maxHeight: 120)
+                                    VStack{
+                                        Image(systemName: "arrow.turn.right.up")
+                                        Spacer()
+                                            .frame(maxHeight: 120)
+                                    }
+                                }
+                                .padding(.bottom, UIScreen.main.bounds.height * 0.08)
+                                HStack{
+                                    Text("Ask Steve for financial advice")
+                                    Spacer()
+                                    VStack{
+                                        Spacer()
+                                            .frame(maxHeight: 120)
+                                        Image(systemName: "arrow.turn.right.down")
+                                    }
                                 }
                             }
-                            Spacer()
-                            HStack{
-                                Text("Ask Steve for financial advice")
-                                Spacer()
-                                VStack{
-                                    Spacer()
-                                        .frame(maxHeight: 120)
-                                    Image(systemName: "arrow.turn.right.down")
-                                }
-                            }
+                            .padding(.vertical)
+                            .font(.system(size: UIScreen.main.bounds.width * 0.13))
+                            .padding(.horizontal, 35)
                         }
-                        .padding(.vertical)
-                        .font(.system(size: UIScreen.main.bounds.width * 0.13))
-                        .padding(.horizontal, 35)
-                        Spacer()
                     }
                         
                     HStack{
@@ -117,7 +118,7 @@ struct HomeView: View {
                             )
                             .cornerRadius(32)
                         }
-                        
+                        .buttonStyle(HapticButtonStyle())
                         .padding(.horizontal)
                         .padding(.top)
                     }

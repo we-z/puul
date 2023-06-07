@@ -44,7 +44,7 @@ struct SubscriptionView: View {
                     }
                     HStack{
                         Image(systemName: "dollarsign.circle")
-                        Text("Add unlimited assets")
+                        Text("Add up to 10 assets")
                     }
                     HStack{
                         Image(systemName: "house")

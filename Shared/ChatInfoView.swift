@@ -32,6 +32,7 @@ struct ChatInfoView: View {
             .bold()
             .font(.system(size: 21))
             .padding()
+            ScrollView{
                 HStack{
                     Text("Who is Steve?")
                         .font(.system(size: UIScreen.main.bounds.width * 0.12))
@@ -48,7 +49,24 @@ struct ChatInfoView: View {
                 }
                 .padding(.vertical, 3)
                 .padding()
-            
+                
+                HStack{
+                    Text("What does Steve know about me?")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                HStack{
+                    Text("Steve can see your last 10 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
+                        .multilineTextAlignment(.leading)
+                        .italic()
+                    Spacer()
+                }
+                .padding(.vertical, 3)
+                .padding()
+            }
             Form {
                 Picker("Risk Level", selection: $selectedRiskLevel) {
                     ForEach(levels, id: \.self) {
@@ -59,13 +77,14 @@ struct ChatInfoView: View {
                 .accentColor(.primary)
             }
             .scrollDisabled(true)
+                
             HStack{
                 Button(action: {
                     self.showingAlert = true
                 }) {
                     HStack{
                         Spacer()
-                        Text("Chat with Steve")
+                        Text("Clear chat history")
                             .padding()
                             .foregroundColor(.primary)
                             .bold()
@@ -75,7 +94,7 @@ struct ChatInfoView: View {
                     .background(
                         ZStack{
                             Color.primary.colorInvert()
-                            Color.primary.opacity(0.12)
+                            Color.primary.opacity(0.18)
                         }
                     )
                     .cornerRadius(32)
