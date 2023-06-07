@@ -18,13 +18,6 @@ public struct PlaidLinkFlow: View {
     public var body: some View {
         if pm.linkToken.isEmpty{
             ProgressView()
-                .onAppear{
-                    if isBank == true {
-                        pm.createBankLinkToken()
-                    } else {
-                        pm.createBrokerLinkToken()
-                    }
-                }
         } else {
             let linkController = LinkController(
                 configuration: .linkToken(createLinkTokenConfiguration())
@@ -46,20 +39,20 @@ public struct PlaidLinkFlow: View {
             token: pm.linkToken,
             onSuccess: { success in
                 print("public-token: \(success.publicToken) metadata: \(success.metadata)")
-                showLink = false
                 pm.exchangePublicToken(publicToken: success.publicToken) { result in
                     switch result {
                     case .success(let accessToken):
                         print("access_token: \(accessToken)")
                         if isBank == true {
                             pm.getBankAccount(accessToken: accessToken)
-                        } else {
+                        } else if isBank == false {
                             pm.getBrokerAccount(accessToken: accessToken)
                         }
                     case .failure(let error):
                         print("Error exchanging public token: \(error)")
                     }
                 }
+                showLink = false
             }
         )
 
@@ -74,9 +67,9 @@ public struct PlaidLinkFlow: View {
                 print("exit with \(exit.metadata)")
             }
             pm.linkToken = ""
-            showLink = false
             pm.getBankAccounts()
             pm.getBrokerAccounts()
+            showLink = false
         }
         
 

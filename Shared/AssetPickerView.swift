@@ -10,17 +10,26 @@ import SwiftUI
 
 struct AssetPickerView: View {
     
-    @State public var showLink = false
-    @State public var isBank = false
-    @State public var showProperties = false
-    // it's either a bank or brokerage account 
     @EnvironmentObject var pm: PlaidModel
+    @State public var showLink = false
+    @State public var isBank = false {
+        didSet{
+            if isBank == true{
+                pm.createBankLinkToken()
+                print("Bank Menu")
+            } else {
+                pm.createBrokerLinkToken()
+                print("Broker Menu")
+            }
+            showLink = true
+        }
+    }
+    @State public var showProperties = false
         
     var body: some View {
         VStack(alignment: .leading,spacing: 18){
             Button(action: {
                 self.isBank = true
-                self.showLink = true
             }) {
                 HStack{
                     Image(systemName: "building.columns.fill")
@@ -34,7 +43,6 @@ struct AssetPickerView: View {
             
             Button(action: {
                 self.isBank = false
-                self.showLink = true
             }) {
                 HStack{
                     Image(systemName: "building.2.fill")
