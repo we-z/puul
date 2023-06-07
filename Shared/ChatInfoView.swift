@@ -12,6 +12,7 @@ struct ChatInfoView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var shouldClearConversation: Bool
     @State private var selectedRiskLevel = ""
+    @EnvironmentObject public var model: AppModel
     let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
     var body: some View {
         VStack{
@@ -68,7 +69,7 @@ struct ChatInfoView: View {
                 .padding()
             }
             Form {
-                Picker("Risk Level", selection: $selectedRiskLevel) {
+                Picker("Risk Level", selection: $model.selectedRiskLevel) {
                     ForEach(levels, id: \.self) {
                         Text($0)
                     }
@@ -120,5 +121,6 @@ struct ChatInfoView: View {
 struct ChatInfoView_Previews: PreviewProvider {
     static var previews: some View {
         ChatInfoView(shouldClearConversation: .constant(false))
+            .environmentObject(AppModel())
     }
 }

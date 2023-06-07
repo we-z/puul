@@ -9,11 +9,12 @@ import Foundation
 
 class ChatGPTAPI: @unchecked Sendable {
     
+    private let appModel: AppModel
     private let plaidModel: PlaidModel
     private let systemMessage: Message
     private let temperature: Double
     private let model: String
-    let prompt: String = "Your name is Steve. When asked who you are, say that you are Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. You have helped people buy homes, send there kids to college, and achieve financial freedom. Your task is to give the best financial advice when it comes to finance. You can recommend stocks. Do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in what the questioner is seeking. "
+    let prompt: String = "Your name is Steve. When I ask who or what are you, you reply with I'm Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. You have helped people buy homes, send there kids to college, and achieve financial freedom. Your task is to give the best financial advice when it comes to finance. When I ask for help with choosing stocks and ETFs, you will reply with tickers of good stocks and ETFs. You will be provided with my bank account transactions and holdings in broker accounts. Advice me based on that information. do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in on what I'm seeking. "
     
     let apiKey = "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"
     @Published var historyList = [Message]()
@@ -56,6 +57,7 @@ class ChatGPTAPI: @unchecked Sendable {
 
     init(model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
         self.plaidModel = PlaidModel()
+        self.appModel = AppModel()
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature
@@ -72,9 +74,13 @@ class ChatGPTAPI: @unchecked Sendable {
     
     private func generateMessages(from text: String) -> [Message] {
         let networthMessage = [Message(role: "user", content: "My total networth is $" + plaidModel.totalNetWorth.withCommas()), Message(role: "assistant", content: "ok")]
+        let riskMessage = [Message(role: "user", content: "My risk level is " + appModel.selectedRiskLevel), Message(role: "assistant", content: "ok")]
+        let basicMessages = networthMessage + riskMessage
         let bankMessage = [Message(role: "user", content: plaidModel.bankString), Message(role: "assistant", content: "ok")]
         let brokerMessage = [Message(role: "user", content: plaidModel.brokerString), Message(role: "assistant", content: "ok")]
-        var messages = [systemMessage] + bankMessage + brokerMessage + networthMessage + historyList + [Message(role: "user", content: text)]
+        let listMessages = basicMessages + brokerMessage
+        
+        var messages = [systemMessage] + listMessages + basicMessages + historyList + [Message(role: "user", content: text)]
         
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()
