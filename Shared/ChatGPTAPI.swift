@@ -78,7 +78,7 @@ class ChatGPTAPI: @unchecked Sendable {
         let basicMessages = networthMessage + riskMessage
         let bankMessage = [Message(role: "user", content: plaidModel.bankString), Message(role: "assistant", content: "ok")]
         let brokerMessage = [Message(role: "user", content: plaidModel.brokerString), Message(role: "assistant", content: "ok")]
-        let listMessages = basicMessages + brokerMessage
+        let listMessages = bankMessage + brokerMessage
         
         var messages = [systemMessage] + listMessages + basicMessages + historyList + [Message(role: "user", content: text)]
         

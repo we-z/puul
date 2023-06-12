@@ -27,7 +27,7 @@ struct HomeView: View {
                                     .foregroundColor(.primary)
                                     .font(.system(size: 30))
                             }
-                            .buttonStyle(HapticButtonStyle())
+                            //.buttonStyle(HapticButtonStyle())
                             Spacer()
                             Button(action: {
                                 self.showLink = true
@@ -35,7 +35,7 @@ struct HomeView: View {
                                 Image(systemName: "plus")
                                     .font(.system(size: 30))
                             }
-                            .buttonStyle(HapticButtonStyle())
+                            //.buttonStyle(HapticButtonStyle())
                         }
                         
                         Text("Total net worth")
@@ -118,7 +118,7 @@ struct HomeView: View {
                             )
                             .cornerRadius(32)
                         }
-                        .buttonStyle(HapticButtonStyle())
+                        //.buttonStyle(HapticButtonStyle())
                         .padding(.horizontal)
                         .padding(.top)
                     }
@@ -127,7 +127,7 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showSteve){
             ChatView(vm: vm)
-                .buttonStyle(HapticButtonStyle())
+                //.buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showAccount,
             onDismiss: {
@@ -135,7 +135,7 @@ struct HomeView: View {
             }, content: {
                 AccountView()
                     .presentationDragIndicator(.visible)
-                    .buttonStyle(HapticButtonStyle())
+                    //.buttonStyle(HapticButtonStyle())
             }
         )
         .sheet(isPresented: self.$showLink,
@@ -145,7 +145,7 @@ struct HomeView: View {
                 AssetPickerView()
                     .presentationDetents([.fraction(0.39)])
                     .presentationDragIndicator(.visible)
-                    .buttonStyle(HapticButtonStyle())
+                    //.buttonStyle(HapticButtonStyle())
             }
         )
         .accentColor(.primary)

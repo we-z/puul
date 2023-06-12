@@ -27,22 +27,29 @@ struct BankAccountDetailsView: View {
                 .padding()
                 Spacer()
             }
-            List{
-                Section(header: Text("Latest Transactions").bold().padding(.bottom, 9)){
-                    ForEach(viewdata.transactions) { transaction in
-                        HStack{
-                            VStack(alignment: .leading, spacing: 6){
-                                Text(transaction.merchant)
+            if viewdata.transactions.isEmpty{
+                List{
+                    Section(header: Text("No Transactions Found").font(.system(size: 40))){
+                    }
+                }
+            } else {
+                List{
+                    Section(header: Text("Latest Transactions").bold().padding(.bottom, 9).font(.system(size: 20))){
+                        ForEach(viewdata.transactions) { transaction in
+                            HStack{
+                                VStack(alignment: .leading, spacing: 6){
+                                    Text(transaction.merchant)
+                                        .bold()
+                                        .font(.system(size: 21))
+                                    Text(transaction.dateTime)
+                                }
+                                Spacer()
+                                Text("$" + transaction.amount.withCommas())
                                     .bold()
-                                    .font(.system(size: 21))
-                                Text(transaction.dateTime)
+                                    .font(.system(size: 27))
                             }
-                            Spacer()
-                            Text("$" + transaction.amount.withCommas())
-                                .bold()
-                                .font(.system(size: 27))
+                            .padding(.vertical)
                         }
-                        .padding(.vertical)
                     }
                 }
             }

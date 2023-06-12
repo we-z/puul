@@ -53,21 +53,24 @@ struct ChatView: View {
                 .padding()
                 
                 if vm.messages.isEmpty{
-                    VStack{
-                        Spacer()
-                        HStack{
-                            Text("Say Hello, Ask your first question")
+                    ScrollView{
+                        VStack{
                             Spacer()
-                            VStack{
+                            HStack{
+                                Text("Say Hello, Ask your first question")
                                 Spacer()
-                                    .frame(maxHeight: 120)
-                                Image(systemName: "arrow.turn.right.down")
+                                VStack{
+                                    Spacer()
+                                        .frame(maxHeight: 120)
+                                    Image(systemName: "arrow.turn.right.down")
+                                }
                             }
                         }
+                        .padding(.vertical)
+                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                        .padding(.horizontal, 35)
+                        .padding(.top, UIScreen.main.bounds.height * 0.5)
                     }
-                    .padding(.vertical)
-                    .font(.system(size: UIScreen.main.bounds.width * 0.12))
-                    .padding(.horizontal, 35)
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 0) {

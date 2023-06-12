@@ -25,11 +25,17 @@ struct AssetPickerView: View {
         }
     }
     @State public var showProperties = false
+    @State private var showSubscriptions = false
+    @StateObject var storeVM = StoreVM()
         
     var body: some View {
         VStack(alignment: .leading,spacing: 18){
             Button(action: {
-                self.isBank = true
+//                if storeVM.purchasedSubscriptions.isEmpty {
+//                    self.showSubscriptions = true
+//                } else {
+                    self.isBank = true
+                //}
             }) {
                 HStack{
                     Image(systemName: "building.columns.fill")
@@ -42,7 +48,11 @@ struct AssetPickerView: View {
             }
             
             Button(action: {
-                self.isBank = false
+//                if storeVM.purchasedSubscriptions.isEmpty {
+//                    self.showSubscriptions = true
+//                } else {
+                    self.isBank = false
+                //}
             }) {
                 HStack{
                     Image(systemName: "building.2.fill")
@@ -54,7 +64,11 @@ struct AssetPickerView: View {
                 .cornerRadius(15)
             }
             Button(action: {
-                self.showProperties = true
+//                if storeVM.purchasedSubscriptions.isEmpty {
+//                    self.showSubscriptions = true
+//                } else {
+                    self.showProperties = true
+                //}
             }) {
                 HStack{
                     Image(systemName: "house.fill")
@@ -82,6 +96,11 @@ struct AssetPickerView: View {
                 )
             }
         )
+        .fullScreenCover(isPresented: $showSubscriptions){
+            SubscriptionView()
+                //.buttonStyle(HapticButtonStyle())
+        }
+        .environmentObject(storeVM)
     }
 }
 

@@ -27,22 +27,29 @@ struct BrokerAccountDetailsView: View {
                 .padding()
                 Spacer()
             }
-            List{
-                Section(header: Text("Current Holdings").bold().padding(.bottom, 9)){
-                    ForEach(viewdata.holdings) { position in
-                        HStack{
-                            VStack(alignment: .leading, spacing: 6){
-                                Text(position.name)
+            if viewdata.holdings.isEmpty{
+                List{
+                    Section(header: Text("No Holdings Found").font(.system(size: 40))){
+                    }
+                }
+            } else {
+                List{
+                    Section(header: Text("Current Holdings").bold().padding(.bottom, 9).font(.system(size: 20))){
+                        ForEach(viewdata.holdings) { position in
+                            HStack{
+                                VStack(alignment: .leading, spacing: 6){
+                                    Text(position.name)
+                                        .bold()
+                                        .font(.system(size: 21))
+                                    Text(position.ticker)
+                                }
+                                Spacer()
+                                Text("$" + position.value.withCommas())
                                     .bold()
-                                    .font(.system(size: 21))
-                                Text(position.ticker)
+                                    .font(.system(size: 27))
                             }
-                            Spacer()
-                            Text("$" + position.value.withCommas())
-                                .bold()
-                                .font(.system(size: 27))
+                            .padding(.vertical)
                         }
-                        .padding(.vertical)
                     }
                 }
             }

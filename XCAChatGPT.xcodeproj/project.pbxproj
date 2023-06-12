@@ -13,7 +13,7 @@
 		7A4B73F52A29B5BC0064800C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F42A29B5BC0064800C /* AccountView.swift */; };
 		7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
-		7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C15F2A006F61000496E3 /* CloudKit.swift */; };
+		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
 		7A81C16A2A021077000496E3 /* PlaidLinkFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */; };
 		7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
@@ -45,7 +45,7 @@
 		0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; sourceTree = "<group>"; };
 		514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.debug.xcconfig"; sourceTree = "<group>"; };
 		5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.release.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.release.xcconfig"; sourceTree = "<group>"; };
-		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E55D29FE56E60068362F /* Stevely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stevely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
 		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7A4B73E52A267E1C0064800C /* StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKit.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		7A4B73F42A29B5BC0064800C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		7A4B73F92A2A84900064800C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		7A81C15F2A006F61000496E3 /* CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
+		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkFlowView.swift; sourceTree = "<group>"; };
 		7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPIModels.swift; sourceTree = "<group>"; };
@@ -141,12 +141,12 @@
 				7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */,
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
-				7A81C15F2A006F61000496E3 /* CloudKit.swift */,
 				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
 				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
 				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
 				7A81C1732A049587000496E3 /* LinkController.swift */,
+				7A4B74032A367F5B0064800C /* LogoView.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
 				7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */,
 				7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */,
@@ -167,7 +167,7 @@
 				8B91C002298AD09E0079AF26 /* XCAChatGPT */,
 				1D0ED3DAA698BBA300D26E89 /* Pods */,
 				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
-				7A48E55D29FE56E60068362F /* Puul.app */,
+				7A48E55D29FE56E60068362F /* Stevely.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -196,9 +196,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B91BFFF298AD09E0079AF26 /* Puul */ = {
+		8B91BFFF298AD09E0079AF26 /* Stevely */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */;
+			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Stevely" */;
 			buildPhases = (
 				706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */,
 				8B91BFFC298AD09E0079AF26 /* Sources */,
@@ -210,12 +210,12 @@
 			);
 			dependencies = (
 			);
-			name = Puul;
+			name = Stevely;
 			packageProductDependencies = (
 				8B612E2929D68CE3008DF5AF /* GPTEncoder */,
 			);
 			productName = XCAChatGPT;
-			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
+			productReference = 7A48E55D29FE56E60068362F /* Stevely.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -249,7 +249,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B91BFFF298AD09E0079AF26 /* Puul */,
+				8B91BFFF298AD09E0079AF26 /* Stevely */,
 			);
 		};
 /* End PBXProject section */
@@ -321,7 +321,6 @@
 				7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */,
 				8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
-				7A81C1602A006F61000496E3 /* CloudKit.swift in Sources */,
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
 				7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
@@ -339,6 +338,7 @@
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
 				7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
+				7A4B74042A367F5B0064800C /* LogoView.swift in Sources */,
 				7A4B73F52A29B5BC0064800C /* AccountView.swift in Sources */,
 				7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */,
 			);
@@ -487,7 +487,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevely.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -520,7 +520,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevely.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -541,7 +541,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */ = {
+		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Stevely" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B91C00F298AD09F0079AF26 /* Debug */,

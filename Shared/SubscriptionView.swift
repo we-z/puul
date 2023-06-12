@@ -65,8 +65,7 @@ struct SubscriptionView: View {
                             Task {
                                 await buy(product: product)
                             }
-                        }
-                        ){
+                        }){
                             VStack {
                                 
                                 HStack {
@@ -91,6 +90,7 @@ struct SubscriptionView: View {
                 }
             }
         }
+        .environmentObject(StoreVM())
     }
     
     func buy(product: Product) async {
