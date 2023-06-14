@@ -205,11 +205,11 @@ class PlaidModel: ObservableObject {
             "user": [
                 "client_user_id": "unique-per-user"
             ],
-            "client_name": "Stevely",
+            "client_name": "Puul",
             "products": ["investments"],
             "country_codes": ["US"],
             "language": "en",
-            "redirect_uri": "https://cdn-testing.plaid.com/link/v2/stable/sandbox-oauth-a2a-redirect.html",
+            "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "investment": [
                     "account_subtypes": ["ira", "401k"]
@@ -260,11 +260,11 @@ class PlaidModel: ObservableObject {
             "user": [
                 "client_user_id": "unique-per-user"
             ],
-            "client_name": "Stevely",
+            "client_name": "Puul",
             "products": ["auth", "transactions"],
             "country_codes": ["US"],
             "language": "en",
-            "redirect_uri": "https://cdn-testing.plaid.com/link/v2/stable/sandbox-oauth-a2a-redirect.html",
+            "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "depository": [
                     "account_subtypes": ["checking"]

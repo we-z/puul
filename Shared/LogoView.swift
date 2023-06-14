@@ -11,12 +11,9 @@ struct LogoView: View {
     var body: some View {
         ZStack{
             Color(.gray)
-                .opacity(0.3)
-            Image(systemName: "message")
+                .opacity(0.36)
+            Image(systemName: "dollarsign.circle")
                 .font(.system(size: 240))
-            Text("$")
-                .font(.system(size: 120))
-                .offset(y: -18)
         }
     }
 }
