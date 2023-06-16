@@ -23,7 +23,7 @@ struct HomeView: View {
                             Button(action: {
                                 self.showAccount = true
                             }) {
-                                Image(systemName: "arrow.up.circle")
+                                Image(systemName: "person.crop.circle")
                                     .foregroundColor(.primary)
                                     .font(.system(size: 30))
                             }
