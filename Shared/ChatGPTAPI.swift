@@ -8,7 +8,6 @@
 import Foundation
 
 class ChatGPTAPI: @unchecked Sendable {
-    
     private let appModel: AppModel
     private let plaidModel: PlaidModel
     private let systemMessage: Message

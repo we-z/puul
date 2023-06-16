@@ -12,11 +12,13 @@ import Combine
 struct ChatView: View {
         
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var vm: ViewModel
+    @ObservedObject var vm: ChatViewModel
     @FocusState var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
     @State private var showInfoPage = false
     @State private var shouldClearConversation = false
+    @State private var showSubscriptions = false
+    @StateObject var storeVM = StoreVM()
     
     var body: some View {
         chatListView
@@ -53,24 +55,22 @@ struct ChatView: View {
                 .padding()
                 
                 if vm.messages.isEmpty{
-                    ScrollView{
-                        VStack{
+                    VStack{
+                        Spacer()
+                        HStack{
+                            Text("Say Hello, Ask your first question")
                             Spacer()
-                            HStack{
-                                Text("Say Hello, Ask your first question")
+                            VStack{
                                 Spacer()
-                                VStack{
-                                    Spacer()
-                                        .frame(maxHeight: 120)
-                                    Image(systemName: "arrow.turn.right.down")
-                                }
+                                    .frame(maxHeight: 120)
+                                Image(systemName: "arrow.turn.right.down")
                             }
                         }
-                        .padding(.vertical)
-                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
-                        .padding(.horizontal, 35)
-                        .padding(.top, UIScreen.main.bounds.height * 0.5)
                     }
+                    .padding(.vertical)
+                    .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                    .padding(.horizontal, 35)
+
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 0) {
@@ -107,6 +107,11 @@ struct ChatView: View {
                    //.buttonStyle(HapticButtonStyle())
            }
        )
+        .fullScreenCover(isPresented: $showSubscriptions){
+            SubscriptionView()
+                //.buttonStyle(HapticButtonStyle())
+        }
+        .environmentObject(storeVM)
     }
     
     func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
@@ -123,10 +128,14 @@ struct ChatView: View {
                 DotLoadingView().frame(width: 60, height: 30)
             } else {
                 Button {
-                    Task { @MainActor in
-                        isTextFieldFocused = false
-                        scrollToBottom(proxy: proxy)
-                        await vm.sendTapped()
+                    if vm.messagesSentToday > 2 && storeVM.purchasedSubscriptions.isEmpty {
+                        self.showSubscriptions = true
+                    } else {
+                        Task { @MainActor in
+                            isTextFieldFocused = false
+                            scrollToBottom(proxy: proxy)
+                            await vm.sendTapped()
+                        }
                     }
                 } label: {
                     Image(systemName: "paperplane.circle.fill")
@@ -151,6 +160,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(vm: ViewModel(api: ChatGPTAPI()))
+        ChatView(vm: ChatViewModel(api: ChatGPTAPI()))
     }
 }

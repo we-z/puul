@@ -9,12 +9,23 @@ import Foundation
 import SwiftUI
 import AVKit
 
-class ViewModel: ObservableObject {
+class ChatViewModel: ObservableObject {
     
     @Published var isInteractingWithChatGPT = false
     @Published var messages: [MessageRow] = []
     @Published var inputMessage: String = ""
+    let messagesSentTodayKey = "messagesSentTodayKey"
+    @Published var messagesSentToday: Int = 0 {
+        didSet {
+            saveMessagesSentToday()
+        }
+    }
     
+    func saveMessagesSentToday(){
+        if let messagesSentTodayData = try? JSONEncoder().encode(messagesSentToday){
+            UserDefaults.standard.set(messagesSentTodayData, forKey: messagesSentTodayKey)
+        }
+    }
     
     private let messagesKey = "messages"
 
@@ -32,16 +43,28 @@ class ViewModel: ObservableObject {
     
     init(api: ChatGPTAPI, enableSpeech: Bool = false) {
         self.api = api
-        #if !os(watchOS)
-        if enableSpeech {
-            synthesizer = .init()
+        
+        getMessagesSentToday()
+        
+        if let date = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+           if let diff = Calendar.current.dateComponents([.hour], from: date, to: Date()).hour, diff >= 24 {
+               messagesSentToday = 0
+           }
         }
-        #endif
         
         if let meesageData = UserDefaults.standard.data(forKey: messagesKey),
            let messages = try? JSONDecoder().decode([MessageRow].self, from: meesageData) {
             self.messages = messages
         }
+    }
+    
+    func getMessagesSentToday(){
+        guard
+            let messagesSentTodayData = UserDefaults.standard.data(forKey: messagesSentTodayKey),
+            let savedMessagesSentToday = try? JSONDecoder().decode(Int.self, from: messagesSentTodayData)
+        else {return}
+        
+        self.messagesSentToday = savedMessagesSentToday
     }
     
     @MainActor
@@ -99,6 +122,8 @@ class ViewModel: ObservableObject {
         isInteractingWithChatGPT = false
         speakLastResponse()
         saveMessages()
+        messagesSentToday += 1
+        UserDefaults.standard.set(Date(), forKey:"savedTime")
     }
     
     func speakLastResponse() {

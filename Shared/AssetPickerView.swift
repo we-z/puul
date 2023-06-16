@@ -31,11 +31,11 @@ struct AssetPickerView: View {
     var body: some View {
         VStack(alignment: .leading,spacing: 18){
             Button(action: {
-//                if storeVM.purchasedSubscriptions.isEmpty {
-//                    self.showSubscriptions = true
-//                } else {
+                if storeVM.purchasedSubscriptions.isEmpty {
+                    self.showSubscriptions = true
+                } else {
                     self.isBank = true
-                //}
+                }
             }) {
                 HStack{
                     Image(systemName: "building.columns.fill")
@@ -48,11 +48,11 @@ struct AssetPickerView: View {
             }
             
             Button(action: {
-//                if storeVM.purchasedSubscriptions.isEmpty {
-//                    self.showSubscriptions = true
-//                } else {
+                if storeVM.purchasedSubscriptions.isEmpty {
+                    self.showSubscriptions = true
+                } else {
                     self.isBank = false
-                //}
+                }
             }) {
                 HStack{
                     Image(systemName: "building.2.fill")
@@ -64,11 +64,11 @@ struct AssetPickerView: View {
                 .cornerRadius(15)
             }
             Button(action: {
-//                if storeVM.purchasedSubscriptions.isEmpty {
-//                    self.showSubscriptions = true
-//                } else {
+                if storeVM.purchasedSubscriptions.isEmpty {
+                    self.showSubscriptions = true
+                } else {
                     self.showProperties = true
-                //}
+                }
             }) {
                 HStack{
                     Image(systemName: "house.fill")

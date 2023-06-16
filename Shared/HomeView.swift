@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject var vm = ViewModel(api: ChatGPTAPI())
+    @StateObject var vm = ChatViewModel(api: ChatGPTAPI())
     @State private var showLink = false
     @State private var showAccount = false
     @State private var showSteve = false
@@ -23,7 +23,7 @@ struct HomeView: View {
                             Button(action: {
                                 self.showAccount = true
                             }) {
-                                Image(systemName: "person.crop.circle")
+                                Image(systemName: "arrow.up.circle")
                                     .foregroundColor(.primary)
                                     .font(.system(size: 30))
                             }

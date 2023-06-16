@@ -127,7 +127,7 @@ class PlaidModel: ObservableObject {
         else {return}
         
         self.bankAccounts = savedAccounts
-        print("Bank Accounts: ", self.bankAccounts)
+//        print("Bank Accounts: ", self.bankAccounts)
     }
     
     func getBrokerAccounts(){
@@ -137,11 +137,6 @@ class PlaidModel: ObservableObject {
         else {return}
         
         self.brokerAccounts = savedAccounts
-    }
-    
-    func clearBankAccounts(){
-        self.bankAccounts = []
-        self.totalNetWorth = 0
     }
     
     func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, transactions: [BankTransaction]){
@@ -178,11 +173,9 @@ class PlaidModel: ObservableObject {
     
     func saveBankAccounts() {
         if let bankData = try? JSONEncoder().encode(bankAccounts){
-            print("bank accounts encoded")
             UserDefaults.standard.set(bankData, forKey: bankAccountsKey)
         }
         self.calculateNetworth()
-        print("ran save BankAccounts function")
     }
     
     func saveBrokerAccounts() {
@@ -267,7 +260,7 @@ class PlaidModel: ObservableObject {
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "depository": [
-                    "account_subtypes": ["checking"]
+                    "account_subtypes": ["checking", "savings"]
                 ]
             ]
         ] as [String : Any]
