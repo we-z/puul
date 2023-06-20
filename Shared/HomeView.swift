@@ -54,7 +54,6 @@ struct HomeView: View {
                         BankAccountsListView()
                         BrokerAccountsListView()
                         PropertiesListView()
-                            
                     }
                     .refreshable {
                         pm.updateAccounts()
@@ -98,16 +97,6 @@ struct HomeView: View {
                 self.showAccount = false
             }, content: {
                 AccountView()
-                    .presentationDragIndicator(.visible)
-                    .buttonStyle(HapticButtonStyle())
-            }
-        )
-        .sheet(isPresented: self.$showLink,
-            onDismiss: {
-                self.showLink = false
-            }, content: {
-                AssetPickerView()
-                    .presentationDetents([.fraction(0.39)])
                     .presentationDragIndicator(.visible)
                     .buttonStyle(HapticButtonStyle())
             }

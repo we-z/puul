@@ -15,7 +15,7 @@ struct AppInfoView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
                 }
                 .accentColor(.primary)
                 Spacer()
@@ -35,10 +35,9 @@ struct AppInfoView: View {
             }
             .padding()
             HStack{
-                Text("All of your financial data lives on your device and is only accesible to you. You may feel free to remove any of your assets by swiping to the left on them")
+                Text("All of your financial data lives on your device and is only accesible to you.")
                     .font(.system(size: UIScreen.main.bounds.width * 0.06))
                     .multilineTextAlignment(.leading)
-                    .italic()
                 Spacer()
             }
             .padding()

@@ -22,7 +22,7 @@ struct AccountView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
                 }
                 .accentColor(.primary)
                 Spacer()

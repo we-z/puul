@@ -62,15 +62,8 @@ struct BankAccountsListView: View {
                             }
                             )
                         }
-                        .listRowSeparator(.hidden)
                     }
                     .onDelete(perform: deleteRow)
-                    .listRowBackground(
-                        ZStack{
-                            Color.primary.colorInvert()
-                            Color.primary.opacity(0.06)
-                        }
-                    )
                     Divider()
                     Button(action: {
         //                if storeVM.purchasedSubscriptions.isEmpty {

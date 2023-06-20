@@ -27,6 +27,7 @@ struct BrokerAccountsListView: View {
                     .font(.system(size: 30))
                     .bold()
                     ForEach(pm.brokerAccounts) { account in
+                        Divider()
                         Button(action: {
                             accountPage = .init(institution_id: "String", access_token: "String", institution_name: account.institution_name, balance: account.balance, holdings: account.holdings)
                         }) {

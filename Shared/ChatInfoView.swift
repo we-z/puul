@@ -21,7 +21,7 @@ struct ChatInfoView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
                 }
                 .accentColor(.primary)
                 Spacer()
@@ -45,7 +45,7 @@ struct ChatInfoView: View {
                     Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planing for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
                         .multilineTextAlignment(.leading)
-                        .italic()
+                        
                     Spacer()
                 }
                 .padding(.vertical, 3)
@@ -62,7 +62,7 @@ struct ChatInfoView: View {
                     Text("Steve can see your last 10 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
                         .multilineTextAlignment(.leading)
-                        .italic()
+                        
                     Spacer()
                 }
                 .padding(.vertical, 3)

@@ -15,7 +15,7 @@ class PlaidModel: ObservableObject {
     var bankString: String = ""
     var brokerString: String = ""
     var isUpdating = false
-    let plaidEnvironment = "https://development.plaid.com/"
+    let plaidEnvironment = "https://sandbox.plaid.com/"
     let client_id = "63d411aa2bcbe80013f42ad7"
     let sandbox_secret = "4c8e7956ddd4dcb6d91177841fc850"
     let development_secret = "eaeb3902e92ac2fb678511ee863160"
@@ -194,7 +194,7 @@ class PlaidModel: ObservableObject {
         
         let parameters = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "user": [
                 "client_user_id": "unique-per-user"
             ],
@@ -249,7 +249,7 @@ class PlaidModel: ObservableObject {
         
         let parameters = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "user": [
                 "client_user_id": "unique-per-user"
             ],
@@ -303,7 +303,7 @@ class PlaidModel: ObservableObject {
             return
         }
         
-        let requestBody = ["client_id": client_id, "secret": development_secret, "public_token": publicToken]
+        let requestBody = ["client_id": client_id, "secret": sandbox_secret, "public_token": publicToken]
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
@@ -351,7 +351,7 @@ class PlaidModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -392,7 +392,7 @@ class PlaidModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let requestBody: [String: Any] = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -435,7 +435,7 @@ class PlaidModel: ObservableObject {
         let requestBody: [String: Any] = [
             "institution_id": institutionId,
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -466,7 +466,7 @@ class PlaidModel: ObservableObject {
         let requestBody: [String: Any] = [
             "institution_id": institutionId,
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
@@ -501,7 +501,7 @@ class PlaidModel: ObservableObject {
         
         let requestData: [String: Any] = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "access_token": accessToken,
             "start_date": formatDate(startDate),
             "end_date": formatDate(endDate),
@@ -552,7 +552,7 @@ class PlaidModel: ObservableObject {
         
         let requestData: [String: Any] = [
             "client_id": client_id,
-            "secret": development_secret,
+            "secret": sandbox_secret,
             "access_token": accessToken
         ]
         
