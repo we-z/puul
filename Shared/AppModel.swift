@@ -10,8 +10,8 @@ import SwiftUI
 import UIKit
 
 class AppModel: ObservableObject {
-    let lightModeKey: String = "bankaccounts"
-    let hapticKey: String = "brokeraccounts"
+    let lightModeKey: String = "lightmodeKey"
+    let hapticKey: String = "hapticModeKey"
     let risklevelKey: String = "risklevelkey"
     //let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
     @Published public var selectedRiskLevel = "" {

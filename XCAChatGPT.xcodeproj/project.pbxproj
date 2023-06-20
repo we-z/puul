@@ -23,7 +23,7 @@
 		7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
 		7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
 		7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
-		7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */; };
+		7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */; };
 		8B612E2529D68CC9008DF5AF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B612E2229D68CC9008DF5AF /* TextView.swift */; };
 		8B612E2629D68CC9008DF5AF /* TokenizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B612E2329D68CC9008DF5AF /* TokenizerView.swift */; };
 		8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */; };
@@ -66,7 +66,7 @@
 		7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountDetailsView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XCAChatGPT.entitlements; sourceTree = "<group>"; };
 		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPickerView.swift; sourceTree = "<group>"; };
+		7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesListView.swift; sourceTree = "<group>"; };
 		8B612E2229D68CC9008DF5AF /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8B612E2329D68CC9008DF5AF /* TokenizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerView.swift; sourceTree = "<group>"; };
 		8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerViewModel.swift; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 		8B057591298E52CB00A56C9A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				7AD0C9E829FB7D5F00C1989D /* AssetPickerView.swift */,
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
 				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
@@ -149,14 +148,15 @@
 				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
 				7A81C1732A049587000496E3 /* LinkController.swift */,
 				7A4B74032A367F5B0064800C /* LogoView.swift */,
+				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
 				7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */,
 				7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */,
 				7A4B73E42A24684B0064800C /* products.storekit */,
+				7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */,
 				7A4B73E52A267E1C0064800C /* StoreKit.swift */,
 				7A4B73EA2A267F900064800C /* SubscriptionView.swift */,
 				7A81C1642A01BDA5000496E3 /* TempView.swift */,
-				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -325,12 +325,12 @@
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
-				7AD0C9E929FB7D5F00C1989D /* AssetPickerView.swift in Sources */,
 				8B91C014298ADC560079AF26 /* ChatViewModel.swift in Sources */,
 				7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
 				7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
+				7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */,
 				7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */,
 				7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */,
@@ -484,7 +484,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -493,9 +493,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -518,7 +521,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -527,9 +530,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

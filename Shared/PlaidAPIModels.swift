@@ -449,6 +449,7 @@ class PlaidModel: ObservableObject {
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
                 print("Broker: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
+                sleep(1)
                 self.getBrokerholdings(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
             } catch {
                 print("Error decoding JSON: \(error)")
@@ -479,7 +480,7 @@ class PlaidModel: ObservableObject {
                 let institution = json["institution"] as! [String: Any]
                 let institutionName = institution["name"] as! String
                 print("Bank name: " + institutionName) // Do something with the institution name, e.g. return it or store it in a variable
-                
+                sleep(1)
                 self.getBankTransactions(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, institutionName: institutionName)
 
             } catch {
