@@ -71,7 +71,7 @@ class ChatGPTAPI: @unchecked Sendable {
         
     }
     
-    private func generateMessages(from text: String) -> [Message] {
+    public func generateMessages(from text: String) -> [Message] {
         let networthMessage = [Message(role: "user", content: "My total networth is $" + plaidModel.totalNetWorth.withCommas()), Message(role: "assistant", content: "ok")]
         let riskMessage = [Message(role: "user", content: "My risk level is " + appModel.selectedRiskLevel), Message(role: "assistant", content: "ok")]
         let basicMessages = networthMessage + riskMessage
@@ -88,7 +88,7 @@ class ChatGPTAPI: @unchecked Sendable {
         return messages
     }
     
-    private func jsonBody(text: String, stream: Bool = true) throws -> Data {
+    public func jsonBody(text: String, stream: Bool = true) throws -> Data {
         let request = Request(model: model, temperature: temperature,
                               messages: generateMessages(from: text), stream: stream)
         return try JSONEncoder().encode(request)

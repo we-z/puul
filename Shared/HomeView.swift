@@ -48,13 +48,18 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal)
-                    .background(.primary.opacity(0.075))
+                    //.background(.primary.opacity(0.11))
                     
                     List{
                         BankAccountsListView()
+                            .listRowBackground(Color.primary.colorInvert())
                         BrokerAccountsListView()
+                            .listRowBackground(Color.primary.colorInvert())
                         PropertiesListView()
+                            .listRowBackground(Color.primary.colorInvert())
                     }
+                    .background(.gray.opacity(0.2))
+                    .scrollContentBackground(.hidden)
                     .refreshable {
                         pm.updateAccounts()
                         print("refresh")
@@ -85,22 +90,18 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .padding(.top)
                     }
-                    .background(.primary.opacity(0.075))
+                    //.background(.primary.opacity(0.11))
                 }
         }
         .fullScreenCover(isPresented: $showSteve){
             ChatView(vm: vm)
                 .buttonStyle(HapticButtonStyle())
         }
-        .sheet(isPresented: self.$showAccount,
-            onDismiss: {
-                self.showAccount = false
-            }, content: {
-                AccountView()
-                    .presentationDragIndicator(.visible)
-                    .buttonStyle(HapticButtonStyle())
-            }
-        )
+        .fullScreenCover(isPresented: self.$showAccount){
+            AccountView()
+                .presentationDragIndicator(.visible)
+                .buttonStyle(HapticButtonStyle())
+        }
         .accentColor(.primary)
     }
 }

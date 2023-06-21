@@ -14,7 +14,7 @@ class AppModel: ObservableObject {
     let hapticKey: String = "hapticModeKey"
     let risklevelKey: String = "risklevelkey"
     //let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
-    @Published public var selectedRiskLevel = "" {
+    @Published var selectedRiskLevel = "" {
         didSet{
             saveRiskSetting()
         }

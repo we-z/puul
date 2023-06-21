@@ -19,13 +19,14 @@ struct LogoView: View {
                     endPoint: .bottom
                 )
             }
-            .frame(width: 30, height: 120)
-            .offset(x:-58.6, y:105)
+            .frame(width: 42, height: 90)
+            .offset(x: -52.8, y:114)
             Text("U")
                 .rotationEffect(.degrees(-90))
                 .offset(x: 10)
                 
         }
+        .fontWeight(.heavy)
         .bold()
         .font(.system(size: 240))
     }
