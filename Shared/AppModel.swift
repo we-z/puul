@@ -13,10 +13,16 @@ class AppModel: ObservableObject {
     let lightModeKey: String = "lightmodeKey"
     let hapticKey: String = "hapticModeKey"
     let risklevelKey: String = "risklevelkey"
+    let timeFrameKey: String = "timeframekey"
     //let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
     @Published var selectedRiskLevel = "" {
         didSet{
             saveRiskSetting()
+        }
+    }
+    @Published var selectedTimeFrame = "" {
+        didSet{
+            saveTimeFrameSetting()
         }
     }
     @Published public var isLightMode: Bool = false {
@@ -45,6 +51,11 @@ class AppModel: ObservableObject {
             UserDefaults.standard.set(riskSetting, forKey: risklevelKey)
         }
     }
+    func saveTimeFrameSetting() {
+        if let timeFramSetting = try? JSONEncoder().encode(selectedTimeFrame){
+            UserDefaults.standard.set(timeFramSetting, forKey: timeFrameKey)
+        }
+    }
     
     
     init() {
@@ -55,6 +66,7 @@ class AppModel: ObservableObject {
         getLightSetting()
         getHapticSetting()
         getRiskSetting()
+        getTimeFrameSetting()
     }
     
     func getLightSetting(){
@@ -80,6 +92,14 @@ class AppModel: ObservableObject {
         else {return}
         
         self.selectedRiskLevel = savedRiskSetting
+    }
+    func getTimeFrameSetting(){
+        guard
+            let timeFrameData = UserDefaults.standard.data(forKey: timeFrameKey),
+            let savedTimeFrameSetting = try? JSONDecoder().decode(String.self, from: timeFrameData)
+        else {return}
+        
+        self.selectedTimeFrame = savedTimeFrameSetting
     }
     
 }

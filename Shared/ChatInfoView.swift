@@ -14,6 +14,7 @@ struct ChatInfoView: View {
     @State private var selectedRiskLevel = ""
     @EnvironmentObject public var model: AppModel
     let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
+    let terms = ["Short Term", "Long Term"]
     var body: some View {
         VStack{
             Spacer()
@@ -33,14 +34,16 @@ struct ChatInfoView: View {
             .bold()
             .font(.system(size: 21))
             .padding()
+            Form {
             ScrollView{
                 HStack{
                     Text("Who is Steve?")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
                         .bold()
                     Spacer()
                 }
-                .padding()
+                .padding(.vertical)
+                
                 HStack{
                     Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planing for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
@@ -48,16 +51,15 @@ struct ChatInfoView: View {
                         
                     Spacer()
                 }
-                .padding(.vertical, 3)
-                .padding()
-                
+                .padding(.bottom)
+                Divider()
                 HStack{
                     Text("What does Steve know about me?")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                        .font(.system(size: UIScreen.main.bounds.width * 0.07))
                         .bold()
                     Spacer()
                 }
-                .padding()
+                .padding(.top)
                 HStack{
                     Text("Steve can see your last 10 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
@@ -66,9 +68,8 @@ struct ChatInfoView: View {
                     Spacer()
                 }
                 .padding(.vertical, 3)
-                .padding()
             }
-            Form {
+            
                 Picker("Risk Level", selection: $model.selectedRiskLevel) {
                     ForEach(levels, id: \.self) {
                         Text($0)
@@ -76,32 +77,33 @@ struct ChatInfoView: View {
                 }
                 .pickerStyle(.inline)
                 .accentColor(.primary)
-            }
-            .scrollDisabled(true)
-                
-            HStack{
-                Button(action: {
-                    self.showingAlert = true
-                }) {
-                    HStack{
-                        Spacer()
-                        Text("Clear chat history")
-                            .padding()
-                            .foregroundColor(.primary)
-                            .bold()
-                            
-                        Spacer()
+                Picker("Investing Time frame", selection: $model.selectedTimeFrame) {
+                    ForEach(terms, id: \.self) {
+                        Text($0)
                     }
-                    .background(
-                        ZStack{
-                            Color.primary.colorInvert()
-                            Color.primary.opacity(0.18)
-                        }
-                    )
-                    .cornerRadius(32)
                 }
-                .padding(.horizontal)
+                .pickerStyle(.inline)
+                .accentColor(.primary)
+                
+                HStack{
+                    Button(action: {
+                        self.showingAlert = true
+                    }) {
+                        HStack{
+                            Spacer()
+                            Text("Clear chat history")
+                                .padding()
+                                .foregroundColor(.red)
+                                .bold()
+                                
+                            Spacer()
+                        }
+                    }
+                }
             }
+            .scrollIndicators(.hidden)
+                
+            
         }
         .alert(isPresented: self.$showingAlert) {
             Alert(title: Text("Are you sure?"),

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class ChatGPTAPI: @unchecked Sendable {
-    let appModel: AppModel
+    @StateObject var appModel = AppModel()
     @StateObject var plaidModel = PlaidModel()
     let systemMessage: Message
     let temperature: Double
@@ -56,8 +56,6 @@ class ChatGPTAPI: @unchecked Sendable {
     }
 
     init(model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
-        //self.plaidModel = PlaidModel()
-        self.appModel = AppModel()
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature
@@ -76,6 +74,7 @@ class ChatGPTAPI: @unchecked Sendable {
         promptAndUserInfo = prompt
         promptAndUserInfo += "My total networth is $" + plaidModel.totalNetWorth.withCommas() + ". "
         promptAndUserInfo += "My risk level is " + appModel.selectedRiskLevel + ". "
+        promptAndUserInfo += "I want to invest " + appModel.selectedTimeFrame + ". "
         promptAndUserInfo += plaidModel.bankString
         promptAndUserInfo += plaidModel.brokerString
         
