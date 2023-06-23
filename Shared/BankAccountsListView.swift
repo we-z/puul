@@ -13,7 +13,7 @@ struct BankAccountsListView: View {
     @State public var showLink = false
     @State private var toBeDeleted: IndexSet?
     @State private var showingDeleteAlert = false
-    @State public var isBank = false
+    //@State public var isBank = true
     
     var body: some View {
             Section{
@@ -71,7 +71,7 @@ struct BankAccountsListView: View {
         //                } else {
                         pm.createBankLinkToken()
                         print("Bank Menu")
-                        isBank = true
+                        //isBank = true
                         showLink = true
                         //}
                     }) {
@@ -86,7 +86,7 @@ struct BankAccountsListView: View {
                     self.showLink = false
                 }, content: {
                     PlaidLinkFlow(
-                        showLink: $showLink, isBank: $isBank, pm: _pm
+                        showLink: $showLink, isBank: .constant(true), pm: _pm
                     )
                 }
             )

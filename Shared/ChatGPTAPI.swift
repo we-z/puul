@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ChatGPTAPI: @unchecked Sendable {
-    private let appModel: AppModel
-    private let plaidModel: PlaidModel
-    private let systemMessage: Message
-    private let temperature: Double
-    private let model: String
-    let prompt: String = "Your name is Steve. When I ask who or what are you, you reply with I'm Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. Your task is to give the best financial advice when it comes to finance. When I ask for help with choosing stocks and ETFs, you will reply with tickers of good stocks and ETFs. If i ask a question you don't have the context to answer, sugest for me to add a financial institution to give you more context. You will be provided with my bank account transactions and holdings in broker accounts. Advice me based on that information. do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in on what I'm seeking. "
-    
+    let appModel: AppModel
+    @StateObject var plaidModel = PlaidModel()
+    let systemMessage: Message
+    let temperature: Double
+    let model: String
+    let prompt: String = "Your name is Steve. When I ask who or what are you, you reply with I'm Steve. You are an expert financial advisor specialized in giving personal Investing and Financial advice. Your task is to give the best financial advice when it comes to finance. When I ask for help with choosing stocks and ETFs, you will reply with tickers of good stocks and ETFs. If i ask a question you don't have the context to answer, sugest for me to add a financial institution to give you more context. Do not reply with 'as an AI language model'. You will be provided with my bank account transactions and holdings in broker accounts. Advice me based on that information. do not answer anything other than investing and finance-related queries. You must always ask questions before you answer so you can better zone in on what I'm seeking. "
+    var promptAndUserInfo: String = ""
     let apiKey = "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"
     @Published var historyList = [Message]()
-    private let urlSession = URLSession.shared
-    private var urlRequest: URLRequest {
+    let urlSession = URLSession.shared
+    var urlRequest: URLRequest {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -26,19 +27,13 @@ class ChatGPTAPI: @unchecked Sendable {
         return urlRequest
     }
     
-    let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "YYYY-MM-dd"
-        return df
-    }()
-    
-    private let jsonDecoder: JSONDecoder = {
+    let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         return jsonDecoder
     }()
     
-    private var headers: [String: String] {
+    var headers: [String: String] {
         [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(apiKey)"
@@ -55,7 +50,7 @@ class ChatGPTAPI: @unchecked Sendable {
     }
 
     init(model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
-        self.plaidModel = PlaidModel()
+        //self.plaidModel = PlaidModel()
         self.appModel = AppModel()
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
@@ -68,18 +63,19 @@ class ChatGPTAPI: @unchecked Sendable {
                 print("Error loading history list: \(error.localizedDescription)")
             }
         }
-        
     }
     
     public func generateMessages(from text: String) -> [Message] {
-        let networthMessage = [Message(role: "user", content: "My total networth is $" + plaidModel.totalNetWorth.withCommas()), Message(role: "assistant", content: "ok")]
-        let riskMessage = [Message(role: "user", content: "My risk level is " + appModel.selectedRiskLevel), Message(role: "assistant", content: "ok")]
-        let basicMessages = networthMessage + riskMessage
-        let bankMessage = [Message(role: "user", content: plaidModel.bankString), Message(role: "assistant", content: "ok")]
-        let brokerMessage = [Message(role: "user", content: plaidModel.brokerString), Message(role: "assistant", content: "ok")]
-        let listMessages = bankMessage + brokerMessage
         
-        var messages = [systemMessage] + listMessages + basicMessages + historyList + [Message(role: "user", content: text)]
+        promptAndUserInfo = prompt
+        promptAndUserInfo += "My total networth is $" + plaidModel.totalNetWorth.withCommas() + ". "
+        promptAndUserInfo += "My risk level is " + appModel.selectedRiskLevel + ". "
+        promptAndUserInfo += plaidModel.bankString
+        promptAndUserInfo += plaidModel.brokerString
+        
+        print(promptAndUserInfo)
+        
+        var messages = [Message(role: "system", content: promptAndUserInfo)] + historyList + [Message(role: "user", content: text)]
         
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()
@@ -94,7 +90,7 @@ class ChatGPTAPI: @unchecked Sendable {
         return try JSONEncoder().encode(request)
     }
     
-    private func appendToHistoryList(userText: String, responseText: String) {
+    func appendToHistoryList(userText: String, responseText: String) {
         self.historyList.append(.init(role: "user", content: userText))
         self.historyList.append(.init(role: "assistant", content: responseText))
         saveHistoryList()

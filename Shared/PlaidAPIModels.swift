@@ -12,8 +12,8 @@ class PlaidModel: ObservableObject {
     let bankAccountsKey: String = "bankaccounts"
     let brokerAccountsKey: String = "brokeraccounts"
     let networthKey: String = "networth"
-    var bankString: String = ""
-    var brokerString: String = ""
+    @Published var bankString: String = ""
+    @Published var brokerString: String = ""
     var isUpdating = false
     let plaidEnvironment = "https://development.plaid.com/"
     let client_id = "63d411aa2bcbe80013f42ad7"
@@ -85,6 +85,8 @@ class PlaidModel: ObservableObject {
             bankString += " \n"
             
         }
+//        print("Bank String:")
+//        print(bankString)
     }
     
     func updateBrokerString(){
@@ -204,6 +206,9 @@ class PlaidModel: ObservableObject {
             "language": "en",
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
+                "depository": [
+                    "account_subtypes": ["checking", "savings"]
+                ],
                 "investment": [
                     "account_subtypes": ["ira", "401k"]
                 ]
@@ -231,7 +236,7 @@ class PlaidModel: ObservableObject {
                         DispatchQueue.main.async {
                             self.linkToken = linkToken
                         }
-                        print("Link token: \(self.linkToken)")
+                        print("Broker Link token: \(self.linkToken)")
                     }
                 } catch {
                     print("Error decoding response: \(error.localizedDescription)")
@@ -261,6 +266,9 @@ class PlaidModel: ObservableObject {
             "account_filters": [
                 "depository": [
                     "account_subtypes": ["checking", "savings"]
+                ],
+                "investment": [
+                    "account_subtypes": ["ira", "401k"]
                 ]
             ]
         ] as [String : Any]
@@ -285,7 +293,7 @@ class PlaidModel: ObservableObject {
                     if let linkToken = json?["link_token"] as? String {
                         DispatchQueue.main.async {
                             self.linkToken = linkToken
-                            print("Link token: \(self.linkToken)")
+                            print("Bank Link token: \(self.linkToken)")
                         }
                     }
                 } catch {
