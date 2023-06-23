@@ -14,6 +14,7 @@
 		7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
+		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
 		7A81C16A2A021077000496E3 /* PlaidLinkFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */; };
 		7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
@@ -56,6 +57,7 @@
 		7A4B73F92A2A84900064800C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		7A7BDC102A457EC400AC5F6B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkFlowView.swift; sourceTree = "<group>"; };
 		7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPIModels.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */,
 				8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */,
 				EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */,
 			);
@@ -123,6 +126,7 @@
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A7BDC102A457EC400AC5F6B /* StoreKit.framework */,
 				7A48E56229FE57C80068362F /* LinkKit.xcframework */,
 				A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */,
 			);

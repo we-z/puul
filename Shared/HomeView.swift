@@ -59,7 +59,7 @@ struct HomeView: View {
                     }
                     .background(
                         LinearGradient(
-                            colors: [.primary.opacity(0.15), .primary.opacity(0.03)],
+                            colors: [.primary.opacity(0.15), .primary.opacity(0.04)],
                             startPoint: .top,
                             endPoint: .bottom
                         )
