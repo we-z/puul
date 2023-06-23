@@ -27,6 +27,12 @@ class ChatGPTAPI: @unchecked Sendable {
         return urlRequest
     }
     
+    let dateFormatter: DateFormatter = {
+            let df = DateFormatter()
+            df.dateFormat = "YYYY-MM-dd"
+            return df
+    }()
+    
     let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase

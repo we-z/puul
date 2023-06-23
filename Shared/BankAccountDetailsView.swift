@@ -17,7 +17,6 @@ struct BankAccountDetailsView: View {
                         .bold()
                         .foregroundColor(.primary)
                         .font(.system(size: 36))
-                        .opacity(0.7)
                         .padding(.top)
                     Text("$" + viewdata.balance.withCommas())
                         .bold()

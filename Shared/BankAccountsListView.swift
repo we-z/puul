@@ -13,7 +13,6 @@ struct BankAccountsListView: View {
     @State public var showLink = false
     @State private var toBeDeleted: IndexSet?
     @State private var showingDeleteAlert = false
-    //@State public var isBank = true
     
     var body: some View {
             Section{
@@ -26,12 +25,16 @@ struct BankAccountsListView: View {
                     .padding(.top, 6)
                     .font(.system(size: 30))
                     .bold()
+                    .listRowSeparator(.hidden)
+                    Divider()
+
+                }
+                .listRowSeparator(.hidden)
                     ForEach(pm.bankAccounts) { account in
-                        Divider()
+                        
                         Button(action: {
                             accountPage = .init(institution_id: "String", access_token: "String", institution_name: account.institution_name, balance: account.balance, transactions: account.transactions)
                         }) {
-                            HStack(spacing: 15){
                                 VStack(spacing: 6) {
                                     HStack {
                                         Text(account.institution_name + ":")
@@ -41,12 +44,13 @@ struct BankAccountsListView: View {
                                     }
                                     HStack {
                                         Text("$" + account.balance.withCommas())
-                                            .font(.system(size: 36))
+                                            .font(.system(size: 45))
+                                            .bold()
                                         Spacer()
                                     }
+                                    Divider()
+                                        .padding(.top, 18)
                                 }
-                                .padding(.vertical)
-                            }
                         }
                         .sheet(item: $accountPage){ rs in
                             BankAccountDetailsView(viewdata: rs)
@@ -64,7 +68,7 @@ struct BankAccountsListView: View {
                         }
                     }
                     .onDelete(perform: deleteRow)
-                    Divider()
+                    .listRowSeparator(.hidden)
                     Button(action: {
         //                if storeVM.purchasedSubscriptions.isEmpty {
         //                    self.showSubscriptions = true
@@ -75,11 +79,14 @@ struct BankAccountsListView: View {
                         showLink = true
                         //}
                     }) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 30))
-                            .padding(3)
+                            HStack{
+                                Spacer()
+                                Image(systemName: "plus")
+                                    .font(.system(size: 30))
+                                    .padding(.bottom, 12)
+                                Spacer()
+                            }
                     }
-                }
             }
             .sheet(isPresented: self.$showLink,
                 onDismiss: {

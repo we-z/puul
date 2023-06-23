@@ -20,11 +20,10 @@ struct HomeView: View {
                 VStack(spacing: 0){
                     HStack{
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Portfolio")
+                            Text("Portfolio:")
                                 .bold()
                                 .foregroundColor(.primary)
                                 .font(.system(size: 30))
-                                .opacity(0.7)
                                 .padding(.top)
                             Text("$" + pm.totalNetWorth.withCommas())
                                 .bold()
@@ -58,12 +57,20 @@ struct HomeView: View {
                         PropertiesListView()
                             .listRowBackground(Color.primary.colorInvert())
                     }
-                    .background(.gray.opacity(0.2))
+                    .background(
+                        LinearGradient(
+                            colors: [.primary.opacity(0.15), .primary.opacity(0.03)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                     .scrollContentBackground(.hidden)
                     .refreshable {
                         pm.updateAccounts()
                         print("refresh")
                     }
+                    .scrollIndicators(.hidden)
+                    .environment(\.defaultMinListRowHeight, 49)
                     
                     HStack{
                         Button(action: {
