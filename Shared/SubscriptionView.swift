@@ -27,7 +27,7 @@ struct SubscriptionView: View {
                 }
                 .padding(.horizontal)
                 HStack {
-                    Text("Achieve Financial Freedom")
+                    Text("Pool your assets in one place")
                         .font(.system(size: UIScreen.main.bounds.width * 0.19))
                         .bold()
                         .padding()

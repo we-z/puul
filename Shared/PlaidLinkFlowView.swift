@@ -10,10 +10,10 @@ import LinkKit
 import SwiftUI
 
 public struct PlaidLinkFlow: View {
-    @Binding var showLink: Bool
-    @Binding var isBank: Bool
+    @State var showLink: Bool
+    var isBank: Bool
     
-    @EnvironmentObject var pm: PlaidModel
+    @StateObject var pm: PlaidModel
     
     public var body: some View {
         if pm.linkToken.isEmpty{

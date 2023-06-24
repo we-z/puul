@@ -27,9 +27,11 @@ struct BankAccountDetailsView: View {
                 Spacer()
             }
             if viewdata.transactions.isEmpty{
-                List{
-                    Section(header: Text("No Transactions Found").font(.system(size: 40))){
-                    }
+                VStack{
+                    Text("Transactions appear in less then 12 hours")
+                        .font(.system(size: 30))
+                        .padding()
+                    Spacer()
                 }
             } else {
                 List{
@@ -60,11 +62,11 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String", institution_name: "Chase", balance: 0, transactions:
                 [
-                    BankTransaction(amount: 746, merchant: "Apple", dateTime: "String"),
-                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
-                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
-                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
-                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
+//                    BankTransaction(amount: 746, merchant: "Apple", dateTime: "String"),
+//                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
+//                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
+//                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
+//                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
                 ]))
     }
 }

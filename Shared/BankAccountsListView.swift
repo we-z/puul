@@ -91,9 +91,10 @@ struct BankAccountsListView: View {
             .sheet(isPresented: self.$showLink,
                 onDismiss: {
                     self.showLink = false
+                pm.linkToken = ""
                 }, content: {
                     PlaidLinkFlow(
-                        showLink: $showLink, isBank: .constant(true), pm: _pm
+                        showLink: showLink, isBank: true, pm: pm
                     )
                 }
             )

@@ -45,7 +45,7 @@ struct ChatInfoView: View {
                 .padding(.vertical)
                 
                 HStack{
-                    Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planing for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
+                    Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planning for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
                         .multilineTextAlignment(.leading)
                         
@@ -68,6 +68,22 @@ struct ChatInfoView: View {
                     Spacer()
                 }
                 .padding(.vertical, 3)
+                Divider()
+                    .padding(.top)
+                HStack{
+                    Text("Why?")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                        .bold()
+                    Spacer()
+                }
+                .padding(.vertical)
+                HStack{
+                    Text("The biggest advantage of an AI financial advisor over a human advisor is its ability to process vast amounts of data quickly and make data-driven recommendations. \n \nUnlike human advisors, AI is not influenced by emotional biases, which can impact decision-making.")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
+                        .multilineTextAlignment(.leading)
+                        
+                    Spacer()
+                }
             }
             
                 Picker("Risk Level", selection: $model.selectedRiskLevel) {
