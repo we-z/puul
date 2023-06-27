@@ -41,7 +41,7 @@ struct ChatView: View {
                             .font(.system(size: 24))
                     }
                     Spacer()
-                    Text("Steve")
+                    Text("Steve 👨‍💼")
                         .font(.system(size: 21))
                         .bold()
                     Spacer()

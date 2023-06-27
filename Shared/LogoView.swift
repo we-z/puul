@@ -14,7 +14,7 @@ struct LogoView: View {
                 .opacity(0.3)
             VStack{
                 LinearGradient(
-                    colors: [.primary, .primary],
+                    colors: [.primary.opacity(0.5), .primary],
                     startPoint: .top,
                     endPoint: .bottom
                 )

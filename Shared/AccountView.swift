@@ -127,9 +127,9 @@ struct AccountView: View {
                 
                 .padding()
                 .background(.primary.opacity(0.12))
-                .cornerRadius(30)
+                .cornerRadius(45)
                 .padding(.horizontal)
-                .font(.system(size: 30))
+                .font(.system(size: 40))
                 .bold()
                 
             }

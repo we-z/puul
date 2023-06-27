@@ -23,12 +23,14 @@ struct HomeView: View {
                             Text("Portfolio:")
                                 .bold()
                                 .foregroundColor(.primary)
-                                .font(.system(size: 30))
+                                .font(.system(size: UIScreen.main.bounds.height * 0.047))
                                 .padding(.top)
                             Text("$" + pm.totalNetWorth.withCommas())
                                 .bold()
-                                .foregroundColor(.primary)
-                                .font(.system(size: 75))
+                                .font(.system(size: UIScreen.main.bounds.height * 0.09))
+                                .scaledToFit()
+                                .minimumScaleFactor(0.01)
+                                .lineLimit(1)
                             Spacer()
                                 .frame(maxHeight: 21)
                         }
@@ -47,23 +49,18 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal)
-                    //.background(.primary.opacity(0.11))
+                    Divider()
+                        .overlay(.gray)
+                        .padding(.horizontal)
                     
                     List{
                         BankAccountsListView()
-                            .listRowBackground(Color.primary.colorInvert())
+                            .listRowBackground(Color.gray.opacity(0.2))
                         BrokerAccountsListView()
-                            .listRowBackground(Color.primary.colorInvert())
+                            .listRowBackground(Color.gray.opacity(0.2))
                         PropertiesListView()
-                            .listRowBackground(Color.primary.colorInvert())
+                            .listRowBackground(Color.gray.opacity(0.2))
                     }
-                    .background(
-                        LinearGradient(
-                            colors: [.primary.opacity(0.15), .primary.opacity(0.06)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
                     .scrollContentBackground(.hidden)
                     .refreshable {
                         pm.updateAccounts()
@@ -78,7 +75,8 @@ struct HomeView: View {
                         }) {
                             HStack{
                                 Spacer()
-                                Text("Talk with Steve")
+                                Text("Talk with Steve 👨‍💼")
+                                    .font(.system(size: 30))
                                     .padding()
                                     .foregroundColor(.primary)
                                     .bold()
@@ -88,7 +86,7 @@ struct HomeView: View {
                             .background(
                                 ZStack{
                                     Color.primary.colorInvert()
-                                    Color.primary.opacity(0.12)
+                                    Color.gray.opacity(0.2)
                                 }
                             )
                             .cornerRadius(32)
@@ -97,7 +95,6 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .padding(.top)
                     }
-                    //.background(.primary.opacity(0.11))
                 }
         }
         .fullScreenCover(isPresented: $showSteve){

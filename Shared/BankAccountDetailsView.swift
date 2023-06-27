@@ -28,9 +28,12 @@ struct BankAccountDetailsView: View {
             }
             if viewdata.transactions.isEmpty{
                 VStack{
-                    Text("Transactions appear in less then 12 hours")
-                        .font(.system(size: 30))
-                        .padding()
+                    HStack{
+                        Text("Try refreshing the home screen again later. \n\nTransactions can take up to 12 hours to appear.")
+                            .font(.system(size: 39))
+                            .padding()
+                        Spacer()
+                    }
                     Spacer()
                 }
             } else {

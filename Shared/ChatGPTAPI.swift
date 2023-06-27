@@ -55,7 +55,7 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
 
-    init(model: String = "gpt-3.5-turbo", temperature: Double = 0.5) {
+    init(model: String = "gpt-3.5-turbo-16k", temperature: Double = 0.5) {
         self.model = model
         self.systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature

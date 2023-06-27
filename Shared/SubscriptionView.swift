@@ -12,6 +12,7 @@ struct SubscriptionView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State var isPurchased = false
     @Environment(\.dismiss) private var dismiss
+    
 
     var body: some View {
         VStack{
@@ -27,17 +28,20 @@ struct SubscriptionView: View {
                 }
                 .padding(.horizontal)
                 HStack {
-                    Text("Pool your assets in one place")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.19))
+                    Text("Get a smarter portfolio")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.21))
                         .bold()
                         .padding()
                     Spacer()
                 }
             }
-            .background(.primary.opacity(0.1))
+            //.background(.primary.opacity(0.1))
+            Divider()
+                .overlay(.primary)
+                .padding(.horizontal)
             
             HStack{
-                VStack(alignment: .leading, spacing: 30){
+                VStack(alignment: .leading, spacing: 36){
                     HStack{
                         Image(systemName: "message")
                         Text("Unlimited questions")
@@ -69,22 +73,21 @@ struct SubscriptionView: View {
                             VStack {
                                 
                                 HStack {
+                                    Spacer()
                                     Text(product.displayPrice)
                                     Text("/")
                                     Text(product.displayName)
                                     Spacer()
                                 }
-                                .font(.system(size: 27))
-                                .padding(.leading)
+                                .font(.system(size: UIScreen.main.bounds.width * 0.1))
                                 .bold()
                             }
                             .padding()
-                            .padding(.vertical, 6)
-                            
+                            .padding(.vertical, 27)
                         }
                         .foregroundColor(.primary)
-                        .background(Color.primary.opacity(0.15))
-                        .cornerRadius(39)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(45)
                         .padding(.horizontal)
                     }
                 }

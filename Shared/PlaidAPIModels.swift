@@ -40,6 +40,7 @@ class PlaidModel: ObservableObject {
         getBankAccounts()
         getBrokerAccounts()
         calculateNetworth()
+        updateAccounts()
     }
     
     // call when refreshing
@@ -69,14 +70,14 @@ class PlaidModel: ObservableObject {
         
         bankAccounts.forEach { account in
             bankString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " bank account\n\n"
-            bankString += "I spent:\n"
+            bankString += "I sent:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount > 0 {
-                    bankString += "$" + String(transaction.amount) + " at " + transaction.merchant + " on " + transaction.dateTime + "\n"
+                    bankString += "$" + String(transaction.amount) + " to " + transaction.merchant + " on " + transaction.dateTime + "\n"
                 }
             }
             bankString += " \n"
-            bankString += "I made:\n"
+            bankString += "I recieved:\n"
             account.transactions.forEach{ transaction in
                 if transaction.amount < 0 {
                     bankString += "$" + String(abs(transaction.amount)) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
@@ -366,7 +367,11 @@ class PlaidModel: ObservableObject {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
                 let item = json["item"] as! [String: Any]
+                
                 let institutionId = item["institution_id"] as! String
+                let itemId = item["item_id"] as! String
+                print("Item ID:")
+                print(itemId)
 
                 let accountsArray = json["accounts"] as! [[String: Any]]
 
@@ -528,9 +533,9 @@ class PlaidModel: ObservableObject {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                print("Json transaction respone:")
-                print(json)
                 let transactionsData = json["transactions"] as? [[String: Any]] ?? []
+                print("Json transaction respone for \(institutionName):")
+                print(transactionsData)
                 
                 var transactions: [BankTransaction] = []
                 
