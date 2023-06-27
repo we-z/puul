@@ -41,11 +41,11 @@ struct HomeView: View {
                             }) {
                                 Image(systemName: "person.crop.circle")
                                     .foregroundColor(.primary)
-                                    .font(.system(size: 30))
+                                    .font(.system(size: UIScreen.main.bounds.height * 0.039))
                             }
                             .buttonStyle(HapticButtonStyle())
                             Spacer()
-                                .frame(maxHeight: UIScreen.main.bounds.height * 0.11)
+                                .frame(maxHeight: UIScreen.main.bounds.height * 0.12)
                         }
                     }
                     .padding(.horizontal)
@@ -86,7 +86,7 @@ struct HomeView: View {
                             .background(
                                 ZStack{
                                     Color.primary.colorInvert()
-                                    Color.gray.opacity(0.2)
+                                    Color.gray.opacity(0.3)
                                 }
                             )
                             .cornerRadius(32)
@@ -95,6 +95,7 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .padding(.top)
                     }
+                    .background(.gray.opacity(0.15))
                 }
         }
         .fullScreenCover(isPresented: $showSteve){
