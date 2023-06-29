@@ -37,10 +37,10 @@ class PlaidModel: ObservableObject {
     }
     
     init() {
-        getBankAccounts()
+        getSavedBankAccounts()
         getBrokerAccounts()
         calculateNetworth()
-        updateAccounts()
+        //updateAccounts()
     }
     
     // call when refreshing
@@ -123,7 +123,7 @@ class PlaidModel: ObservableObject {
         brokerAccounts.remove(atOffsets: indexSet)
     }
     
-    func getBankAccounts(){
+    func getSavedBankAccounts(){
         guard
             let accountData = UserDefaults.standard.data(forKey: bankAccountsKey),
             let savedAccounts = try? JSONDecoder().decode([BankAccount].self, from: accountData)
@@ -534,8 +534,6 @@ class PlaidModel: ObservableObject {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let transactionsData = json["transactions"] as? [[String: Any]] ?? []
-                print("Json transaction respone for \(institutionName):")
-                print(transactionsData)
                 
                 var transactions: [BankTransaction] = []
                 

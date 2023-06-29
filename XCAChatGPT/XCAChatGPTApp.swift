@@ -19,6 +19,9 @@ struct PuulApp: App {
                 HomeView()
                     .preferredColorScheme(appModel.isLightMode ? .light : .dark)
                     .buttonStyle(HapticButtonStyle())
+                    .onAppear{
+                        plaidModel.updateAccounts()
+                    }
             }
             .environmentObject(appModel)
             .environmentObject(plaidModel)

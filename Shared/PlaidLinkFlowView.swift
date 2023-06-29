@@ -67,7 +67,7 @@ public struct PlaidLinkFlow: View {
                 print("exit with \(exit.metadata)")
             }
             pm.linkToken = ""
-            pm.getBankAccounts()
+            pm.getSavedBankAccounts()
             pm.getBrokerAccounts()
             showLink = false
         }

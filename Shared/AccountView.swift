@@ -129,7 +129,7 @@ struct AccountView: View {
                 .background(.primary.opacity(0.12))
                 .cornerRadius(45)
                 .padding(.horizontal)
-                .font(.system(size: 40))
+                .font(.system(size: UIScreen.main.bounds.height * 0.039))
                 .bold()
                 
             }

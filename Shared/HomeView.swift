@@ -76,7 +76,7 @@ struct HomeView: View {
                             HStack{
                                 Spacer()
                                 Text("Talk with Steve 👨‍💼")
-                                    .font(.system(size: 30))
+                                    .font(.system(size: UIScreen.main.bounds.height * 0.036))
                                     .padding()
                                     .foregroundColor(.primary)
                                     .bold()

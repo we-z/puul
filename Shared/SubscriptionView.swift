@@ -28,8 +28,8 @@ struct SubscriptionView: View {
                 }
                 .padding(.horizontal)
                 HStack {
-                    Text("Get a smarter portfolio")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.21))
+                    Text("Upgrade to a smarter portfolio")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.18))
                         .bold()
                         .padding()
                     Spacer()
@@ -60,7 +60,7 @@ struct SubscriptionView: View {
                 .padding(.horizontal)
                 //Spacer()
             }
-            .padding(.top, UIScreen.main.bounds.height * 0.06)
+            .padding(.top, UIScreen.main.bounds.height * 0.075)
             Spacer()
             Group {
                 Section {
