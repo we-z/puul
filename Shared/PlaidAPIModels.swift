@@ -208,7 +208,7 @@ class PlaidModel: ObservableObject {
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "investment": [
-                    "account_subtypes": ["ira", "401k"]
+                    "account_subtypes": ["all"]
                 ]
             ]
         ] as [String : Any]
