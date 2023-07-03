@@ -36,7 +36,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "subscription.monthly",
+          "productID" : "monthly.subscription",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Monthly",
           "subscriptionGroupID" : "2A77CD3C",

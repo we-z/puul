@@ -107,6 +107,7 @@ struct HomeView: View {
                 .presentationDragIndicator(.visible)
                 .buttonStyle(HapticButtonStyle())
         }
+        .environmentObject(StoreVM())
         .accentColor(.primary)
     }
 }

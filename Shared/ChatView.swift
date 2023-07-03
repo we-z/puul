@@ -128,14 +128,14 @@ struct ChatView: View {
                 DotLoadingView().frame(width: 60, height: 30)
             } else {
                 Button {
-//                    if vm.messagesSentToday > 2 && storeVM.purchasedSubscriptions.isEmpty {
-//                        self.showSubscriptions = true
-//                    } else {
+                    if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
+                        self.showSubscriptions = true
+                    } else {
                         Task { @MainActor in
                             isTextFieldFocused = false
                             scrollToBottom(proxy: proxy)
                             await vm.sendTapped()
-                        //}
+                        }
                     }
                 } label: {
                     Image(systemName: "paperplane.circle.fill")

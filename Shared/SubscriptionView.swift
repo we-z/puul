@@ -12,7 +12,6 @@ struct SubscriptionView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State var isPurchased = false
     @Environment(\.dismiss) private var dismiss
-    
 
     var body: some View {
         VStack{
@@ -60,7 +59,7 @@ struct SubscriptionView: View {
                 .padding(.horizontal)
                 //Spacer()
             }
-            .padding(.top, UIScreen.main.bounds.height * 0.075)
+            .padding(.top, UIScreen.main.bounds.height * 0.045)
             Spacer()
             Group {
                 Section {
@@ -92,6 +91,14 @@ struct SubscriptionView: View {
                     }
                 }
             }
+            Button(action: {
+                storeVM.restoreProducts()
+            }){
+                Text("Restore Purchases")
+                    .underline()
+                    .padding()
+                    .foregroundColor(.primary)
+            }
         }
         .environmentObject(StoreVM())
     }
@@ -100,6 +107,8 @@ struct SubscriptionView: View {
         do {
             if try await storeVM.purchase(product) != nil {
                 isPurchased = true
+                dismiss()
+                await storeVM.updatePurchasedProducts()
             }
         } catch {
             print("purchase failed")

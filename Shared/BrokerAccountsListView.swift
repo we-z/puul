@@ -13,6 +13,8 @@ struct BrokerAccountsListView: View {
     @State private var toBeDeleted: IndexSet?
     @State private var showingDeleteAlert = false
     @State public var showLink = false
+    @StateObject var storeVM = StoreVM()
+    @State private var showSubscriptions = false
     
     var body: some View {
             Section{
@@ -71,14 +73,14 @@ struct BrokerAccountsListView: View {
                     .listRowSeparator(.hidden)
                 
                     Button(action: {
-        //                if storeVM.purchasedSubscriptions.isEmpty {
-        //                    self.showSubscriptions = true
-        //                } else {
+                        if !storeVM.hasUnlockedPro {
+                            self.showSubscriptions = true
+                        } else {
                         pm.createBrokerLinkToken()
                         print("Broker Menu")
                         //isBank = false
                         showLink = true
-                        //}
+                        }
                     }) {
                         HStack{
                             Spacer()
@@ -99,6 +101,11 @@ struct BrokerAccountsListView: View {
                     )
                 }
             )
+            .fullScreenCover(isPresented: $showSubscriptions){
+                SubscriptionView()
+                    .buttonStyle(HapticButtonStyle())
+            }
+            .environmentObject(storeVM)
             
     }
     func deleteRow(at indexSet: IndexSet) {

@@ -14,6 +14,7 @@ struct AccountView: View {
     @StateObject var storeVM = StoreVM()
     @EnvironmentObject public var model: AppModel
     @Environment(\.requestReview) private var requestReview
+    @State private var showManageSubscriptions = false
     
     var body: some View {
         VStack{
@@ -37,14 +38,23 @@ struct AccountView: View {
             List{
                 Section(header: Text("Account")){
                     Button(action: {
-                        self.showSubscriptions = true
+                        if !storeVM.hasUnlockedPro {
+                            self.showSubscriptions = true
+                        } else {
+                            showManageSubscriptions = true
+                        }
                     }) {
                         HStack{
                             Image(systemName: "arrow.clockwise")
                             Text("Subscription")
                             Spacer()
-                            Text("Free Plan")
-                                .foregroundColor(.gray)
+                            if !storeVM.hasUnlockedPro {
+                                Text("Free Plan")
+                                    .foregroundColor(.gray)
+                            } else {
+                                Text("Premium Plan")
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
                     Button(action: {
@@ -149,6 +159,7 @@ struct AccountView: View {
             }
         )
         .preferredColorScheme(model.isLightMode ? .light : .dark)
+        .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
         .environmentObject(storeVM)
     }
 }
