@@ -12,7 +12,6 @@ struct PuulApp: App {
     
     @StateObject public var appModel: AppModel = AppModel()
     @StateObject var plaidModel: PlaidModel = PlaidModel()
-    @StateObject private var storeVM = StoreVM()
     
     var body: some Scene {
         WindowGroup {
@@ -22,9 +21,6 @@ struct PuulApp: App {
                     .buttonStyle(HapticButtonStyle())
                     .onAppear{
                         plaidModel.updateAccounts()
-                    }
-                    .task {
-                        await storeVM.updatePurchasedProducts()
                     }
             }
             .environmentObject(StoreVM())

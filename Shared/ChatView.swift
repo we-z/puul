@@ -18,7 +18,7 @@ struct ChatView: View {
     @State private var showInfoPage = false
     @State private var shouldClearConversation = false
     @State private var showSubscriptions = false
-    @StateObject var storeVM = StoreVM()
+    @EnvironmentObject var storeVM: StoreVM
     
     var body: some View {
         chatListView

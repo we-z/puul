@@ -11,7 +11,7 @@ import StoreKit
 struct SubscriptionView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State var isPurchased = false
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         VStack{
@@ -107,8 +107,10 @@ struct SubscriptionView: View {
         do {
             try await storeVM.purchase(product)
             isPurchased = true
-            dismiss()
             await storeVM.updatePurchasedProducts()
+            if storeVM.success{
+                dismiss()
+            }
         } catch {
             print("purchase failed")
         }

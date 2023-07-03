@@ -13,7 +13,7 @@ struct BrokerAccountsListView: View {
     @State private var toBeDeleted: IndexSet?
     @State private var showingDeleteAlert = false
     @State public var showLink = false
-    @StateObject var storeVM = StoreVM()
+    @EnvironmentObject var storeVM: StoreVM
     @State private var showSubscriptions = false
     
     var body: some View {

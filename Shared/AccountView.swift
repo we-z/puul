@@ -11,7 +11,7 @@ struct AccountView: View {
     @State private var showSubscriptions = false
     @State private var showDataInfo = false
     @Environment(\.dismiss) private var dismiss
-    @StateObject var storeVM = StoreVM()
+    @EnvironmentObject var storeVM: StoreVM
     @EnvironmentObject public var model: AppModel
     @Environment(\.requestReview) private var requestReview
     @State private var showManageSubscriptions = false
