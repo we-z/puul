@@ -105,15 +105,15 @@ struct SubscriptionView: View {
     
     func buy(product: Product) async {
         do {
-            if try await storeVM.purchase(product) != nil {
-                isPurchased = true
-                dismiss()
-                await storeVM.updatePurchasedProducts()
-            }
+            try await storeVM.purchase(product)
+            isPurchased = true
+            dismiss()
+            await storeVM.updatePurchasedProducts()
         } catch {
             print("purchase failed")
         }
     }
+
 }
 
 struct SubscriptionView_Previews: PreviewProvider {

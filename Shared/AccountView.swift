@@ -126,22 +126,24 @@ struct AccountView: View {
                     }
                 }
             }
-            Button(action: {
-                self.showSubscriptions = true
-            }) {
-                HStack{
-                    Image(systemName: "arrow.up.circle")
-                    Text("Upgrade to Pro")
-                    Spacer()
+            if !storeVM.hasUnlockedPro {
+                Button(action: {
+                    self.showSubscriptions = true
+                }) {
+                    HStack{
+                        Image(systemName: "arrow.up.circle")
+                        Text("Upgrade to Pro")
+                        Spacer()
+                    }
+                    
+                    .padding()
+                    .background(.primary.opacity(0.12))
+                    .cornerRadius(45)
+                    .padding(.horizontal)
+                    .font(.system(size: UIScreen.main.bounds.height * 0.039))
+                    .bold()
+                    
                 }
-                
-                .padding()
-                .background(.primary.opacity(0.12))
-                .cornerRadius(45)
-                .padding(.horizontal)
-                .font(.system(size: UIScreen.main.bounds.height * 0.039))
-                .bold()
-                
             }
         }
         .accentColor(.primary)

@@ -39,7 +39,7 @@ class StoreVM: ObservableObject {
     
     private func observeTransactionUpdates() -> Task<Void, Never> {
         Task(priority: .background) { [unowned self] in
-            for await verificationResult in Transaction.updates {
+            for await _ in Transaction.updates {
                 // Using verificationResult directly would be better
                 // but this way works for this tutorial
                 await self.updatePurchasedProducts()
@@ -72,7 +72,8 @@ class StoreVM: ObservableObject {
         do {
             // request from the app store using the product ids (hardcoded)
             subscriptions = try await Product.products(for: productIds)
-            //print(subscriptions)
+            print("subscriptions: ")
+            print(subscriptions)
         } catch {
             print("Failed product request from app store server: \(error)")
         }
@@ -86,7 +87,7 @@ class StoreVM: ObservableObject {
         case let .success(.verified(transaction)):
             await transaction.finish()
             await self.updatePurchasedProducts()
-        case let .success(.unverified(_, error)):
+        case .success(.unverified(_, _)):
             break
         case .pending:
             break
@@ -148,7 +149,6 @@ class StoreVM: ObservableObject {
                 self.purchasedProductIDs.remove(transaction.productID)
             }
         }
-        print("updatePurchasedProducts called")
     }
     
     func restoreProducts(){
