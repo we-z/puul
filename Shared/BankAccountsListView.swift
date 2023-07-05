@@ -120,5 +120,6 @@ struct BankAccountsListView_Previews: PreviewProvider {
     static var previews: some View {
         BankAccountsListView()
             .environmentObject(PlaidModel())
+            .environmentObject(StoreVM())
     }
 }

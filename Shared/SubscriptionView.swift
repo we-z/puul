@@ -100,7 +100,7 @@ struct SubscriptionView: View {
                     .foregroundColor(.primary)
             }
         }
-        .environmentObject(StoreVM())
+        //.environmentObject(StoreVM())
     }
     
     func buy(product: Product) async {
@@ -120,6 +120,7 @@ struct SubscriptionView: View {
 
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionView().environmentObject( StoreVM())
+        SubscriptionView()
+            .environmentObject(StoreVM())
     }
 }

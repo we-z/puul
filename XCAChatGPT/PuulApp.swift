@@ -12,6 +12,7 @@ struct PuulApp: App {
     
     @StateObject public var appModel: AppModel = AppModel()
     @StateObject var plaidModel: PlaidModel = PlaidModel()
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +23,16 @@ struct PuulApp: App {
                     .onAppear{
                         plaidModel.updateAccounts()
                     }
+                    .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .inactive {
+                            print("Inactive")
+                        } else if newPhase == .active {
+                            plaidModel.updateAccounts()
+                            print("Active")
+                        } else if newPhase == .background {
+                            print("Background")
+                        }
+                    }
             }
             .environmentObject(StoreVM())
             .environmentObject(appModel)
@@ -30,3 +41,4 @@ struct PuulApp: App {
         }
     }
 }
+

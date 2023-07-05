@@ -15,6 +15,7 @@
 		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
+		7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
 		7A81C16A2A021077000496E3 /* PlaidLinkFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */; };
 		7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */; };
@@ -30,7 +31,7 @@
 		8B612E2729D68CC9008DF5AF /* TokenizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */; };
 		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
 		8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */; };
-		8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */; };
+		8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* PuulApp.swift */; };
 		8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C007298AD09F0079AF26 /* Assets.xcassets */; };
 		8B91C00B298AD09F0079AF26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C00A298AD09F0079AF26 /* Preview Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		7A7BDC102A457EC400AC5F6B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7A81C1692A021077000496E3 /* PlaidLinkFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkFlowView.swift; sourceTree = "<group>"; };
 		7A81C16E2A0216A5000496E3 /* PlaidAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidAPIModels.swift; sourceTree = "<group>"; };
@@ -66,14 +68,14 @@
 		7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsListView.swift; sourceTree = "<group>"; };
 		7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountsListView.swift; sourceTree = "<group>"; };
 		7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountDetailsView.swift; sourceTree = "<group>"; };
-		7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XCAChatGPT.entitlements; sourceTree = "<group>"; };
+		7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Puul.entitlements; sourceTree = "<group>"; };
 		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesListView.swift; sourceTree = "<group>"; };
 		8B612E2229D68CC9008DF5AF /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8B612E2329D68CC9008DF5AF /* TokenizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerView.swift; sourceTree = "<group>"; };
 		8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerViewModel.swift; sourceTree = "<group>"; };
 		8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPIModels.swift; sourceTree = "<group>"; };
-		8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAChatGPTApp.swift; sourceTree = "<group>"; };
+		8B91C003298AD09E0079AF26 /* PuulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuulApp.swift; sourceTree = "<group>"; };
 		8B91C005298AD09E0079AF26 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8B91C007298AD09F0079AF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B91C00A298AD09F0079AF26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				7A4B73E52A267E1C0064800C /* StoreKit.swift */,
 				7A4B73EA2A267F900064800C /* SubscriptionView.swift */,
 				7A81C1642A01BDA5000496E3 /* TempView.swift */,
+				7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -180,8 +183,8 @@
 		8B91C002298AD09E0079AF26 /* XCAChatGPT */ = {
 			isa = PBXGroup;
 			children = (
-				7AB997BC29F1D9BA00BC8E4B /* XCAChatGPT.entitlements */,
-				8B91C003298AD09E0079AF26 /* XCAChatGPTApp.swift */,
+				7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */,
+				8B91C003298AD09E0079AF26 /* PuulApp.swift */,
 				8B612E2229D68CC9008DF5AF /* TextView.swift */,
 				8B612E2329D68CC9008DF5AF /* TokenizerView.swift */,
 				8B612E2429D68CC9008DF5AF /* TokenizerViewModel.swift */,
@@ -333,10 +336,11 @@
 				7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */,
 				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
 				7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */,
+				7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
 				7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */,
 				7A81C16F2A0216A5000496E3 /* PlaidAPIModels.swift in Sources */,
-				8B91C004298AD09E0079AF26 /* XCAChatGPTApp.swift in Sources */,
+				8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */,
 				7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */,
 				8B612E2529D68CC9008DF5AF /* TextView.swift in Sources */,
 				7A81C16A2A021077000496E3 /* PlaidLinkFlowView.swift in Sources */,
@@ -477,7 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/XCAChatGPT.entitlements;
+				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/Puul.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -514,7 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/XCAChatGPT.entitlements;
+				CODE_SIGN_ENTITLEMENTS = XCAChatGPT/Puul.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

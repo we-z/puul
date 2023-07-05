@@ -14,6 +14,9 @@ struct HomeView: View {
     @State private var showAccount = false
     @State private var showSteve = false
     @EnvironmentObject var pm: PlaidModel
+    
+    @AppStorage ("welcomeScreenShown")
+    var welcomeScreenShown: Bool = true
         
     var body: some View {
         NavigationStack{
@@ -105,6 +108,10 @@ struct HomeView: View {
         .fullScreenCover(isPresented: self.$showAccount){
             AccountView()
                 .presentationDragIndicator(.visible)
+                .buttonStyle(HapticButtonStyle())
+        }
+        .fullScreenCover(isPresented: $welcomeScreenShown){
+            WelcomeView()
                 .buttonStyle(HapticButtonStyle())
         }
         .accentColor(.primary)

@@ -11,7 +11,7 @@ struct AccountView: View {
     @State private var showSubscriptions = false
     @State private var showDataInfo = false
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var storeVM: StoreVM
+    @ObservedObject public var storeVM = StoreVM()
     @EnvironmentObject public var model: AppModel
     @Environment(\.requestReview) private var requestReview
     @State private var showManageSubscriptions = false
@@ -162,7 +162,7 @@ struct AccountView: View {
         )
         .preferredColorScheme(model.isLightMode ? .light : .dark)
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
-        .environmentObject(storeVM)
+        //.environmentObject(StoreVM())
     }
 }
 
@@ -170,5 +170,6 @@ struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
             .environmentObject(AppModel())
+            .environmentObject(StoreVM())
     }
 }
