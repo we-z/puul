@@ -92,7 +92,9 @@ struct SubscriptionView: View {
                 }
             }
             Button(action: {
-                storeVM.restoreProducts()
+                Task{
+                    await storeVM.restoreProducts()
+                }
             }){
                 Text("Restore Purchases")
                     .underline()

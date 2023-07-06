@@ -60,7 +60,6 @@ class StoreVM: ObservableObject {
         case let .success(.verified(transaction)):
             await transaction.finish()
             await self.updatePurchasedProducts()
-            success = true
         case .success(.unverified(_, _)):
             break
         case .pending:
@@ -85,6 +84,7 @@ class StoreVM: ObservableObject {
 
             if transaction.revocationDate == nil {
                 self.purchasedProductIDs.insert(transaction.productID)
+                success = true
             } else {
                 self.purchasedProductIDs.remove(transaction.productID)
             }
@@ -92,9 +92,10 @@ class StoreVM: ObservableObject {
     }
     
     @MainActor
-    func restoreProducts(){
+    func restoreProducts() async {
+        SKPaymentQueue.default().restoreCompletedTransactions()
         print("restoreProducts called")
-       SKPaymentQueue.default().restoreCompletedTransactions()
+        await updatePurchasedProducts()
     }
 
 }

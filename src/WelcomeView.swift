@@ -27,8 +27,9 @@ struct WelcomeView: View {
                         Spacer()
                     }
                 }
-                .offset(y: -UIScreen.main.bounds.height * 0.03)
+                .offset(y: -UIScreen.main.bounds.height * 0.0)
                 VStack{
+                    Spacer()
                     HStack{
                         Text("Say hello to Steve👨‍💼")
                             .font(.system(size: UIScreen.main.bounds.width * 0.18))
@@ -48,9 +49,11 @@ struct WelcomeView: View {
                             .padding()
                         Spacer()
                     }
+                    .padding(.bottom, 65)
                 }
-                .offset(y: -UIScreen.main.bounds.height * 0.045)
+                //.offset(y: -UIScreen.main.bounds.height * 0.027)
                 VStack{
+                    Spacer()
                     HStack{
                         Text("Optimize⚡")
                             .font(.system(size: UIScreen.main.bounds.width * 0.18))
@@ -70,8 +73,9 @@ struct WelcomeView: View {
                             .padding()
                         Spacer()
                     }
+                    .padding(.bottom, 50)
                 }
-                .offset(y: -UIScreen.main.bounds.height * 0.02)
+                //.offset(y: -UIScreen.main.bounds.height * 0.02)
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .onAppear() {
