@@ -161,5 +161,6 @@ struct ChatView: View {
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView(vm: ChatViewModel(api: ChatGPTAPI()))
+            .environmentObject(StoreVM())
     }
 }

@@ -25,17 +25,21 @@ struct MessageRowView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            messageRow(text: message.sendText, image: message.sendImage, bgColor: colorScheme == .light ? .white : Color.primary.opacity(0.06))
+            messageRow(text: message.sendText, image: message.sendImage)
             
             if let text = message.responseText {
                 Divider()
-                messageRow(text: text, image: message.responseImage, bgColor: colorScheme == .light ? .gray.opacity(0.1) : Color.primary.opacity(0.11), responseError: message.responseError, showDotLoading: message.isInteractingWithChatGPT)
+                    .overlay(.gray)
+                    .padding(.horizontal)
+                messageRow(text: text, image: message.responseImage, responseError: message.responseError, showDotLoading: message.isInteractingWithChatGPT)
                 Divider()
+                    .overlay(.gray)
+                    .padding(.horizontal)
             }
         }
     }
     
-    func messageRow(text: String, image: String, bgColor: Color, responseError: String? = nil, showDotLoading: Bool = false) -> some View {
+    func messageRow(text: String, image: String, responseError: String? = nil, showDotLoading: Bool = false) -> some View {
         #if os(watchOS)
         VStack(alignment: .leading, spacing: 8) {
             messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
@@ -43,7 +47,7 @@ struct MessageRowView: View {
         
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(bgColor)
+        //.background(bgColor)
         #else
         HStack(alignment: .top, spacing: 24) {
             messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
@@ -54,26 +58,16 @@ struct MessageRowView: View {
         .padding(16)
         #endif
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(bgColor)
+        //.background(bgColor)
         #endif
     }
     
     @ViewBuilder
     func messageRowContent(text: String, image: String, responseError: String? = nil, showDotLoading: Bool = false) -> some View {
-        if image.hasPrefix("http"), let url = URL(string: image) {
-            AsyncImage(url: url) { image in
-                image
-                    .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-            } placeholder: {
-                ProgressView()
-            }
-
-        } else {
-            Image(systemName: image)
-                .resizable()
-                .frame(width: imageSize.width, height: imageSize.height)
-        }
+        
+        Image(systemName: image)
+            .resizable()
+            .frame(width: imageSize.width, height: imageSize.height)
         
         VStack(alignment: .leading) {
             if !text.isEmpty {
