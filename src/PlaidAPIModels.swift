@@ -615,7 +615,7 @@ extension Double {
     func withCommas() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
         return numberFormatter.string(from: NSNumber(value:self))!
     }
 }

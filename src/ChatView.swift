@@ -150,6 +150,9 @@ struct ChatView: View {
         .background(Color.primary.opacity(0.1))
         .cornerRadius(15)
         .padding()
+        .onAppear{
+            scrollToBottom(proxy: proxy)
+        }
     }
     
     private func scrollToBottom(proxy: ScrollViewProxy) {

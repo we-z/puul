@@ -48,9 +48,17 @@ struct BankAccountDetailsView: View {
                                     Text(transaction.dateTime)
                                 }
                                 Spacer()
-                                Text("$" + transaction.amount.withCommas())
-                                    .bold()
-                                    .font(.system(size: 27))
+                                if transaction.amount > 0 {
+                                    Text("-$" + abs(transaction.amount).withCommas())
+                                        .bold()
+                                        .font(.system(size: 27))
+                                        .foregroundColor(.red)
+                                } else {
+                                    Text("+$" + abs(transaction.amount).withCommas())
+                                        .bold()
+                                        .font(.system(size: 27))
+                                        .foregroundColor(.green)
+                                }
                             }
                             .padding(.vertical)
                         }
@@ -65,11 +73,11 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String", institution_name: "Chase", balance: 0, transactions:
                 [
-//                    BankTransaction(amount: 746, merchant: "Apple", dateTime: "String"),
-//                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
-//                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
-//                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
-//                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
+                    BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
+                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
+                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
+                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
+                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
                 ]))
     }
 }
