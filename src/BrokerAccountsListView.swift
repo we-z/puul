@@ -73,14 +73,14 @@ struct BrokerAccountsListView: View {
                     .listRowSeparator(.hidden)
                 
                     Button(action: {
-                        if !storeVM.hasUnlockedPro {
-                            self.showSubscriptions = true
-                        } else {
-                        pm.createBrokerLinkToken()
-                        print("Broker Menu")
-                        //isBank = false
-                        showLink = true
-                        }
+//                        if !storeVM.hasUnlockedPro {
+//                            self.showSubscriptions = true
+//                        } else {
+                            pm.createBrokerLinkToken()
+                            print("Broker Menu")
+                            //isBank = false
+                            showLink = true
+                        //}
                     }) {
                         HStack{
                             Spacer()
@@ -118,5 +118,6 @@ struct BrokerAccountsListView_Previews: PreviewProvider {
     static var previews: some View {
         BrokerAccountsListView()
             .environmentObject(PlaidModel())
+            .environmentObject(StoreVM())
     }
 }

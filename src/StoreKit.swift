@@ -10,13 +10,13 @@ class StoreVM: ObservableObject {
     
     private let productIds: [String] = ["monthly.subscription"]
         
-    private var updates: Task<Void, Never>? = nil
+    var updateListenerTask : Task<Void, Error>? = nil
 
     init() {
         
         //start a transaction listern as close to app launch as possible so you don't miss a transaction
         
-        updates = observeTransactionUpdates()
+        updateListenerTask = listenForTransactions()
         
         Task {
             await requestProducts()
@@ -26,17 +26,35 @@ class StoreVM: ObservableObject {
     }
     
     deinit {
-        updates?.cancel()
+        updateListenerTask?.cancel()
     }
     
-    @MainActor
-    private func observeTransactionUpdates() -> Task<Void, Never> {
-        Task(priority: .background) { [unowned self] in
-            for await _ in Transaction.updates {
-                // Using verificationResult directly would be better
-                // but this way works for this tutorial
-                await self.updatePurchasedProducts()
+    func listenForTransactions() -> Task<Void, Error> {
+        return Task.detached {
+            //Iterate through any transactions that don't come from a direct call to `purchase()`.
+            for await result in Transaction.updates {
+                do {
+                    let transaction = try await self.checkVerified(result)
+                    // deliver products to the user
+                    await self.updatePurchasedProducts()
+                    
+                    await transaction.finish()
+                } catch {
+                    print("transaction failed verification")
+                }
             }
+        }
+    }
+    
+    func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
+        //Check whether the JWS passes StoreKit verification.
+        switch result {
+        case .unverified:
+            //StoreKit parses the JWS, but it fails verification.
+            throw StoreError.failedVerification
+        case .verified(let safe):
+            //The result is verified. Return the unwrapped value.
+            return safe
         }
     }
     
@@ -100,3 +118,6 @@ class StoreVM: ObservableObject {
 
 }
 
+public enum StoreError: Error {
+    case failedVerification
+}
