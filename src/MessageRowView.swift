@@ -73,7 +73,7 @@ struct MessageRowView: View {
             if !text.isEmpty {
                 Text(text)
                     .tracking(1)
-                    .font(.system(size: 21))
+                    .font(.system(size: UIScreen.main.bounds.width * 0.045))
                     .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
             }

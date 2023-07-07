@@ -1,6 +1,4 @@
 //
-//  ContentView.swift
-//  XCAChatGPT
 //
 //  Created by Alfian Losari on 01/02/23.
 //
@@ -82,20 +80,16 @@ struct ChatView: View {
                                 }
                             }
                         }
-                        .onTapGesture {
-                            isTextFieldFocused = false
-                        }
                     }
                 }
-                #if os(iOS) || os(macOS)
                 Divider()
                 bottomView(image: "person", proxy: proxy)
                     .background(.primary.opacity(0.03))
-                #endif
+                    .gesture(
+                        swipeGesture
+                    )
             }
             .accentColor(.primary)
-            .onChange(of: vm.messages.last?.responseText) { _ in  scrollToBottom(proxy: proxy)
-            }
         }
         
         .sheet(isPresented: self.$showInfoPage,
@@ -117,9 +111,7 @@ struct ChatView: View {
     func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
         HStack(alignment: .bottom, spacing: 8) {
             TextField("Send message", text: $vm.inputMessage, axis: .vertical)
-                #if os(iOS) || os(macOS)
                 .textFieldStyle(.plain)
-                #endif
                 .focused($isTextFieldFocused)
                 .disabled(vm.isInteractingWithChatGPT)
                 .padding(.vertical, 6)
@@ -153,11 +145,26 @@ struct ChatView: View {
         .onAppear{
             scrollToBottom(proxy: proxy)
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            withAnimation{
+                scrollToBottom(proxy: proxy)
+            }
+        }
     }
     
     private func scrollToBottom(proxy: ScrollViewProxy) {
         guard let id = vm.messages.last?.id else { return }
         proxy.scrollTo(id, anchor: .bottomTrailing)
+    }
+    
+    var swipeGesture: some Gesture {
+        DragGesture(minimumDistance: 50, coordinateSpace: .local)
+            .onChanged { value in
+                if value.translation.height > 0 {
+                    print("down swipe gesture detected!")
+                    isTextFieldFocused = false
+                }
+            }
     }
 }
 

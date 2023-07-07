@@ -1,28 +1,28 @@
-//
-//  TempView.swift
-//  XCAChatGPT
-//
-//  Created by Wheezy Salem on 5/2/23.
-//
-
 import SwiftUI
 
-struct TempView: View {
-    let now = Date()
+struct ContentView: View {
+    
+    @State var text: String = ""
+
     var body: some View {
-        VStack {
-            Button {
-                print(now)
-            } label: {
+        NavigationView {
+            ScrollView(.vertical) {
+                // ...
                 Text("Hello")
             }
-            
+            .scrollDismissesKeyboard(.interactively)
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    TextField("Send message", text: $text, axis: .vertical)
+                        .background(.gray)
+                        .padding()
+                }
+            }
         }
     }
 }
-
-struct TempView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TempView()
+        ContentView()
     }
 }
