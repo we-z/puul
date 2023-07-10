@@ -69,7 +69,7 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
     
-    public func generateMessages(from text: String) -> [Message] {
+    public func generateMessages(from text: String, plaidModel: PlaidModel, appModel: AppModel) -> [Message] {
         
         promptAndUserInfo = prompt
         promptAndUserInfo += "My total networth is $" + plaidModel.totalNetWorth.withCommas() + ". "
@@ -82,14 +82,14 @@ class ChatGPTAPI: @unchecked Sendable {
         
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()
-            messages = generateMessages(from: text)
+            messages = generateMessages(from: text, plaidModel: PlaidModel(), appModel: AppModel())
         }
         return messages
     }
     
     public func jsonBody(text: String, stream: Bool = true) throws -> Data {
         let request = Request(model: model, temperature: temperature,
-                              messages: generateMessages(from: text), stream: stream)
+                              messages: generateMessages(from: text, plaidModel: PlaidModel(), appModel: AppModel()), stream: stream)
         return try JSONEncoder().encode(request)
     }
     
