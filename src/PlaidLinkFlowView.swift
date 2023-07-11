@@ -44,7 +44,7 @@ public struct PlaidLinkFlow: View {
                     case .success(let accessToken):
                         print("access_token: \(accessToken)")
                         if isBank == true {
-                            pm.getBankAccount(accessToken: accessToken)
+                            pm.getBankData(accessToken: accessToken)
                         } else if isBank == false {
                             pm.getBrokerAccount(accessToken: accessToken)
                         }

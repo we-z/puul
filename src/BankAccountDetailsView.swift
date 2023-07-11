@@ -19,6 +19,9 @@ struct BankAccountDetailsView: View {
                         .font(.system(size: 36))
                         .padding(.top)
                     Text("$" + viewdata.balance.withCommas())
+                        .scaledToFit()
+                        .minimumScaleFactor(0.01)
+                        .lineLimit(1)
                         .bold()
                         .font(.system(size: 69))
                     
@@ -26,59 +29,89 @@ struct BankAccountDetailsView: View {
                 .padding()
                 Spacer()
             }
-            if viewdata.transactions.isEmpty{
-                VStack{
-                    HStack{
-                        Text("No Transactions. \n\nTry refreshing the home screen again later.")
-                            .font(.system(size: 39))
-                            .padding()
-                        Spacer()
-                    }
-                    Spacer()
-                }
-            } else {
-                List{
-                    Section(header: Text("Latest Transactions").bold().padding(.bottom, 9).font(.system(size: 20))){
-                        ForEach(viewdata.transactions) { transaction in
+            List{
+                ForEach(viewdata.sub_accounts) { subaccount in
+                    Section(header:
+                        HStack{
+                            HStack{
+                                Text(subaccount.account_name)
+                                    .padding(.trailing)
+                                Spacer()
+                            }
+                            .font(.system(size: UIScreen.main.bounds.width * 0.05))
+                            VStack{
+                                Text("$" + subaccount.sub_balance.withCommas())
+                                    .scaledToFit()
+                                    .minimumScaleFactor(0.01)
+                                    .lineLimit(1)
+                                Spacer()
+                            }
+                            .font(.system(size: UIScreen.main.bounds.width * 0.069))
+                            .padding(.top)
+                        }
+                        .bold()
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 9)
+                        
+                    ){
+                        ForEach(subaccount.transactions) { transaction in
                             HStack{
                                 VStack(alignment: .leading, spacing: 6){
                                     Text(transaction.merchant)
                                         .bold()
-                                        .font(.system(size: 21))
+                                        .font(.system(size: UIScreen.main.bounds.width * 0.05))
                                     Text(transaction.dateTime)
                                 }
                                 Spacer()
                                 if transaction.amount > 0 {
                                     Text("-$" + abs(transaction.amount).withCommas())
                                         .bold()
-                                        .font(.system(size: 27))
+                                        .font(.system(size: UIScreen.main.bounds.width * 0.066))
                                         .foregroundColor(.red)
                                 } else {
                                     Text("+$" + abs(transaction.amount).withCommas())
                                         .bold()
-                                        .font(.system(size: 27))
+                                        .font(.system(size: UIScreen.main.bounds.width * 0.066))
                                         .foregroundColor(.green)
                                 }
                             }
                             .padding(.vertical)
                         }
                     }
+                    
                 }
+                
             }
+            .listStyle(SidebarListStyle())
+            .accentColor(.primary)
+                
+            //}
         }
     }
 }
 
 struct BankAccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String", institution_name: "Chase", balance: 0, transactions:
-                [
+        BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String",
+                                                     institution_name: "Chase", balance: 64234.39, sub_accounts:
+            [
+                SubAccount(account_id: "String", account_name: "Advantage savings account", sub_balance: 56438.89, transactions: [
                     BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
                     BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
                     BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
                     BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
                     BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
-                ]))
+                ]),
+                
+                SubAccount(account_id: "String", account_name: "Advantage savings account", sub_balance: 568.89, transactions: [
+                    BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
+                    BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
+                    BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
+                    BankTransaction(amount: 920, merchant: "Zara", dateTime: "String"),
+                    BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
+                ])
+                
+            ]))
     }
 }
 

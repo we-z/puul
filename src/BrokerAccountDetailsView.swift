@@ -19,6 +19,9 @@ struct BrokerAccountDetailsView: View {
                         .font(.system(size: 36))
                         .padding(.top)
                     Text("$" + viewdata.balance.withCommas())
+                        .scaledToFit()
+                        .minimumScaleFactor(0.01)
+                        .lineLimit(1)
                         .bold()
                         .font(.system(size: 69))
                     
@@ -33,7 +36,13 @@ struct BrokerAccountDetailsView: View {
                 }
             } else {
                 List{
-                    Section(header: Text("Current Holdings").bold().padding(.bottom, 9).font(.system(size: 20))){
+                    Section(header:
+                        Text("Current Holdings")
+                        .foregroundColor(.primary)
+                        .bold()
+                        .padding(.bottom, 9)
+                        .font(.system(size: 20))
+                    ){
                         ForEach(viewdata.holdings) { position in
                             HStack{
                                 VStack(alignment: .leading, spacing: 6){

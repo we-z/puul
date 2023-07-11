@@ -35,7 +35,7 @@ struct BankAccountsListView: View {
                 ForEach(pm.bankAccounts) { account in
                     
                     Button(action: {
-                        accountPage = .init(institution_id: "String", access_token: "String", institution_name: account.institution_name, balance: account.balance, transactions: account.transactions)
+                        accountPage = .init(institution_id: "String", access_token: "String", institution_name: account.institution_name, balance: account.balance, sub_accounts: account.sub_accounts)
                     }) {
                         VStack(spacing: 6) {
                             HStack {
