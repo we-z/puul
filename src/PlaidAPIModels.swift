@@ -562,15 +562,19 @@ class PlaidModel: ObservableObject {
                                 
                 var securities: [Security] = []
                 
-                for (index, position) in securitiesData.enumerated() {
+                for position in securitiesData {
                     if let value = position["close_price"] as? Double,
-                       let quantity = holdingsData[index]["quantity"] as? Double,
+                       let security_id = position["security_id"] as? String,
                        let ticker = position["ticker_symbol"] as? String,
                        let name = position["name"] as? String {
-                        let security = Security(ticker: ticker, name: name, value: value * quantity)
-                        securities.append(security)
+                        for holding in holdingsData{
+                            if holding["security_id"] as! String == security_id {
+                                let quantity = holding["quantity"] as! Double
+                                let security = Security(ticker: ticker, name: name, value: value * quantity)
+                                securities.append(security)
+                            }
+                        }
                     }
-                    
                 }
                 self.addBrokerAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, holdings: securities)
                 

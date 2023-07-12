@@ -32,6 +32,7 @@ struct BankAccountDetailsView: View {
             List{
                 ForEach(viewdata.sub_accounts) { subaccount in
                     Section(header:
+                                VStack{
                         HStack{
                             HStack{
                                 Text(subaccount.account_name)
@@ -40,6 +41,7 @@ struct BankAccountDetailsView: View {
                             }
                             .font(.system(size: UIScreen.main.bounds.width * 0.05))
                             VStack{
+                                Spacer()
                                 Text("$" + subaccount.sub_balance.withCommas())
                                     .scaledToFit()
                                     .minimumScaleFactor(0.01)
@@ -47,11 +49,14 @@ struct BankAccountDetailsView: View {
                                 Spacer()
                             }
                             .font(.system(size: UIScreen.main.bounds.width * 0.069))
-                            .padding(.top)
                         }
                         .bold()
                         .foregroundColor(.primary)
-                        .padding(.bottom, 9)
+                        .offset(y: 23)
+                        Divider()
+                            .overlay(.gray)
+                            .padding(.vertical)
+                    }
                         
                     ){
                         ForEach(subaccount.transactions) { transaction in
@@ -95,7 +100,7 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
         BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String",
                                                      institution_name: "Chase", balance: 64234.39, sub_accounts:
             [
-                SubAccount(account_id: "String", account_name: "Advantage savings account", sub_balance: 56438.89, transactions: [
+                SubAccount(account_id: "String", account_name: "Plaid savings", sub_balance: 568.89, transactions: [
                     BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
                     BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
                     BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
@@ -114,5 +119,6 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
             ]))
     }
 }
+
 
 
