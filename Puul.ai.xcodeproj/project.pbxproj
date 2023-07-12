@@ -44,7 +44,7 @@
 		514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.debug.xcconfig"; sourceTree = "<group>"; };
 		5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.release.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.release.xcconfig"; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
-		7A48E55D29FE56E60068362F /* Puul.ai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.ai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
 		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7A4B73E52A267E1C0064800C /* StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKit.swift; sourceTree = "<group>"; };
@@ -170,16 +170,16 @@
 				8B057591298E52CB00A56C9A /* src */,
 				1D0ED3DAA698BBA300D26E89 /* Pods */,
 				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
-				7A48E55D29FE56E60068362F /* Puul.ai.app */,
+				7A48E55D29FE56E60068362F /* Puul.app */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B91BFFF298AD09E0079AF26 /* Puul.ai */ = {
+		8B91BFFF298AD09E0079AF26 /* Puul */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul.ai" */;
+			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */;
 			buildPhases = (
 				706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */,
 				8B91BFFC298AD09E0079AF26 /* Sources */,
@@ -191,12 +191,12 @@
 			);
 			dependencies = (
 			);
-			name = Puul.ai;
+			name = Puul;
 			packageProductDependencies = (
 				8B612E2929D68CE3008DF5AF /* GPTEncoder */,
 			);
 			productName = XCAChatGPT;
-			productReference = 7A48E55D29FE56E60068362F /* Puul.ai.app */;
+			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -230,7 +230,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B91BFFF298AD09E0079AF26 /* Puul.ai */,
+				8B91BFFF298AD09E0079AF26 /* Puul */,
 			);
 		};
 /* End PBXProject section */
@@ -531,7 +531,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul.ai" */ = {
+		8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B91C00F298AD09F0079AF26 /* Debug */,

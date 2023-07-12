@@ -14,6 +14,7 @@ struct HomeView: View {
     @State private var showAccount = false
     @State private var showSteve = false
     @EnvironmentObject var pm: PlaidModel
+    @EnvironmentObject public var model: AppModel
     
     @AppStorage ("welcomeScreenShown")
     var welcomeScreenShown: Bool = true
@@ -99,6 +100,9 @@ struct HomeView: View {
                         .padding(.top)
                     }
                     .background(.gray.opacity(0.15))
+                }
+                .alert(isPresented: $model.showingWarningAlert) {
+                    Alert(title: Text("Wait a couple of seconds for changes to appear"))
                 }
         }
         .fullScreenCover(isPresented: $showSteve){

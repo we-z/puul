@@ -11,6 +11,7 @@ import SwiftUI
 
 public struct PlaidLinkFlow: View {
     @State var showLink: Bool
+    @EnvironmentObject var model: AppModel
     var isBank: Bool
     
     @StateObject var pm: PlaidModel
@@ -43,6 +44,9 @@ public struct PlaidLinkFlow: View {
                     switch result {
                     case .success(let accessToken):
                         print("access_token: \(accessToken)")
+                        DispatchQueue.main.async {
+                            model.showingWarningAlert = true
+                        }
                         if isBank == true {
                             pm.getBankData(accessToken: accessToken)
                         } else if isBank == false {

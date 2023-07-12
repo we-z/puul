@@ -98,7 +98,9 @@ struct BankAccountsListView: View {
                 pm.linkToken = ""
             }, content: {
                 PlaidLinkFlow(
-                    showLink: showLink, isBank: true, pm: pm
+                    showLink: showLink,
+                    isBank: true,
+                    pm: pm
                 )
             }
         )

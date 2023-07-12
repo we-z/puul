@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8B91BFFF298AD09E0079AF26"
-               BuildableName = "Puul.ai.app"
-               BlueprintName = "Puul.ai"
+               BuildableName = "Puul.app"
+               BlueprintName = "Puul"
                ReferencedContainer = "container:Puul.ai.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8B91BFFF298AD09E0079AF26"
-            BuildableName = "Puul.ai.app"
-            BlueprintName = "Puul.ai"
+            BuildableName = "Puul.app"
+            BlueprintName = "Puul"
             ReferencedContainer = "container:Puul.ai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8B91BFFF298AD09E0079AF26"
-            BuildableName = "Puul.ai.app"
-            BlueprintName = "Puul.ai"
+            BuildableName = "Puul.app"
+            BlueprintName = "Puul"
             ReferencedContainer = "container:Puul.ai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

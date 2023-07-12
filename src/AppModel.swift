@@ -15,6 +15,7 @@ class AppModel: ObservableObject {
     let risklevelKey: String = "risklevelkey"
     let timeFrameKey: String = "timeframekey"
     //let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
+    @Published var showingWarningAlert = false
     @Published var selectedRiskLevel = "" {
         didSet{
             saveRiskSetting()

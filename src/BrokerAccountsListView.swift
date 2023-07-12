@@ -97,7 +97,9 @@ struct BrokerAccountsListView: View {
                 pm.linkToken = ""
                 }, content: {
                     PlaidLinkFlow(
-                        showLink: showLink, isBank: false, pm: pm
+                        showLink: showLink,
+                        isBank: false,
+                        pm: pm
                     )
                 }
             )
