@@ -1,6 +1,6 @@
 //
 //  PlaidAPIModels.swift
-//  XCAChatGPT
+//  Puul.ai
 //
 //  Created by Wheezy Salem on 5/3/23.
 //
@@ -263,6 +263,9 @@ class PlaidModel: ObservableObject {
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "depository": [
+                    "account_subtypes": ["all"]
+                ],
+                "credit": [
                     "account_subtypes": ["all"]
                 ]
             ]
