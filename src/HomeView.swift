@@ -21,89 +21,89 @@ struct HomeView: View {
         
     var body: some View {
         NavigationStack{
-                VStack(spacing: 0){
-                    HStack{
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Portfolio:")
-                                .bold()
-                                .foregroundColor(.primary)
-                                .font(.system(size: UIScreen.main.bounds.height * 0.047))
-                                .padding(.top)
-                            Text("$" + pm.totalNetWorth.withCommas())
-                                .bold()
-                                .font(.system(size: UIScreen.main.bounds.height * 0.09))
-                                .scaledToFit()
-                                .minimumScaleFactor(0.01)
-                                .lineLimit(1)
-                            Spacer()
-                                .frame(maxHeight: 21)
-                        }
+            VStack(spacing: 0){
+                HStack{
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Portfolio:")
+                            .bold()
+                            .foregroundColor(.primary)
+                            .font(.system(size: UIScreen.main.bounds.height * 0.047))
+                            .padding(.top)
+                        Text("$" + pm.totalNetWorth.withCommas())
+                            .bold()
+                            .font(.system(size: UIScreen.main.bounds.height * 0.09))
+                            .scaledToFit()
+                            .minimumScaleFactor(0.01)
+                            .lineLimit(1)
                         Spacer()
-                        VStack{
-                            Button(action: {
-                                self.showAccount = true
-                            }) {
-                                Image(systemName: "person.crop.circle")
-                                    .foregroundColor(.primary)
-                                    .font(.system(size: UIScreen.main.bounds.height * 0.039))
-                            }
-                            .buttonStyle(HapticButtonStyle())
-                            Spacer()
-                                .frame(maxHeight: UIScreen.main.bounds.height * 0.12)
-                        }
+                            .frame(maxHeight: 21)
                     }
-                    .padding(.horizontal)
-                    Divider()
-                        .overlay(.gray)
-                        .padding(.horizontal)
-                    
-                    List{
-                        BankAccountsListView()
-                            .listRowBackground(Color.gray.opacity(0.2))
-                        BrokerAccountsListView()
-                            .listRowBackground(Color.gray.opacity(0.2))
-                        PropertiesListView()
-                            .listRowBackground(Color.gray.opacity(0.2))
-                    }
-                    .scrollContentBackground(.hidden)
-                    .refreshable {
-                        pm.updateAccounts()
-                        print("refresh")
-                    }
-                    .scrollIndicators(.hidden)
-                    .environment(\.defaultMinListRowHeight, 49)
-                    
-                    HStack{
+                    Spacer()
+                    VStack{
                         Button(action: {
-                            self.showSteve = true
+                            self.showAccount = true
                         }) {
-                            HStack{
-                                Spacer()
-                                Text("Talk with Steve 👨‍💼")
-                                    .font(.system(size: UIScreen.main.bounds.height * 0.036))
-                                    .padding()
-                                    .foregroundColor(.primary)
-                                    .bold()
-                                    
-                                Spacer()
-                            }
-                            .background(
-                                ZStack{
-                                    Color.primary.colorInvert()
-                                    Color.gray.opacity(0.3)
-                                }
-                            )
-                            .cornerRadius(32)
+                            Image(systemName: "person.crop.circle")
+                                .foregroundColor(.primary)
+                                .font(.system(size: UIScreen.main.bounds.height * 0.039))
                         }
                         .buttonStyle(HapticButtonStyle())
-                        .padding(.horizontal)
-                        .padding(.top)
+                        Spacer()
+                            .frame(maxHeight: UIScreen.main.bounds.height * 0.12)
                     }
-                    .background(.gray.opacity(0.15))
                 }
-                .alert(isPresented: $model.showingWarningAlert) {
-                    Alert(title: Text("Wait a couple of seconds for changes to appear"))
+                .padding(.horizontal)
+                Divider()
+                    .overlay(.gray)
+                    .padding(.horizontal)
+                
+                List{
+                    BankAccountsListView()
+                        .listRowBackground(Color.gray.opacity(0.2))
+                    BrokerAccountsListView()
+                        .listRowBackground(Color.gray.opacity(0.2))
+                    PropertiesListView()
+                        .listRowBackground(Color.gray.opacity(0.2))
                 }
+                .scrollContentBackground(.hidden)
+                .refreshable {
+                    pm.updateAccounts()
+                    print("refresh")
+                }
+                .scrollIndicators(.hidden)
+                .environment(\.defaultMinListRowHeight, 49)
+                
+                HStack{
+                    Button(action: {
+                        self.showSteve = true
+                    }) {
+                        HStack{
+                            Spacer()
+                            Text("Talk with Steve 👨‍💼")
+                                .font(.system(size: UIScreen.main.bounds.height * 0.036))
+                                .padding()
+                                .foregroundColor(.primary)
+                                .bold()
+                                
+                            Spacer()
+                        }
+                        .background(
+                            ZStack{
+                                Color.primary.colorInvert()
+                                Color.gray.opacity(0.3)
+                            }
+                        )
+                        .cornerRadius(32)
+                    }
+                    .buttonStyle(HapticButtonStyle())
+                    .padding(.horizontal)
+                    .padding(.top)
+                }
+                .background(.gray.opacity(0.15))
+            }
+            .alert(isPresented: $model.showingWarningAlert) {
+                Alert(title: Text("Wait a couple of seconds for changes to appear"))
+            }
         }
         .fullScreenCover(isPresented: $showSteve){
             ChatView(vm: vm)
@@ -127,5 +127,6 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
             .environmentObject(PlaidModel())
             .environmentObject(StoreVM())
+            .environmentObject(AppModel())
     }
 }

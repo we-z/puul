@@ -11,6 +11,8 @@ import SwiftUI
 class PlaidModel: ObservableObject {
     let bankAccountsKey: String = "bankaccounts"
     let brokerAccountsKey: String = "brokeraccounts"
+    let bankAccessTokenKey: String = "bankAccessTokenKey"
+    let brokerAccessTokenKey: String = "brokerAccessTokenKey"
     let networthKey: String = "networth"
     @Published var bankString: String = ""
     @Published var brokerString: String = ""
@@ -22,6 +24,16 @@ class PlaidModel: ObservableObject {
     var plaidSecret: String
     @Published var linkToken = ""
     @Published var totalNetWorth: Double = 0
+    @Published var bankAccessTokens: [String] = [] {
+        didSet{
+            saveBankAcccessTokens()
+        }
+    }
+    @Published var brokerAccessTokens: [String] = [] {
+        didSet{
+            saveBrokerAcccessTokens()
+        }
+    }
     var newBankAccounts: [BankAccount] = []
     var newBrokerAccounts: [BrokerAccount] = []
     @Published var bankAccounts: [BankAccount] = [] {
@@ -41,19 +53,21 @@ class PlaidModel: ObservableObject {
         plaidSecret = developmentSecret
         getSavedBankAccounts()
         getBrokerAccounts()
+        getSavedBankAcceessTokens()
+        getSavedBrokerAcceessTokens()
         calculateNetworth()
     }
     
     // call when refreshing
     func updateAccounts(){
         isUpdating = true
-        bankAccounts.forEach { account in
-            print("Saved access token: \(account.access_token)")
-            self.getBankData(accessToken: account.access_token)
+        bankAccessTokens.forEach { accessToken in
+            print("Saved access token: \(accessToken)")
+            self.getBankData(accessToken: accessToken)
         }
         
-        brokerAccounts.forEach { account in
-            self.getBrokerAccount(accessToken: account.access_token)
+        brokerAccessTokens.forEach { accessToken in
+            self.getBrokerAccount(accessToken: accessToken)
         }
         
     }
@@ -82,8 +96,6 @@ class PlaidModel: ObservableObject {
             bankString += " \n"
 
         }
-        print("Bank String:")
-        print(bankString)
     }
     
     func updateBrokerString(){
@@ -113,10 +125,12 @@ class PlaidModel: ObservableObject {
 
     func deleteBankAccount(indexSet: IndexSet) {
         bankAccounts.remove(atOffsets: indexSet)
+        bankAccessTokens.remove(atOffsets: indexSet)
     }
     
     func deleteBrokerAccount(indexSet: IndexSet) {
         brokerAccounts.remove(atOffsets: indexSet)
+        brokerAccessTokens.remove(atOffsets: indexSet)
     }
     
     func getSavedBankAccounts(){
@@ -126,7 +140,6 @@ class PlaidModel: ObservableObject {
         else {return}
         
         self.bankAccounts = savedAccounts
-//        print("Bank Accounts: ", self.bankAccounts)
     }
     
     func getBrokerAccounts(){
@@ -138,17 +151,38 @@ class PlaidModel: ObservableObject {
         self.brokerAccounts = savedAccounts
     }
     
+    func getSavedBankAcceessTokens(){
+        guard
+            let accessTokensData = UserDefaults.standard.data(forKey: bankAccessTokenKey),
+            let savedAccessTokens = try? JSONDecoder().decode([String].self, from: accessTokensData)
+        else {return}
+        
+        self.bankAccessTokens = savedAccessTokens
+    }
+    
+    func getSavedBrokerAcceessTokens(){
+        guard
+            let accessTokensData = UserDefaults.standard.data(forKey: brokerAccountsKey),
+            let savedAccessTokens = try? JSONDecoder().decode([String].self, from: accessTokensData)
+        else {return}
+        
+        self.brokerAccessTokens = savedAccessTokens
+    }
+    
     func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, subaccounts: [SubAccount]){
         let newAccount = BankAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, sub_accounts: subaccounts)
         if (isUpdating) {
             DispatchQueue.main.async {
                 self.newBankAccounts.append(newAccount)
-                self.bankAccounts = self.newBankAccounts
-                self.newBankAccounts = []
+                print("Bank Refresh worked")
+                print("bankAccounts.count: \(self.bankAccounts.count)")
+                print("newBankAccounts.count: \(self.newBankAccounts.count)")
+                if self.bankAccounts.count == self.newBankAccounts.count{
+                    print("Succesfully assigned new data to bank list")
+                    self.bankAccounts = self.newBankAccounts
+                    self.newBankAccounts = []
+                }
             }
-            print("Bank Refresh worked")
-            print("bankAccounts.count \(bankAccounts.count)")
-            print("newBankAccounts.count \(newBankAccounts.count)")
         } else {
             DispatchQueue.main.async {
                 self.bankAccounts.append(newAccount)
@@ -163,8 +197,10 @@ class PlaidModel: ObservableObject {
         if (isUpdating) {
             DispatchQueue.main.async {
                 self.newBrokerAccounts.append(newAccount)
-                self.brokerAccounts = self.newBrokerAccounts
-                self.newBrokerAccounts = []
+                if self.brokerAccounts.count == self.newBrokerAccounts.count{
+                    self.brokerAccounts = self.newBrokerAccounts
+                    self.newBrokerAccounts = []
+                }
             }
             print("Broker Refresh worked")
         } else {
@@ -174,6 +210,18 @@ class PlaidModel: ObservableObject {
             print("New Broker account added")
         }
         
+    }
+    
+    func saveBankAcccessTokens() {
+        if let bankAccessTokesData = try? JSONEncoder().encode(bankAccessTokens){
+            UserDefaults.standard.set(bankAccessTokesData, forKey: bankAccessTokenKey)
+        }
+    }
+    
+    func saveBrokerAcccessTokens() {
+        if let brokerAccessTokesData = try? JSONEncoder().encode(brokerAccessTokens){
+            UserDefaults.standard.set(brokerAccessTokesData, forKey: brokerAccessTokenKey)
+        }
     }
     
     func saveBankAccounts() {
@@ -491,8 +539,6 @@ class PlaidModel: ObservableObject {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                print("transactions/get json: ")
-                print(json)
                 let transactionsData = json["transactions"] as? [[String: Any]] ?? []
                 let accountsData = json["accounts"] as? [[String: Any]] ?? []
                 if let itemData = json["item"] as? [String: Any] {

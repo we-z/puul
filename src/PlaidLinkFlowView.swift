@@ -48,8 +48,18 @@ public struct PlaidLinkFlow: View {
                             model.showingWarningAlert = true
                         }
                         if isBank == true {
+                            DispatchQueue.main.async {
+                                pm.bankAccessTokens.append(accessToken)
+                                print("bankAccessTokens: \(pm.bankAccessTokens)")
+                            }
+                            
                             pm.getBankData(accessToken: accessToken)
                         } else if isBank == false {
+                            DispatchQueue.main.async {
+                                pm.brokerAccessTokens.append(accessToken)
+                                print("brokerAccessTokens: \(pm.brokerAccessTokens)")
+                            }
+                            
                             pm.getBrokerAccount(accessToken: accessToken)
                         }
                     case .failure(let error):

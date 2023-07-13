@@ -14,15 +14,12 @@ struct PuulApp: App {
                 HomeView()
                     .preferredColorScheme(appModel.isLightMode ? .light : .dark)
                     .buttonStyle(HapticButtonStyle())
-                    .onAppear{
-                        plaidModel.updateAccounts()
-                    }
                     .onChange(of: scenePhase) { newPhase in
                         if newPhase == .inactive {
                             print("Inactive")
                         } else if newPhase == .active {
-                            plaidModel.updateAccounts()
                             print("Active")
+                            plaidModel.updateAccounts()
                         } else if newPhase == .background {
                             print("Background")
                         }
