@@ -174,11 +174,8 @@ class PlaidModel: ObservableObject {
         if (isUpdating) {
             DispatchQueue.main.async {
                 self.newBankAccounts.append(newAccount)
-                print("Bank Refresh worked")
-                print("bankAccounts.count: \(self.bankAccounts.count)")
-                print("newBankAccounts.count: \(self.newBankAccounts.count)")
                 if self.bankAccounts.count == self.newBankAccounts.count{
-                    print("Succesfully assigned new data to bank list")
+                    print("Bank Refresh worked")
                     self.bankAccounts = self.newBankAccounts
                     self.newBankAccounts = []
                 }
@@ -513,9 +510,6 @@ class PlaidModel: ObservableObject {
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
         
-//        print("start date: \(formatDate(startDate))")
-//        print("end date: \(formatDate(endDate))")
-        
         let requestData: [String: Any] = [
             "client_id": client_id,
             "secret": plaidSecret,
@@ -523,7 +517,7 @@ class PlaidModel: ObservableObject {
             "start_date": formatDate(startDate),
             "end_date": formatDate(endDate),
             "options": [
-                "count": 11,
+                "count": 100,
                 "offset": 0
             ]
         ]
