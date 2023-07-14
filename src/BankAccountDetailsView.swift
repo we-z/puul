@@ -100,7 +100,7 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
         BankAccountDetailsView(viewdata: BankAccount(institution_id: "String", access_token: "String",
                                                      institution_name: "Chase", balance: 64234.39, sub_accounts:
             [
-                SubAccount(account_id: "String", account_name: "Plaid savings", sub_balance: 568.89, transactions: [
+                BankSubAccount(account_id: "String", account_name: "Plaid savings", sub_balance: 568.89, transactions: [
                     BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
                     BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
                     BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),
@@ -108,7 +108,7 @@ struct BankAccountDetailsView_Previews: PreviewProvider {
                     BankTransaction(amount: 43, merchant: "Tea Spoon", dateTime: "String")
                 ]),
                 
-                SubAccount(account_id: "String", account_name: "Advantage savings account", sub_balance: 568.89, transactions: [
+                BankSubAccount(account_id: "String", account_name: "Advantage savings account", sub_balance: 568.89, transactions: [
                     BankTransaction(amount: -746.45, merchant: "Apple", dateTime: "String"),
                     BankTransaction(amount: 37, merchant: "Uber", dateTime: "String"),
                     BankTransaction(amount: 46, merchant: "Sweet Greens", dateTime: "String"),

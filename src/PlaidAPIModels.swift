@@ -169,7 +169,7 @@ class PlaidModel: ObservableObject {
         self.brokerAccessTokens = savedAccessTokens
     }
     
-    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, subaccounts: [SubAccount]){
+    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, subaccounts: [BankSubAccount]){
         let newAccount = BankAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, sub_accounts: subaccounts)
         if (isUpdating) {
             DispatchQueue.main.async {
@@ -469,7 +469,7 @@ class PlaidModel: ObservableObject {
         task.resume()
     }
     
-    func getBanksName(institutionId: String, accessToken: String, totalBalance: Double, subaccounts: [SubAccount]) {
+    func getBanksName(institutionId: String, accessToken: String, totalBalance: Double, subaccounts: [BankSubAccount]) {
         let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -538,7 +538,7 @@ class PlaidModel: ObservableObject {
                 if let itemData = json["item"] as? [String: Any] {
                     let institutionId = itemData["institution_id"] as! String
                     
-                    var subaccounts: [SubAccount] = []
+                    var subaccounts: [BankSubAccount] = []
                     
                     for accountData in accountsData {
                         
@@ -566,7 +566,7 @@ class PlaidModel: ObservableObject {
                                 }
                             }
                             
-                            let subaccount = SubAccount(account_id: account_id, account_name: name, sub_balance: balance, transactions: transactions)
+                            let subaccount = BankSubAccount(account_id: account_id, account_name: name, sub_balance: balance, transactions: transactions)
                             subaccounts.append(subaccount)
                             
                         }
@@ -661,15 +661,23 @@ struct BankAccount: Identifiable, Encodable, Decodable {
     var access_token: String
     var institution_name: String
     var balance: Double
-    var sub_accounts: [SubAccount]
+    var sub_accounts: [BankSubAccount]
 }
 
-struct SubAccount: Identifiable, Encodable, Decodable {
+struct BankSubAccount: Identifiable, Encodable, Decodable {
     var id = UUID()
     var account_id: String
     var account_name: String
     var sub_balance: Double
     var transactions: [BankTransaction]
+}
+
+struct BrokerSubAccount: Identifiable, Encodable, Decodable {
+    var id = UUID()
+    var account_id: String
+    var account_name: String
+    var sub_balance: Double
+    var holdings: [Security]
 }
 
 struct BankTransaction: Identifiable, Encodable, Decodable {

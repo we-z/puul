@@ -64,10 +64,85 @@ struct ChatView: View {
                                 Image(systemName: "arrow.turn.right.down")
                             }
                         }
+                        .padding(.vertical)
+                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                        .padding(.horizontal, 35)
+                        ScrollView(.horizontal) {
+                            HStack(spacing: -15){
+                                Button {
+                                    vm.inputMessage = "What stocks should I buy?"
+                                    sendMessage()
+                                } label: {
+                                    Text("What stocks \nshould I buy?")
+                                        .padding()
+                                        .background(.primary.opacity(0.1))
+                                        .cornerRadius(20)
+                                        .overlay( /// apply a rounded border
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.primary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                }
+                                Button {
+                                    vm.inputMessage = "how are my spending habits?"
+                                    sendMessage()
+                                } label: {
+                                    Text("how are my \nspending habits?")
+                                        .padding()
+                                        .background(.primary.opacity(0.1))
+                                        .cornerRadius(20)
+                                        .overlay( /// apply a rounded border
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.primary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                }
+                                Button {
+                                    vm.inputMessage = "What are my monthly expenses?"
+                                    sendMessage()
+                                } label: {
+                                    Text("What are my \nmonthly expenses?")
+                                        .padding()
+                                        .background(.primary.opacity(0.1))
+                                        .cornerRadius(20)
+                                        .overlay( /// apply a rounded border
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.primary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                }
+                                Button {
+                                    vm.inputMessage = "how are my investments?"
+                                    sendMessage()
+                                } label: {
+                                    Text("how are my \ninvestments?")
+                                        .padding()
+                                        .background(.primary.opacity(0.1))
+                                        .cornerRadius(20)
+                                        .overlay( /// apply a rounded border
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.primary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                }
+                                Button {
+                                    vm.inputMessage = "How much have I spent in may?"
+                                    sendMessage()
+                                } label: {
+                                    Text("How much have \nI spent in may?")
+                                        .padding()
+                                        .background(.primary.opacity(0.1))
+                                        .cornerRadius(20)
+                                        .overlay( /// apply a rounded border
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.primary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                }
+                            }
+                        }
                     }
-                    .padding(.vertical)
-                    .font(.system(size: UIScreen.main.bounds.width * 0.12))
-                    .padding(.horizontal, 35)
+                    
 
                 } else {
                     ScrollView {
@@ -120,15 +195,8 @@ struct ChatView: View {
                 DotLoadingView().frame(width: 60, height: 30)
             } else {
                 Button {
-//                    if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
-//                        self.showSubscriptions = true
-//                    } else {
-                        Task { @MainActor in
-                            isTextFieldFocused = false
-                            scrollToBottom(proxy: proxy)
-                            await vm.sendTapped()
-                        }
-                    //}
+                    scrollToBottom(proxy: proxy)
+                    sendMessage()
                 } label: {
                     Image(systemName: "paperplane.circle.fill")
                         .rotationEffect(.degrees(45))
@@ -150,6 +218,17 @@ struct ChatView: View {
                 scrollToBottom(proxy: proxy)
             }
         }
+    }
+    
+    func sendMessage() {
+//        if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
+//            self.showSubscriptions = true
+//        } else {
+            Task { @MainActor in
+                isTextFieldFocused = false
+                await vm.sendTapped()
+            }
+        //}
     }
     
     private func scrollToBottom(proxy: ScrollViewProxy) {
