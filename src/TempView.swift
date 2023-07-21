@@ -1,37 +1,22 @@
 import SwiftUI
-
-
-struct Bookmark: Identifiable {
-    let id = UUID()
-    let name: String
-    let icon: String
-    var items: [Bookmark]?
-
-    // some example websites
-    static let apple = Bookmark(name: "Apple", icon: "1.circle")
-    static let bbc = Bookmark(name: "BBC", icon: "square.and.pencil")
-    static let swift = Bookmark(name: "Swift", icon: "bolt.fill")
-    static let twitter = Bookmark(name: "Twitter", icon: "mic")
-
-    // some example groups
-    static let example1 = Bookmark(name: "Favorites", icon: "star", items: [Bookmark.apple, Bookmark.bbc, Bookmark.swift, Bookmark.twitter])
-    static let example2 = Bookmark(name: "Recent", icon: "timer", items: [Bookmark.apple, Bookmark.bbc, Bookmark.swift, Bookmark.twitter])
-    static let example3 = Bookmark(name: "Recommended", icon: "hand.thumbsup", items: [Bookmark.apple, Bookmark.bbc, Bookmark.swift, Bookmark.twitter])
-}
+import AuthenticationServices
 
 struct ContentView: View {
-    
-    let main_items: [Bookmark] = [.example1, .example2, .example3]
+    @Environment (\.colorScheme) var colorScheme
     var body: some View {
-        List(main_items, children: \.items) { row in
-            HStack{
-                Text (row .name)
-                Spacer()
-                Text (row .name)
+        VStack{
+            SignInWithAppleButton(.continue) { request in
+                request.requestedScopes = [.email, .fullName]
+            } onCompletion: { request in
+                
             }
-            .bold()
+            .signInWithAppleButtonStyle(
+                colorScheme ==  .dark ? .white : .black
+            )
+            .frame (height: 50)
+            .padding()
+            .cornerRadius(9)
         }
-        .accentColor(.primary)
     }
 }
     

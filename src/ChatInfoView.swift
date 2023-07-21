@@ -61,7 +61,7 @@ struct ChatInfoView: View {
                 }
                 .padding(.top)
                 HStack{
-                    Text("Steve can see your last 10 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
+                    Text("Steve can see your last 100 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
                         .multilineTextAlignment(.leading)
                         
@@ -78,46 +78,52 @@ struct ChatInfoView: View {
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("The biggest advantage of an AI financial advisor over a human advisor is its ability to process vast amounts of data quickly and make data-driven recommendations. \n \nUnlike human advisors, AI is not influenced by emotional biases, which can impact decision-making.")
+                    Text("The biggest advantage of Steve over a human advisor is his ability to process vast amounts of data quickly and make data-driven recommendations. \n \nUnlike human advisors, Steve is not influenced by emotional biases, which can impact decision-making.")
                         .font(.system(size: UIScreen.main.bounds.width * 0.045))
                         .multilineTextAlignment(.leading)
                         
                     Spacer()
                 }
             }
+                Section(header:
+                    Text("Steves Settings: ")
+                    .foregroundColor(.primary)
+                    .bold()
+                    .font(.system(size: UIScreen.main.bounds.width * 0.075))
+                    .textCase(nil)
+                ){}
+            Picker("Risk Level", selection: $model.selectedRiskLevel) {
+                ForEach(levels, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(.inline)
+            .accentColor(.primary)
+            Picker("Investing Time frame", selection: $model.selectedTimeFrame) {
+                ForEach(terms, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(.inline)
+            .accentColor(.primary)
             
-                Picker("Risk Level", selection: $model.selectedRiskLevel) {
-                    ForEach(levels, id: \.self) {
-                        Text($0)
-                    }
-                }
-                .pickerStyle(.inline)
-                .accentColor(.primary)
-                Picker("Investing Time frame", selection: $model.selectedTimeFrame) {
-                    ForEach(terms, id: \.self) {
-                        Text($0)
-                    }
-                }
-                .pickerStyle(.inline)
-                .accentColor(.primary)
-                
-                HStack{
-                    Button(action: {
-                        self.showingAlert = true
-                    }) {
-                        HStack{
-                            Spacer()
-                            Text("Clear chat history")
-                                .padding()
-                                .foregroundColor(.red)
-                                .bold()
-                                
-                            Spacer()
-                        }
+            HStack{
+                Button(action: {
+                    self.showingAlert = true
+                }) {
+                    HStack{
+                        Spacer()
+                        Text("Clear chat history")
+                            .padding()
+                            .foregroundColor(.red)
+                            .bold()
+                            
+                        Spacer()
                     }
                 }
             }
-            .scrollIndicators(.hidden)
+        }
+        .scrollIndicators(.hidden)
                 
             
         }
