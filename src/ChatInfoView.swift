@@ -26,7 +26,7 @@ struct ChatInfoView: View {
                 }
                 .accentColor(.primary)
                 Spacer()
-                Text("About Steve")
+                Text("Puuls Settings")
                     
                 Spacer()
                 Text("     ")
@@ -35,63 +35,6 @@ struct ChatInfoView: View {
             .font(.system(size: 21))
             .padding()
             Form {
-            ScrollView{
-                HStack{
-                    Text("Who is Steve?")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                        .bold()
-                    Spacer()
-                }
-                .padding(.vertical)
-                
-                HStack{
-                    Text("Steve is your Ai financial advisor and partner that can help you plan for the future. Whether you are planning for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nSteve gives you personally tailored advice based on your current financial state and desired risk level")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
-                        .multilineTextAlignment(.leading)
-                        
-                    Spacer()
-                }
-                .padding(.bottom)
-                Divider()
-                HStack{
-                    Text("What does Steve know about me?")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.07))
-                        .bold()
-                    Spacer()
-                }
-                .padding(.top)
-                HStack{
-                    Text("Steve can see your last 100 transactions from every bank account you link and can see what stocks / ETFs you own in each Broker account you link")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
-                        .multilineTextAlignment(.leading)
-                        
-                    Spacer()
-                }
-                .padding(.vertical, 3)
-                Divider()
-                    .padding(.top)
-                HStack{
-                    Text("Why?")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                        .bold()
-                    Spacer()
-                }
-                .padding(.vertical)
-                HStack{
-                    Text("The biggest advantage of Steve over a human advisor is his ability to process vast amounts of data quickly and make data-driven recommendations. \n \nUnlike human advisors, Steve is not influenced by emotional biases, which can impact decision-making.")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.045))
-                        .multilineTextAlignment(.leading)
-                        
-                    Spacer()
-                }
-            }
-                Section(header:
-                    Text("Steves Settings: ")
-                    .foregroundColor(.primary)
-                    .bold()
-                    .font(.system(size: UIScreen.main.bounds.width * 0.075))
-                    .textCase(nil)
-                ){}
             Picker("Risk Level", selection: $model.selectedRiskLevel) {
                 ForEach(levels, id: \.self) {
                     Text($0)
@@ -129,7 +72,7 @@ struct ChatInfoView: View {
         }
         .alert(isPresented: self.$showingAlert) {
             Alert(title: Text("Are you sure?"),
-                  message: Text("All conversations with Steve will be permenantly deleted"),
+                  message: Text("All conversations with Puul will be permenantly deleted"),
                   primaryButton: .destructive(Text("Delete")) {
                 print("clearing from chat info view")
                 shouldClearConversation = true

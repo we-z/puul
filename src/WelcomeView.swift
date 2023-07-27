@@ -31,8 +31,8 @@ struct WelcomeView: View {
                 VStack{
                     Spacer()
                     HStack{
-                        Text("Say hello to Steve👨‍💼")
-                            .font(.system(size: UIScreen.main.bounds.width * 0.18))
+                        Text("Plan for the future 🚀")
+                            .font(.system(size: UIScreen.main.bounds.width * 0.15))
                             .padding()
                             //.padding(.top, 50)
                         Spacer()
@@ -49,26 +49,26 @@ struct WelcomeView: View {
                             .padding()
                         Spacer()
                     }
-                    .padding(.bottom, 65)
+                    .padding(.bottom, 85)
                 }
                 //.offset(y: -UIScreen.main.bounds.height * 0.027)
                 VStack{
                     Spacer()
                     HStack{
                         Text("Optimize⚡")
-                            .font(.system(size: UIScreen.main.bounds.width * 0.18))
+                            .font(.system(size: UIScreen.main.bounds.width * 0.15))
                             .padding()
                             //.padding(.top, 50)
                         Spacer()
                     }
                     HStack{
-                        Text("Steve will give you better financial advice when you add your assets 🏦")
+                        Text("Puul will give you better financial advice when you add your assets 🏦")
                             .font(.system(size: UIScreen.main.bounds.width * 0.1))
                             .padding()
                         Spacer()
                     }
                     HStack{
-                        Text("Choosing your risk tolerance will let Steve give you better investing advice 💸")
+                        Text("Choosing your risk tolerance will let Puul give you better investing advice 💸")
                             .font(.system(size: UIScreen.main.bounds.width * 0.1))
                             .padding()
                         Spacer()
@@ -92,7 +92,7 @@ struct WelcomeView: View {
                         Text("Continue")
                         Spacer()
                     }
-                    .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                    .font(.system(size: UIScreen.main.bounds.width * 0.06))
                     .bold()
                     .padding()
                     .foregroundColor(.primary)

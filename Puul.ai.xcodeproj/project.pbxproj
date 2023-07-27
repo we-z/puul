@@ -24,6 +24,7 @@
 		7A81C17E2A1031F7000496E3 /* BankAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */; };
 		7A81C1832A11C58D000496E3 /* BrokerAccountsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */; };
 		7A81C1882A11C843000496E3 /* BrokerAccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */; };
+		7ABFF5442A6B624500F3428D /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ABFF5432A6B624500F3428D /* APIKeys.plist */; };
 		7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
 		7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */; };
 		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
@@ -65,6 +66,7 @@
 		7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountsListView.swift; sourceTree = "<group>"; };
 		7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerAccountDetailsView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Puul.entitlements; sourceTree = "<group>"; };
+		7ABFF5432A6B624500F3428D /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesListView.swift; sourceTree = "<group>"; };
 		8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPIModels.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */,
 				7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */,
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
+				7ABFF5432A6B624500F3428D /* APIKeys.plist */,
 				8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */,
 				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */,
+				7ABFF5442A6B624500F3428D /* APIKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

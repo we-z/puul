@@ -39,14 +39,14 @@ struct ChatView: View {
                             .font(.system(size: 24))
                     }
                     Spacer()
-                    Text("Steve 👨‍💼")
+                    Text("Puul")
                         .font(.system(size: 21))
                         .bold()
                     Spacer()
                     Button {
                         showInfoPage.toggle()
                     } label: {
-                        Image(systemName: "info.circle")
+                        Image(systemName: "gearshape")
                             .font(.system(size: 24))
                     }
                 }

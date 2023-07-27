@@ -16,14 +16,14 @@ struct BankAccountDetailsView: View {
                     Text(viewdata.institution_name + ":")
                         .bold()
                         .foregroundColor(.primary)
-                        .font(.system(size: 36))
+                        .font(.system(size: 33))
                         .padding(.top)
                     Text("$" + viewdata.balance.withCommas())
                         .scaledToFit()
                         .minimumScaleFactor(0.01)
                         .lineLimit(1)
                         .bold()
-                        .font(.system(size: 69))
+                        .font(.system(size: 60))
                     
                 }
                 .padding()

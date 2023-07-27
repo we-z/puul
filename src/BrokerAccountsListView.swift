@@ -25,7 +25,7 @@ struct BrokerAccountsListView: View {
                         Spacer()
                     }
                     .padding(.top, 6)
-                    .font(.system(size: 30))
+                    .font(.system(size: 27))
                     .bold()
                     .listRowSeparator(.hidden)
                     Divider()
@@ -85,7 +85,7 @@ struct BrokerAccountsListView: View {
                         HStack{
                             Spacer()
                             Image(systemName: "plus")
-                                .font(.system(size: 30))
+                                .font(.system(size: 27))
                                 .padding(.bottom, 12)
                             Spacer()
                         }

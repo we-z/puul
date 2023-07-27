@@ -12,7 +12,7 @@ struct HomeView: View {
     @StateObject var vm = ChatViewModel(api: ChatGPTAPI())
     @State private var showLink = false
     @State private var showAccount = false
-    @State private var showSteve = false
+    @State private var showChat = false
     @EnvironmentObject var pm: PlaidModel
     @EnvironmentObject public var model: AppModel
     
@@ -27,11 +27,11 @@ struct HomeView: View {
                         Text("Portfolio:")
                             .bold()
                             .foregroundColor(.primary)
-                            .font(.system(size: UIScreen.main.bounds.height * 0.047))
+                            .font(.system(size: UIScreen.main.bounds.height * 0.036))
                             .padding(.top)
                         Text("$" + pm.totalNetWorth.withCommas())
                             .bold()
-                            .font(.system(size: UIScreen.main.bounds.height * 0.09))
+                            .font(.system(size: UIScreen.main.bounds.height * 0.069))
                             .scaledToFit()
                             .minimumScaleFactor(0.01)
                             .lineLimit(1)
@@ -45,7 +45,7 @@ struct HomeView: View {
                         }) {
                             Image(systemName: "person.crop.circle")
                                 .foregroundColor(.primary)
-                                .font(.system(size: UIScreen.main.bounds.height * 0.039))
+                                .font(.system(size: UIScreen.main.bounds.height * 0.03))
                         }
                         .buttonStyle(HapticButtonStyle())
                         Spacer()
@@ -75,12 +75,12 @@ struct HomeView: View {
                 
                 HStack{
                     Button(action: {
-                        self.showSteve = true
+                        self.showChat = true
                     }) {
                         HStack{
                             Spacer()
-                            Text("Talk with Steve 👨‍💼")
-                                .font(.system(size: UIScreen.main.bounds.height * 0.036))
+                            Text("Talk with Puul")
+                                .font(.system(size: UIScreen.main.bounds.height * 0.03))
                                 .padding()
                                 .foregroundColor(.primary)
                                 .bold()
@@ -105,7 +105,7 @@ struct HomeView: View {
                 Alert(title: Text("Wait a couple of seconds for changes to appear"))
             }
         }
-        .fullScreenCover(isPresented: $showSteve){
+        .fullScreenCover(isPresented: $showChat){
             ChatView(vm: vm)
                 .buttonStyle(HapticButtonStyle())
         }

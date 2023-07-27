@@ -17,7 +17,7 @@ struct PropertiesListView: View {
                     Text("Real Estate")
                     Spacer()
                 }
-                .font(.system(size: 30))
+                .font(.system(size: 27))
                 .bold()
                 .padding(.top, 6)
                 Divider()
@@ -29,7 +29,7 @@ struct PropertiesListView: View {
                     //}
                 }) {
                     Image(systemName: "plus")
-                        .font(.system(size: 30))
+                        .font(.system(size: 27))
                         .padding(3)
                 }
                 .accentColor(.primary)

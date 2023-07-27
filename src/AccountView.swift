@@ -62,7 +62,7 @@ struct AccountView: View {
                     }) {
                         HStack{
                             Image(systemName: "info.circle")
-                            Text("Data Info")
+                            Text("About Puul")
                         }
                     }
                 }
@@ -140,7 +140,7 @@ struct AccountView: View {
                     .background(.primary.opacity(0.12))
                     .cornerRadius(45)
                     .padding(.horizontal)
-                    .font(.system(size: UIScreen.main.bounds.height * 0.039))
+                    .font(.system(size: UIScreen.main.bounds.height * 0.033))
                     .bold()
                     
                 }
