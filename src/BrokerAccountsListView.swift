@@ -73,14 +73,14 @@ struct BrokerAccountsListView: View {
                     .listRowSeparator(.hidden)
                 
                     Button(action: {
-//                        if !storeVM.hasUnlockedPro {
-//                            self.showSubscriptions = true
-//                        } else {
+                        if !storeVM.hasUnlockedPro && (pm.brokerAccounts.count + pm.bankAccounts.count) > 1 {
+                            self.showSubscriptions = true
+                        } else {
                             pm.createBrokerLinkToken()
                             print("Broker Menu")
                             //isBank = false
                             showLink = true
-                        //}
+                        }
                     }) {
                         HStack{
                             Spacer()

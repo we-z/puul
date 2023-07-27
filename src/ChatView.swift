@@ -221,14 +221,14 @@ struct ChatView: View {
     }
     
     func sendMessage() {
-//        if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
-//            self.showSubscriptions = true
-//        } else {
+        if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
+            self.showSubscriptions = true
+        } else {
             Task { @MainActor in
                 isTextFieldFocused = false
                 await vm.sendTapped()
             }
-        //}
+        }
     }
     
     private func scrollToBottom(proxy: ScrollViewProxy) {
