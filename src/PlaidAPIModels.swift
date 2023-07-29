@@ -17,10 +17,11 @@ class PlaidModel: ObservableObject {
     @Published var bankString: String = ""
     @Published var brokerString: String = ""
     var isUpdating = false
-    let plaidEnvironment = "https://development.plaid.com/"
+    let plaidEnvironment = "https://production.plaid.com/"
     let client_id = "63d411aa2bcbe80013f42ad7"
     let sandboxSecret = "4c8e7956ddd4dcb6d91177841fc850"
     let developmentSecret = "eaeb3902e92ac2fb678511ee863160"
+    let productionSecret = "9ebfbc19be9e5bd936d91c0b8aa567"
     var plaidSecret: String
     @Published var linkToken = ""
     @Published var totalNetWorth: Double = 0
@@ -50,7 +51,7 @@ class PlaidModel: ObservableObject {
     }
     
     init() {
-        plaidSecret = developmentSecret
+        plaidSecret = productionSecret
         getSavedBankAccounts()
         getBrokerAccounts()
         getSavedBankAcceessTokens()
