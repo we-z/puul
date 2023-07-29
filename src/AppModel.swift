@@ -9,12 +9,14 @@ import Foundation
 import SwiftUI
 import UIKit
 
+let isPurchasedKey = "IsPurchased"
+
 class AppModel: ObservableObject {
     let lightModeKey: String = "lightmodeKey"
     let hapticKey: String = "hapticModeKey"
     let risklevelKey: String = "risklevelkey"
     let timeFrameKey: String = "timeframekey"
-    //let levels = ["Risk-Averse", "Low Risk", "Average Risk", "High Risk", "YOLO"]
+    @AppStorage(isPurchasedKey) var isPurchased: Bool = UserDefaults.standard.bool(forKey: isPurchasedKey)
     @Published var showingWarningAlert = false
     @Published var selectedRiskLevel = "" {
         didSet{

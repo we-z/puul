@@ -10,7 +10,6 @@ import StoreKit
 
 struct SubscriptionView: View {
     @EnvironmentObject var storeVM: StoreVM
-    @State var isPurchased = false
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -93,7 +92,7 @@ struct SubscriptionView: View {
             }
             Button(action: {
                 Task{
-                    await storeVM.restoreProducts()
+                    try? await AppStore.sync()
                 }
             }){
                 Text("Restore Purchases")
@@ -108,7 +107,6 @@ struct SubscriptionView: View {
     func buy(product: Product) async {
         do {
             try await storeVM.purchase(product)
-            isPurchased = true
             await storeVM.updatePurchasedProducts()
             if storeVM.success{
                 dismiss()

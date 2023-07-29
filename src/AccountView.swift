@@ -38,7 +38,7 @@ struct AccountView: View {
             List{
                 Section(header: Text("Account")){
                     Button(action: {
-                        if !storeVM.hasUnlockedPro {
+                        if !model.isPurchased {
                             self.showSubscriptions = true
                         } else {
                             showManageSubscriptions = true
@@ -126,7 +126,7 @@ struct AccountView: View {
                     }
                 }
             }
-            if !storeVM.hasUnlockedPro {
+            if !model.isPurchased {
                 Button(action: {
                     self.showSubscriptions = true
                 }) {

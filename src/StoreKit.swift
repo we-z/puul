@@ -7,6 +7,7 @@ class StoreVM: ObservableObject {
     @Published private(set) var subscriptions: [Product] = []
     @Published var purchasedProductIDs = Set<String>()
     @Published var success = false
+    var model = AppModel()
     
     private let productIds: [String] = ["monthly.subscription"]
         
@@ -103,8 +104,10 @@ class StoreVM: ObservableObject {
             if transaction.revocationDate == nil {
                 self.purchasedProductIDs.insert(transaction.productID)
                 success = true
+                model.isPurchased = true
             } else {
                 self.purchasedProductIDs.remove(transaction.productID)
+                model.isPurchased = false
             }
         }
     }
