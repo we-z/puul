@@ -17,7 +17,7 @@ struct WelcomeView: View {
                     Text("Welcome \nto Puul 👋")
                         .font(.system(size: UIScreen.main.bounds.width * 0.17))
                         .padding()
-                        .padding(.top, 33)
+                        .padding(.top, UIScreen.main.bounds.height * 0.06)
                         .bold()
                     Spacer()
                 }
@@ -34,7 +34,7 @@ struct WelcomeView: View {
                     Spacer()
                 }
                 HStack{
-                    Text("Puul will give you better financial advice when you add your assets and risk tolerance 🏦")
+                    Text("Get better financial advice when you add your assets and risk tolerance 🏦")
                         .font(.system(size: UIScreen.main.bounds.width * 0.08))
                         .padding()
                     Spacer()
