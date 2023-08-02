@@ -96,8 +96,7 @@ struct HomeView: View {
                         .cornerRadius(32)
                     }
                     .buttonStyle(HapticButtonStyle())
-                    .padding(.horizontal)
-                    .padding(.top)
+                    .padding()
                 }
                 .background(.gray.opacity(0.15))
             }
