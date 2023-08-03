@@ -45,11 +45,11 @@ struct HomeView: View {
                         }) {
                             Image(systemName: "person.crop.circle")
                                 .foregroundColor(.primary)
-                                .font(.system(size: UIScreen.main.bounds.height * 0.03))
+                                .font(.system(size: UIScreen.main.bounds.height * 0.039))
                         }
                         .buttonStyle(HapticButtonStyle())
                         Spacer()
-                            .frame(maxHeight: UIScreen.main.bounds.height * 0.12)
+                            .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
                     }
                 }
                 .padding(.horizontal)
@@ -79,18 +79,22 @@ struct HomeView: View {
                     }) {
                         HStack{
                             Spacer()
-                            Text("Talk with Puul")
-                                .font(.system(size: UIScreen.main.bounds.height * 0.03))
-                                .padding()
-                                .foregroundColor(.primary)
-                                .bold()
+                            HStack{
+                                Image(systemName: "message")
+                                Text("Talk with Puul")
+                                    
+                            }
+                            .font(.system(size: UIScreen.main.bounds.height * 0.03))
+                            .padding()
+                            .foregroundColor(.primary)
+                            .colorInvert()
+                            .bold()
                                 
                             Spacer()
                         }
                         .background(
                             ZStack{
-                                Color.primary.colorInvert()
-                                Color.gray.opacity(0.3)
+                                Color.primary.opacity(0.9)
                             }
                         )
                         .cornerRadius(32)
@@ -127,5 +131,6 @@ struct HomeView_Previews: PreviewProvider {
             .environmentObject(PlaidModel())
             .environmentObject(StoreVM())
             .environmentObject(AppModel())
+            .environmentObject(ZillowAPI())
     }
 }

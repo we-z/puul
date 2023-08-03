@@ -26,9 +26,10 @@ struct SubscriptionView: View {
                 }
                 .padding(.horizontal)
                 HStack {
-                    Text("Upgrade to \na smarter portfolio")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.15))
+                    Text("Unlock all \nof Puuls \nfeatures")
+                        .font(.system(size: UIScreen.main.bounds.width * 0.18))
                         .bold()
+                        .italic()
                         .padding()
                     Spacer()
                 }
@@ -37,7 +38,7 @@ struct SubscriptionView: View {
             Divider()
                 .overlay(.primary)
                 .padding(.horizontal)
-            
+            Spacer()
             HStack{
                 VStack(alignment: .leading, spacing: 36){
                     HStack{
@@ -46,19 +47,20 @@ struct SubscriptionView: View {
                     }
                     HStack{
                         Image(systemName: "dollarsign.circle")
-                        Text("Add up to 10 assets")
+                        Text("Add unlimited assets")
                     }
                     HStack{
                         Image(systemName: "house")
-                        Text("Ai Real Estate Advisor")
+                        Text("Real Estate features")
                     }
                 }
                 .bold()
+                .italic()
+                .underline()
                 .font(.system(size: UIScreen.main.bounds.width * 0.07))
                 .padding(.horizontal)
                 //Spacer()
             }
-            .padding(.top, UIScreen.main.bounds.height * 0.045)
             Spacer()
             Group {
                 Section {

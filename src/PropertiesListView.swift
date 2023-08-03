@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct PropertiesListView: View {
-    @State public var showProperties = false
+    @State public var showPropertySearch = false
+    @EnvironmentObject var storeVM: StoreVM
+    @State private var showSubscriptions = false
+    @State private var showAlert = false
+    
     var body: some View {
         Section{
             VStack{
@@ -22,11 +26,12 @@ struct PropertiesListView: View {
                 .padding(.top, 6)
                 Divider()
                 Button(action: {
-    //                if storeVM.purchasedSubscriptions.isEmpty {
-    //                    self.showSubscriptions = true
-    //                } else {
-                        self.showProperties = true
-                    //}
+//                   if storeVM.hasUnlockedPro {
+//                     self.showPropertySearch = true
+//                   } else {
+//                       showSubscriptions = true
+//                   }
+                    showAlert = true
                 }) {
                     Image(systemName: "plus")
                         .font(.system(size: 27))
@@ -35,7 +40,14 @@ struct PropertiesListView: View {
                 .accentColor(.primary)
             }
         }
-        .alert("Real Estate coming Soon", isPresented: $showProperties) {
+        .sheet(isPresented: $showPropertySearch) {
+            SearchPropertiesView()
+        }
+        .fullScreenCover(isPresented: $showSubscriptions){
+            SubscriptionView()
+                .buttonStyle(HapticButtonStyle())
+        }
+        .alert("Real Estate coming Soon", isPresented: $showAlert) {
             Button("OK", role: .cancel) { }
         }
     }
@@ -44,5 +56,6 @@ struct PropertiesListView: View {
 struct PropertiesListView_Previews: PreviewProvider {
     static var previews: some View {
         PropertiesListView()
+            .environmentObject(StoreVM())
     }
 }
