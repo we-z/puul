@@ -53,9 +53,9 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal)
-                Divider()
-                    .overlay(.gray)
-                    .padding(.horizontal)
+//                Divider()
+//                    .overlay(.gray)
+//                    .padding(.horizontal)
                 
                 List{
                     BankAccountsListView()
@@ -73,36 +73,40 @@ struct HomeView: View {
                 .scrollIndicators(.hidden)
                 .environment(\.defaultMinListRowHeight, 49)
                 
-                HStack{
-                    Button(action: {
-                        self.showChat = true
-                    }) {
-                        HStack{
-                            Spacer()
+                VStack{
+//                    Divider()
+//                        .overlay(.gray)
+//                        .padding(.horizontal)
+                    HStack{
+                        Button(action: {
+                            self.showChat = true
+                        }) {
                             HStack{
-                                Image(systemName: "message")
-                                Text("Talk with Puul")
+                                Spacer()
+                                HStack{
+                                    Image(systemName: "message")
+                                    Text("Talk with Puul")
                                     
-                            }
-                            .font(.system(size: UIScreen.main.bounds.height * 0.03))
-                            .padding()
-                            .foregroundColor(.primary)
-                            .colorInvert()
-                            .bold()
+                                }
+                                .font(.system(size: UIScreen.main.bounds.height * 0.025))
+                                .padding()
+                                .foregroundColor(.primary)
+                                .colorInvert()
+                                .bold()
                                 
-                            Spacer()
-                        }
-                        .background(
-                            ZStack{
-                                Color.primary.opacity(0.9)
+                                Spacer()
                             }
-                        )
-                        .cornerRadius(32)
+                            .background(
+                                ZStack{
+                                    Color.primary.opacity(0.9)
+                                }
+                            )
+                            .cornerRadius(32)
+                        }
+                        .buttonStyle(HapticButtonStyle())
+                        .padding()
                     }
-                    .buttonStyle(HapticButtonStyle())
-                    .padding()
                 }
-                .background(.gray.opacity(0.15))
             }
             .alert(isPresented: $model.showingWarningAlert) {
                 Alert(title: Text("Wait a couple of seconds for changes to appear"))

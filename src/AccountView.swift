@@ -135,9 +135,10 @@ struct AccountView: View {
                         Text("Upgrade to Pro")
                         Spacer()
                     }
-                    
                     .padding()
-                    .background(.primary.opacity(0.12))
+                    .foregroundColor(.primary)
+                    .colorInvert()
+                    .background(.primary)
                     .cornerRadius(45)
                     .padding(.horizontal)
                     .font(.system(size: UIScreen.main.bounds.height * 0.033))

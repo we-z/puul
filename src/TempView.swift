@@ -1,33 +1,53 @@
 import SwiftUI
+import Foundation
+
 
 struct ContentView: View {
-    @State private var inputText: String = ""
-        
-    private func convertToPercentEncoding(_ input: String) -> String {
-        let allowedCharacterSet = CharacterSet.alphanumerics
-        return input.reduce("") { result, char in
-            if allowedCharacterSet.contains(char.unicodeScalars.first!) {
-                return result + String(char)
-            } else {
-                return result + "%20"
+    @State private var inputText = ""
+    @State private var messages = [BardMessage]()
+    
+    private let bard = Bard(token: "ZQi1OHkQEoyD2_pIRfB2-rsNkfiX_Ne_nQVmmJ9Ope4l8goggnffsZpF6V-xdliPOkgw0A.")
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                ForEach($messages, id: \.self) { message in
+                    HStack {
+                        Text(message.text.wrappedValue)
+                    }
+                }
+                Spacer()
+                TextField("Enter your message", text: $inputText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                Button(action: {
+                    sendMessage()
+                }) {
+                    Text("Send Message")
+                        .foregroundColor(.primary)
+                }
             }
         }
     }
     
-    var body: some View {
-        VStack {
-            TextField("Enter text", text: $inputText)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Text("Transformed Text:")
-                .font(.headline)
-            
-            Text(convertToPercentEncoding(inputText))
-                .padding()
+    func sendMessage() {
+        bard.getAnswer(inputText: inputText) { result in
+            switch result {
+            case .success(let response):
+                let message = BardMessage(id: 0, text: response["text"] as! String, isUserMessage: false)
+                messages.append(message)
+            case .failure(let error):
+                print(error)
+            }
         }
-        .padding()
+        inputText = ""
     }
+}
+
+struct BardMessage: Identifiable, Hashable {
+    let id: Int
+    var text: String
+    var isUserMessage: Bool
 }
     
 struct ContentView_Previews: PreviewProvider {

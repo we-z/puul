@@ -16,6 +16,7 @@
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
 		7A4C8F622A79A0F900B1E0E3 /* ZillowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C8F612A79A0F900B1E0E3 /* ZillowAPI.swift */; };
 		7A4C8F642A7ACD7300B1E0E3 /* SearchPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C8F632A7ACD7300B1E0E3 /* SearchPropertiesView.swift */; };
+		7A4C8F6A2A7C93BE00B1E0E3 /* BardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C8F692A7C93BE00B1E0E3 /* BardAPI.swift */; };
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
 		7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
@@ -59,6 +60,7 @@
 		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		7A4C8F612A79A0F900B1E0E3 /* ZillowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZillowAPI.swift; sourceTree = "<group>"; };
 		7A4C8F632A7ACD7300B1E0E3 /* SearchPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPropertiesView.swift; sourceTree = "<group>"; };
+		7A4C8F692A7C93BE00B1E0E3 /* BardAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BardAPI.swift; sourceTree = "<group>"; };
 		7A7BDC102A457EC400AC5F6B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
 				7A81C1782A0AC3A4000496E3 /* BankAccountDetailsView.swift */,
 				7A81C17D2A1031F7000496E3 /* BankAccountsListView.swift */,
+				7A4C8F692A7C93BE00B1E0E3 /* BardAPI.swift */,
 				7A81C1872A11C843000496E3 /* BrokerAccountDetailsView.swift */,
 				7A81C1822A11C58D000496E3 /* BrokerAccountsListView.swift */,
 				8B91C011298AD0CE0079AF26 /* ChatGPTAPI.swift */,
@@ -325,6 +328,7 @@
 				7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */,
 				7A81C16A2A021077000496E3 /* PlaidLinkFlowView.swift in Sources */,
 				7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */,
+				7A4C8F6A2A7C93BE00B1E0E3 /* BardAPI.swift in Sources */,
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
 				7A81C1792A0AC3A4000496E3 /* BankAccountDetailsView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
