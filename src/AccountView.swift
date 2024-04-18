@@ -61,6 +61,7 @@ struct AccountView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("Settings")){
                     Toggle(isOn: $model.isLightMode) {
                         HStack{
@@ -76,7 +77,7 @@ struct AccountView: View {
                     }
 
                 }
-                
+                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("About")){
                     Button(action: {
                         if let url = URL(string: "https://puul.ai/terms-of-use") {
@@ -120,12 +121,15 @@ struct AccountView: View {
                         }
                     }
                 }
+                .listRowBackground(Color.primary.opacity(0.12))
             }
+            .scrollContentBackground(.hidden)
             if !model.isPurchased {
                 Button(action: {
                     self.showSubscriptions = true
                 }) {
                     HStack{
+                        Spacer()
                         Text("⬆️")
                             .scaleEffect(1.2)
                             .offset(y: -1)
@@ -141,17 +145,17 @@ struct AccountView: View {
                             .stroke(.primary, lineWidth: 3)
                     )
                     .padding(.horizontal)
-                    .font(.system(size: UIScreen.main.bounds.height * 0.033))
+                    .font(.system(size: 27))
                     .bold()
                     
                 }
+                .buttonStyle(HapticButtonStyle())
             }
         }
         .accentColor(.primary)
         .sheet(isPresented: $showSubscriptions){
             SubscriptionView()
                 .presentationDetents([.height(560)])
-                .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showDataInfo,
                onDismiss: {

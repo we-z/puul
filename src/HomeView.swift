@@ -94,7 +94,7 @@ struct HomeView: View {
                                         .scaleEffect(1.2)
                                         .offset(y: -3)
                                 }
-                                .font(.system(size: UIScreen.main.bounds.height * 0.025))
+                                .font(.system(size: 30))
                                 .padding()
                                 .bold()
                                 
@@ -120,10 +120,9 @@ struct HomeView: View {
             ChatView(vm: vm)
                 .buttonStyle(HapticButtonStyle())
         }
-        .sheet(isPresented: self.$showAccount){
+        .sheet(isPresented: $showAccount){
             AccountView()
-                .presentationDragIndicator(.visible)
-                .buttonStyle(HapticButtonStyle())
+                .presentationDetents([.height(700)])
         }
         .sheet(isPresented: $welcomeScreenShown,
                onDismiss: {
