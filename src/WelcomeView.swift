@@ -12,52 +12,38 @@ struct WelcomeView: View {
     var welcomeScreenShown: Bool = true
     var body: some View {
         VStack{
-            VStack{
-                Spacer()
-                HStack{
-                    Text("Welcome \nto Puul 👋")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.17))
-                        .padding()
-                        .bold()
-                    Spacer()
-                }
-                HStack{
-                    Text("Start talking with your Ai financial advisor 🤝")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.075))
-                        .padding()
-                    Spacer()
-                }
-                HStack{
-                    Text("Add your assets to track your total portfolio 📈")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.075))
-                        .padding()
-                    Spacer()
-                }
-                HStack{
-                    Text("Get better financial advice when you add your assets and risk tolerance 🏦")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.075))
-                        .padding()
-                    Spacer()
-                }
-                Spacer()
-            }
-            Button(action:{
-                welcomeScreenShown = false
-            }){
-                HStack {
-                    Spacer()
-                    Text("Continue")
-                    Spacer()
-                }
-                .font(.system(size: UIScreen.main.bounds.width * 0.06))
-                .bold()
-                .padding()
+            Capsule()
+                .frame(maxWidth: 45, maxHeight: 9)
+                .padding(.top, 9)
                 .foregroundColor(.primary)
-                .background(Color.gray.opacity(0.3))
-                .cornerRadius(21)
-                .padding(.horizontal)
-                .padding(.bottom)
+                .opacity(0.3)
+            Spacer()
+            HStack{
+                Text("Welcome \nto Puul 👋")
+                    .font(.system(size: UIScreen.main.bounds.width * 0.17))
+                    .padding()
+                    .bold()
+                Spacer()
             }
+            HStack{
+                Text("Start talking with your Ai financial advisor 🤝")
+                    .font(.system(size: UIScreen.main.bounds.width * 0.075))
+                    .padding()
+                Spacer()
+            }
+            HStack{
+                Text("Add your assets to track your total portfolio 📈")
+                    .font(.system(size: UIScreen.main.bounds.width * 0.075))
+                    .padding()
+                Spacer()
+            }
+            HStack{
+                Text("Get better financial advice when you add your assets and risk tolerance 🏦")
+                    .font(.system(size: UIScreen.main.bounds.width * 0.075))
+                    .padding()
+                Spacer()
+            }
+            Spacer()
         }
     }
 }

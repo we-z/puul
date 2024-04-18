@@ -104,7 +104,7 @@ struct HomeView: View {
                             .cornerRadius(20)
                             .overlay( /// apply a rounded border
                                 RoundedRectangle(cornerRadius: 20)
-                                    .stroke(.primary, lineWidth: 1)
+                                    .stroke(.primary, lineWidth: 3)
                             )
                         }
                         .buttonStyle(HapticButtonStyle())
@@ -120,13 +120,18 @@ struct HomeView: View {
             ChatView(vm: vm)
                 .buttonStyle(HapticButtonStyle())
         }
-        .fullScreenCover(isPresented: self.$showAccount){
+        .sheet(isPresented: self.$showAccount){
             AccountView()
                 .presentationDragIndicator(.visible)
                 .buttonStyle(HapticButtonStyle())
         }
-        .fullScreenCover(isPresented: $welcomeScreenShown){
+        .sheet(isPresented: $welcomeScreenShown,
+               onDismiss: {
+                   self.welcomeScreenShown = false
+               }
+        ){
             WelcomeView()
+                .presentationDetents([.height(660)])
                 .buttonStyle(HapticButtonStyle())
         }
         .accentColor(.primary)

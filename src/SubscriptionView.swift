@@ -19,7 +19,6 @@ struct SubscriptionView: View {
                 .padding(.top, 9)
                 .foregroundColor(.primary)
                 .opacity(0.3)
-            Spacer()
             HStack {
                 Text("🔓")
                     .font(.system(size: 60))
@@ -27,7 +26,7 @@ struct SubscriptionView: View {
                 Text("Unlock all of\nPuuls features!")
                     .lineLimit(2)
                     .minimumScaleFactor(0.01)
-                    .font(.system(size: 33))
+                    .font(.system(size: 39))
                     .bold()
                 Spacer()
             }
@@ -84,8 +83,7 @@ struct SubscriptionView: View {
                                 .font(.system(size: 36))
                                 .bold()
                             }
-                            .padding()
-                            .padding(.vertical, 21)
+                            .padding(.vertical, 27)
                             
                         }
                         .foregroundColor(.primary)

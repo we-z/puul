@@ -18,19 +18,14 @@ struct AccountView: View {
     
     var body: some View {
         VStack{
+            Capsule()
+                .frame(maxWidth: 45, maxHeight: 9)
+                .padding(.top, 9)
+                .foregroundColor(.primary)
+                .opacity(0.3)
             Spacer()
             HStack{
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(systemName: "xmark")
-                }
-                .accentColor(.primary)
-                Spacer()
                 Text("Account")
-                    
-                Spacer()
-                Text("    ")
             }
             .bold()
             .font(.system(size: 21))
@@ -137,13 +132,13 @@ struct AccountView: View {
                         Text("Upgrade to Pro")
                         Spacer()
                     }
-                    .padding()
+                    .padding(21)
                     .foregroundColor(.primary)
                     .background(.gray.opacity(0.21))
                     .cornerRadius(20)
                     .overlay( /// apply a rounded border
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(.primary, lineWidth: 1)
+                            .stroke(.primary, lineWidth: 3)
                     )
                     .padding(.horizontal)
                     .font(.system(size: UIScreen.main.bounds.height * 0.033))
@@ -155,7 +150,7 @@ struct AccountView: View {
         .accentColor(.primary)
         .sheet(isPresented: $showSubscriptions){
             SubscriptionView()
-                .presentationDetents([.height(600)])
+                .presentationDetents([.height(560)])
                 .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showDataInfo,
