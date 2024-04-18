@@ -122,7 +122,6 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showAccount){
             AccountView()
-                .presentationDetents([.height(700)])
         }
         .sheet(isPresented: $welcomeScreenShown,
                onDismiss: {

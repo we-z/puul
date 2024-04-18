@@ -17,19 +17,14 @@ struct ChatInfoView: View {
     let terms = ["Short Term", "Long Term"]
     var body: some View {
         VStack{
+            Capsule()
+                .frame(maxWidth: 45, maxHeight: 9)
+                .padding(.top, 9)
+                .foregroundColor(.primary)
+                .opacity(0.3)
             Spacer()
             HStack{
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(systemName: "xmark")
-                }
-                .accentColor(.primary)
-                Spacer()
                 Text("Puuls Settings")
-                    
-                Spacer()
-                Text("     ")
             }
             .bold()
             .font(.system(size: 21))
@@ -57,7 +52,7 @@ struct ChatInfoView: View {
                     HStack{
                         Spacer()
                         Text("Clear chat history")
-                            .padding()
+                            .padding(12)
                             .foregroundColor(.red)
                             .bold()
                             

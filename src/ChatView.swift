@@ -177,7 +177,7 @@ struct ChatView: View {
                self.showInfoPage = false
            }, content: {
                ChatInfoView(shouldClearConversation: $shouldClearConversation)
-                   .presentationDragIndicator(.visible)
+                   .presentationDetents([.height(600)])
                    .buttonStyle(HapticButtonStyle())
            }
        )
