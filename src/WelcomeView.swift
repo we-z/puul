@@ -53,8 +53,8 @@ struct WelcomeView: View {
                 .bold()
                 .padding()
                 .foregroundColor(.primary)
-                .background(Color.gray.opacity(0.21))
-                .cornerRadius(45)
+                .background(Color.gray.opacity(0.3))
+                .cornerRadius(21)
                 .padding(.horizontal)
                 .padding(.bottom)
             }

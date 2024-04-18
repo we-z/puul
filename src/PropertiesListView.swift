@@ -17,7 +17,9 @@ struct PropertiesListView: View {
         Section{
             VStack{
                 HStack{
-                    Image(systemName: "house.fill")
+                    Text("🏡")
+                        .scaleEffect(1.2)
+                        .offset(y: -3)
                     Text("Real Estate")
                     Spacer()
                 }

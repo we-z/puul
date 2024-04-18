@@ -20,7 +20,9 @@ struct BrokerAccountsListView: View {
             Section{
                 VStack{
                     HStack{
-                        Image(systemName: "building.2.fill")
+                        Text("📈")
+                            .scaleEffect(1.2)
+                            .offset(y: -3)
                         Text("Stocks / ETFs")
                         Spacer()
                     }

@@ -24,38 +24,43 @@ struct HomeView: View {
             VStack(spacing: 0){
                 HStack{
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("Portfolio:")
-                            .bold()
-                            .foregroundColor(.primary)
-                            .font(.system(size: UIScreen.main.bounds.height * 0.036))
-                            .padding(.top)
+                        HStack{
+                            Text("💼")
+                                .font(.system(size: UIScreen.main.bounds.height * 0.04))
+                                .offset(y: -4)
+                            Text("Portfolio:")
+                                .bold()
+                                .foregroundColor(.primary)
+                                .font(.system(size: UIScreen.main.bounds.height * 0.036))
+                                
+                        }
+                        .padding(.top)
                         Text("$" + pm.totalNetWorth.withCommas())
                             .bold()
                             .font(.system(size: UIScreen.main.bounds.height * 0.069))
                             .scaledToFit()
                             .minimumScaleFactor(0.01)
                             .lineLimit(1)
-                        Spacer()
-                            .frame(maxHeight: 21)
+                            .padding(.bottom)
+
                     }
                     Spacer()
                     VStack{
                         Button(action: {
                             self.showAccount = true
                         }) {
-                            Image(systemName: "person.crop.circle")
-                                .foregroundColor(.primary)
+                            Text("👤")
                                 .font(.system(size: UIScreen.main.bounds.height * 0.039))
                         }
                         .buttonStyle(HapticButtonStyle())
                         Spacer()
-                            .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
+                            .frame(maxHeight: UIScreen.main.bounds.height * 0.09)
                     }
                 }
                 .padding(.horizontal)
-//                Divider()
-//                    .overlay(.gray)
-//                    .padding(.horizontal)
+                Divider()
+                    .overlay(.primary)
+                    .padding(.horizontal)
                 
                 List{
                     BankAccountsListView()
@@ -84,14 +89,12 @@ struct HomeView: View {
                             HStack{
                                 Spacer()
                                 HStack{
-                                    Image(systemName: "message")
-                                    Text("Talk with Puul")
-                                    
+                                    Text("Message Puul")
+                                        .colorInvert()
+                                    Text("💬")
                                 }
                                 .font(.system(size: UIScreen.main.bounds.height * 0.025))
                                 .padding()
-                                .foregroundColor(.primary)
-                                .colorInvert()
                                 .bold()
                                 
                                 Spacer()
@@ -101,7 +104,7 @@ struct HomeView: View {
                                     Color.primary.opacity(0.9)
                                 }
                             )
-                            .cornerRadius(32)
+                            .cornerRadius(21)
                         }
                         .buttonStyle(HapticButtonStyle())
                         .padding()

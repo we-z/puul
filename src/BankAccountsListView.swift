@@ -20,7 +20,9 @@ struct BankAccountsListView: View {
             Section{
                 VStack{
                     HStack{
-                        Image(systemName: "building.columns.fill")
+                        Text("🏦")
+                            .scaleEffect(1.2)
+                            .offset(y: -3)
                         Text("Bank accounts")
                         Spacer()
                     }
