@@ -116,7 +116,7 @@ struct HapticButtonStyle: ButtonStyle {
                     if isPressed {
                         if model.hapticModeOn{
                         // Trigger haptic feedback
-                        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+                        let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
                         feedbackGenerator.prepare()
                         feedbackGenerator.impactOccurred()
                     }

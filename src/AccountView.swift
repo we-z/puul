@@ -131,15 +131,20 @@ struct AccountView: View {
                     self.showSubscriptions = true
                 }) {
                     HStack{
-                        Image(systemName: "arrow.up.circle")
+                        Text("⬆️")
+                            .scaleEffect(1.2)
+                            .offset(y: -1)
                         Text("Upgrade to Pro")
                         Spacer()
                     }
                     .padding()
                     .foregroundColor(.primary)
-                    .colorInvert()
-                    .background(.primary)
-                    .cornerRadius(45)
+                    .background(.gray.opacity(0.21))
+                    .cornerRadius(20)
+                    .overlay( /// apply a rounded border
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(.primary, lineWidth: 1)
+                    )
                     .padding(.horizontal)
                     .font(.system(size: UIScreen.main.bounds.height * 0.033))
                     .bold()
@@ -148,8 +153,9 @@ struct AccountView: View {
             }
         }
         .accentColor(.primary)
-        .fullScreenCover(isPresented: $showSubscriptions){
+        .sheet(isPresented: $showSubscriptions){
             SubscriptionView()
+                .presentationDetents([.height(600)])
                 .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: self.$showDataInfo,

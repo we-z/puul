@@ -64,11 +64,11 @@ struct HomeView: View {
                 
                 List{
                     BankAccountsListView()
-                        .listRowBackground(Color.gray.opacity(0.2))
+                        .listRowBackground(Color.primary.opacity(0.15))
                     BrokerAccountsListView()
-                        .listRowBackground(Color.gray.opacity(0.2))
+                        .listRowBackground(Color.primary.opacity(0.15))
                     PropertiesListView()
-                        .listRowBackground(Color.gray.opacity(0.2))
+                        .listRowBackground(Color.primary.opacity(0.15))
                 }
                 .scrollContentBackground(.hidden)
                 .refreshable {
@@ -89,9 +89,10 @@ struct HomeView: View {
                             HStack{
                                 Spacer()
                                 HStack{
-                                    Text("Message Puul")
-                                        .colorInvert()
-                                    Text("💬")
+                                    Text("Ask Puul")
+                                    Text("✨")
+                                        .scaleEffect(1.2)
+                                        .offset(y: -3)
                                 }
                                 .font(.system(size: UIScreen.main.bounds.height * 0.025))
                                 .padding()
@@ -99,12 +100,12 @@ struct HomeView: View {
                                 
                                 Spacer()
                             }
-                            .background(
-                                ZStack{
-                                    Color.primary.opacity(0.9)
-                                }
+                            .background(.primary.opacity(0.15))
+                            .cornerRadius(20)
+                            .overlay( /// apply a rounded border
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(.primary, lineWidth: 1)
                             )
-                            .cornerRadius(21)
                         }
                         .buttonStyle(HapticButtonStyle())
                         .padding()

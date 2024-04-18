@@ -14,54 +14,56 @@ struct SubscriptionView: View {
 
     var body: some View {
         VStack{
-            VStack{
-                HStack{
-                    Spacer()
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Later")
-                            .accentColor(.primary)
-                    }
-                }
-                .padding(.horizontal)
-                HStack {
-                    Text("Unlock all \nof Puuls \nfeatures")
-                        .font(.system(size: UIScreen.main.bounds.width * 0.18))
-                        .bold()
-                        .italic()
-                        .padding()
-                    Spacer()
-                }
+            Capsule()
+                .frame(maxWidth: 45, maxHeight: 9)
+                .padding(.top, 9)
+                .foregroundColor(.primary)
+                .opacity(0.3)
+            Spacer()
+            HStack {
+                Text("🔓")
+                    .font(.system(size: 60))
+                    .padding(.leading)
+                Text("Unlock all of\nPuuls features!")
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.01)
+                    .font(.system(size: 33))
+                    .bold()
+                Spacer()
             }
-            //.background(.primary.opacity(0.1))
             Divider()
                 .overlay(.primary)
                 .padding(.horizontal)
-            Spacer()
+                .offset(y: -6)
             HStack{
                 VStack(alignment: .leading, spacing: 36){
                     HStack{
-                        Image(systemName: "message")
-                        Text("Unlimited questions")
+                        Text("💬")
+                            .scaleEffect(1.2)
+                        Text("Ask Unlimited questions")
+                            .underline()
                     }
                     HStack{
-                        Image(systemName: "dollarsign.circle")
+                        Text("💰")
+                            .scaleEffect(1.2)
                         Text("Add unlimited assets")
+                            .underline()
                     }
                     HStack{
-                        Image(systemName: "house")
-                        Text("Real Estate features")
+                        Text("🏡")
+                            .scaleEffect(1.2)
+                        Text("Use Real Estate features")
+                            .underline()
                     }
                 }
                 .bold()
                 .italic()
-                .underline()
-                .font(.system(size: UIScreen.main.bounds.width * 0.07))
-                .padding(.horizontal)
-                //Spacer()
+                .font(.system(size: 24))
+                .padding(.horizontal, 30)
+                Spacer()
             }
-            Spacer()
+            .padding(.bottom, 36)
+            .padding(.top, 21)
             Group {
                 Section {
                     ForEach(storeVM.subscriptions) { product in
@@ -79,15 +81,20 @@ struct SubscriptionView: View {
                                     Text("Monthly")
                                     Spacer()
                                 }
-                                .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                                .font(.system(size: 36))
                                 .bold()
                             }
                             .padding()
-                            .padding(.vertical, 27)
+                            .padding(.vertical, 21)
+                            
                         }
                         .foregroundColor(.primary)
                         .background(Color.gray.opacity(0.2))
-                        .cornerRadius(45)
+                        .cornerRadius(30)
+                        .overlay( /// apply a rounded border
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(.primary, lineWidth: 3)
+                        )
                         .padding(.horizontal)
                     }
                 }
