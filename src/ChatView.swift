@@ -74,6 +74,7 @@ struct ChatView: View {
                                     sendMessage()
                                 } label: {
                                     Text("What stocks \nshould I buy?")
+                                        .multilineTextAlignment(.leading)
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
@@ -88,6 +89,7 @@ struct ChatView: View {
                                     sendMessage()
                                 } label: {
                                     Text("how are my \nspending habits?")
+                                        .multilineTextAlignment(.leading)
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
@@ -102,6 +104,7 @@ struct ChatView: View {
                                     sendMessage()
                                 } label: {
                                     Text("What are my \nmonthly expenses?")
+                                        .multilineTextAlignment(.leading)
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
@@ -116,6 +119,7 @@ struct ChatView: View {
                                     sendMessage()
                                 } label: {
                                     Text("how are my \ninvestments?")
+                                        .multilineTextAlignment(.leading)
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
@@ -130,6 +134,7 @@ struct ChatView: View {
                                     sendMessage()
                                 } label: {
                                     Text("How much have \nI spent in may?")
+                                        .multilineTextAlignment(.leading)
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
