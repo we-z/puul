@@ -181,9 +181,9 @@ struct ChatView: View {
                    .buttonStyle(HapticButtonStyle())
            }
        )
-        .fullScreenCover(isPresented: $showSubscriptions){
+        .sheet(isPresented: $showSubscriptions){
             SubscriptionView()
-                .buttonStyle(HapticButtonStyle())
+                .presentationDetents([.height(560)])
         }
         .environmentObject(storeVM)
     }
