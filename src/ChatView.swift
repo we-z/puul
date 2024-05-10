@@ -226,7 +226,7 @@ struct ChatView: View {
     }
     
     func sendMessage() {
-        if vm.messagesSentToday > 2 && !storeVM.hasUnlockedPro {
+        if !storeVM.hasUnlockedPro {
             self.showSubscriptions = true
         } else {
             Task { @MainActor in
