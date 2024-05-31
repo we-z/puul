@@ -75,7 +75,7 @@ struct SubscriptionView: View {
                                 
                                 HStack {
                                     Spacer()
-                                    Text("$14.99")
+                                    Text("$49.99")
                                     Text("/")
                                     Text("Monthly")
                                     Spacer()
