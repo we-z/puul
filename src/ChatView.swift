@@ -8,7 +8,7 @@ struct ChatView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showInfoPage = false
     @State private var shouldClearConversation = false
-    @State private var showSubscriptions = false
+    @State private var showMenu = false
     @State var message = ""
 
     let financialQuestions = [
@@ -37,6 +37,7 @@ struct ChatView: View {
             VStack(spacing: 0) {
                 HStack {
                     Button {
+                        showMenu = true
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease")
                             .font(.system(size: 24))
@@ -124,9 +125,8 @@ struct ChatView: View {
                        .presentationDetents([.height(600)])
                        .buttonStyle(HapticButtonStyle())
                })
-        .sheet(isPresented: $showSubscriptions) {
-            SubscriptionView()
-                .presentationDetents([.height(560)])
+        .sheet(isPresented: $showMenu) {
+            Text("Menu")
         }
     }
 
