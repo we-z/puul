@@ -8,22 +8,7 @@ struct PuulApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                HomeView()
-                    .preferredColorScheme(appModel.isLightMode ? .light : .dark)
-                    .buttonStyle(HapticButtonStyle())
-                    .onChange(of: scenePhase) { newPhase in
-                        if newPhase == .inactive {
-                            print("Inactive")
-                        } else if newPhase == .active {
-                            print("Active")
-                        } else if newPhase == .background {
-                            print("Background")
-                        }
-                    }
-            }
-            .environmentObject(StoreVM())
-            .environmentObject(appModel)
+            ChatView()
             .accentColor(.primary)
         }
     }

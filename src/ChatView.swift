@@ -14,6 +14,7 @@ struct ChatView: View {
     @State private var showInfoPage = false
     @State private var shouldClearConversation = false
     @State private var showSubscriptions = false
+    @State var message = ""
     @EnvironmentObject var storeVM: StoreVM
 
     var body: some View {
@@ -74,10 +75,6 @@ struct ChatView: View {
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.primary, lineWidth: 1)
-                                        )
                                         .padding()
                                 }
                                 Button {
@@ -88,10 +85,6 @@ struct ChatView: View {
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.primary, lineWidth: 1)
-                                        )
                                         .padding()
                                 }
                                 Button {
@@ -102,10 +95,6 @@ struct ChatView: View {
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.primary, lineWidth: 1)
-                                        )
                                         .padding()
                                 }
                                 Button {
@@ -116,10 +105,6 @@ struct ChatView: View {
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.primary, lineWidth: 1)
-                                        )
                                         .padding()
                                 }
                                 Button {
@@ -130,20 +115,15 @@ struct ChatView: View {
                                         .padding()
                                         .background(.primary.opacity(0.1))
                                         .cornerRadius(20)
-                                        .overlay( /// apply a rounded border
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.primary, lineWidth: 1)
-                                        )
                                         .padding()
                                 }
                             }
                         }
+                        .scrollIndicators(.hidden)
                     }
 
                 }
-                Divider()
                 bottomView(image: "person", proxy: proxy)
-                    .background(.primary.opacity(0.03))
                     .gesture(
                         swipeGesture
                     )
@@ -168,7 +148,7 @@ struct ChatView: View {
 
     func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
         HStack(alignment: .bottom, spacing: 8) {
-            TextField("Send message", text: .constant(""), axis: .vertical)
+            TextField("Message", text: $message, axis: .vertical)
                 .textFieldStyle(.plain)
                 .focused($isTextFieldFocused)
                 .padding(.vertical, 6)
@@ -176,15 +156,15 @@ struct ChatView: View {
             Button {
                 sendMessage()
             } label: {
-                Image(systemName: "paperplane.circle.fill")
-                    .rotationEffect(.degrees(45))
+                Image(systemName: "arrow.up.circle.fill")
                     .font(.system(size: 30))
             }
         }
         .padding(.vertical, 6)
-        .padding(.horizontal)
+        .padding(.trailing, 9)
+        .padding(.leading)
         .background(Color.primary.opacity(0.1))
-        .cornerRadius(15)
+        .cornerRadius(24)
         .padding()
     }
 
