@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,6 @@
 		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
-		7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
 		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
 		8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* PuulApp.swift */; };
@@ -42,7 +41,6 @@
 		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		7A7BDC102A457EC400AC5F6B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Puul.entitlements; sourceTree = "<group>"; };
 		8B91C003298AD09E0079AF26 /* PuulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuulApp.swift; sourceTree = "<group>"; };
@@ -59,6 +57,10 @@
 		F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTTV.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTTV/Pods-XCAChatGPTTV.release.xcconfig"; sourceTree = "<group>"; };
 		FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		767452FF2D2DB7830026C123 /* Onboarding */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Onboarding; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8B91BFFD298AD09E0079AF26 /* Frameworks */ = {
@@ -104,6 +106,7 @@
 		8B057591298E52CB00A56C9A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				767452FF2D2DB7830026C123 /* Onboarding */,
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
 				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
@@ -118,7 +121,6 @@
 				7A4B73E52A267E1C0064800C /* StoreKit.swift */,
 				7A4B73EA2A267F900064800C /* SubscriptionView.swift */,
 				7A81C1642A01BDA5000496E3 /* TempView.swift */,
-				7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */,
 				8B91C007298AD09F0079AF26 /* Assets.xcassets */,
 			);
 			path = src;
@@ -151,6 +153,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				767452FF2D2DB7830026C123 /* Onboarding */,
 			);
 			name = Puul;
 			packageProductDependencies = (
@@ -258,7 +263,6 @@
 				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
-				7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */,
 				7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */,
