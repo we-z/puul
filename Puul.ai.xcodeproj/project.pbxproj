@@ -14,14 +14,10 @@
 		7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73F92A2A84900064800C /* AppInfoView.swift */; };
 		7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73FE2A2ADBC50064800C /* AppModel.swift */; };
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
-		7A4C8F622A79A0F900B1E0E3 /* ZillowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C8F612A79A0F900B1E0E3 /* ZillowAPI.swift */; };
-		7A4C8F642A7ACD7300B1E0E3 /* SearchPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C8F632A7ACD7300B1E0E3 /* SearchPropertiesView.swift */; };
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
 		7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
 		7ABFF5442A6B624500F3428D /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ABFF5432A6B624500F3428D /* APIKeys.plist */; };
-		7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0C9E229F9BB5200C1989D /* HomeView.swift */; };
-		7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */; };
 		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
 		8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */; };
 		8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* PuulApp.swift */; };
@@ -48,15 +44,11 @@
 		7A4B73F92A2A84900064800C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		7A4B73FE2A2ADBC50064800C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		7A4B74032A367F5B0064800C /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
-		7A4C8F612A79A0F900B1E0E3 /* ZillowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZillowAPI.swift; sourceTree = "<group>"; };
-		7A4C8F632A7ACD7300B1E0E3 /* SearchPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPropertiesView.swift; sourceTree = "<group>"; };
 		7A7BDC102A457EC400AC5F6B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Puul.entitlements; sourceTree = "<group>"; };
 		7ABFF5432A6B624500F3428D /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
-		7AD0C9E229F9BB5200C1989D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesListView.swift; sourceTree = "<group>"; };
 		8B82463329B1F49F0069B8F7 /* ChatGPTAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPIModels.swift; sourceTree = "<group>"; };
 		8B91C003298AD09E0079AF26 /* PuulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuulApp.swift; sourceTree = "<group>"; };
 		8B91C005298AD09E0079AF26 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -126,20 +118,16 @@
 				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
 				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
-				7AD0C9E229F9BB5200C1989D /* HomeView.swift */,
 				7A4B74032A367F5B0064800C /* LogoView.swift */,
 				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
 				7A4B73E42A24684B0064800C /* products.storekit */,
-				7AD2A1B32A411E2000E824A5 /* PropertiesListView.swift */,
 				7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */,
 				8B91C003298AD09E0079AF26 /* PuulApp.swift */,
-				7A4C8F632A7ACD7300B1E0E3 /* SearchPropertiesView.swift */,
 				7A4B73E52A267E1C0064800C /* StoreKit.swift */,
 				7A4B73EA2A267F900064800C /* SubscriptionView.swift */,
 				7A81C1642A01BDA5000496E3 /* TempView.swift */,
 				7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */,
-				7A4C8F612A79A0F900B1E0E3 /* ZillowAPI.swift */,
 				8B91C007298AD09F0079AF26 /* Assets.xcassets */,
 			);
 			path = src;
@@ -276,20 +264,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A4C8F622A79A0F900B1E0E3 /* ZillowAPI.swift in Sources */,
 				8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */,
 				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
-				7A4C8F642A7ACD7300B1E0E3 /* SearchPropertiesView.swift in Sources */,
 				8B82463429B1F49F0069B8F7 /* ChatGPTAPIModels.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
 				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
 				7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
-				7AD2A1B42A411E2000E824A5 /* PropertiesListView.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */,
 				7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */,
-				7AD0C9E329F9BB5200C1989D /* HomeView.swift in Sources */,
 				8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */,
 				8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */,
 				7A4B74042A367F5B0064800C /* LogoView.swift in Sources */,
