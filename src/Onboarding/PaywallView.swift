@@ -111,13 +111,13 @@ struct PaywallView: View {
                         .cornerRadius(21)
                         .padding([.horizontal])
                 }
+                .buttonStyle(HapticButtonStyle())
                 Text("1 month free trial, then $19.99 / month")
                     .font(.headline)
                 Text("Restore Purchase | Terms | Privacy")
                     .font(.headline)
                     .foregroundColor(.gray)
             }
-//            .background(.white)
             
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
