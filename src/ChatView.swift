@@ -94,8 +94,14 @@ struct ChatView: View {
                     }
                     .background(.primary.opacity(0.001))
                     .onTapGesture {
-                        isTextFieldFocused = false
+                        isTextFieldFocused.toggle()
                     }
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onEnded { _ in
+                                isTextFieldFocused.toggle()
+                            }
+                    )
                     .onAppear {
                         isTextFieldFocused = true
                     }
