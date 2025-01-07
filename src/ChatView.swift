@@ -40,7 +40,7 @@ struct ChatView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "chevron.down")
+                        Image(systemName: "line.3.horizontal.decrease")
                             .font(.system(size: 24))
                     }
                     Spacer()
@@ -49,7 +49,6 @@ struct ChatView: View {
                         .bold()
                     Spacer()
                     Button {
-                        showInfoPage.toggle()
                     } label: {
                         Image(systemName: "gear")
                             .font(.system(size: 24))
