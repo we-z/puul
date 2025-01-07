@@ -11,19 +11,26 @@ struct PaywallView: View {
     @State var done: Bool = false
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
-        ("End-to-End Encryption", "lock.fill"),
-        ("No Ads, No Tracking", "eye.slash.fill"),
-        ("Private Group Sharing", "person.2.fill"),
-        ("Anonymous Messaging", "message"),
-        ("Self-Destructing Photos", "flame.fill"),
-        ("Granular Privacy Controls", "slider.horizontal.3"),
-        ("Password-Protection", "key.fill"),
-        ("FaceID-Protection", "faceid"),
-        ("Open Source Code", "chevron.left.slash.chevron.right"),
-        ("Verified Secure Builds", "checkmark.shield.fill"),
-        ("No Screenshots", "photo"),
-        ("No Screenrecordings", "video.slash.fill"),
-        ("Exclusive Membership", "crown.fill"),
+        ("Unlimited Questions", "message"),
+        ("Tailored Financial Plans", "doc.text.fill"),
+        ("Expert Financial Advice", "brain.head.profile"),
+        ("Access Anywhere", "globe"),
+        ("Locally Running AI", "iphone"),
+        ("Privacy-First AI", "lock.shield.fill"),
+        ("No Tracking", "eye.slash.fill"),
+        ("Secure Model", "checkmark.shield.fill"),
+        ("Personalized Investment Strategies", "chart.bar.fill"),
+        ("Real-Time Market Insights", "clock.arrow.circlepath"),
+        ("Tax Optimization Guidance", "percent"),
+        ("Budgeting Assistance", "dollarsign.circle.fill"),
+        ("Retirement Planning", "figure.walk"),
+        ("Risk Assessment Tools", "exclamationmark.triangle.fill"),
+        ("Portfolio Analysis", "chart.pie.fill"),
+        ("Goal-Oriented Savings Plans", "target"),
+        ("Crypto and Alternative Asset Insights", "bitcoinsign.circle.fill"),
+        ("Debt Reduction Advice", "arrow.down.circle.fill"),
+        ("Educational Content Library", "book.closed.fill"),
+        ("Sustainable Investment Insight", "leaf.fill")
     ]
 
     var body: some View {
@@ -41,14 +48,14 @@ struct PaywallView: View {
                     }
                     
                     // Title
-                    Text("Privacy is priceless")
+                    Text("Your Financial Ally")
                         .font(.largeTitle)
                         .bold()
                         .multilineTextAlignment(.center)
                         .padding()
                     
                     // Description
-                    Text("Secure your most valuable memories. Explore and share photos privately.")
+                    Text("Get personalized financial advice anywhere. Your money, your privacy.")
                         .font(.body)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -69,8 +76,9 @@ struct PaywallView: View {
                                 Image(systemName: icon)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 24, height: 24)
+                                    .frame(width: 30, height: 30)
                                     .padding(.trailing, 6)
+                                    .padding(.leading, 9)
                             }
                             .padding()
                             Divider()
