@@ -115,9 +115,9 @@ class AppModel: ObservableObject {
 }
 
 struct HapticButtonStyle: ButtonStyle {
-    @EnvironmentObject public var model: AppModel
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .opacity(configuration.isPressed ? 0.3 : 1.0)
             .onChange(of: configuration.isPressed) { isPressed in
 
                 if isPressed {
