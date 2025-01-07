@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var vm = ChatViewModel(api: ChatGPTAPI())
     @State private var showLink = false
     @State private var showAccount = false
     @State private var showChat = false
-    @EnvironmentObject var pm: PlaidModel
     @EnvironmentObject public var model: AppModel
 
     @AppStorage("welcomeScreenShown")
@@ -33,7 +31,7 @@ struct HomeView: View {
                                 .font(.system(size: UIScreen.main.bounds.height * 0.036))
                         }
                         .padding(.top)
-                        Text("$" + pm.totalNetWorth.withCommas())
+                        Text("$32,232")
                             .bold()
                             .font(.system(size: UIScreen.main.bounds.height * 0.069))
                             .scaledToFit()
@@ -58,27 +56,10 @@ struct HomeView: View {
                 Divider()
                     .overlay(.primary)
                     .padding(.horizontal)
-
-                List {
-                    BankAccountsListView()
-                        .listRowBackground(Color.primary.opacity(0.15))
-                    BrokerAccountsListView()
-                        .listRowBackground(Color.primary.opacity(0.15))
-                    PropertiesListView()
-                        .listRowBackground(Color.primary.opacity(0.15))
-                }
-                .scrollContentBackground(.hidden)
-                .refreshable {
-                    pm.updateAccounts()
-                    print("refresh")
-                }
-                .scrollIndicators(.hidden)
-                .environment(\.defaultMinListRowHeight, 49)
+                
+                Spacer()
 
                 VStack {
-//                    Divider()
-//                        .overlay(.gray)
-//                        .padding(.horizontal)
                     HStack {
                         Button(action: {
                             self.showChat = true
@@ -114,7 +95,7 @@ struct HomeView: View {
             }
         }
         .fullScreenCover(isPresented: $showChat) {
-            ChatView(vm: vm)
+            ChatView()
                 .buttonStyle(HapticButtonStyle())
         }
         .sheet(isPresented: $showAccount) {
@@ -135,7 +116,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(PlaidModel())
             .environmentObject(StoreVM())
             .environmentObject(AppModel())
             .environmentObject(ZillowAPI())

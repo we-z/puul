@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChatView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var vm: ChatViewModel
     @FocusState var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
     @State private var showInfoPage = false
@@ -21,7 +20,6 @@ struct ChatView: View {
         chatListView
             .onReceive(Just(shouldClearConversation), perform: { shouldClear in
                 if shouldClear {
-                    vm.clearMessages() // Call clearMessages() when shouldClearConversation is true
                     shouldClearConversation = false // Reset the binding value after clearing
                 }
             })
@@ -51,7 +49,7 @@ struct ChatView: View {
                 }
                 .padding()
 
-                if vm.messages.isEmpty {
+                if true {
                     VStack {
                         Spacer()
                         HStack {
@@ -69,7 +67,6 @@ struct ChatView: View {
                         ScrollView(.horizontal) {
                             HStack(spacing: -15) {
                                 Button {
-                                    vm.inputMessage = "What stocks should I buy?"
                                     sendMessage()
                                 } label: {
                                     Text("What stocks \nshould I buy?")
@@ -84,7 +81,6 @@ struct ChatView: View {
                                         .padding()
                                 }
                                 Button {
-                                    vm.inputMessage = "how are my spending habits?"
                                     sendMessage()
                                 } label: {
                                     Text("how are my \nspending habits?")
@@ -99,7 +95,6 @@ struct ChatView: View {
                                         .padding()
                                 }
                                 Button {
-                                    vm.inputMessage = "What are my monthly expenses?"
                                     sendMessage()
                                 } label: {
                                     Text("What are my \nmonthly expenses?")
@@ -114,7 +109,6 @@ struct ChatView: View {
                                         .padding()
                                 }
                                 Button {
-                                    vm.inputMessage = "how are my investments?"
                                     sendMessage()
                                 } label: {
                                     Text("how are my \ninvestments?")
@@ -129,7 +123,6 @@ struct ChatView: View {
                                         .padding()
                                 }
                                 Button {
-                                    vm.inputMessage = "How much have I spent in may?"
                                     sendMessage()
                                 } label: {
                                     Text("How much have \nI spent in may?")
@@ -147,18 +140,6 @@ struct ChatView: View {
                         }
                     }
 
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(vm.messages) { message in
-                                MessageRowView(message: message) { message in
-                                    Task { @MainActor in
-                                        await vm.retry(message: message)
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
                 Divider()
                 bottomView(image: "person", proxy: proxy)
@@ -187,24 +168,17 @@ struct ChatView: View {
 
     func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
         HStack(alignment: .bottom, spacing: 8) {
-            TextField("Send message", text: $vm.inputMessage, axis: .vertical)
+            TextField("Send message", text: .constant(""), axis: .vertical)
                 .textFieldStyle(.plain)
                 .focused($isTextFieldFocused)
-                .disabled(vm.isInteractingWithChatGPT)
                 .padding(.vertical, 6)
 
-            if vm.isInteractingWithChatGPT {
-                DotLoadingView().frame(width: 60, height: 30)
-            } else {
-                Button {
-                    scrollToBottom(proxy: proxy)
-                    sendMessage()
-                } label: {
-                    Image(systemName: "paperplane.circle.fill")
-                        .rotationEffect(.degrees(45))
-                        .font(.system(size: 30))
-                }
-                .disabled(vm.inputMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button {
+                sendMessage()
+            } label: {
+                Image(systemName: "paperplane.circle.fill")
+                    .rotationEffect(.degrees(45))
+                    .font(.system(size: 30))
             }
         }
         .padding(.vertical, 6)
@@ -212,14 +186,6 @@ struct ChatView: View {
         .background(Color.primary.opacity(0.1))
         .cornerRadius(15)
         .padding()
-        .onAppear {
-            scrollToBottom(proxy: proxy)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            withAnimation {
-                scrollToBottom(proxy: proxy)
-            }
-        }
     }
 
     func sendMessage() {
@@ -228,14 +194,8 @@ struct ChatView: View {
         } else {
             Task { @MainActor in
                 isTextFieldFocused = false
-                await vm.sendTapped()
             }
         }
-    }
-
-    private func scrollToBottom(proxy: ScrollViewProxy) {
-        guard let id = vm.messages.last?.id else { return }
-        proxy.scrollTo(id, anchor: .bottomTrailing)
     }
 
     var swipeGesture: some Gesture {
@@ -251,7 +211,7 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(vm: ChatViewModel(api: ChatGPTAPI()))
+        ChatView()
             .environmentObject(StoreVM())
     }
 }
