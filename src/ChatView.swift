@@ -49,7 +49,7 @@ struct ChatView: View {
                     Spacer()
                     Button {
                     } label: {
-                        Image(systemName: "gear")
+                        Image(systemName: "square.and.pencil")
                             .font(.system(size: 24))
                     }
                 }
@@ -92,7 +92,7 @@ struct ChatView: View {
                         }
                         .scrollIndicators(.hidden)
                     }
-                    .background(.primary.opacity(0.01))
+                    .background(.primary.opacity(0.001))
                     .onTapGesture {
                         isTextFieldFocused = false
                     }
