@@ -105,9 +105,9 @@ struct ChatView: View {
                                 isTextFieldFocused.toggle()
                             }
                     )
-                    .onAppear {
-                        isTextFieldFocused = true
-                    }
+//                    .onAppear {
+//                        isTextFieldFocused = true
+//                    }
                 }
                 bottomView(image: "person", proxy: proxy)
                     .gesture(

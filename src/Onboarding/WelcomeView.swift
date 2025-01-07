@@ -53,6 +53,7 @@ struct WelcomeView: View {
                     .cornerRadius(21)
                     .padding()
             }
+            .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -500 : 0)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		767453072D2DC15D0026C123 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767453062D2DC15D0026C123 /* ContentView.swift */; };
 		7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73E52A267E1C0064800C /* StoreKit.swift */; };
 		7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
 		7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
@@ -29,6 +30,7 @@
 		0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; sourceTree = "<group>"; };
 		514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.debug.xcconfig"; sourceTree = "<group>"; };
 		5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.release.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.release.xcconfig"; sourceTree = "<group>"; };
+		767453062D2DC15D0026C123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
 				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
+				767453062D2DC15D0026C123 /* ContentView.swift */,
 				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
 				7A4B74032A367F5B0064800C /* LogoView.swift */,
@@ -261,6 +264,7 @@
 			files = (
 				8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */,
 				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
+				767453072D2DC15D0026C123 /* ContentView.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,

@@ -120,6 +120,7 @@ struct OnboardingView: View {
                     .cornerRadius(18)
                     .padding()
             }
+            .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.ignoresSafeArea().colorInvert())
         .animation(.spring, value: tabSelection)

@@ -8,8 +8,9 @@ struct PuulApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ChatView()
-            .accentColor(.primary)
+            ZStack {
+                ContentView()
+            }
         }
     }
 }
