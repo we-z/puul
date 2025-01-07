@@ -120,7 +120,7 @@ struct PaywallView: View {
 //            .background(.white)
             
         }
-//        .background(Color.blue.ignoresSafeArea())
+        .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -500 : 0)
     }
 }
