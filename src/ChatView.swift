@@ -20,8 +20,7 @@ struct ChatView: View {
         "How much should I save\nfor my child's education?",
         "Am I on track to\nmeet my financial goals?",
         "What are the best\ntax-saving strategies for me?",
-        "How much should I be\nsaving each month?",
-        "Are there better\ninvestment options for me?"
+        "How much should I be\nsaving each month?"
     ]
 
     var body: some View {
@@ -71,6 +70,7 @@ struct ChatView: View {
                         .padding(.vertical)
                         .font(.system(size: UIScreen.main.bounds.width * 0.12))
                         .padding(.horizontal, 35)
+                        
                         ScrollView(.horizontal) {
                             HStack(spacing: 10) {
                                 ForEach(financialQuestions, id: \.self) { question in
@@ -91,6 +91,10 @@ struct ChatView: View {
                             .padding(.horizontal)
                         }
                         .scrollIndicators(.hidden)
+                    }
+                    .background(.primary.opacity(0.01))
+                    .onTapGesture {
+                        isTextFieldFocused = false
                     }
                 }
                 bottomView(image: "person", proxy: proxy)
