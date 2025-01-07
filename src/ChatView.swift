@@ -59,7 +59,7 @@ struct ChatView: View {
                     VStack {
                         Spacer()
                         HStack {
-                            Text("Say Hello, Ask your first question")
+                            Text("Ask your AI financial advisor any question")
                             Spacer()
                             VStack {
                                 Spacer()
@@ -68,7 +68,7 @@ struct ChatView: View {
                             }
                         }
                         .padding(.vertical)
-                        .font(.system(size: UIScreen.main.bounds.width * 0.12))
+                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
                         .padding(.horizontal, 35)
                         
                         ScrollView(.horizontal) {
@@ -79,7 +79,6 @@ struct ChatView: View {
                                         sendMessage()
                                     } label: {
                                         Text(question)
-                                            .bold()
                                             .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
                                             .multilineTextAlignment(.leading)
                                             .padding()
