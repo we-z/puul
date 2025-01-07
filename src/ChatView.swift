@@ -1,8 +1,3 @@
-//
-//
-//  Created by Alfian Losari on 01/02/23.
-//
-
 import AVKit
 import Combine
 import SwiftUI
@@ -16,6 +11,19 @@ struct ChatView: View {
     @State private var showSubscriptions = false
     @State var message = ""
     @EnvironmentObject var storeVM: StoreVM
+
+    let financialQuestions = [
+        "How can I improve\nmy credit score?",
+        "Should I refinance\nmy mortgage?",
+        "How much should I\nsave for retirement?",
+        "What should I do\nto reduce my debt?",
+        "Is my investment\nportfolio balanced?",
+        "How much should I save\nfor my child's education?",
+        "Am I on track to\nmeet my financial goals?",
+        "What are the best\ntax-saving strategies for me?",
+        "How much should I be\nsaving each month?",
+        "Are there better\ninvestment options for me?"
+    ]
 
     var body: some View {
         chatListView
@@ -66,62 +74,26 @@ struct ChatView: View {
                         .font(.system(size: UIScreen.main.bounds.width * 0.12))
                         .padding(.horizontal, 35)
                         ScrollView(.horizontal) {
-                            HStack(spacing: -15) {
-                                Button {
-                                    sendMessage()
-                                } label: {
-                                    Text("What stocks \nshould I buy?")
-                                        .multilineTextAlignment(.leading)
-                                        .padding()
-                                        .background(.primary.opacity(0.1))
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                                Button {
-                                    sendMessage()
-                                } label: {
-                                    Text("how are my \nspending habits?")
-                                        .multilineTextAlignment(.leading)
-                                        .padding()
-                                        .background(.primary.opacity(0.1))
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                                Button {
-                                    sendMessage()
-                                } label: {
-                                    Text("What are my \nmonthly expenses?")
-                                        .multilineTextAlignment(.leading)
-                                        .padding()
-                                        .background(.primary.opacity(0.1))
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                                Button {
-                                    sendMessage()
-                                } label: {
-                                    Text("how are my \ninvestments?")
-                                        .multilineTextAlignment(.leading)
-                                        .padding()
-                                        .background(.primary.opacity(0.1))
-                                        .cornerRadius(20)
-                                        .padding()
-                                }
-                                Button {
-                                    sendMessage()
-                                } label: {
-                                    Text("How much have \nI spent in may?")
-                                        .multilineTextAlignment(.leading)
-                                        .padding()
-                                        .background(.primary.opacity(0.1))
-                                        .cornerRadius(20)
-                                        .padding()
+                            HStack(spacing: 10) {
+                                ForEach(financialQuestions, id: \.self) { question in
+                                    Button {
+                                        message = question
+                                        sendMessage()
+                                    } label: {
+                                        Text(question)
+                                            .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                                            .multilineTextAlignment(.leading)
+                                            .padding()
+                                            .background(Color.primary.opacity(0.1))
+                                            .cornerRadius(20)
+                                            .padding(.vertical, 5)
+                                    }
                                 }
                             }
+                            .padding(.horizontal)
                         }
                         .scrollIndicators(.hidden)
                     }
-
                 }
                 bottomView(image: "person", proxy: proxy)
                     .gesture(
