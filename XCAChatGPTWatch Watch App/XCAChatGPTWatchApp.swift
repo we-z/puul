@@ -9,9 +9,8 @@ import SwiftUI
 
 @main
 struct XCAChatGPTWatch_Watch_AppApp: App {
-    
     @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "API_KEY"))
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -30,7 +29,7 @@ struct XCAChatGPTWatch_Watch_AppApp: App {
                                         }
                                     }
                                 }
-                                
+
                                 Button("Clear", role: .destructive) {
                                     vm.clearMessages()
                                 }
@@ -47,19 +46,20 @@ struct XCAChatGPTWatch_Watch_AppApp: App {
 
 extension App {
     typealias StringCompletion = (String) -> Void
-    
+
     func presentInputController(withSuggestions suggestions: [String], completion: @escaping StringCompletion) {
         WKExtension.shared()
             .visibleInterfaceController?
             .presentTextInputController(withSuggestions: suggestions,
-                                        allowedInputMode: .plain) { result in
-                
-                guard let result = result as? [String], let firstElement = result.first else {
-                    completion("")
-                    return
-                }
-                
-                completion(firstElement)
+                                        allowedInputMode: .plain)
+        { result in
+
+            guard let result = result as? [String], let firstElement = result.first else {
+                completion("")
+                return
             }
+
+            completion(firstElement)
+        }
     }
 }

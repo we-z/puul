@@ -8,36 +8,36 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @AppStorage ("welcomeScreenShown")
+    @AppStorage("welcomeScreenShown")
     var welcomeScreenShown: Bool = true
     var body: some View {
-        VStack{
+        VStack {
             Capsule()
                 .frame(maxWidth: 45, maxHeight: 9)
                 .padding(.top, 9)
                 .foregroundColor(.primary)
                 .opacity(0.3)
             Spacer()
-            HStack{
+            HStack {
                 Text("Welcome \nto Puul 👋")
                     .font(.system(size: UIScreen.main.bounds.width * 0.17))
                     .padding()
                     .bold()
                 Spacer()
             }
-            HStack{
+            HStack {
                 Text("Start talking with your Ai financial advisor 🤝")
                     .font(.system(size: UIScreen.main.bounds.width * 0.075))
                     .padding()
                 Spacer()
             }
-            HStack{
+            HStack {
                 Text("Add your assets to track your total portfolio 📈")
                     .font(.system(size: UIScreen.main.bounds.width * 0.075))
                     .padding()
                 Spacer()
             }
-            HStack{
+            HStack {
                 Text("Get better financial advice when you add your assets and risk tolerance 🏦")
                     .font(.system(size: UIScreen.main.bounds.width * 0.075))
                     .padding()

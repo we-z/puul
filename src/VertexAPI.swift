@@ -20,30 +20,30 @@ class VertexAPI: ObservableObject {
         let messages: [[String: Any]] = [
             [
                 "author": "user",
-                "content": "Hello"
+                "content": "Hello",
             ],
             [
                 "author": "bot",
                 "content": "Hello there! How can I help you today?",
                 "citationMetadata": [
-                    "citations": []
-                ]
+                    "citations": [],
+                ],
             ],
             [
                 "author": "user",
-                "content": "what's your name"
+                "content": "what's your name",
             ],
             [
                 "author": "bot",
                 "content": "My name is Edward.",
                 "citationMetadata": [
-                    "citations": []
-                ]
+                    "citations": [],
+                ],
             ],
             [
                 "author": "user",
-                "content": "how old is planet earth?"
-            ]
+                "content": "how old is planet earth?",
+            ],
         ]
 
         let parameters: [String: Any] = [
@@ -51,15 +51,15 @@ class VertexAPI: ObservableObject {
                 [
                     "context": "Your name is Edward\n",
                     "examples": [],
-                    "messages": userMessage
-                ]
+                    "messages": userMessage,
+                ],
             ],
             "parameters": [
                 "temperature": 0.2,
                 "maxOutputTokens": 256,
                 "topP": 0.8,
-                "topK": 40
-            ]
+                "topK": 40,
+            ],
         ]
 
         do {
@@ -72,7 +72,7 @@ class VertexAPI: ObservableObject {
             request.httpBody = jsonData
 
             let session = URLSession.shared
-            let task = session.dataTask(with: request) { (data, response, error) in
+            let task = session.dataTask(with: request) { data, _, error in
                 if let error = error {
                     print("Error: \(error)")
                     return
@@ -89,4 +89,3 @@ class VertexAPI: ObservableObject {
         }
     }
 }
-

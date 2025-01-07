@@ -3,12 +3,11 @@
 //  Created by Alfian Losari on 01/02/23.
 //
 
-import SwiftUI
 import AVKit
 import Combine
+import SwiftUI
 
 struct ChatView: View {
-        
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var vm: ChatViewModel
     @FocusState var isTextFieldFocused: Bool
@@ -17,21 +16,21 @@ struct ChatView: View {
     @State private var shouldClearConversation = false
     @State private var showSubscriptions = false
     @EnvironmentObject var storeVM: StoreVM
-    
+
     var body: some View {
         chatListView
             .onReceive(Just(shouldClearConversation), perform: { shouldClear in
                 if shouldClear {
-                    vm.clearMessages()  // Call clearMessages() when shouldClearConversation is true
-                    shouldClearConversation = false  // Reset the binding value after clearing
+                    vm.clearMessages() // Call clearMessages() when shouldClearConversation is true
+                    shouldClearConversation = false // Reset the binding value after clearing
                 }
             })
     }
-    
+
     var chatListView: some View {
         ScrollViewReader { proxy in
             VStack(spacing: 0) {
-                HStack{
+                HStack {
                     Button {
                         dismiss()
                     } label: {
@@ -51,14 +50,14 @@ struct ChatView: View {
                     }
                 }
                 .padding()
-                
-                if vm.messages.isEmpty{
-                    VStack{
+
+                if vm.messages.isEmpty {
+                    VStack {
                         Spacer()
-                        HStack{
+                        HStack {
                             Text("Say Hello, Ask your first question")
                             Spacer()
-                            VStack{
+                            VStack {
                                 Spacer()
                                     .frame(maxHeight: 120)
                                 Image(systemName: "arrow.turn.right.down")
@@ -68,7 +67,7 @@ struct ChatView: View {
                         .font(.system(size: UIScreen.main.bounds.width * 0.12))
                         .padding(.horizontal, 35)
                         ScrollView(.horizontal) {
-                            HStack(spacing: -15){
+                            HStack(spacing: -15) {
                                 Button {
                                     vm.inputMessage = "What stocks should I buy?"
                                     sendMessage()
@@ -147,7 +146,6 @@ struct ChatView: View {
                             }
                         }
                     }
-                    
 
                 } else {
                     ScrollView {
@@ -171,31 +169,30 @@ struct ChatView: View {
             }
             .accentColor(.primary)
         }
-        
-        .sheet(isPresented: self.$showInfoPage,
-           onDismiss: {
-               self.showInfoPage = false
-           }, content: {
-               ChatInfoView(shouldClearConversation: $shouldClearConversation)
-                   .presentationDetents([.height(600)])
-                   .buttonStyle(HapticButtonStyle())
-           }
-       )
-        .sheet(isPresented: $showSubscriptions){
+
+        .sheet(isPresented: $showInfoPage,
+               onDismiss: {
+                   self.showInfoPage = false
+               }, content: {
+                   ChatInfoView(shouldClearConversation: $shouldClearConversation)
+                       .presentationDetents([.height(600)])
+                       .buttonStyle(HapticButtonStyle())
+               })
+        .sheet(isPresented: $showSubscriptions) {
             SubscriptionView()
                 .presentationDetents([.height(560)])
         }
         .environmentObject(storeVM)
     }
-    
-    func bottomView(image: String, proxy: ScrollViewProxy) -> some View {
+
+    func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
         HStack(alignment: .bottom, spacing: 8) {
             TextField("Send message", text: $vm.inputMessage, axis: .vertical)
                 .textFieldStyle(.plain)
                 .focused($isTextFieldFocused)
                 .disabled(vm.isInteractingWithChatGPT)
                 .padding(.vertical, 6)
-            
+
             if vm.isInteractingWithChatGPT {
                 DotLoadingView().frame(width: 60, height: 30)
             } else {
@@ -215,19 +212,19 @@ struct ChatView: View {
         .background(Color.primary.opacity(0.1))
         .cornerRadius(15)
         .padding()
-        .onAppear{
+        .onAppear {
             scrollToBottom(proxy: proxy)
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            withAnimation{
+            withAnimation {
                 scrollToBottom(proxy: proxy)
             }
         }
     }
-    
+
     func sendMessage() {
         if !storeVM.hasUnlockedPro {
-            self.showSubscriptions = true
+            showSubscriptions = true
         } else {
             Task { @MainActor in
                 isTextFieldFocused = false
@@ -235,12 +232,12 @@ struct ChatView: View {
             }
         }
     }
-    
+
     private func scrollToBottom(proxy: ScrollViewProxy) {
         guard let id = vm.messages.last?.id else { return }
         proxy.scrollTo(id, anchor: .bottomTrailing)
     }
-    
+
     var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 50, coordinateSpace: .local)
             .onChanged { value in

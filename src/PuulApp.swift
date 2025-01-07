@@ -3,11 +3,10 @@ import SwiftUI
 
 @main
 struct PuulApp: App {
-    
-    @StateObject public var appModel: AppModel = AppModel()
-    @StateObject var plaidModel: PlaidModel = PlaidModel()
+    @StateObject public var appModel: AppModel = .init()
+    @StateObject var plaidModel: PlaidModel = .init()
     @Environment(\.scenePhase) var scenePhase
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -32,4 +31,3 @@ struct PuulApp: App {
         }
     }
 }
-

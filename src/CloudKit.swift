@@ -5,13 +5,14 @@
 //  Created by Wheezy Salem on 5/1/23.
 //
 
-import Foundation
 import CloudKit
+import Foundation
+
 //
-//let container = CKContainer.default()
-//let publicDatabase = container.publicCloudDatabase
+// let container = CKContainer.default()
+// let publicDatabase = container.publicCloudDatabase
 //
-//public func generateLinkToken(completionHandler: @escaping (Result<String, Error>) -> Void) {
+// public func generateLinkToken(completionHandler: @escaping (Result<String, Error>) -> Void) {
 //    // Set up the request parameters
 //    let url = URL(string: "https://sandbox.plaid.com/link/token/create")!
 //    let clientId = "63d411aa2bcbe80013f42ad7"
@@ -67,4 +68,4 @@ import CloudKit
 //        }
 //    }
 //    task.resume()
-//}
+// }

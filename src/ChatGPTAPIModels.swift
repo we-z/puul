@@ -13,8 +13,7 @@ struct Message: Codable {
 }
 
 extension Array where Element == Message {
-    
-    var contentCount: Int { reduce(0, { $0 + $1.content.count })}
+    var contentCount: Int { reduce(0) { $0 + $1.content.count } }
 }
 
 struct Request: Codable {
@@ -62,4 +61,3 @@ struct StreamMessage: Decodable {
     let role: String?
     let content: String?
 }
-

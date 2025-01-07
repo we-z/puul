@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct MessageRow: Identifiable, Encodable, Decodable {
-    
     var id = UUID()
-    
+
     var isInteractingWithChatGPT: Bool
-    
+
     let sendImage: String
     let sendText: String
-    
+
     let responseImage: String
     var responseText: String?
-    
+
     var responseError: String?
-    
 }

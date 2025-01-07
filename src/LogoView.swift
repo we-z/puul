@@ -9,10 +9,10 @@ import SwiftUI
 
 struct LogoView: View {
     var body: some View {
-        ZStack{
+        ZStack {
             Color(.gray)
                 .opacity(0.3)
-            VStack{
+            VStack {
                 LinearGradient(
                     colors: [.primary.opacity(0.5), .primary],
                     startPoint: .top,
@@ -20,11 +20,10 @@ struct LogoView: View {
                 )
             }
             .frame(width: 42, height: 90)
-            .offset(x: -52.8, y:114)
+            .offset(x: -52.8, y: 114)
             Text("U")
                 .rotationEffect(.degrees(-90))
                 .offset(x: 10)
-                
         }
         .fontWeight(.heavy)
         .bold()

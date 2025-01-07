@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchPropertiesView: View {
     @State var searchText = ""
     @EnvironmentObject public var zillow: ZillowAPI
-    
+
     private func convertToPercentEncoding(_ input: String) -> String {
         let allowedCharacterSet = CharacterSet.alphanumerics
         return input.reduce("") { result, char in
@@ -21,17 +21,17 @@ struct SearchPropertiesView: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationStack {
-            ZStack{
+            ZStack {
                 Color.clear
                     .navigationTitle("Find Your Property")
                 if !searchText.isEmpty {
                     Text("Searching for \(convertToPercentEncoding(searchText))")
                 }
             }
-            .onChange(of: searchText) { newText in
+            .onChange(of: searchText) { _ in
                 zillow.getPropertiesByLocation(location: convertToPercentEncoding(searchText))
             }
         }

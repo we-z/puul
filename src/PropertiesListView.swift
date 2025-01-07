@@ -12,11 +12,11 @@ struct PropertiesListView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State private var showSubscriptions = false
     @State private var showAlert = false
-    
+
     var body: some View {
-        Section{
-            VStack{
-                HStack{
+        Section {
+            VStack {
+                HStack {
                     Text("🏡")
                         .scaleEffect(1.2)
                         .offset(y: -3)
@@ -45,12 +45,12 @@ struct PropertiesListView: View {
         .sheet(isPresented: $showPropertySearch) {
             SearchPropertiesView()
         }
-        .fullScreenCover(isPresented: $showSubscriptions){
+        .fullScreenCover(isPresented: $showSubscriptions) {
             SubscriptionView()
                 .buttonStyle(HapticButtonStyle())
         }
         .alert("Real Estate coming Soon", isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
+            Button("OK", role: .cancel) {}
         }
     }
 }

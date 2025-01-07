@@ -15,23 +15,23 @@ struct AccountView: View {
     @EnvironmentObject public var model: AppModel
     @Environment(\.requestReview) private var requestReview
     @State private var showManageSubscriptions = false
-    
+
     var body: some View {
-        VStack{
+        VStack {
             Capsule()
                 .frame(maxWidth: 45, maxHeight: 9)
                 .padding(.top, 9)
                 .foregroundColor(.primary)
                 .opacity(0.3)
             Spacer()
-            HStack{
+            HStack {
                 Text("Account")
             }
             .bold()
             .font(.system(size: 21))
             .padding()
-            List{
-                Section(header: Text("Account")){
+            List {
+                Section(header: Text("Account")) {
                     Button(action: {
                         if !model.isPurchased {
                             self.showSubscriptions = true
@@ -39,7 +39,7 @@ struct AccountView: View {
                             showManageSubscriptions = true
                         }
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "arrow.clockwise")
                             Text("Subscription")
                             Spacer()
@@ -55,36 +55,35 @@ struct AccountView: View {
                     Button(action: {
                         self.showDataInfo = true
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "info.circle")
                             Text("About Puul")
                         }
                     }
                 }
                 .listRowBackground(Color.primary.opacity(0.12))
-                Section(header: Text("Settings")){
+                Section(header: Text("Settings")) {
                     Toggle(isOn: $model.isLightMode) {
-                        HStack{
+                        HStack {
                             Image(systemName: "sun.max")
                             Text("Light Mode")
                         }
                     }
                     Toggle(isOn: $model.hapticModeOn) {
-                        HStack{
+                        HStack {
                             Image(systemName: "waveform")
                             Text("Haptic Feedback")
                         }
                     }
-
                 }
                 .listRowBackground(Color.primary.opacity(0.12))
-                Section(header: Text("About")){
+                Section(header: Text("About")) {
                     Button(action: {
                         if let url = URL(string: "https://puul.ai/terms-of-use") {
                             UIApplication.shared.open(url)
                         }
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "newspaper")
                             Text("Terms of Use")
                         }
@@ -94,7 +93,7 @@ struct AccountView: View {
                             UIApplication.shared.open(url)
                         }
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "lock")
                             Text("Privacy Policy")
                         }
@@ -103,11 +102,11 @@ struct AccountView: View {
                         let mailtoString = "mailto:inquiries@puul.ai".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                         let mailtoUrl = URL(string: mailtoString!)!
                         if UIApplication.shared.canOpenURL(mailtoUrl) {
-                                UIApplication.shared.open(mailtoUrl, options: [:])
+                            UIApplication.shared.open(mailtoUrl, options: [:])
                         }
 
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "questionmark.circle")
                             Text("Contact Us")
                         }
@@ -115,7 +114,7 @@ struct AccountView: View {
                     Button(action: {
                         requestReview()
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "star")
                             Text("Rate Us")
                         }
@@ -128,7 +127,7 @@ struct AccountView: View {
                 Button(action: {
                     self.showSubscriptions = true
                 }) {
-                    HStack{
+                    HStack {
                         Spacer()
                         Text("⬆️")
                             .scaleEffect(1.2)
@@ -147,28 +146,26 @@ struct AccountView: View {
                     .padding(.horizontal)
                     .font(.system(size: 27))
                     .bold()
-                    
                 }
                 .buttonStyle(HapticButtonStyle())
             }
         }
         .accentColor(.primary)
-        .sheet(isPresented: $showSubscriptions){
+        .sheet(isPresented: $showSubscriptions) {
             SubscriptionView()
                 .presentationDetents([.height(560)])
         }
-        .sheet(isPresented: self.$showDataInfo,
+        .sheet(isPresented: $showDataInfo,
                onDismiss: {
                    self.showDataInfo = false
                },
-            content: {
-                AppInfoView()
-                .buttonStyle(HapticButtonStyle())
-            }
-        )
+               content: {
+                   AppInfoView()
+                       .buttonStyle(HapticButtonStyle())
+               })
         .preferredColorScheme(model.isLightMode ? .light : .dark)
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
-        //.environmentObject(StoreVM())
+        // .environmentObject(StoreVM())
     }
 }
 

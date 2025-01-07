@@ -19,11 +19,11 @@ struct Security: Identifiable {
 
 struct HomeView: View {
     var body: some View {
-        NavigationStack{
-            ZStack{
-                VStack{
+        NavigationStack {
+            ZStack {
+                VStack {
                     VStack(alignment: .leading, spacing: 6) {
-                        HStack{
+                        HStack {
                             Text("Puul")
                                 .bold()
                                 .foregroundColor(.primary)
@@ -42,19 +42,19 @@ struct HomeView: View {
                             .bold()
                             .foregroundColor(.primary)
                             .font(.system(size: 45))
-                        HStack{
+                        HStack {
                             Image(systemName: "triangle.fill").foregroundColor(.green)
                             Text("$46,874 (1.12%)").font(.system(size: 21))
                             Text("Past Month").bold().font(.system(size: 21))
                         }
-                        //Spacer()
+                        // Spacer()
                     }
                     .padding(.horizontal)
                     Stocks()
                 }
                 VStack {
                     Spacer()
-                    HStack{
+                    HStack {
                         Spacer()
                         Image(systemName: "pencil.circle.fill")
                             .font(.system(size: 60))
@@ -75,14 +75,14 @@ struct Stocks: View {
         Security(name: "Exxon Mobil Corp:", ticker: "XOM", sector: "Energy", holdingSize: "75,000 shares", costBasis: "$7,500,000", currentMarketValue: "$8,750,000"),
         Security(name: "JPMorgan Chase & Co:", ticker: "JPM", sector: "Financials", holdingSize: "50,000 shares", costBasis: "$5,000,000", currentMarketValue: "$5,500,000"),
     ]
-    
+
     var body: some View {
         List {
             ForEach(securities) { security in
-                ZStack{
+                ZStack {
                     NavigationLink(destination: EmptyView()) {
                         EmptyView()
-                    }//.opacity(0)
+                    } // .opacity(0)
                     VStack {
                         Spacer()
                         HStack {

@@ -34,8 +34,8 @@ struct LinkController {
 }
 
 // MARK: LinkController SwiftUI <-> UIKit bridge
-extension LinkController: UIViewControllerRepresentable {
 
+extension LinkController: UIViewControllerRepresentable {
     final class Coordinator: NSObject {
         private(set) var parent: LinkController
         private(set) var handler: Handler?
@@ -46,21 +46,21 @@ extension LinkController: UIViewControllerRepresentable {
 
         fileprivate func createHandler() -> Result<Handler, Plaid.CreateError> {
             switch parent.configuration {
-            case .publicKey(let configuration):
+            case let .publicKey(configuration):
                 return Plaid.create(configuration)
-            case .linkToken(let configuration):
+            case let .linkToken(configuration):
                 return Plaid.create(configuration)
             }
         }
 
-        fileprivate func present(_ handler: Handler, in viewController: UIViewController) -> Void {
+        fileprivate func present(_ handler: Handler, in viewController: UIViewController) {
             guard self.handler == nil else {
                 // Already presented a handler!
                 return
             }
             self.handler = handler
 
-            handler.open(presentUsing: .custom({ linkViewController in
+            handler.open(presentUsing: .custom { linkViewController in
                 viewController.addChild(linkViewController)
                 viewController.view.addSubview(linkViewController.view)
                 linkViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,7 @@ extension LinkController: UIViewControllerRepresentable {
                     linkViewController.view.heightAnchor.constraint(equalTo: viewController.view.heightAnchor),
                 ])
                 linkViewController.didMove(toParent: viewController)
-            }))
+            })
         }
     }
 
@@ -85,20 +85,19 @@ extension LinkController: UIViewControllerRepresentable {
 
         let handlerResult = context.coordinator.createHandler()
         switch handlerResult {
-        case .success(let handler):
+        case let .success(handler):
             context.coordinator.present(handler, in: viewController)
             DispatchQueue.main.async {
                 linkHandler = handler
             }
-        case .failure(let createError):
+        case let .failure(createError):
             onCreateError?(createError)
         }
 
         return viewController
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+    func updateUIViewController(_: UIViewController, context _: Context) {
         // Empty implementation
     }
 }
-

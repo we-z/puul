@@ -26,30 +26,33 @@ class PlaidModel: ObservableObject {
     @Published var linkToken = ""
     @Published var totalNetWorth: Double = 0
     @Published var bankAccessTokens: [String] = [] {
-        didSet{
+        didSet {
             saveBankAcccessTokens()
         }
     }
+
     @Published var brokerAccessTokens: [String] = [] {
-        didSet{
+        didSet {
             saveBrokerAcccessTokens()
         }
     }
+
     var newBankAccounts: [BankAccount] = []
     var newBrokerAccounts: [BrokerAccount] = []
     @Published var bankAccounts: [BankAccount] = [] {
-        didSet{
+        didSet {
             saveBankAccounts()
             updateBankString()
         }
     }
+
     @Published var brokerAccounts: [BrokerAccount] = [] {
-        didSet{
+        didSet {
             saveBrokerAccounts()
             updateBrokerString()
         }
     }
-    
+
     init() {
         plaidSecret = productionSecret
         getSavedBankAccounts()
@@ -58,124 +61,121 @@ class PlaidModel: ObservableObject {
         getSavedBrokerAcceessTokens()
         calculateNetworth()
     }
-    
+
     // call when refreshing
-    func updateAccounts(){
+    func updateAccounts() {
         isUpdating = true
-        bankAccessTokens.forEach { accessToken in
+        for accessToken in bankAccessTokens {
             print("Saved access token: \(accessToken)")
-            self.getBankData(accessToken: accessToken)
+            getBankData(accessToken: accessToken)
         }
-        
-        brokerAccessTokens.forEach { accessToken in
-            self.getBrokerAccount(accessToken: accessToken)
+
+        for accessToken in brokerAccessTokens {
+            getBrokerAccount(accessToken: accessToken)
         }
-        
     }
 
-    func updateBankString(){
+    func updateBankString() {
         bankString = ""
-        
-        bankAccounts.forEach { account in
+
+        for account in bankAccounts {
             bankString += "I have $" + account.balance.withCommas() + " with " + account.institution_name + "\n\n"
-            account.sub_accounts.forEach{ subaccount in
+            for subaccount in account.sub_accounts {
                 bankString += "I have $" + subaccount.sub_balance.withCommas() + " in the " + subaccount.account_name + " account\n\n"
                 bankString += "From my " + subaccount.account_name + " i spent:\n\n"
-                subaccount.transactions.forEach{ transaction in
+                for transaction in subaccount.transactions {
                     if transaction.amount > 0 {
                         bankString += "$" + String(transaction.amount) + " on " + transaction.merchant + " on " + transaction.dateTime + "\n"
                     }
                 }
                 bankString += " \n"
                 bankString += "In my " + subaccount.account_name + " i recieved:\n\n"
-                subaccount.transactions.forEach{ transaction in
+                for transaction in subaccount.transactions {
                     if transaction.amount < 0 {
                         bankString += "$" + String(abs(transaction.amount)) + " from " + transaction.merchant + " on " + transaction.dateTime + "\n"
                     }
                 }
             }
             bankString += " \n"
-
         }
     }
-    
-    func updateBrokerString(){
+
+    func updateBrokerString() {
         brokerString = ""
-        
-        brokerAccounts.forEach { account in
+
+        for account in brokerAccounts {
             brokerString += "I have " + account.balance.withCommas() + " in my " + account.institution_name + " investing account:\n"
-            //brokerString += "in my " + account.institution_name + " investing account I have:\n"
-            account.holdings.forEach{ security in
+            // brokerString += "in my " + account.institution_name + " investing account I have:\n"
+            for security in account.holdings {
                 brokerString += "$" + String(security.value) + " of " + security.name + "\n"
             }
             brokerString += " \n"
         }
-        //print(brokerString)
-    }
-    
-    func calculateNetworth() {
-        totalNetWorth = 0
-        bankAccounts.forEach { account in
-            self.totalNetWorth += account.balance
-        }
-        brokerAccounts.forEach { account in
-            self.totalNetWorth += account.balance
-        }
+        // print(brokerString)
     }
 
+    func calculateNetworth() {
+        totalNetWorth = 0
+        for account in bankAccounts {
+            totalNetWorth += account.balance
+        }
+        for account in brokerAccounts {
+            totalNetWorth += account.balance
+        }
+    }
 
     func deleteBankAccount(indexSet: IndexSet) {
         bankAccounts.remove(atOffsets: indexSet)
         bankAccessTokens.remove(atOffsets: indexSet)
     }
-    
+
     func deleteBrokerAccount(indexSet: IndexSet) {
         brokerAccounts.remove(atOffsets: indexSet)
         brokerAccessTokens.remove(atOffsets: indexSet)
     }
-    
-    func getSavedBankAccounts(){
+
+    func getSavedBankAccounts() {
         guard
             let accountData = UserDefaults.standard.data(forKey: bankAccountsKey),
             let savedAccounts = try? JSONDecoder().decode([BankAccount].self, from: accountData)
-        else {return}
-        
-        self.bankAccounts = savedAccounts
+        else { return }
+
+        bankAccounts = savedAccounts
     }
-    
-    func getBrokerAccounts(){
+
+    func getBrokerAccounts() {
         guard
             let accountData = UserDefaults.standard.data(forKey: brokerAccountsKey),
             let savedAccounts = try? JSONDecoder().decode([BrokerAccount].self, from: accountData)
-        else {return}
-        
-        self.brokerAccounts = savedAccounts
+        else { return }
+
+        brokerAccounts = savedAccounts
     }
-    
-    func getSavedBankAcceessTokens(){
+
+    func getSavedBankAcceessTokens() {
         guard
             let accessTokensData = UserDefaults.standard.data(forKey: bankAccessTokenKey),
             let savedAccessTokens = try? JSONDecoder().decode([String].self, from: accessTokensData)
-        else {return}
-        
-        self.bankAccessTokens = savedAccessTokens
+        else { return }
+
+        bankAccessTokens = savedAccessTokens
     }
-    
-    func getSavedBrokerAcceessTokens(){
+
+    func getSavedBrokerAcceessTokens() {
         guard
             let accessTokensData = UserDefaults.standard.data(forKey: brokerAccountsKey),
             let savedAccessTokens = try? JSONDecoder().decode([String].self, from: accessTokensData)
-        else {return}
-        
-        self.brokerAccessTokens = savedAccessTokens
+        else { return }
+
+        brokerAccessTokens = savedAccessTokens
     }
-    
-    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, subaccounts: [BankSubAccount]){
+
+    func addBankAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, subaccounts: [BankSubAccount]) {
         let newAccount = BankAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, sub_accounts: subaccounts)
-        if (isUpdating) {
+        if isUpdating {
             DispatchQueue.main.async {
                 self.newBankAccounts.append(newAccount)
-                if self.bankAccounts.count == self.newBankAccounts.count{
+                if self.bankAccounts.count == self.newBankAccounts.count {
                     print("Bank Refresh worked")
                     self.bankAccounts = self.newBankAccounts
                     self.newBankAccounts = []
@@ -187,15 +187,14 @@ class PlaidModel: ObservableObject {
             }
             print("New Bank account added")
         }
-        
     }
-    
-    func addBrokerAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, holdings: [Security]){
+
+    func addBrokerAccount(institutionId: String, accessToken: String, institutionName: String, totalBalance: Double, holdings: [Security]) {
         let newAccount = BrokerAccount(institution_id: institutionId, access_token: accessToken, institution_name: institutionName, balance: totalBalance, holdings: holdings)
-        if (isUpdating) {
+        if isUpdating {
             DispatchQueue.main.async {
                 self.newBrokerAccounts.append(newAccount)
-                if self.brokerAccounts.count == self.newBrokerAccounts.count{
+                if self.brokerAccounts.count == self.newBrokerAccounts.count {
                     self.brokerAccounts = self.newBrokerAccounts
                     self.newBrokerAccounts = []
                 }
@@ -207,47 +206,45 @@ class PlaidModel: ObservableObject {
             }
             print("New Broker account added")
         }
-        
     }
-    
+
     func saveBankAcccessTokens() {
-        if let bankAccessTokesData = try? JSONEncoder().encode(bankAccessTokens){
+        if let bankAccessTokesData = try? JSONEncoder().encode(bankAccessTokens) {
             UserDefaults.standard.set(bankAccessTokesData, forKey: bankAccessTokenKey)
         }
     }
-    
+
     func saveBrokerAcccessTokens() {
-        if let brokerAccessTokesData = try? JSONEncoder().encode(brokerAccessTokens){
+        if let brokerAccessTokesData = try? JSONEncoder().encode(brokerAccessTokens) {
             UserDefaults.standard.set(brokerAccessTokesData, forKey: brokerAccessTokenKey)
         }
     }
-    
+
     func saveBankAccounts() {
-        if let bankData = try? JSONEncoder().encode(bankAccounts){
+        if let bankData = try? JSONEncoder().encode(bankAccounts) {
             UserDefaults.standard.set(bankData, forKey: bankAccountsKey)
         }
-        self.calculateNetworth()
+        calculateNetworth()
     }
-    
+
     func saveBrokerAccounts() {
-        if let brokerData = try? JSONEncoder().encode(brokerAccounts){
+        if let brokerData = try? JSONEncoder().encode(brokerAccounts) {
             UserDefaults.standard.set(brokerData, forKey: brokerAccountsKey)
         }
-        self.calculateNetworth()
+        calculateNetworth()
     }
-    
-    
+
     func createBrokerLinkToken() {
         guard let url = URL(string: plaidEnvironment + "link/token/create") else {
             print("Invalid URL")
             return
         }
-        
+
         let parameters = [
             "client_id": client_id,
             "secret": plaidSecret,
             "user": [
-                "client_user_id": "unique-per-user"
+                "client_user_id": "unique-per-user",
             ],
             "client_name": "Puul",
             "products": ["investments"],
@@ -256,23 +253,23 @@ class PlaidModel: ObservableObject {
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "investment": [
-                    "account_subtypes": ["all"]
-                ]
-            ]
-        ] as [String : Any]
-        
+                    "account_subtypes": ["all"],
+                ],
+            ],
+        ] as [String: Any]
+
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             print("Invalid body parameters")
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = httpBody
-        
+
         let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
+        session.dataTask(with: request) { data, _, error in
             if let error = error {
                 print("Error fetching linkToken: \(error.localizedDescription)")
             } else if let data = data {
@@ -290,19 +287,19 @@ class PlaidModel: ObservableObject {
             }
         }.resume()
     }
-    
+
     func createBankLinkToken() {
-        print ("Creting bank link token")
+        print("Creting bank link token")
         guard let url = URL(string: plaidEnvironment + "link/token/create") else {
             print("Invalid URL")
             return
         }
-        
+
         let parameters = [
             "client_id": client_id,
             "secret": plaidSecret,
             "user": [
-                "client_user_id": "unique-per-user"
+                "client_user_id": "unique-per-user",
             ],
             "client_name": "Puul",
             "products": ["transactions"],
@@ -311,26 +308,26 @@ class PlaidModel: ObservableObject {
             "redirect_uri": "https://puulai.page.link/development-oauth-a2a-redirect",
             "account_filters": [
                 "depository": [
-                    "account_subtypes": ["all"]
+                    "account_subtypes": ["all"],
                 ],
                 "credit": [
-                    "account_subtypes": ["all"]
-                ]
-            ]
-        ] as [String : Any]
-        
+                    "account_subtypes": ["all"],
+                ],
+            ],
+        ] as [String: Any]
+
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             print("Invalid body parameters")
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = httpBody
-        
+
         let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
+        session.dataTask(with: request) { data, _, error in
             if let error = error {
                 print("Error fetching linkToken: \(error.localizedDescription)")
             } else if let data = data {
@@ -348,7 +345,7 @@ class PlaidModel: ObservableObject {
             }
         }.resume()
     }
-    
+
     func exchangePublicToken(publicToken: String, completion: @escaping (Result<String, Error>) -> Void) {
         isUpdating = false
         let apiUrl = plaidEnvironment + "item/public_token/exchange"
@@ -356,28 +353,28 @@ class PlaidModel: ObservableObject {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }
-        
+
         let requestBody = ["client_id": client_id, "secret": plaidSecret, "public_token": publicToken]
-        
+
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: [])
-            
+
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
-                
+
                 guard let data = data else {
                     completion(.failure(NSError(domain: "No data returned", code: 0, userInfo: nil)))
                     return
                 }
-                
+
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     if let accessToken = json?["access_token"] as? String {
@@ -389,14 +386,14 @@ class PlaidModel: ObservableObject {
                     completion(.failure(error))
                 }
             }
-            
+
             task.resume()
-            
+
         } catch {
             completion(.failure(error))
         }
     }
- 
+
     func getBrokerAccount(accessToken: String) {
         var totalBalance = 0.0
         let url = URL(string: plaidEnvironment + "accounts/get")!
@@ -406,10 +403,10 @@ class PlaidModel: ObservableObject {
         let requestBody: [String: Any] = [
             "client_id": client_id,
             "secret": plaidSecret,
-            "access_token": accessToken
+            "access_token": accessToken,
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -419,8 +416,7 @@ class PlaidModel: ObservableObject {
 
                 let item = json["item"] as! [String: Any]
                 let institutionId = item["institution_id"] as! String
-                //let institutionName: () = getInstitutionName(institutionId: institutionId)
-                
+                // let institutionName: () = getInstitutionName(institutionId: institutionId)
 
                 let accountsArray = json["accounts"] as! [[String: Any]]
 
@@ -428,18 +424,18 @@ class PlaidModel: ObservableObject {
                     let balance = account["balances"] as! [String: Any]
                     totalBalance += balance["current"] as! Double
                 }
-                
+
                 self.getBrokerName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance)
 
-                //print("Broker account balance fetched: \(totalBalance) \(institutionId)")
-                
-            } catch let error {
+                // print("Broker account balance fetched: \(totalBalance) \(institutionId)")
+
+            } catch {
                 print("Error parsing JSON: \(error.localizedDescription)")
             }
         }
         task.resume()
     }
-    
+
     func getBrokerName(institutionId: String, accessToken: String, totalBalance: Double) {
         let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
         var request = URLRequest(url: url)
@@ -449,10 +445,10 @@ class PlaidModel: ObservableObject {
             "institution_id": institutionId,
             "client_id": client_id,
             "secret": plaidSecret,
-            "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
+            "country_codes": ["US"], // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -469,7 +465,7 @@ class PlaidModel: ObservableObject {
         }
         task.resume()
     }
-    
+
     func getBanksName(institutionId: String, accessToken: String, totalBalance: Double, subaccounts: [BankSubAccount]) {
         let url = URL(string: plaidEnvironment + "institutions/get_by_id")!
         var request = URLRequest(url: url)
@@ -479,11 +475,11 @@ class PlaidModel: ObservableObject {
             "institution_id": institutionId,
             "client_id": client_id,
             "secret": plaidSecret,
-            "country_codes": ["US"] // Replace with the appropriate country code(s) for the institution
+            "country_codes": ["US"], // Replace with the appropriate country code(s) for the institution
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -498,7 +494,6 @@ class PlaidModel: ObservableObject {
             }
         }
         task.resume()
-        
     }
 
     func getBankData(accessToken: String) {
@@ -507,10 +502,10 @@ class PlaidModel: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .year, value: -1, to: endDate)!
-        
+
         let requestData: [String: Any] = [
             "client_id": client_id,
             "secret": plaidSecret,
@@ -519,33 +514,33 @@ class PlaidModel: ObservableObject {
             "end_date": formatDate(endDate),
             "options": [
                 "count": 100,
-                "offset": 0
-            ]
+                "offset": 0,
+            ],
         ]
-        
+
         let jsonData = try? JSONSerialization.data(withJSONObject: requestData)
         request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            
+
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let transactionsData = json["transactions"] as? [[String: Any]] ?? []
                 let accountsData = json["accounts"] as? [[String: Any]] ?? []
                 if let itemData = json["item"] as? [String: Any] {
                     let institutionId = itemData["institution_id"] as! String
-                    
+
                     var subaccounts: [BankSubAccount] = []
-                    
+
                     for accountData in accountsData {
-                        
                         if let account_id = accountData["account_id"] as? String,
                            let name = accountData["name"] as? String,
-                           let balances = accountData["balances"] as? [String: Any] {
+                           let balances = accountData["balances"] as? [String: Any]
+                        {
                             let balance = balances["current"] as! Double
                             let accountType = accountData["type"] as! String
                             if accountType != "credit" {
@@ -554,25 +549,25 @@ class PlaidModel: ObservableObject {
                                 totalBalance -= balance
                             }
                             var transactions: [BankTransaction] = []
-                            
+
                             for transactionData in transactionsData {
                                 let parent_account_id = transactionData["account_id"] as? String
                                 if parent_account_id == account_id {
                                     if let amount = transactionData["amount"] as? Double,
                                        let dateTime = transactionData["date"] as? String,
-                                       let name = transactionData["name"] as? String {
+                                       let name = transactionData["name"] as? String
+                                    {
                                         let transaction = BankTransaction(amount: amount, merchant: name, dateTime: dateTime)
                                         transactions.append(transaction)
                                     }
                                 }
                             }
-                            
+
                             let subaccount = BankSubAccount(account_id: account_id, account_name: name, sub_balance: balance, transactions: transactions)
                             subaccounts.append(subaccount)
-                            
                         }
                     }
-                    
+
                     self.getBanksName(institutionId: institutionId, accessToken: accessToken, totalBalance: totalBalance, subaccounts: subaccounts)
                 } else {
                     print("Error: Missing or invalid 'item' data in the JSON response.")
@@ -585,42 +580,42 @@ class PlaidModel: ObservableObject {
         }
         task.resume()
     }
-    
+
     func getBrokerholdings(institutionId: String, accessToken: String, totalBalance: Double, institutionName: String) {
         let url = URL(string: plaidEnvironment + "investments/holdings/get")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
+
         let requestData: [String: Any] = [
             "client_id": client_id,
             "secret": plaidSecret,
-            "access_token": accessToken
+            "access_token": accessToken,
         ]
-        
+
         let jsonData = try! JSONSerialization.data(withJSONObject: requestData)
         request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            
+
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let securitiesData = json["securities"] as! [[String: Any]]
                 let holdingsData = json["holdings"] as! [[String: Any]]
-                                
+
                 var securities: [Security] = []
-                
+
                 for position in securitiesData {
                     if let value = position["close_price"] as? Double,
                        let security_id = position["security_id"] as? String,
                        let ticker = position["ticker_symbol"] as? String,
-                       let name = position["name"] as? String {
-                        for holding in holdingsData{
+                       let name = position["name"] as? String
+                    {
+                        for holding in holdingsData {
                             if holding["security_id"] as! String == security_id {
                                 let quantity = holding["quantity"] as! Double
                                 let security = Security(ticker: ticker, name: name, value: value * quantity)
@@ -630,11 +625,10 @@ class PlaidModel: ObservableObject {
                     }
                 }
                 self.addBrokerAccount(institutionId: institutionId, accessToken: accessToken, institutionName: institutionName, totalBalance: totalBalance, holdings: securities)
-                
+
             } catch {
                 print("Error getting holdings: \(error)")
             }
-            
         }
         task.resume()
     }
@@ -644,7 +638,6 @@ class PlaidModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)
     }
-    
 }
 
 extension Double {
@@ -652,7 +645,7 @@ extension Double {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 2
-        return numberFormatter.string(from: NSNumber(value:self))!
+        return numberFormatter.string(from: NSNumber(value: self))!
     }
 }
 

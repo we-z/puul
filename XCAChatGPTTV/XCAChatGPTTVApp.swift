@@ -9,11 +9,10 @@ import SwiftUI
 
 @main
 struct XCAChatGPTTVApp: App {
-    
     @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "API_KEY"), enableSpeech: true)
-    
+
     @FocusState var isTextFieldFocused: Bool
-    
+
     var body: some Scene {
         WindowGroup {
             VStack {
@@ -31,30 +30,29 @@ struct XCAChatGPTTVApp: App {
                                 EmptyView()
                             }
                         }
-                    
+
                     VStack {
                         TextField("Send", text: $vm.inputMessage)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 176)
-                        .focused($isTextFieldFocused)
-                        .disabled(vm.isInteractingWithChatGPT)
-                        .onSubmit {
-                            Task { @MainActor in
-                                await vm.sendTapped()
-                                isTextFieldFocused = true
+                            .multilineTextAlignment(.center)
+                            .frame(width: 176)
+                            .focused($isTextFieldFocused)
+                            .disabled(vm.isInteractingWithChatGPT)
+                            .onSubmit {
+                                Task { @MainActor in
+                                    await vm.sendTapped()
+                                    isTextFieldFocused = true
+                                }
                             }
-                        }
-                        .onChange(of: isTextFieldFocused) { _  in
-                            vm.inputMessage = ""
-                        }
-                        
+                            .onChange(of: isTextFieldFocused) { _ in
+                                vm.inputMessage = ""
+                            }
+
                         Button("Clear", role: .destructive) {
                             vm.clearMessages()
                         }
                         .frame(width: 176)
                         .disabled(vm.isInteractingWithChatGPT || vm.messages.isEmpty)
-                        
-                        
+
                         ProgressView()
                             .progressViewStyle(.circular)
                             .padding()

@@ -8,25 +8,24 @@
 import SwiftUI
 
 struct MessageRowView: View {
-    
     @Environment(\.colorScheme) private var colorScheme
     let message: MessageRow
     let retryCallback: (MessageRow) -> Void
-    
+
     var imageSize: CGSize {
         #if os(iOS) || os(macOS)
-        CGSize(width: 25, height: 25)
+            CGSize(width: 25, height: 25)
         #elseif os(watchOS)
-        CGSize(width: 20, height: 20)
+            CGSize(width: 20, height: 20)
         #else
-        CGSize(width: 80, height: 80)
+            CGSize(width: 80, height: 80)
         #endif
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             messageRow(text: message.sendText, image: message.sendImage)
-            
+
             if let text = message.responseText {
                 Divider()
                     .overlay(.gray)
@@ -38,37 +37,36 @@ struct MessageRowView: View {
             }
         }
     }
-    
+
     func messageRow(text: String, image: String, responseError: String? = nil, showDotLoading: Bool = false) -> some View {
         #if os(watchOS)
-        VStack(alignment: .leading, spacing: 8) {
-            messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
-        }
-        
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        //.background(bgColor)
+            VStack(alignment: .leading, spacing: 8) {
+                messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
+            }
+
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        // .background(bgColor)
         #else
-        HStack(alignment: .top, spacing: 24) {
-            messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
-        }
-        #if os(tvOS)
-        .padding(32)
-        #else
-        .padding(16)
-        #endif
-        .frame(maxWidth: .infinity, alignment: .leading)
-        //.background(bgColor)
+            HStack(alignment: .top, spacing: 24) {
+                messageRowContent(text: text, image: image, responseError: responseError, showDotLoading: showDotLoading)
+            }
+            #if os(tvOS)
+            .padding(32)
+            #else
+            .padding(16)
+            #endif
+            .frame(maxWidth: .infinity, alignment: .leading)
+            // .background(bgColor)
         #endif
     }
-    
+
     @ViewBuilder
     func messageRowContent(text: String, image: String, responseError: String? = nil, showDotLoading: Bool = false) -> some View {
-        
         Image(systemName: image)
             .resizable()
             .frame(width: imageSize.width, height: imageSize.height)
-        
+
         VStack(alignment: .leading) {
             if !text.isEmpty {
                 Text(text)
@@ -77,70 +75,67 @@ struct MessageRowView: View {
                     .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
             }
-            
+
             if let error = responseError {
                 Text("Error: \(error)")
                     .foregroundColor(.red)
                     .multilineTextAlignment(.leading)
-                
+
                 Button("Regenerate response") {
                     retryCallback(message)
                 }
                 .foregroundColor(.accentColor)
                 .padding(.top)
             }
-            
+
             if showDotLoading {
                 #if os(tvOS)
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding()
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
                 #else
-                DotLoadingView()
-                    .frame(width: 60, height: 30)
+                    DotLoadingView()
+                        .frame(width: 60, height: 30)
                 #endif
-                
             }
         }
     }
-    
+
     #if os(tvOS)
-    private func rowsFor(text: String) -> [String] {
-        var rows = [String]()
-        let maxLinesPerRow = 8
-        var currentRowText = ""
-        var currentLineSum = 0
-        
-        for char in text {
-            currentRowText += String(char)
-            if char == "\n" {
-                currentLineSum += 1
+        private func rowsFor(text: String) -> [String] {
+            var rows = [String]()
+            let maxLinesPerRow = 8
+            var currentRowText = ""
+            var currentLineSum = 0
+
+            for char in text {
+                currentRowText += String(char)
+                if char == "\n" {
+                    currentLineSum += 1
+                }
+
+                if currentLineSum >= maxLinesPerRow {
+                    rows.append(currentRowText)
+                    currentLineSum = 0
+                    currentRowText = ""
+                }
             }
-            
-            if currentLineSum >= maxLinesPerRow {
-                rows.append(currentRowText)
-                currentLineSum = 0
-                currentRowText = ""
-            }
+
+            rows.append(currentRowText)
+            return rows
         }
 
-        rows.append(currentRowText)
-        return rows
-    }
-    
-    
-    func responseTextView(text: String) -> some View {
-        ForEach(rowsFor(text: text), id: \.self) { text in
-            Text(text)
-                .focusable()
-                .multilineTextAlignment(.leading)
+        func responseTextView(text: String) -> some View {
+            ForEach(rowsFor(text: text), id: \.self) { text in
+                Text(text)
+                    .focusable()
+                    .multilineTextAlignment(.leading)
+            }
         }
-    }
     #endif
-    
 }
 
-//struct MessageRowView_Previews: PreviewProvider {
+// struct MessageRowView_Previews: PreviewProvider {
 //
 //    static let message = MessageRow(
 //        isInteractingWithChatGPT: true, sendImage: "profile",
@@ -171,4 +166,4 @@ struct MessageRowView: View {
 //            .previewLayout(.sizeThatFits)
 //        }
 //    }
-//}
+// }

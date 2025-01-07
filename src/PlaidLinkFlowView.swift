@@ -1,5 +1,5 @@
 //
-//  PlaidAPI.swift
+//  PlaidLinkFlowView.swift
 //  XCAChatGPT
 //
 //  Created by Wheezy Salem on 5/2/23.
@@ -13,11 +13,11 @@ public struct PlaidLinkFlow: View {
     @State var showLink: Bool
     @EnvironmentObject var model: AppModel
     var isBank: Bool
-    
+
     @StateObject var pm: PlaidModel
-    
+
     public var body: some View {
-        if pm.linkToken.isEmpty{
+        if pm.linkToken.isEmpty {
             ProgressView()
         } else {
             let linkController = LinkController(
@@ -26,23 +26,22 @@ public struct PlaidLinkFlow: View {
                 print("Link Creation Error: \(createError)")
                 self.showLink = false
             }
-            
+
             linkController
                 .onOpenURL { url in
                     linkController.linkHandler?.resumeAfterTermination(from: url)
                 }
         }
     }
-    
+
     func createLinkTokenConfiguration() -> LinkTokenConfiguration {
-        
         var configuration = LinkTokenConfiguration(
             token: pm.linkToken,
             onSuccess: { success in
                 print("public-token: \(success.publicToken) metadata: \(success.metadata)")
                 pm.exchangePublicToken(publicToken: success.publicToken) { result in
                     switch result {
-                    case .success(let accessToken):
+                    case let .success(accessToken):
                         print("access_token: \(accessToken)")
                         DispatchQueue.main.async {
                             model.showingWarningAlert = true
@@ -52,17 +51,17 @@ public struct PlaidLinkFlow: View {
                                 pm.bankAccessTokens.append(accessToken)
                                 print("bankAccessTokens: \(pm.bankAccessTokens)")
                             }
-                            
+
                             pm.getBankData(accessToken: accessToken)
                         } else if isBank == false {
                             DispatchQueue.main.async {
                                 pm.brokerAccessTokens.append(accessToken)
                                 print("brokerAccessTokens: \(pm.brokerAccessTokens)")
                             }
-                            
+
                             pm.getBrokerAccount(accessToken: accessToken)
                         }
-                    case .failure(let error):
+                    case let .failure(error):
                         print("Error exchanging public token: \(error)")
                     }
                 }
@@ -85,7 +84,6 @@ public struct PlaidLinkFlow: View {
             pm.getBrokerAccounts()
             showLink = false
         }
-        
 
         return configuration
     }

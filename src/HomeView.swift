@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     @StateObject var vm = ChatViewModel(api: ChatGPTAPI())
     @State private var showLink = false
     @State private var showAccount = false
     @State private var showChat = false
     @EnvironmentObject var pm: PlaidModel
     @EnvironmentObject public var model: AppModel
-    
-    @AppStorage ("welcomeScreenShown")
+
+    @AppStorage("welcomeScreenShown")
     var welcomeScreenShown: Bool = true
-        
+
     var body: some View {
-        NavigationStack{
-            VStack(spacing: 0){
-                HStack{
+        NavigationStack {
+            VStack(spacing: 0) {
+                HStack {
                     VStack(alignment: .leading, spacing: 6) {
-                        HStack{
+                        HStack {
                             Text("💼")
                                 .font(.system(size: UIScreen.main.bounds.height * 0.04))
                                 .offset(y: -4)
@@ -32,7 +31,6 @@ struct HomeView: View {
                                 .bold()
                                 .foregroundColor(.primary)
                                 .font(.system(size: UIScreen.main.bounds.height * 0.036))
-                                
                         }
                         .padding(.top)
                         Text("$" + pm.totalNetWorth.withCommas())
@@ -42,10 +40,9 @@ struct HomeView: View {
                             .minimumScaleFactor(0.01)
                             .lineLimit(1)
                             .padding(.bottom)
-
                     }
                     Spacer()
-                    VStack{
+                    VStack {
                         Button(action: {
                             self.showAccount = true
                         }) {
@@ -61,8 +58,8 @@ struct HomeView: View {
                 Divider()
                     .overlay(.primary)
                     .padding(.horizontal)
-                
-                List{
+
+                List {
                     BankAccountsListView()
                         .listRowBackground(Color.primary.opacity(0.15))
                     BrokerAccountsListView()
@@ -77,18 +74,18 @@ struct HomeView: View {
                 }
                 .scrollIndicators(.hidden)
                 .environment(\.defaultMinListRowHeight, 49)
-                
-                VStack{
+
+                VStack {
 //                    Divider()
 //                        .overlay(.gray)
 //                        .padding(.horizontal)
-                    HStack{
+                    HStack {
                         Button(action: {
                             self.showChat = true
                         }) {
-                            HStack{
+                            HStack {
                                 Spacer()
-                                HStack{
+                                HStack {
                                     Text("Ask Puul")
                                     Text("✨")
                                         .scaleEffect(1.2)
@@ -97,7 +94,7 @@ struct HomeView: View {
                                 .font(.system(size: 30))
                                 .padding()
                                 .bold()
-                                
+
                                 Spacer()
                             }
                             .background(.primary.opacity(0.15))
@@ -116,18 +113,17 @@ struct HomeView: View {
                 Alert(title: Text("Wait a couple of seconds for changes to appear"))
             }
         }
-        .fullScreenCover(isPresented: $showChat){
+        .fullScreenCover(isPresented: $showChat) {
             ChatView(vm: vm)
                 .buttonStyle(HapticButtonStyle())
         }
-        .sheet(isPresented: $showAccount){
+        .sheet(isPresented: $showAccount) {
             AccountView()
         }
         .sheet(isPresented: $welcomeScreenShown,
                onDismiss: {
                    self.welcomeScreenShown = false
-               }
-        ){
+               }) {
             WelcomeView()
                 .presentationDetents([.height(660)])
                 .buttonStyle(HapticButtonStyle())

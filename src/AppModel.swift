@@ -19,92 +19,99 @@ class AppModel: ObservableObject {
     @AppStorage(isPurchasedKey) var isPurchased: Bool = UserDefaults.standard.bool(forKey: isPurchasedKey)
     @Published var showingWarningAlert = false
     @Published var selectedRiskLevel = "" {
-        didSet{
+        didSet {
             saveRiskSetting()
         }
     }
+
     @Published var selectedTimeFrame = "" {
-        didSet{
+        didSet {
             saveTimeFrameSetting()
         }
     }
+
     @Published public var isLightMode: Bool = false {
-        didSet{
+        didSet {
             savelightSetting()
         }
     }
+
     @Published public var hapticModeOn: Bool = true {
-        didSet{
+        didSet {
             saveHapticSetting()
         }
     }
-    
+
     func savelightSetting() {
-        if let lightSetting = try? JSONEncoder().encode(isLightMode){
+        if let lightSetting = try? JSONEncoder().encode(isLightMode) {
             UserDefaults.standard.set(lightSetting, forKey: lightModeKey)
         }
     }
+
     func saveHapticSetting() {
-        if let hapticSetting = try? JSONEncoder().encode(hapticModeOn){
+        if let hapticSetting = try? JSONEncoder().encode(hapticModeOn) {
             UserDefaults.standard.set(hapticSetting, forKey: hapticKey)
         }
     }
+
     func saveRiskSetting() {
-        if let riskSetting = try? JSONEncoder().encode(selectedRiskLevel){
+        if let riskSetting = try? JSONEncoder().encode(selectedRiskLevel) {
             UserDefaults.standard.set(riskSetting, forKey: risklevelKey)
         }
     }
+
     func saveTimeFrameSetting() {
-        if let timeFramSetting = try? JSONEncoder().encode(selectedTimeFrame){
+        if let timeFramSetting = try? JSONEncoder().encode(selectedTimeFrame) {
             UserDefaults.standard.set(timeFramSetting, forKey: timeFrameKey)
         }
     }
-    
-    
+
     init() {
         getSettings()
     }
-    
-    func getSettings(){
+
+    func getSettings() {
         getLightSetting()
         getHapticSetting()
         getRiskSetting()
         getTimeFrameSetting()
     }
-    
-    func getLightSetting(){
+
+    func getLightSetting() {
         guard
             let lightData = UserDefaults.standard.data(forKey: lightModeKey),
             let savedLightSetting = try? JSONDecoder().decode(Bool.self, from: lightData)
-        else {return}
-        
-        self.isLightMode = savedLightSetting
+        else { return }
+
+        isLightMode = savedLightSetting
     }
-    func getHapticSetting(){
+
+    func getHapticSetting() {
         guard
             let hapticData = UserDefaults.standard.data(forKey: hapticKey),
             let savedHapticSetting = try? JSONDecoder().decode(Bool.self, from: hapticData)
-        else {return}
-        
-        self.hapticModeOn = savedHapticSetting
+        else { return }
+
+        hapticModeOn = savedHapticSetting
     }
-    func getRiskSetting(){
+
+    func getRiskSetting() {
         guard
             let riskData = UserDefaults.standard.data(forKey: risklevelKey),
             let savedRiskSetting = try? JSONDecoder().decode(String.self, from: riskData)
-        else {return}
-        
-        self.selectedRiskLevel = savedRiskSetting
+        else { return }
+
+        selectedRiskLevel = savedRiskSetting
     }
-    func getTimeFrameSetting(){
+
+    func getTimeFrameSetting() {
         guard
             let timeFrameData = UserDefaults.standard.data(forKey: timeFrameKey),
             let savedTimeFrameSetting = try? JSONDecoder().decode(String.self, from: timeFrameData)
-        else {return}
-        
-        self.selectedTimeFrame = savedTimeFrameSetting
+        else { return }
+
+        selectedTimeFrame = savedTimeFrameSetting
     }
-    
 }
 
 struct HapticButtonStyle: ButtonStyle {
@@ -112,16 +119,15 @@ struct HapticButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .onChange(of: configuration.isPressed) { isPressed in
-                
-                    if isPressed {
-                        if model.hapticModeOn{
+
+                if isPressed {
+                    if model.hapticModeOn {
                         // Trigger haptic feedback
                         let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
                         feedbackGenerator.prepare()
                         feedbackGenerator.impactOccurred()
                     }
+                }
             }
-        }
     }
 }
-

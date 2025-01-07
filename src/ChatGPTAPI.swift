@@ -23,29 +23,29 @@ class ChatGPTAPI: @unchecked Sendable {
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        headers.forEach {  urlRequest.setValue($1, forHTTPHeaderField: $0) }
+        headers.forEach { urlRequest.setValue($1, forHTTPHeaderField: $0) }
         return urlRequest
     }
-    
+
     let dateFormatter: DateFormatter = {
-            let df = DateFormatter()
-            df.dateFormat = "YYYY-MM-dd"
-            return df
+        let df = DateFormatter()
+        df.dateFormat = "YYYY-MM-dd"
+        return df
     }()
-    
+
     let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         return jsonDecoder
     }()
-    
+
     var headers: [String: String] {
         [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey)"
+            "Authorization": "Bearer \(apiKey)",
         ]
     }
-    
+
     func saveHistoryList() {
         do {
             let data = try JSONEncoder().encode(historyList)
@@ -57,71 +57,70 @@ class ChatGPTAPI: @unchecked Sendable {
 
     init(model: String = "gpt-3.5-turbo-0125", temperature: Double = 0.5) {
         self.model = model
-        self.systemMessage = .init(role: "system", content: prompt)
+        systemMessage = .init(role: "system", content: prompt)
         self.temperature = temperature
-        
+
         if let data = UserDefaults.standard.data(forKey: "historyList") {
             do {
-                self.historyList = try JSONDecoder().decode([Message].self, from: data)
+                historyList = try JSONDecoder().decode([Message].self, from: data)
             } catch {
                 print("Error loading history list: \(error.localizedDescription)")
             }
         }
     }
-    
+
     public func generateMessages(from text: String, plaidModel: PlaidModel, appModel: AppModel) -> [Message] {
-        
         promptAndUserInfo = prompt
         promptAndUserInfo += "My total networth is $" + plaidModel.totalNetWorth.withCommas() + ". "
         promptAndUserInfo += "My risk level is " + appModel.selectedRiskLevel + ". "
         promptAndUserInfo += "I want to invest " + appModel.selectedTimeFrame + ". "
         promptAndUserInfo += plaidModel.bankString
         promptAndUserInfo += plaidModel.brokerString
-        
+
         var messages = [Message(role: "system", content: promptAndUserInfo)] + historyList + [Message(role: "user", content: text)]
-        
+
         if messages.contentCount > (4000 * 4) {
             _ = historyList.removeFirst()
             messages = generateMessages(from: text, plaidModel: PlaidModel(), appModel: AppModel())
         }
         return messages
     }
-    
+
     public func jsonBody(text: String, stream: Bool = true) throws -> Data {
         let request = Request(model: model, temperature: temperature,
                               messages: generateMessages(from: text, plaidModel: PlaidModel(), appModel: AppModel()), stream: stream)
         return try JSONEncoder().encode(request)
     }
-    
+
     func appendToHistoryList(userText: String, responseText: String) {
-        self.historyList.append(.init(role: "user", content: userText))
-        self.historyList.append(.init(role: "assistant", content: responseText))
+        historyList.append(.init(role: "user", content: userText))
+        historyList.append(.init(role: "assistant", content: responseText))
         saveHistoryList()
     }
-    
+
     func sendMessageStream(text: String) async throws -> AsyncThrowingStream<String, Error> {
         var urlRequest = self.urlRequest
         urlRequest.httpBody = try jsonBody(text: text)
-        
+
         let (result, response) = try await urlSession.bytes(for: urlRequest)
-        
+
         guard let httpResponse = response as? HTTPURLResponse else {
             throw "Invalid response"
         }
-        
-        guard 200...299 ~= httpResponse.statusCode else {
+
+        guard 200 ... 299 ~= httpResponse.statusCode else {
             var errorText = ""
             for try await line in result.lines {
                 errorText += line
             }
-            
+
             if let data = errorText.data(using: .utf8), let errorResponse = try? jsonDecoder.decode(ErrorRootResponse.self, from: data).error {
                 errorText = "\n\(errorResponse.message)"
             }
-            
+
             throw "Bad Response: \(httpResponse.statusCode), \(errorText)"
         }
-        
+
         return AsyncThrowingStream<String, Error> { continuation in
             Task(priority: .userInitiated) { [weak self] in
                 guard let self else { return }
@@ -131,7 +130,8 @@ class ChatGPTAPI: @unchecked Sendable {
                         if line.hasPrefix("data: "),
                            let data = line.dropFirst(6).data(using: .utf8),
                            let response = try? self.jsonDecoder.decode(StreamCompletionResponse.self, from: data),
-                           let text = response.choices.first?.delta.content {
+                           let text = response.choices.first?.delta.content
+                        {
                             responseText += text
                             continuation.yield(text)
                         }
@@ -145,19 +145,15 @@ class ChatGPTAPI: @unchecked Sendable {
         }
     }
 
-    
     func deleteHistoryList() {
-        self.historyList.removeAll()
+        historyList.removeAll()
     }
 }
 
 extension String: CustomNSError {
-    
-    public var errorUserInfo: [String : Any] {
+    public var errorUserInfo: [String: Any] {
         [
-            NSLocalizedDescriptionKey: self
+            NSLocalizedDescriptionKey: self,
         ]
     }
 }
-
-

@@ -9,9 +9,8 @@ import SwiftUI
 
 @main
 struct XCAChatGPTMacApp: App {
-    
     @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: "API_KEY"))
-    
+
     var body: some Scene {
         MenuBarExtra("XCA ChatGPT", image: "icon") {
             VStack(spacing: 0) {
@@ -19,7 +18,7 @@ struct XCAChatGPTMacApp: App {
                     Text("XCA ChatGPT")
                         .font(.title)
                     Spacer()
-                   
+
                     Button {
                         guard !vm.isInteractingWithChatGPT else { return }
                         vm.clearMessages()
@@ -30,8 +29,7 @@ struct XCAChatGPTMacApp: App {
                     }
 
                     .buttonStyle(.borderless)
-                    
-                    
+
                     Button {
                         exit(0)
                     } label: {
@@ -43,7 +41,7 @@ struct XCAChatGPTMacApp: App {
                     .buttonStyle(.borderless)
                 }
                 .padding()
-                
+
                 ChatView(vm: vm)
             }
             .frame(width: 480, height: 576)
