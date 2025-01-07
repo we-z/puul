@@ -51,7 +51,7 @@ struct ChatView: View {
                     Button {
                         showInfoPage.toggle()
                     } label: {
-                        Image(systemName: "gearshape")
+                        Image(systemName: "gear")
                             .font(.system(size: 24))
                     }
                 }
