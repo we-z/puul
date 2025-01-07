@@ -15,33 +15,24 @@ struct WelcomeView: View {
             VStack {
                 // Large SF Symbol icon
                 ZStack{
-                    Image(systemName: "lock.shield.fill")
+                    Image("logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
-                        .foregroundColor(.white)
-                        .padding()
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 42, height: 42)
-                        .offset(y: 12)
-                        .foregroundColor(.white)
+                        .cornerRadius(120)
                         .padding()
                 }
                 
                 // Title
-                Text("Welcome to Hushpost!")
+                Text("Welcome to Puul!")
                     .font(.largeTitle)
                     .bold()
-                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 // Description
-                Text("Join the private photo sharing network. Explore and share photos privately fully E2E encrypted!")
+                Text("Plan, manage, and grow your finances with intelligent insights and personalized advice!")
                     .font(.body)
-                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding()
             }
@@ -57,13 +48,13 @@ struct WelcomeView: View {
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(.blue)
-                    .background(Color.white)
+                    .foregroundColor(.white)
+                    .background(Color.blue)
                     .cornerRadius(21)
                     .padding()
             }
         }
-        .background(Color.blue.ignoresSafeArea())
+        .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -500 : 0)
     }
 }
