@@ -10,7 +10,6 @@ struct ChatView: View {
     @State private var shouldClearConversation = false
     @State private var showSubscriptions = false
     @State var message = ""
-    @EnvironmentObject var storeVM: StoreVM
 
     let financialQuestions = [
         "How can I improve\nmy credit score?",
@@ -115,7 +114,6 @@ struct ChatView: View {
             SubscriptionView()
                 .presentationDetents([.height(560)])
         }
-        .environmentObject(storeVM)
     }
 
     func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
@@ -141,13 +139,9 @@ struct ChatView: View {
     }
 
     func sendMessage() {
-        if !storeVM.hasUnlockedPro {
-            showSubscriptions = true
-        } else {
             Task { @MainActor in
                 isTextFieldFocused = false
             }
-        }
     }
 
     var swipeGesture: some Gesture {
@@ -164,6 +158,5 @@ struct ChatView: View {
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView()
-            .environmentObject(StoreVM())
     }
 }
