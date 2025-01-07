@@ -75,10 +75,11 @@ struct ChatView: View {
                             HStack(spacing: 10) {
                                 ForEach(financialQuestions, id: \.self) { question in
                                     Button {
-                                        message = question
+                                        message = question.replacingOccurrences(of: "\n", with: " ")
                                         sendMessage()
                                     } label: {
                                         Text(question)
+                                            .bold()
                                             .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
                                             .multilineTextAlignment(.leading)
                                             .padding()
