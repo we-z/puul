@@ -11,22 +11,10 @@ struct AppInfoView: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(systemName: "xmark")
-                }
-                .accentColor(.primary)
-                Spacer()
-                Text("Puul Info")
-
-                Spacer()
-                Text("     ")
-            }
-            .bold()
-            .font(.system(size: 21))
-            .padding()
+            Text("Puul Q&A")
+                .bold()
+                .font(.title2)
+                .padding()
             Form {
                 ScrollView {
                     HStack {

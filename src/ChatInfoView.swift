@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChatInfoView: View {
-    @State private var showingAlert = false
     @Environment(\.dismiss) private var dismiss
     @Binding var shouldClearConversation: Bool
     @State private var selectedRiskLevel = ""
@@ -44,34 +43,8 @@ struct ChatInfoView: View {
                 }
                 .pickerStyle(.inline)
                 .accentColor(.primary)
-
-                HStack {
-                    Button(action: {
-                        self.showingAlert = true
-                    }) {
-                        HStack {
-                            Spacer()
-                            Text("Clear chat history")
-                                .padding(12)
-                                .foregroundColor(.red)
-                                .bold()
-
-                            Spacer()
-                        }
-                    }
-                }
             }
             .scrollIndicators(.hidden)
-        }
-        .alert(isPresented: $showingAlert) {
-            Alert(title: Text("Are you sure?"),
-                  message: Text("All conversations with Puul will be permenantly deleted"),
-                  primaryButton: .destructive(Text("Delete")) {
-                      print("clearing from chat info view")
-                      shouldClearConversation = true
-                      dismiss()
-
-                  }, secondaryButton: .cancel {})
         }
     }
 }

@@ -123,32 +123,6 @@ struct AccountView: View {
                 .listRowBackground(Color.primary.opacity(0.12))
             }
             .scrollContentBackground(.hidden)
-            if !model.isPurchased {
-                Button(action: {
-                    self.showSubscriptions = true
-                }) {
-                    HStack {
-                        Spacer()
-                        Text("⬆️")
-                            .scaleEffect(1.2)
-                            .offset(y: -1)
-                        Text("Upgrade to Pro")
-                        Spacer()
-                    }
-                    .padding(21)
-                    .foregroundColor(.primary)
-                    .background(.gray.opacity(0.21))
-                    .cornerRadius(20)
-                    .overlay( /// apply a rounded border
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(.primary, lineWidth: 3)
-                    )
-                    .padding(.horizontal)
-                    .font(.system(size: 27))
-                    .bold()
-                }
-                .buttonStyle(HapticButtonStyle())
-            }
         }
         .accentColor(.primary)
         .sheet(isPresented: $showSubscriptions) {

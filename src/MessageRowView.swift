@@ -93,9 +93,7 @@ struct MessageRowView: View {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .padding()
-                #else
-                    DotLoadingView()
-                        .frame(width: 60, height: 30)
+
                 #endif
             }
         }

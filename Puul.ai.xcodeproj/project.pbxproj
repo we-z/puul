@@ -17,13 +17,11 @@
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
 		7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
-		7ABFF5442A6B624500F3428D /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7ABFF5432A6B624500F3428D /* APIKeys.plist */; };
 		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
 		8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* PuulApp.swift */; };
 		8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C007298AD09F0079AF26 /* Assets.xcassets */; };
 		8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
-		8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */; };
 		8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
 		EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */; };
 /* End PBXBuildFile section */
@@ -47,12 +45,10 @@
 		7A7BDC122A53F45500AC5F6B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		7A81C1642A01BDA5000496E3 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		7AB997BC29F1D9BA00BC8E4B /* Puul.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Puul.entitlements; sourceTree = "<group>"; };
-		7ABFF5432A6B624500F3428D /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		8B91C003298AD09E0079AF26 /* PuulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuulApp.swift; sourceTree = "<group>"; };
 		8B91C005298AD09E0079AF26 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8B91C007298AD09F0079AF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B91C015298ADC9D0079AF26 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
-		8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoadingView.swift; sourceTree = "<group>"; };
 		8B91C019298ADF7F0079AF26 /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 		8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.release.xcconfig"; sourceTree = "<group>"; };
 		A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch/Pods-XCAChatGPTWatch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -111,10 +107,8 @@
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
 				7A4B73FE2A2ADBC50064800C /* AppModel.swift */,
-				7ABFF5432A6B624500F3428D /* APIKeys.plist */,
 				7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */,
 				8B91C005298AD09E0079AF26 /* ChatView.swift */,
-				8B91C017298ADF4E0079AF26 /* DotLoadingView.swift */,
 				7A4B74032A367F5B0064800C /* LogoView.swift */,
 				8B91C015298ADC9D0079AF26 /* MessageRow.swift */,
 				8B91C019298ADF7F0079AF26 /* MessageRowView.swift */,
@@ -208,7 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */,
-				7ABFF5442A6B624500F3428D /* APIKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +258,6 @@
 				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
-				8B91C018298ADF4E0079AF26 /* DotLoadingView.swift in Sources */,
 				7A7BDC132A53F45500AC5F6B /* WelcomeView.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */,
