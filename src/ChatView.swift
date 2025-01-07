@@ -37,11 +37,11 @@ struct ChatView: View {
             VStack(spacing: 0) {
                 HStack {
                     Button {
-                        dismiss()
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease")
                             .font(.system(size: 24))
                     }
+                    .buttonStyle(HapticButtonStyle())
                     Spacer()
                     Text("Puul")
                         .font(.system(size: 21))
@@ -52,6 +52,7 @@ struct ChatView: View {
                         Image(systemName: "square.and.pencil")
                             .font(.system(size: 24))
                     }
+                    .buttonStyle(HapticButtonStyle())
                 }
                 .padding()
 
@@ -86,6 +87,7 @@ struct ChatView: View {
                                             .cornerRadius(20)
                                             .padding(.vertical, 5)
                                     }
+                                    .buttonStyle(HapticButtonStyle())
                                 }
                             }
                             .padding(.horizontal)
@@ -141,6 +143,7 @@ struct ChatView: View {
                 Image(systemName: "arrow.up.circle.fill")
                     .font(.system(size: 30))
             }
+            .buttonStyle(HapticButtonStyle())
         }
         .padding(.vertical, 6)
         .padding(.trailing, 9)

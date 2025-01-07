@@ -121,12 +121,12 @@ struct HapticButtonStyle: ButtonStyle {
             .onChange(of: configuration.isPressed) { isPressed in
 
                 if isPressed {
-                    if model.hapticModeOn {
+//                    if model.hapticModeOn {
                         // Trigger haptic feedback
-                        let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+                    let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
                         feedbackGenerator.prepare()
                         feedbackGenerator.impactOccurred()
-                    }
+//                    }
                 }
             }
     }
