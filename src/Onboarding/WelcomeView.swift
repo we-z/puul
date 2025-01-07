@@ -48,9 +48,9 @@ struct WelcomeView: View {
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(21)
+                    .foregroundColor(.primary)
+                    .background(Color.secondary.opacity(0.4))
+                    .cornerRadius(18)
                     .padding()
             }
             .buttonStyle(HapticButtonStyle())

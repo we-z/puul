@@ -32,21 +32,13 @@ struct PaywallView: View {
                 VStack {
                     // Large SF Symbol icon
                     ZStack {
-                        Image(systemName: "lock.shield.fill")
+                        Image("logo")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 150, height: 150)
-                            .foregroundColor(.white)
-                            .padding()
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 42, height: 42)
-                            .offset(x: 0, y: 12)
-                            .foregroundColor(.white)
+                            .cornerRadius(120)
                             .padding()
                     }
-                    .fixedSize()
                     
                     // Title
                     Text("Privacy is priceless")
@@ -107,7 +99,7 @@ struct PaywallView: View {
                         done = true
                     }
                 } label: {
-                    Text("Continue")
+                    Text("Continue for free")
                         .bold()
                         .font(.title)
                         .padding()
