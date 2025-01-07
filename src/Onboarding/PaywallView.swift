@@ -112,7 +112,7 @@ struct PaywallView: View {
                         .padding([.horizontal])
                 }
                 .buttonStyle(HapticButtonStyle())
-                Text("1 month free trial, then $19.99 / month")
+                Text("1 month free trial, then $29.99 / month")
                     .font(.headline)
                 Text("Restore Purchase | Terms | Privacy")
                     .font(.headline)
