@@ -44,14 +44,12 @@ struct PaywallView: View {
                     Text("Privacy is priceless")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
                     
                     // Description
                     Text("Secure your most valuable memories. Explore and share photos privately.")
                         .font(.body)
-                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
                     
@@ -64,15 +62,14 @@ struct PaywallView: View {
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(.green)
+                                    .padding(.trailing, 6)
                                 Text(feature)
                                     .bold()
-                                    .foregroundColor(.black)
                                 Spacer()
                                 Image(systemName: icon)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 24, height: 24)
-                                    .foregroundColor(.black)
                                     .padding(.trailing, 6)
                             }
                             .padding()
@@ -81,19 +78,15 @@ struct PaywallView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(.white)
+                    .background(.secondary.opacity(0.2))
                     .cornerRadius(15)
                     .padding()
                 }
             }
             .scrollIndicators(.hidden)
-            VStack {
+            VStack(spacing: 12) {
                 Divider()
                     .shadow(color: .black, radius: 0.3)
-                Text("1 month free trial, then $19.99 / month")
-                    .font(.headline)
-                    .foregroundColor(.black)
-                    .padding(.top, 6)
                 Button {
                     withAnimation(.easeInOut) {
                         done = true
@@ -104,20 +97,22 @@ struct PaywallView: View {
                         .font(.title)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(.white)
-                        .background(Color.blue)
-                        .cornerRadius(60)
+                        .foregroundColor(.primary)
+                        .colorInvert()
+                        .background(Color.primary)
+                        .cornerRadius(21)
                         .padding([.horizontal])
                 }
+                Text("1 month free trial, then $19.99 / month")
+                    .font(.headline)
                 Text("Restore Purchase | Terms | Privacy")
                     .font(.headline)
-                    .padding(6)
                     .foregroundColor(.gray)
             }
-            .background(.white)
+//            .background(.white)
             
         }
-        .background(Color.blue.ignoresSafeArea())
+//        .background(Color.blue.ignoresSafeArea())
         .offset(x: done ? -500 : 0)
     }
 }
