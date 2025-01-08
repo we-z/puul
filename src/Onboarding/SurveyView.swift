@@ -206,7 +206,7 @@ struct SurveyContainerView: View {
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Privacy Notice"),
-                message: Text("All information is stored on your device. This helps Puul in providing you with better services."),
+                message: Text("This informatio helps Puul provide you with better services. All data is stored on your device, protecting your privacy."),
                 primaryButton: .default(Text("Skip"), action: {
                     withAnimation(.easeInOut) {
                         done = true
