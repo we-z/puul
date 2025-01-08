@@ -184,9 +184,9 @@ struct SurveyContainerView: View {
                     }
                 }
             }) {
-                Text(surveyVM.currentStep == surveyVM.totalSteps ? "Finish" : "Next")
+                Text(surveyVM.currentStep == surveyVM.totalSteps ? "Let's Plan for the Future" : "Next")
                     .bold()
-                    .font(.title)
+                    .font(.title2)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.primary)
@@ -214,8 +214,8 @@ struct SurveyNavigationHeader: View {
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
                 .padding()
-//            Spacer()
         }
+        .frame(height: 120)
         .padding()
     }
 }
@@ -674,19 +674,19 @@ struct FinalStatusView: View {
             
             Spacer()
             
-            Button(action: {
-                // Could navigate to a new feature or reset the survey
-                print("Plan for the future tapped.")
-            }) {
-                Text("Let's Plan for the Future")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-            .padding()
+//            Button(action: {
+//                // Could navigate to a new feature or reset the survey
+//                print("Plan for the future tapped.")
+//            }) {
+//                Text("Let's Plan for the Future")
+//                    .fontWeight(.semibold)
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.green)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(8)
+//            }
+//            .padding()
         }
     }
 }
