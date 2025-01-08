@@ -124,8 +124,10 @@ struct SurveyNavigationHeader: View {
                 Spacer()
             }
             Text(title)
+                .multilineTextAlignment(.center)
                 .bold()
                 .font(.largeTitle)
+                .padding()
             Spacer()
         }
         .padding()
