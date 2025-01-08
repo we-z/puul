@@ -118,6 +118,7 @@ struct SurveyContainerView: View {
                     .foregroundColor(.primary)
                     .padding(.horizontal)
                 }
+                .buttonStyle(HapticButtonStyle())
             }
             // MARK: - Paging TabView for Survey Steps
             // MARK: - Paging TabView for Survey Steps
