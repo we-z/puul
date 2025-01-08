@@ -82,6 +82,11 @@ struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     @State private var done: Bool = false
     
+    init() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -196,6 +201,7 @@ struct SurveyContainerView: View {
                     .cornerRadius(18)
                     .padding()
             }
+            .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.colorInvert())
         .offset(x: done ? -500 : 0)
