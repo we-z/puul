@@ -71,7 +71,6 @@ struct SurveyView: View {
     
     var body: some View {
         SurveyContainerView()
-            .background(Color.primary.colorInvert())
             .environmentObject(surveyVM)
     }
 }
@@ -196,7 +195,7 @@ struct SurveyContainerView: View {
                     .padding()
             }
         }
-        // Optional slide-out animation after tapping "Finish" (like in OnboardingView)
+        .background(Color.primary.colorInvert())
         .offset(x: done ? -500 : 0)
     }
 }
@@ -266,7 +265,7 @@ struct SingleChoiceList: View {
                 selection = choice
             }
         }
-        .frame(height: 600)
+        .frame(maxHeight: .infinity)
     }
 }
 
@@ -611,6 +610,7 @@ struct DebtQuestionView: View {
             // If "Yes", show a debt amount picker
             if surveyVM.answers.hasDebts == "Yes" {
                 Text("How much total debt?")
+                    .bold()
                     .font(.subheadline)
                     .padding(.top, 16)
                 
@@ -621,7 +621,6 @@ struct DebtQuestionView: View {
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
-                .frame(height: 150)
             }
             
             SurveyNavigationFooter(nextDisabled: false) {
