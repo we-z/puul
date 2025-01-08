@@ -99,7 +99,7 @@ struct SurveyContainerView: View {
             default: FinalStatusView()
             }
         }
-        .animation(.easeInOut, value: surveyVM.currentStep)
+//        .animation(.easeInOut, value: surveyVM.currentStep)
     }
 }
 
@@ -119,6 +119,7 @@ struct SurveyNavigationHeader: View {
                         Text("Back")
                     }
                     .font(.title3)
+                    .foregroundColor(.primary)
                 }
                 Spacer()
             }
