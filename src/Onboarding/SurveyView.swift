@@ -71,6 +71,7 @@ struct SurveyView: View {
     
     var body: some View {
         SurveyContainerView()
+            .background(Color.primary.colorInvert())
             .environmentObject(surveyVM)
     }
 }
@@ -101,8 +102,8 @@ struct SurveyContainerView: View {
                 .opacity(surveyVM.currentStep == 0 ? 0 : 1)
                 Spacer()
                 Button {
-                    if surveyVM.currentStep > 0 {
-                        surveyVM.currentStep -= 1
+                    withAnimation(.easeInOut) {
+                        done = true
                     }
                 } label: {
                     HStack {
