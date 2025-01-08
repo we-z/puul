@@ -87,7 +87,9 @@ struct SurveyContainerView: View {
             HStack {
                 Button {
                     if surveyVM.currentStep > 0 {
-                        surveyVM.currentStep -= 1
+                        withAnimation(.easeInOut) {
+                            surveyVM.currentStep -= 1
+                        }
                     }
                 } label: {
                     HStack {
@@ -216,7 +218,7 @@ struct SurveyNavigationHeader: View {
                 .padding()
         }
         .frame(height: 120)
-        .padding()
+        .padding([.top, .horizontal])
     }
 }
 
@@ -228,18 +230,6 @@ struct SurveyNavigationFooter: View {
     var body: some View {
         VStack {
             Spacer()
-//            Button(action: onNext) {
-//                Text("Next")
-//                    .fontWeight(.semibold)
-//                    .font(.title)
-//                    .frame(maxWidth: .infinity)
-//                    .padding()
-//                    .background(.secondary.opacity(0.3))
-//                    .foregroundColor(.primary)
-//                    .cornerRadius(21)
-//            }
-//            .disabled(nextDisabled)
-//            .padding()
         }
     }
 }
