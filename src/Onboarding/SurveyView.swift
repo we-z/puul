@@ -109,7 +109,7 @@ struct SurveyContainerView: View {
 struct SurveyNavigationHeader: View {
     let title: String
     let onBack: () -> Void
-    
+    @EnvironmentObject var surveyVM: SurveyViewModel
     var body: some View {
         VStack{
             HStack {
@@ -121,12 +121,13 @@ struct SurveyNavigationHeader: View {
                     .font(.title3)
                     .foregroundColor(.primary)
                 }
+                .opacity(surveyVM.currentStep == 0 ? 0 : 1)
                 Spacer()
             }
             Text(title)
-                .multilineTextAlignment(.center)
                 .bold()
                 .font(.largeTitle)
+                .multilineTextAlignment(.center)
                 .padding()
             Spacer()
         }
@@ -148,9 +149,9 @@ struct SurveyNavigationFooter: View {
                     .font(.title)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(nextDisabled ? Color.gray : Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .background(.secondary.opacity(0.3))
+                    .foregroundColor(.primary)
+                    .cornerRadius(21)
             }
             .disabled(nextDisabled)
             .padding()
@@ -179,6 +180,7 @@ struct SingleChoiceList: View {
                 selection = choice
             }
         }
+        .frame(height: 600)
     }
 }
 
@@ -229,7 +231,6 @@ struct AgeQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            .frame(height: 150)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
@@ -348,7 +349,7 @@ struct GoalQuestionView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "What's your primary goal?") {
+            SurveyNavigationHeader(title: "What's your\nprimary goal?") {
                 surveyVM.previousStep()
             }
             
