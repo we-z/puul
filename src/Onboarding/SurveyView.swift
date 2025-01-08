@@ -111,22 +111,22 @@ struct SurveyNavigationHeader: View {
     let onBack: () -> Void
     
     var body: some View {
-        HStack {
-            Button(action: onBack) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.blue)
+        VStack{
+            HStack {
+                Button(action: onBack) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .font(.title3)
+                }
+                Spacer()
             }
-            .padding(.leading)
-            
-            Spacer()
-            
             Text(title)
-                .font(.headline)
-                .padding(.trailing, 50) // keep title roughly centered
-            
-            Spacer()
+                .bold()
+                .font(.largeTitle)
         }
-        .padding(.vertical, 8)
+        .padding()
     }
 }
 
@@ -141,6 +141,7 @@ struct SurveyNavigationFooter: View {
             Button(action: onNext) {
                 Text("Next")
                     .fontWeight(.semibold)
+                    .font(.title)
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(nextDisabled ? Color.gray : Color.blue)
