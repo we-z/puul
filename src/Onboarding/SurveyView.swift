@@ -450,7 +450,7 @@ struct HumanAdvisorQuestionView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "Do you have a human financial advisor?") {
+            SurveyNavigationHeader(title: "Do you currently have a financial advisor?") {
                 surveyVM.previousStep()
             }
             
