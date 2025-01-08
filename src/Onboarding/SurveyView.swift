@@ -81,6 +81,7 @@ struct SurveyView: View {
 struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     @State private var done: Bool = false
+    @State var showingAlert = false
     
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
@@ -108,9 +109,7 @@ struct SurveyContainerView: View {
                 .opacity(surveyVM.currentStep == 0 ? 0 : 1)
                 Spacer()
                 Button {
-                    withAnimation(.easeInOut) {
-                        done = true
-                    }
+                    showingAlert = true
                 } label: {
                     HStack {
                         Text("skip")
@@ -203,6 +202,18 @@ struct SurveyContainerView: View {
         }
         .background(Color.primary.colorInvert())
         .offset(x: done ? -500 : 0)
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Privacy Notice"),
+                message: Text("Survey responses are stored on your device. This information to helps us advise you better."),
+                primaryButton: .default(Text("Skip"), action: {
+                    withAnimation(.easeInOut) {
+                        done = true
+                    }
+                }),
+                secondaryButton: .cancel(Text("Cancel"))
+            )
+        }
     }
 }
 
