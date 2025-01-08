@@ -121,6 +121,7 @@ struct SurveyContainerView: View {
                 }
             }
             // MARK: - Paging TabView for Survey Steps
+            // MARK: - Paging TabView for Survey Steps
             TabView(selection: $surveyVM.currentStep) {
                 AgeQuestionView()
                     .tag(0)
@@ -128,44 +129,41 @@ struct SurveyContainerView: View {
                 SalaryQuestionView()
                     .tag(1)
                 
-                DemographicQuestionView()
+                LocationQuestionView()
                     .tag(2)
                 
-                LocationQuestionView()
+                RiskToleranceQuestionView()
                     .tag(3)
                 
-                RiskToleranceQuestionView()
+                GoalQuestionView()
                     .tag(4)
                 
-                GoalQuestionView()
+                HumanAdvisorQuestionView()
                     .tag(5)
                 
-                HumanAdvisorQuestionView()
+                EmploymentQuestionView()
                     .tag(6)
                 
-                EmploymentQuestionView()
+                IndustriesQuestionView()
                     .tag(7)
                 
-                IndustriesQuestionView()
+                AssetsQuestionView()
                     .tag(8)
                 
-                AssetsQuestionView()
+                FileTaxesQuestionView()
                     .tag(9)
                 
-                FileTaxesQuestionView()
+                CreditScoreQuestionView()
                     .tag(10)
                 
-                CreditScoreQuestionView()
+                DebtQuestionView()
                     .tag(11)
                 
-                DebtQuestionView()
+                SavingMonthlyQuestionView()
                     .tag(12)
                 
-                SavingMonthlyQuestionView()
-                    .tag(13)
-                
                 FinalStatusView()
-                    .tag(14)
+                    .tag(13)
             }
             // Let users swipe between pages and show the page dots
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
@@ -607,7 +605,7 @@ struct DebtQuestionView: View {
             if surveyVM.answers.hasDebts == "Yes" {
                 Text("How much total debt?")
                     .bold()
-                    .font(.subheadline)
+                    .font(.title)
                     .padding(.top, 16)
                 
                 // Convert the stride to an array for ForEach
