@@ -33,7 +33,7 @@ class SurveyViewModel: ObservableObject {
     @Published var answers = SurveyAnswers()
     
     // Steps in the survey
-    let totalSteps = 14  // We'll use 0...13 for questions, 14 for final
+    let totalSteps = 13  // We'll use 0...13 for questions, 14 for final
     
     func nextStep() {
         if currentStep < totalSteps {
@@ -177,7 +177,7 @@ struct SurveyContainerView: View {
                 // If not on the final step, go next;
                 // otherwise you could navigate away or do something else
                 if surveyVM.currentStep < surveyVM.totalSteps {
-                    if surveyVM.currentStep == 13 {
+                    if surveyVM.currentStep == 12 {
                         // If about to go from step 13 -> 14, call logic for final status
                         surveyVM.determineFinancialStatus()
                     }
@@ -222,7 +222,7 @@ struct SurveyNavigationHeader: View {
                 .padding()
         }
         .frame(height: 120)
-        .padding([.top, .horizontal])
+        .padding([.horizontal])
     }
 }
 
@@ -667,20 +667,6 @@ struct FinalStatusView: View {
                 .padding()
             
             Spacer()
-            
-//            Button(action: {
-//                // Could navigate to a new feature or reset the survey
-//                print("Plan for the future tapped.")
-//            }) {
-//                Text("Let's Plan for the Future")
-//                    .fontWeight(.semibold)
-//                    .frame(maxWidth: .infinity)
-//                    .padding()
-//                    .background(Color.green)
-//                    .foregroundColor(.white)
-//                    .cornerRadius(8)
-//            }
-//            .padding()
         }
     }
 }
