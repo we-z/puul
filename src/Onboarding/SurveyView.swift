@@ -37,7 +37,9 @@ class SurveyViewModel: ObservableObject {
     
     func nextStep() {
         if currentStep < totalSteps {
-            currentStep += 1
+            withAnimation(.easeInOut) {
+                currentStep += 1
+            }
         }
     }
     
@@ -78,28 +80,123 @@ struct SurveyView: View {
 /// Switches between different survey questions based on the current step
 struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
+    @State private var done: Bool = false
     
     var body: some View {
         VStack {
-            switch surveyVM.currentStep {
-            case 0: AgeQuestionView()
-            case 1: SalaryQuestionView()
-            case 2: DemographicQuestionView()
-            case 3: LocationQuestionView()
-            case 4: RiskToleranceQuestionView()
-            case 5: GoalQuestionView()
-            case 6: HumanAdvisorQuestionView()
-            case 7: EmploymentQuestionView()
-            case 8: IndustriesQuestionView()
-            case 9: AssetsQuestionView()
-            case 10: FileTaxesQuestionView()
-            case 11: CreditScoreQuestionView()
-            case 12: DebtQuestionView()
-            case 13: SavingMonthlyQuestionView()
-            default: FinalStatusView()
+            HStack {
+                Button {
+                    if surveyVM.currentStep > 0 {
+                        surveyVM.currentStep -= 1
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
+                }
+                .opacity(surveyVM.currentStep == 0 ? 0 : 1)
+                Spacer()
+                Button {
+                    if surveyVM.currentStep > 0 {
+                        surveyVM.currentStep -= 1
+                    }
+                } label: {
+                    HStack {
+                        Text("skip")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
+                }
+            }
+            // MARK: - Paging TabView for Survey Steps
+            TabView(selection: $surveyVM.currentStep) {
+                AgeQuestionView()
+                    .tag(0)
+                
+                SalaryQuestionView()
+                    .tag(1)
+                
+                DemographicQuestionView()
+                    .tag(2)
+                
+                LocationQuestionView()
+                    .tag(3)
+                
+                RiskToleranceQuestionView()
+                    .tag(4)
+                
+                GoalQuestionView()
+                    .tag(5)
+                
+                HumanAdvisorQuestionView()
+                    .tag(6)
+                
+                EmploymentQuestionView()
+                    .tag(7)
+                
+                IndustriesQuestionView()
+                    .tag(8)
+                
+                AssetsQuestionView()
+                    .tag(9)
+                
+                FileTaxesQuestionView()
+                    .tag(10)
+                
+                CreditScoreQuestionView()
+                    .tag(11)
+                
+                DebtQuestionView()
+                    .tag(12)
+                
+                SavingMonthlyQuestionView()
+                    .tag(13)
+                
+                FinalStatusView()
+                    .tag(14)
+            }
+            // Let users swipe between pages and show the page dots
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+            // Animate changes in the current step
+            .animation(.spring(), value: surveyVM.currentStep)
+            
+            Spacer()
+            
+            // MARK: - Next Button
+            Button(action: {
+                // If not on the final step, go next;
+                // otherwise you could navigate away or do something else
+                if surveyVM.currentStep < surveyVM.totalSteps {
+                    if surveyVM.currentStep == 13 {
+                        // If about to go from step 13 -> 14, call logic for final status
+                        surveyVM.determineFinancialStatus()
+                    }
+                    surveyVM.nextStep()
+                } else {
+                    // Example: Slide the view out to the left, or do any "finish" logic
+                    withAnimation(.easeInOut) {
+                        done = true
+                    }
+                }
+            }) {
+                Text(surveyVM.currentStep == surveyVM.totalSteps ? "Finish" : "Next")
+                    .bold()
+                    .font(.title)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.primary)
+                    .background(Color.secondary.opacity(0.4))
+                    .cornerRadius(18)
+                    .padding()
             }
         }
-//        .animation(.easeInOut, value: surveyVM.currentStep)
+        // Optional slide-out animation after tapping "Finish" (like in OnboardingView)
+        .offset(x: done ? -500 : 0)
     }
 }
 
@@ -112,24 +209,12 @@ struct SurveyNavigationHeader: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     var body: some View {
         VStack{
-            HStack {
-                Button(action: onBack) {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    }
-                    .font(.title3)
-                    .foregroundColor(.primary)
-                }
-                .opacity(surveyVM.currentStep == 0 ? 0 : 1)
-                Spacer()
-            }
             Text(title)
                 .bold()
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
                 .padding()
-            Spacer()
+//            Spacer()
         }
         .padding()
     }
@@ -143,18 +228,18 @@ struct SurveyNavigationFooter: View {
     var body: some View {
         VStack {
             Spacer()
-            Button(action: onNext) {
-                Text("Next")
-                    .fontWeight(.semibold)
-                    .font(.title)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.secondary.opacity(0.3))
-                    .foregroundColor(.primary)
-                    .cornerRadius(21)
-            }
-            .disabled(nextDisabled)
-            .padding()
+//            Button(action: onNext) {
+//                Text("Next")
+//                    .fontWeight(.semibold)
+//                    .font(.title)
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(.secondary.opacity(0.3))
+//                    .foregroundColor(.primary)
+//                    .cornerRadius(21)
+//            }
+//            .disabled(nextDisabled)
+//            .padding()
         }
     }
 }
@@ -231,7 +316,6 @@ struct AgeQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
             }
@@ -349,7 +433,7 @@ struct GoalQuestionView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "What's your\nprimary goal?") {
+            SurveyNavigationHeader(title: "What's your primary goal?") {
                 surveyVM.previousStep()
             }
             
