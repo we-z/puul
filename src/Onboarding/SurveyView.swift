@@ -125,6 +125,7 @@ struct SurveyNavigationHeader: View {
             Text(title)
                 .bold()
                 .font(.largeTitle)
+            Spacer()
         }
         .padding()
     }
