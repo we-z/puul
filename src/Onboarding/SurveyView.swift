@@ -226,14 +226,17 @@ struct SurveyNavigationHeader: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     var body: some View {
         VStack{
-            Text(title)
-                .bold()
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .padding()
+            VStack{
+                Text(title)
+                    .bold()
+                    .font(.largeTitle)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+            .frame(maxHeight: .infinity)
+            .padding([.horizontal])
+            Spacer()
         }
-        .frame(height: 120)
-        .padding([.horizontal])
     }
 }
 
@@ -244,7 +247,8 @@ struct SurveyNavigationFooter: View {
     
     var body: some View {
         VStack {
-            Spacer()
+            Text(" ")
+                .padding()
         }
     }
 }
@@ -299,6 +303,7 @@ struct MultiChoiceList: View {
                 }
             }
         }
+        .frame(maxHeight: .infinity)
     }
 }
 
@@ -345,7 +350,6 @@ struct SalaryQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            .frame(height: 150)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
@@ -652,7 +656,6 @@ struct SavingMonthlyQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            .frame(height: 150)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 // On next, let's go to final page
