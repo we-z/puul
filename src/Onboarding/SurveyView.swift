@@ -355,7 +355,7 @@ struct AgeQuestionView: View {
             
             // Use a Picker for a scrolling number selector
             Picker("Select Age", selection: $surveyVM.answers.age) {
-                ForEach(18..<101, id: \.self) { age in
+                ForEach(4..<101, id: \.self) { age in
                     Text("\(age)").tag(age)
                 }
             }
