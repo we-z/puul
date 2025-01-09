@@ -317,17 +317,27 @@ struct MultiChoiceList: View {
 struct IntroductionView: View {
     var body: some View {
         VStack {
-            Spacer()
+            Image("logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .cornerRadius(120)
+                .padding()
             Text("Client Questionnaire")
                 .font(.largeTitle)
                 .bold()
                 .padding()
             
-            Text("Please answer the following questions to help us understand your financial goals and preferences.")
+            Text("Please answer the following questions to help Puul craft a plan for your needs.")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
+            HStack {
+                Image(systemName: "clock")
+                Text("Takes 1 minute")
+            }
+            .bold()
+            .padding()
             Spacer()
         }
     }
