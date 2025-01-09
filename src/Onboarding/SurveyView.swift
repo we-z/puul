@@ -33,7 +33,7 @@ class SurveyViewModel: ObservableObject {
     @Published var answers = SurveyAnswers()
     
     // Steps in the survey
-    let totalSteps = 13  // We'll use 0...13 for questions, 14 for final
+    let totalSteps = 14  // We'll use 0...13 for questions, 14 for final
     
     func nextStep() {
         if currentStep < totalSteps {
@@ -106,7 +106,7 @@ struct SurveyContainerView: View {
                     .foregroundColor(.primary)
                     .padding(.horizontal)
                 }
-                .opacity(surveyVM.currentStep == 0 ? 0 : 1)
+                
                 Spacer()
                 Button {
                     showingAlert = true
@@ -120,50 +120,54 @@ struct SurveyContainerView: View {
                 }
                 .buttonStyle(HapticButtonStyle())
             }
+            .opacity(surveyVM.currentStep == 0 ? 0 : 1)
             // MARK: - Paging TabView for Survey Steps
             // MARK: - Paging TabView for Survey Steps
             TabView(selection: $surveyVM.currentStep) {
-                AgeQuestionView()
-                    .tag(0)
+                IntroductionView()
+                    .tag(0) // New introduction view as the first page
                 
-                SalaryQuestionView()
+                AgeQuestionView()
                     .tag(1)
                 
-                LocationQuestionView()
+                SalaryQuestionView()
                     .tag(2)
                 
-                RiskToleranceQuestionView()
+                LocationQuestionView()
                     .tag(3)
                 
-                GoalQuestionView()
+                RiskToleranceQuestionView()
                     .tag(4)
                 
-                HumanAdvisorQuestionView()
+                GoalQuestionView()
                     .tag(5)
                 
-                EmploymentQuestionView()
+                HumanAdvisorQuestionView()
                     .tag(6)
                 
-                IndustriesQuestionView()
+                EmploymentQuestionView()
                     .tag(7)
                 
-                AssetsQuestionView()
+                IndustriesQuestionView()
                     .tag(8)
                 
-                FileTaxesQuestionView()
+                AssetsQuestionView()
                     .tag(9)
                 
-                CreditScoreQuestionView()
+                FileTaxesQuestionView()
                     .tag(10)
                 
-                DebtQuestionView()
+                CreditScoreQuestionView()
                     .tag(11)
                 
-                SavingMonthlyQuestionView()
+                DebtQuestionView()
                     .tag(12)
                 
-                FinalStatusView()
+                SavingMonthlyQuestionView()
                     .tag(13)
+                
+                FinalStatusView()
+                    .tag(14)
             }
             // Let users swipe between pages and show the page dots
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
@@ -177,13 +181,12 @@ struct SurveyContainerView: View {
                 // If not on the final step, go next;
                 // otherwise you could navigate away or do something else
                 if surveyVM.currentStep < surveyVM.totalSteps {
-                    if surveyVM.currentStep == 12 {
+                    if surveyVM.currentStep == 123{
                         // If about to go from step 13 -> 14, call logic for final status
                         surveyVM.determineFinancialStatus()
                     }
                     surveyVM.nextStep()
                 } else {
-                    // Example: Slide the view out to the left, or do any "finish" logic
                     withAnimation(.easeInOut) {
                         done = true
                     }
@@ -206,7 +209,7 @@ struct SurveyContainerView: View {
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Privacy Notice"),
-                message: Text("This informatio helps Puul provide you with better services. All data is stored on your device, protecting your privacy."),
+                message: Text("This information helps Puul provide you with better services. All data is stored on your device, protecting your privacy."),
                 primaryButton: .default(Text("Skip"), action: {
                     withAnimation(.easeInOut) {
                         done = true
@@ -309,6 +312,26 @@ struct MultiChoiceList: View {
 }
 
 // MARK: - QUESTION VIEWS
+
+// 0: Introduction
+struct IntroductionView: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("Client Questionnaire")
+                .font(.largeTitle)
+                .bold()
+                .padding()
+            
+            Text("Please answer the following questions to help us understand your financial goals and preferences.")
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            Spacer()
+        }
+    }
+}
 
 // 0: Age
 struct AgeQuestionView: View {
