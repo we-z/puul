@@ -20,7 +20,7 @@ struct SurveyAnswers {
     var employment: String = "Unemployed"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
-    var filesOwnTaxes: String = "Yes"
+    var filesOwnTaxes: String = "No"
     var hasDebts: String = "No"
     
     // For final page financial status (placeholder logic)
@@ -641,10 +641,21 @@ struct AssetsQuestionView: View {
 }
 
 // 10: File your own taxes?
+// 10: File your own taxes?
 struct FileTaxesQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Yes", "No"]
+    let choices = ["No", "Yes"]
+    let taxFilingTools = [
+        "TurboTax",
+        "H&R Block",
+        "TaxAct",
+        "FreeTaxUSA",
+        "IRS Free File",
+        "Other"
+    ]
+    
+    @State private var showTaxPicker = false  // Local state for animation
     
     var body: some View {
         VStack {
@@ -652,7 +663,31 @@ struct FileTaxesQuestionView: View {
                 surveyVM.previousStep()
             }
             
+            // Single choice list for Yes/No
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.filesOwnTaxes)
+                .onChange(of: surveyVM.answers.filesOwnTaxes) { newValue in
+                    withAnimation(.easeInOut) {
+                        showTaxPicker = (newValue == "Yes")
+                    }
+                }
+            
+            if showTaxPicker {
+                VStack {
+                    Text("Which tool do you use?")
+                        .bold()
+                        .font(.title)
+                        .padding(.top, 16)
+                    
+                    // Tax filing tools picker
+                    Picker("Tax Filing Tools", selection: $surveyVM.answers.filesOwnTaxes) {
+                        ForEach(taxFilingTools, id: \.self) { tool in
+                            Text(tool).tag(tool)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
+            }
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
@@ -692,7 +727,7 @@ struct CreditScoreQuestionView: View {
 struct DebtQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Yes", "No"]
+    let choices = ["No", "Yes"]
     
     @State private var showDebtPicker = false  // Local state for animation
     
