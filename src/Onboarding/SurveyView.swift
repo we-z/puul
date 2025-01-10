@@ -53,12 +53,15 @@ class SurveyViewModel: ObservableObject {
     
     // Simple placeholder logic to determine a final "status"
     func determineFinancialStatus() {
-        let saving = answers.savingMonthly
-        let debt = answers.debtAmount
+        let monthlySaving = answers.savingMonthly
+        let totalDebt = answers.debtAmount
         
-        if saving > 2000 && debt < 10000 {
-            answers.financialStatus = "Free"
-        } else if saving > 1000 && debt < 20000 {
+        // Adjust these thresholds to reflect realistic scenarios
+        if monthlySaving >= 10_000 && totalDebt <= 1_000 {
+            answers.financialStatus = "Financially Free"
+        } else if monthlySaving >= 5_000 && totalDebt < 20_000 {
+            answers.financialStatus = "Stable"
+        } else if monthlySaving >= 2_000 && totalDebt < 50_000 {
             answers.financialStatus = "Independent"
         } else {
             answers.financialStatus = "Dependent"
