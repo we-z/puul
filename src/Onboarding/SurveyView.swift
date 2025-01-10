@@ -31,7 +31,7 @@ struct SurveyAnswers {
 
 /// ViewModel to manage the steps and hold user answers
 class SurveyViewModel: ObservableObject {
-    @Published var currentStep: Int = 14
+    @Published var currentStep: Int = 0
     @Published var answers = SurveyAnswers()
     
     // Steps in the survey
