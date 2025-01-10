@@ -336,9 +336,10 @@ struct IntroductionView: View {
                 .padding()
             
             Text("The following questions help Puul create your financial plan based on your needs and goals.")
-                .font(.body)
+                .font(.title3)
+                .bold()
                 .multilineTextAlignment(.center)
-                .padding(.horizontal)
+                .padding()
             HStack {
                 Image(systemName: "clock")
                 Text("Takes 1 minute")
