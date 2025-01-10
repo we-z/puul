@@ -17,7 +17,7 @@ struct SurveyAnswers {
     var riskTolerance: String = "Medium"
     var goal: String = "Buy a home"
     var hasHumanAdvisor: String = "No"
-    var isEmployed: String = "Yes"
+    var employment: String = "Corporate Employment"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
     var filesOwnTaxes: String = "Yes"
@@ -518,15 +518,21 @@ struct HumanAdvisorQuestionView: View {
 struct EmploymentQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Yes", "No"]
+    let choices = [
+        "Corporate Employment",
+        "Self-Employed",
+        "Retired",
+        "Unemployed",
+        "Prefer Not to Say"
+    ]
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "Are you currently employed?") {
+            SurveyNavigationHeader(title: "What is your employment status?") {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.isEmployed)
+            SingleChoiceList(choices: choices, selection: $surveyVM.answers.employment)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
