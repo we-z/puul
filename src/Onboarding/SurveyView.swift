@@ -7,7 +7,7 @@ struct SurveyAnswers {
     // Example numeric inputs
     var age: Int = 18
     var salary: Int = 50_000
-    var creditScoreRange: String = "600 - 650"
+    var creditScore: Int = 650
     var debtAmount: Int = 0
     var savingMonthly: Int = 0
     
@@ -710,21 +710,18 @@ struct FileTaxesQuestionView: View {
 struct CreditScoreQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let scoreRanges = [
-        "< 600",
-        "600 - 650",
-        "650 - 700",
-        "700 - 750",
-        "750+"
-    ]
-    
     var body: some View {
         VStack {
             SurveyNavigationHeader(title: "What is your credit score range?") {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: scoreRanges, selection: $surveyVM.answers.creditScoreRange)
+            Picker("Credit Score", selection: $surveyVM.answers.creditScore) {
+                ForEach(Array(stride(from: 0, through: 900, by: 1)), id: \.self) { amount in
+                    Text("\(amount)").tag(amount)
+                }
+            }
+            .pickerStyle(WheelPickerStyle())
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
