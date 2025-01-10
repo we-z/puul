@@ -287,28 +287,31 @@ struct MultiChoiceList: View {
     @Binding var selections: [String]
     
     var body: some View {
-        List(choices, id: \.self) { choice in
-            HStack {
-                Text(choice)
-                Spacer()
-                if selections.contains(choice) {
-                    Image(systemName: "checkmark")
+        VStack {
+            Text("Multiple Selection")
+                .font(.headline)
+            List(choices, id: \.self) { choice in
+                HStack {
+                    Text(choice)
+                    Spacer()
+                    if selections.contains(choice) {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if selections.contains(choice) {
+                        // remove
+                        selections.removeAll(where: { $0 == choice })
+                    } else {
+                        // add
+                        selections.append(choice)
+                    }
                 }
             }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                if selections.contains(choice) {
-                    // remove
-                    selections.removeAll(where: { $0 == choice })
-                } else {
-                    // add
-                    selections.append(choice)
-                }
-            }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
         .frame(maxHeight: .infinity)
-        .padding()
     }
 }
 
