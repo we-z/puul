@@ -833,7 +833,7 @@ struct FinalStatusView: View {
             
             // Final message once loading completes
             if showFinalMessage {
-                Text("Your Custom Financial Plan Is Ready. Now It's Time To Download your AI Financial Advisor.")
+                Text("Your Custom Financial Plan Is Ready. Are You Ready To Start Your Financial Journey?")
                     .font(.title3)
                     .bold()
                     .multilineTextAlignment(.center)
