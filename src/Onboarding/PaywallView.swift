@@ -67,7 +67,7 @@ struct PaywallView: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 21, height: 21)
                                     .foregroundColor(.green)
                                     .padding(.trailing, 6)
                                 Text(feature)
@@ -76,7 +76,7 @@ struct PaywallView: View {
                                 Image(systemName: icon)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 21, height: 21)
                                     .padding(.trailing, 6)
                                     .padding(.leading, 9)
                             }
@@ -102,7 +102,7 @@ struct PaywallView: View {
                 } label: {
                     Text("Continue for free")
                         .bold()
-                        .font(.title)
+                        .font(.title2)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.primary)
