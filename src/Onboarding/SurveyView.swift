@@ -485,7 +485,7 @@ struct GoalQuestionView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "What's your primary goal?") {
+            SurveyNavigationHeader(title: "What are your primary goals?") {
                 surveyVM.previousStep()
             }
             
@@ -624,6 +624,11 @@ struct AssetsQuestionView: View {
         "Real Estate",
         "Liquid Bank Accounts",
         "Brokerage/Equity Holdings",
+        "Retirement Accounts (401k, IRA, etc.)",
+        "Cryptocurrency",
+        "Commodities (Gold, Silver, etc.)",
+        "Private Business Ownership",
+        "Collectibles (Art, Antiques, etc.)",
         "None of the above"
     ]
     
