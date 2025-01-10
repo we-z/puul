@@ -805,15 +805,21 @@ struct FinalStatusView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "Creating Your Financial Plan") {
-                surveyVM.previousStep()
-            }
+            Image("logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .cornerRadius(120)
+                .padding()
+            Text( "Creating Your Custom Financial Plan")
+                .bold()
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
             
             Text("Based on your answers, you are financially \(surveyVM.answers.financialStatus).")
                 .multilineTextAlignment(.center)
                 .padding()
-                .frame(maxHeight: .infinity)
-            
+            Spacer()
         }
     }
 }
