@@ -1,6 +1,0 @@
-framework module Pods_XCAChatGPTTV {
-  umbrella header "Pods-XCAChatGPTTV-umbrella.h"
-
-  export *
-  module * { export * }
-}

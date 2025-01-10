@@ -102,11 +102,11 @@ struct OnboardingView: View {
                     tabSelection += 1
                 } else {
                     // Implement your "Rate us" action here
-//                    if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-//                        DispatchQueue.main.async {
-//                            SKStoreReviewController.requestReview(in: scene)
-//                        }
-//                    }
+                    if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                        DispatchQueue.main.async {
+                            SKStoreReviewController.requestReview(in: scene)
+                        }
+                    }
                     withAnimation(.easeInOut) {
                         done = true
                     }

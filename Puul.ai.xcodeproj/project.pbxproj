@@ -17,23 +17,17 @@
 		7A4B74042A367F5B0064800C /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B74032A367F5B0064800C /* LogoView.swift */; };
 		7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7BDC102A457EC400AC5F6B /* StoreKit.framework */; };
 		7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A81C1642A01BDA5000496E3 /* TempView.swift */; };
-		8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */ = {isa = PBXBuildFile; productRef = 8B612E2929D68CE3008DF5AF /* GPTEncoder */; };
 		8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C003298AD09E0079AF26 /* PuulApp.swift */; };
 		8B91C006298AD09E0079AF26 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C005298AD09E0079AF26 /* ChatView.swift */; };
 		8B91C008298AD09F0079AF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B91C007298AD09F0079AF26 /* Assets.xcassets */; };
 		8B91C016298ADC9D0079AF26 /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C015298ADC9D0079AF26 /* MessageRow.swift */; };
 		8B91C01A298ADF7F0079AF26 /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B91C019298ADF7F0079AF26 /* MessageRowView.swift */; };
-		EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.debug.xcconfig"; sourceTree = "<group>"; };
-		514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.debug.xcconfig"; sourceTree = "<group>"; };
-		5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.release.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.release.xcconfig"; sourceTree = "<group>"; };
 		767453062D2DC15D0026C123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A48E56229FE57C80068362F /* LinkKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LinkKit.xcframework; path = "../../Downloads/plaid-link-ios-4.2.1/LinkKit.xcframework"; sourceTree = "<group>"; };
 		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
 		7A4B73E52A267E1C0064800C /* StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKit.swift; sourceTree = "<group>"; };
 		7A4B73EA2A267F900064800C /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
@@ -50,14 +44,6 @@
 		8B91C007298AD09F0079AF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B91C015298ADC9D0079AF26 /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 		8B91C019298ADF7F0079AF26 /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
-		8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch Watch App.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch Watch App/Pods-XCAChatGPTWatch Watch App.release.xcconfig"; sourceTree = "<group>"; };
-		A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch/Pods-XCAChatGPTWatch.debug.xcconfig"; sourceTree = "<group>"; };
-		A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Puul.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA08AD06927A1FB0D2D03CC5 /* Pods-XCAChatGPTWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTWatch.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTWatch/Pods-XCAChatGPTWatch.release.xcconfig"; sourceTree = "<group>"; };
-		F11DADB9EBB1B9FBA57B33AE /* Pods-XCAChatGPTTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTTV.debug.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTTV/Pods-XCAChatGPTTV.debug.xcconfig"; sourceTree = "<group>"; };
-		F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Puul.debug.xcconfig"; path = "Target Support Files/Pods-Puul/Pods-Puul.debug.xcconfig"; sourceTree = "<group>"; };
-		F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTTV.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTTV/Pods-XCAChatGPTTV.release.xcconfig"; sourceTree = "<group>"; };
-		FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCAChatGPTMac.release.xcconfig"; path = "Target Support Files/Pods-XCAChatGPTMac/Pods-XCAChatGPTMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -70,37 +56,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */,
-				8B612E2A29D68CE3008DF5AF /* GPTEncoder in Frameworks */,
-				EAF2F19C67A09FF6895225F4 /* Pods_Puul.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D0ED3DAA698BBA300D26E89 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */,
-				5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */,
-				514D384B6044FC93E22F55CD /* Pods-XCAChatGPTMac.debug.xcconfig */,
-				FFA60A31EB3A88A770803D73 /* Pods-XCAChatGPTMac.release.xcconfig */,
-				F11DADB9EBB1B9FBA57B33AE /* Pods-XCAChatGPTTV.debug.xcconfig */,
-				F95B674D9848FE7751419CB0 /* Pods-XCAChatGPTTV.release.xcconfig */,
-				A3B798F510E42DA9B0CFAC2A /* Pods-XCAChatGPTWatch.debug.xcconfig */,
-				BA08AD06927A1FB0D2D03CC5 /* Pods-XCAChatGPTWatch.release.xcconfig */,
-				0ABF659EC0DE4AED124D9ADD /* Pods-XCAChatGPTWatch Watch App.debug.xcconfig */,
-				8EF3798C9BF48FEFDF559FA6 /* Pods-XCAChatGPTWatch Watch App.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				7A7BDC102A457EC400AC5F6B /* StoreKit.framework */,
-				7A48E56229FE57C80068362F /* LinkKit.xcframework */,
-				A8A2BFACEC47BFD5FAF7A5F1 /* Pods_Puul.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -134,7 +99,6 @@
 			children = (
 				7A4306852A38D869003C8135 /* Puul.ai-Info.plist */,
 				8B057591298E52CB00A56C9A /* src */,
-				1D0ED3DAA698BBA300D26E89 /* Pods */,
 				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
 				7A48E55D29FE56E60068362F /* Puul.app */,
 			);
@@ -147,11 +111,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B91C00E298AD09F0079AF26 /* Build configuration list for PBXNativeTarget "Puul" */;
 			buildPhases = (
-				706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */,
 				8B91BFFC298AD09E0079AF26 /* Sources */,
 				8B91BFFD298AD09E0079AF26 /* Frameworks */,
 				8B91BFFE298AD09E0079AF26 /* Resources */,
-				61933FA92D74AA253DA28865 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -162,7 +124,6 @@
 			);
 			name = Puul;
 			packageProductDependencies = (
-				8B612E2929D68CE3008DF5AF /* GPTEncoder */,
 			);
 			productName = XCAChatGPT;
 			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
@@ -176,7 +137,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					8B91BFFF298AD09E0079AF26 = {
 						CreatedOnToolsVersion = 14.2;
@@ -193,7 +154,6 @@
 			);
 			mainGroup = 8B91BFF7298AD09E0079AF26;
 			packageReferences = (
-				8B612E2829D68CE3008DF5AF /* XCRemoteSwiftPackageReference "GPTEncoder" */,
 			);
 			productRefGroup = 8B91BFF7298AD09E0079AF26;
 			projectDirPath = "";
@@ -214,48 +174,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		61933FA92D74AA253DA28865 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Puul/Pods-Puul-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		706D29BB2C9E135835D37934 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Puul-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B91BFFC298AD09E0079AF26 /* Sources */ = {
@@ -318,6 +236,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -380,6 +299,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -401,7 +321,6 @@
 		};
 		8B91C00F298AD09F0079AF26 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F51DEE65651EDBA363225103 /* Pods-Puul.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -425,6 +344,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -440,7 +360,6 @@
 		};
 		8B91C010298AD09F0079AF26 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C990DF89AACBA6EC5733429 /* Pods-Puul.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -464,6 +383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -499,25 +419,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8B612E2829D68CE3008DF5AF /* XCRemoteSwiftPackageReference "GPTEncoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alfianlosari/GPTEncoder.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8B612E2929D68CE3008DF5AF /* GPTEncoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8B612E2829D68CE3008DF5AF /* XCRemoteSwiftPackageReference "GPTEncoder" */;
-			productName = GPTEncoder;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8B91BFF8298AD09E0079AF26 /* Project object */;
 }

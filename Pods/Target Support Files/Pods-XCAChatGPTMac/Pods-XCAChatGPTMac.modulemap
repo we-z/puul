@@ -1,6 +1,0 @@
-framework module Pods_XCAChatGPTMac {
-  umbrella header "Pods-XCAChatGPTMac-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -33,6 +33,7 @@ struct InstallAIView: View {
                 
                 // Description
                 Text("Puul AI is a locally hosted AI model < 1 GB in size and is completely private and runs on your device.")
+                    .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
