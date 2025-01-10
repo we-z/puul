@@ -271,21 +271,12 @@ struct SingleChoiceList: View {
     @Binding var selection: String
     
     var body: some View {
-        List(choices, id: \.self) { choice in
-            HStack {
-                Text(choice)
-                Spacer()
-                if choice == selection {
-                    Image(systemName: "checkmark")
-                }
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                selection = choice
+        Picker("", selection: $selection) {
+            ForEach(choices, id: \.self) { choice in
+                Text(choice).tag(choice)
             }
         }
-        .listStyle(.plain)
-        .frame(maxHeight: .infinity)
+        .pickerStyle(WheelPickerStyle())
     }
 }
 
