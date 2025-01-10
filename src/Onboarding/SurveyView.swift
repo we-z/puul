@@ -499,7 +499,7 @@ struct GoalQuestionView: View {
 struct HumanAdvisorQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Yes", "No"]
+    let choices = ["No", "Yes"]
     
     var body: some View {
         VStack {
@@ -654,28 +654,38 @@ struct DebtQuestionView: View {
     
     let choices = ["Yes", "No"]
     
+    @State private var showDebtPicker = false  // Local state for animation
+    
     var body: some View {
         VStack {
             SurveyNavigationHeader(title: "Do you have any debts?") {
                 surveyVM.previousStep()
             }
             
+            // Single choice list
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasDebts)
-            
-            // If "Yes", show a debt amount picker
-            if surveyVM.answers.hasDebts == "Yes" {
-                Text("How much total debt?")
-                    .bold()
-                    .font(.title)
-                    .padding(.top, 16)
-                
-                // Convert the stride to an array for ForEach
-                Picker("Debt Amount (in thousands)", selection: $surveyVM.answers.debtAmount) {
-                    ForEach(Array(stride(from: 0, through: 1_000_000, by: 5_000)), id: \.self) { value in
-                        Text("$\(value)").tag(value)
+                .onChange(of: surveyVM.answers.hasDebts) { newValue in
+                    withAnimation(.easeInOut) {
+                        showDebtPicker = (newValue == "Yes")
                     }
                 }
-                .pickerStyle(WheelPickerStyle())
+            
+            if showDebtPicker {
+                VStack {
+                    Text("How much total debt?")
+                        .bold()
+                        .font(.title)
+                        .padding(.top, 16)
+                    
+                    // Debt amount picker
+                    Picker("Debt Amount (in thousands)", selection: $surveyVM.answers.debtAmount) {
+                        ForEach(Array(stride(from: 0, through: 1_000_000, by: 5_000)), id: \.self) { value in
+                            Text("$\(value)").tag(value)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
             }
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -684,7 +694,6 @@ struct DebtQuestionView: View {
         }
     }
 }
-
 // 13: How much are you saving each month?
 struct SavingMonthlyQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
@@ -697,7 +706,7 @@ struct SavingMonthlyQuestionView: View {
             
             // Convert the stride to an array for ForEach
             Picker("Monthly Savings (in thousands)", selection: $surveyVM.answers.savingMonthly) {
-                ForEach(Array(stride(from: 0, through: 50_000, by: 1_000)), id: \.self) { amount in
+                ForEach(Array(stride(from: 0, through: 1_000_000, by: 1_000)), id: \.self) { amount in
                     Text("$\(amount)").tag(amount)
                 }
             }
