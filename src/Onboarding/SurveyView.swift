@@ -15,7 +15,7 @@ struct SurveyAnswers {
     var demographic: String = "Prefer not to say"
     var location: String = "United States"
     var riskTolerance: String = "Medium"
-    var goal: String = "Buy a home"
+    var goals: [String] = []
     var hasAdvisor: String = "No"
     var advisor: String = "None"
     var employment: String = "Unemployed"
@@ -482,7 +482,7 @@ struct GoalQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.goal)
+            MultiChoiceList(choices: choices, selections: $surveyVM.answers.goals)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
@@ -703,7 +703,7 @@ struct CreditScoreQuestionView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "What is your credit score range?") {
+            SurveyNavigationHeader(title: "What is your credit score?") {
                 surveyVM.previousStep()
             }
             
