@@ -16,11 +16,13 @@ struct SurveyAnswers {
     var location: String = "United States"
     var riskTolerance: String = "Medium"
     var goal: String = "Buy a home"
+    var hasAdvisor: String = "No"
     var advisor: String = "None"
     var employment: String = "Unemployed"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
     var filesOwnTaxes: String = "No"
+    var taxTool: String = "None"
     var hasDebts: String = "No"
     
     // For final page financial status (placeholder logic)
@@ -531,8 +533,8 @@ struct HumanAdvisorQuestionView: View {
             }
             
             // Single choice list for Yes/No
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.advisor)
-                .onChange(of: surveyVM.answers.advisor) { newValue in
+            SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasAdvisor)
+                .onChange(of: surveyVM.answers.hasAdvisor) { newValue in
                     withAnimation(.easeInOut) {
                         showAdvisorPicker = (newValue == "Yes")
                     }
@@ -687,7 +689,7 @@ struct FileTaxesQuestionView: View {
                         .padding(.top, 16)
                     
                     // Tax filing tools picker
-                    Picker("Tax Filing Tools", selection: $surveyVM.answers.filesOwnTaxes) {
+                    Picker("Tax Filing Tools", selection: $surveyVM.answers.taxTool) {
                         ForEach(taxFilingTools, id: \.self) { tool in
                             Text(tool).tag(tool)
                         }
