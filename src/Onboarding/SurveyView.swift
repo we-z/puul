@@ -31,7 +31,7 @@ struct SurveyAnswers {
 
 /// ViewModel to manage the steps and hold user answers
 class SurveyViewModel: ObservableObject {
-    @Published var currentStep: Int = 0
+    @Published var currentStep: Int = 14
     @Published var answers = SurveyAnswers()
     
     // Steps in the survey
@@ -828,12 +828,12 @@ struct FinalStatusView: View {
                 .progressViewStyle(LinearProgressViewStyle())
                 .accentColor(.primary)
                 .frame(width: 250)
-                
                 .padding(.bottom, 20)
             
             // Final message once loading completes
             if showFinalMessage {
-                Text("Based on your answers, you are financially \(surveyVM.answers.financialStatus).")
+                Text("Your Custom Financial Plan Is Ready. Now It's Time To Download your AI Financial Advisor.")
+                    .font(.title3)
                     .bold()
                     .multilineTextAlignment(.center)
                     .padding()
@@ -844,21 +844,26 @@ struct FinalStatusView: View {
         .onChange(of: progressValue) { newValue in
             // Once progress hits 100, show the final message
             if newValue >= 100 {
-                showFinalMessage = true
+                withAnimation(.spring) {
+                    showFinalMessage = true
+                }
             }
         }
-        .onChange(of: surveyVM.currentStep) { newValue in
-            // Animate progress from 0 to 100 in 2 seconds
-            if newValue == 14 {
-                progressValue = 0
-                withAnimation(.linear(duration: 9.0)) {
-                    progressValue = 100
-                }
+        .onAppear {
+            // Start a timer to increment progressValue every second
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                
+                    if progressValue < 100 {
+                        withAnimation(.spring) {
+                            progressValue += 30 // Increment progress by 10 each second
+                        }
+                    } else {
+                        timer.invalidate() // Stop the timer when progress reaches 100
+                    }
             }
         }
     }
 }
-
 // MARK: - Preview
 
 struct SurveyView_Previews: PreviewProvider {
