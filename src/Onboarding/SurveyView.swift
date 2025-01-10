@@ -218,9 +218,9 @@ struct SurveyContainerView: View {
         .offset(x: done ? -500 : 0)
         .alert(isPresented: $showingAlert) {
             Alert(
-                title: Text("Privacy Notice"),
+                title: Text("Are you sure?"),
                 message: Text("This information helps Puul provide you with better services. All data is stored on your device, protecting your privacy."),
-                primaryButton: .default(Text("Skip"), action: {
+                primaryButton: .destructive(Text("Skip"), action: {
                     withAnimation(.easeInOut) {
                         done = true
                     }
