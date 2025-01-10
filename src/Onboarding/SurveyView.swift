@@ -16,7 +16,7 @@ struct SurveyAnswers {
     var location: String = "United States"
     var riskTolerance: String = "Medium"
     var goal: String = "Buy a home"
-    var hasHumanAdvisor: String = "No"
+    var advisor: String = "None"
     var employment: String = "Unemployed"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
@@ -500,6 +500,26 @@ struct HumanAdvisorQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
     let choices = ["No", "Yes"]
+    let advisorProviders = [
+        "Blackrock",
+        "Vanguard",
+        "Fidelity",
+        "Schwab",
+        "Morgan Stanley",
+        "JP Morgan",
+        "Goldman Sachs",
+        "Charles Schwab",
+        "Edward Jones",
+        "Raymond James",
+        "Ameriprise",
+        "TIAA",
+        "Merrill Lynch",
+        "Wells Fargo Advisors",
+        "UBS",
+        "Other"
+    ]
+    
+    @State private var showAdvisorPicker = false  // Local state for animation
     
     var body: some View {
         VStack {
@@ -507,7 +527,27 @@ struct HumanAdvisorQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasHumanAdvisor)
+            // Single choice list for Yes/No
+            SingleChoiceList(choices: choices, selection: $surveyVM.answers.advisor)
+                .onChange(of: surveyVM.answers.advisor) { newValue in
+                    withAnimation(.easeInOut) {
+                        showAdvisorPicker = (newValue == "Yes")
+                    }
+                }
+            
+            if showAdvisorPicker {
+                VStack {
+                    
+                    // Advisor provider picker
+                    Picker("Select Advisor Provider", selection: $surveyVM.answers.advisor) {
+                        ForEach(advisorProviders, id: \.self) { provider in
+                            Text(provider).tag(provider)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
+            }
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
