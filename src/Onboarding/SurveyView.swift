@@ -327,7 +327,7 @@ struct IntroductionView: View {
                 .bold()
                 .padding()
             
-            Text("Please answer the following questions to help Puul craft a financial plan for your needs.")
+            Text("The following questions help Puul craft your financial plan based on your needs and goals.")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
