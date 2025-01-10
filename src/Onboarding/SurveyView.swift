@@ -17,7 +17,7 @@ struct SurveyAnswers {
     var riskTolerance: String = "Medium"
     var goal: String = "Buy a home"
     var hasHumanAdvisor: String = "No"
-    var employment: String = "Corporate Employment"
+    var employment: String = "Unemployed"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
     var filesOwnTaxes: String = "Yes"
@@ -85,7 +85,7 @@ struct SurveyContainerView: View {
     
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray4
     }
     
     var body: some View {
@@ -282,6 +282,7 @@ struct SingleChoiceList: View {
                 selection = choice
             }
         }
+        .listStyle(.plain)
         .frame(maxHeight: .infinity)
     }
 }
@@ -519,10 +520,10 @@ struct EmploymentQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
     let choices = [
+        "Unemployed",
         "Corporate Employment",
         "Self-Employed",
         "Retired",
-        "Unemployed",
         "Prefer Not to Say"
     ]
     
