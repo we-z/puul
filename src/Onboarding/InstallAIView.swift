@@ -24,14 +24,14 @@ struct InstallAIView: View {
                 }
                 
                 // Title
-                Text("Complete installing Puul AI")
+                Text("Welcome to Puul!")
                     .font(.largeTitle)
                     .bold()
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 // Description
-                Text("Puul AI is < 1 GB in size and is completely private and runs on your device.")
+                Text("Puul AI is a locally hosted AI model < 1 GB in size and is completely private and runs on your device.")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
