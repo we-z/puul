@@ -24,7 +24,7 @@ struct OnboardingView: View {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             systemName: "chart.line.uptrend.xyaxis",
-            title: "Financial Planning Made Simple",
+            title: "AI Powered Financial Planning",
             description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
         ),
         OnboardingPage(
@@ -40,7 +40,7 @@ struct OnboardingView: View {
         OnboardingPage(
             systemName: "hands.sparkles",
             title: "Help Us Make the World Wealthier",
-            description: "Join our mission to make financial well-being accessible to everyone, everywhere."
+            description: "Join our mission to make financial literacy and wealth management accessible to everyone using AI."
         )
     ]
     
