@@ -312,6 +312,7 @@ struct MultiChoiceList: View {
                 }
             }
         }
+        .listStyle(.plain)
         .frame(maxHeight: .infinity)
     }
 }
@@ -384,7 +385,7 @@ struct SalaryQuestionView: View {
             
             // Convert the stride to an array for ForEach
             Picker("Select Salary (in thousands)", selection: $surveyVM.answers.salary) {
-                ForEach(Array(stride(from: 0, through: 500_000, by: 5_000)), id: \.self) { salaryValue in
+                ForEach(Array(stride(from: 0, through: 2_000_000, by: 5_000)), id: \.self) { salaryValue in
                     Text("$\(salaryValue)").tag(salaryValue)
                 }
             }
@@ -477,7 +478,7 @@ struct RiskToleranceQuestionView: View {
 struct GoalQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Buy a home", "Retire", "Learning", "Other"]
+    let choices = ["Buy a home", "Retire", "Grow investment portfolio", "Start a business", "Learning", "Other"]
     
     var body: some View {
         VStack {
