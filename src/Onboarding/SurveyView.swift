@@ -433,7 +433,10 @@ struct LocationQuestionView: View {
     let choices = [
         "United States",
         "Canada",
+        "Latin America",
         "Europe",
+        "Middle East",
+        "Africa",
         "Asia",
         "Other"
     ]
