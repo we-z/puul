@@ -457,7 +457,7 @@ struct LocationQuestionView: View {
 struct RiskToleranceQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = ["Low", "Medium", "High"]
+    let choices = ["Super risk averse", "Low", "Medium", "High", "Super high risk"]
     
     var body: some View {
         VStack {
