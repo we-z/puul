@@ -39,7 +39,7 @@ struct ChatView: View {
                     Button {
                         showMenu = true
                     } label: {
-                        Image(systemName: "line.3.horizontal.decrease")
+                        Image(systemName: "line.3.horizontal.decrease.circle")
                             .font(.system(size: 24))
                     }
                     .buttonStyle(HapticButtonStyle())
