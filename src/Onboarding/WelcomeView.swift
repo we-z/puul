@@ -49,7 +49,8 @@ struct WelcomeView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.primary)
-                    .background(Color.secondary.opacity(0.4))
+                    .colorInvert()
+                    .background(.primary)
                     .cornerRadius(18)
                     .padding()
             }

@@ -7,7 +7,7 @@ struct SurveyAnswers {
     // Example numeric inputs
     var age: Int = 18
     var salary: Int = 50_000
-    var creditScore: Int = 650
+    var creditScore: Int = 700
     var debtAmount: Int = 0
     var savingMonthly: Int = 0
     
@@ -308,6 +308,7 @@ struct MultiChoiceList: View {
         }
         .listStyle(.plain)
         .frame(maxHeight: .infinity)
+        .padding()
     }
 }
 
@@ -328,7 +329,7 @@ struct IntroductionView: View {
                 .bold()
                 .padding()
             
-            Text("The following questions help Puul craft your financial plan based on your needs and goals.")
+            Text("The following questions help Puul create your financial plan based on your needs and goals.")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -801,7 +802,7 @@ struct FinalStatusView: View {
     
     var body: some View {
         VStack {
-            SurveyNavigationHeader(title: "Summary") {
+            SurveyNavigationHeader(title: "Creating Your Financial Plan") {
                 surveyVM.previousStep()
             }
             
