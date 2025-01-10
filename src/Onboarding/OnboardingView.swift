@@ -23,14 +23,14 @@ struct OnboardingView: View {
     // MARK: - Updated pages with SF Symbol icons, titles, and descriptions
     private let pages: [OnboardingPage] = [
         OnboardingPage(
-            systemName: "chart.line.uptrend.xyaxis",
-            title: "AI Powered Financial Planning",
-            description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
-        ),
-        OnboardingPage(
             systemName: "brain.head.profile",
             title: "AI Financial Advisor",
             description: "Leverage the power of AI to analyze your finances and provide expert guidance for smarter decisions."
+        ),
+        OnboardingPage(
+            systemName: "chart.line.uptrend.xyaxis",
+            title: "Financial Planning Made Simple",
+            description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
         ),
         OnboardingPage(
             systemName: "lock.shield.fill",
@@ -40,7 +40,7 @@ struct OnboardingView: View {
         OnboardingPage(
             systemName: "hands.sparkles",
             title: "Help Us Make the World Wealthier",
-            description: "Join our mission to make financial literacy and wealth management accessible to everyone using AI."
+            description: "Join our mission to make financial literacy and wealth management more accessible using AI."
         )
     ]
     
@@ -84,9 +84,11 @@ struct OnboardingView: View {
                         
                         // Description
                         Text(pages[index].description)
+                            .bold()
                             .font(.body)
                             .multilineTextAlignment(.center)
                             .padding()
+                            .padding(.horizontal)
                     }
                     .tag(index)
                 }
