@@ -805,6 +805,8 @@ struct SavingMonthlyQuestionView: View {
 // 14: Final Page
 struct FinalStatusView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
+    @State private var progressValue: Double = 0
+    @State private var showFinalMessage: Bool = false
     
     var body: some View {
         VStack {
@@ -814,15 +816,45 @@ struct FinalStatusView: View {
                 .frame(width: 150, height: 150)
                 .cornerRadius(120)
                 .padding()
-            Text( "Creating Your Custom Financial Plan")
+            
+            Text("Creating Your Custom Financial Plan")
                 .bold()
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 30)
             
-            Text("Based on your answers, you are financially \(surveyVM.answers.financialStatus).")
-                .multilineTextAlignment(.center)
-                .padding()
+            // Loading bar
+            ProgressView(value: progressValue, total: 100)
+                .progressViewStyle(LinearProgressViewStyle())
+                .accentColor(.primary)
+                .frame(width: 250)
+                
+                .padding(.bottom, 20)
+            
+            // Final message once loading completes
+            if showFinalMessage {
+                Text("Based on your answers, you are financially \(surveyVM.answers.financialStatus).")
+                    .bold()
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+            
             Spacer()
+        }
+        .onChange(of: progressValue) { newValue in
+            // Once progress hits 100, show the final message
+            if newValue >= 100 {
+                showFinalMessage = true
+            }
+        }
+        .onChange(of: surveyVM.currentStep) { newValue in
+            // Animate progress from 0 to 100 in 2 seconds
+            if newValue == 14 {
+                progressValue = 0
+                withAnimation(.linear(duration: 9.0)) {
+                    progressValue = 100
+                }
+            }
         }
     }
 }
