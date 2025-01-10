@@ -130,13 +130,16 @@ struct SurveyContainerView: View {
                 AgeQuestionView()
                     .tag(1)
                 
-                SalaryQuestionView()
+                //LocationQuestionView
+                LocationQuestionView()
                     .tag(2)
                 
-                LocationQuestionView()
+                //EmploymentQuestionView
+                EmploymentQuestionView()
                     .tag(3)
                 
-                RiskToleranceQuestionView()
+                //SalaryQuestionView
+                SalaryQuestionView()
                     .tag(4)
                 
                 GoalQuestionView()
@@ -145,7 +148,8 @@ struct SurveyContainerView: View {
                 HumanAdvisorQuestionView()
                     .tag(6)
                 
-                EmploymentQuestionView()
+                //RiskToleranceQuestionView
+                RiskToleranceQuestionView()
                     .tag(7)
                 
                 IndustriesQuestionView()
@@ -328,7 +332,7 @@ struct IntroductionView: View {
                 .bold()
                 .padding()
             
-            Text("Please answer the following questions to help Puul craft a plan for your needs.")
+            Text("Please answer the following questions to help Puul craft a financial plan for your needs.")
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -713,8 +717,8 @@ struct FinalStatusView: View {
             Text("Based on your answers, you are financially \(surveyVM.answers.financialStatus).")
                 .multilineTextAlignment(.center)
                 .padding()
+                .frame(maxHeight: .infinity)
             
-            Spacer()
         }
     }
 }
