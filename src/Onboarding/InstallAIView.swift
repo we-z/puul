@@ -31,7 +31,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul AI is completely private and runs on your device. Data is never shared with anyone else.")
+                Text("Puul AI is < 1 GB in size and is completely private and runs on your device.")
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -43,7 +43,7 @@ struct InstallAIView: View {
                     done = true
                 }
             } label: {
-                Text("Download Private AI")
+                Text("Install Private AI")
                     .bold()
                     .font(.title)
                     .padding()

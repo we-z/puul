@@ -13,6 +13,7 @@ struct ContentView: View {
             ChatView()
             PaywallView()
             SurveyView()
+            InstallAIView()
             WelcomeView()
             OnboardingView()
         }
