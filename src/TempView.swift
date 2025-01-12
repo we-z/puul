@@ -1,11 +1,9 @@
 import SwiftUI
 
 struct TempView: View {
-
     var body: some View {
         Text("Hello, World!")
     }
-
 }
 
 

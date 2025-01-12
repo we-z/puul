@@ -126,8 +126,8 @@
 		7615CACF2D3457A100C08D72 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				7615CACD2D3457A100C08D72 /* DownloadButton.swift */,
 				7615CACE2D3457A100C08D72 /* llamacpp.swift */,
+				7615CACD2D3457A100C08D72 /* DownloadButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -145,6 +145,7 @@
 		8B057591298E52CB00A56C9A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				7615CACF2D3457A100C08D72 /* UI */,
 				767452FF2D2DB7830026C123 /* Onboarding */,
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
@@ -169,7 +170,6 @@
 		8B91BFF7298AD09E0079AF26 = {
 			isa = PBXGroup;
 			children = (
-				7615CACF2D3457A100C08D72 /* UI */,
 				7615CACC2D3455F600C08D72 /* Models */,
 				7615CAC72D34550800C08D72 /* llama.cpp */,
 				7615CACA2D34550800C08D72 /* llama.cpp.swift */,
