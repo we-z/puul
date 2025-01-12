@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7645D4192D33531F001E1089 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = 7645D4182D33531F001E1089 /* llmfarm_core */; };
+		7615CAB72D34549A00C08D72 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7615CAB62D34549A00C08D72 /* Accelerate.framework */; };
+		7615CAB92D3454BB00C08D72 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7615CAB82D3454BB00C08D72 /* Metal.framework */; };
 		767453072D2DC15D0026C123 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767453062D2DC15D0026C123 /* ContentView.swift */; };
 		7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73E52A267E1C0064800C /* StoreKit.swift */; };
 		7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
@@ -26,6 +27,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7615CAB62D34549A00C08D72 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		7615CAB82D3454BB00C08D72 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		7615CABA2D34550800C08D72 /* ggml-backend.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-backend.c"; sourceTree = "<group>"; };
+		7615CABB2D34550800C08D72 /* ggml-backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-backend.h"; sourceTree = "<group>"; };
+		7615CABC2D34550800C08D72 /* ggml-quants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-quants.h"; sourceTree = "<group>"; };
+		7615CABD2D34550800C08D72 /* ggml-quants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-quants.c"; sourceTree = "<group>"; };
+		7615CABE2D34550800C08D72 /* ggml-metal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = "ggml-metal.metal"; sourceTree = "<group>"; };
+		7615CABF2D34550800C08D72 /* ggml-metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-metal.h"; sourceTree = "<group>"; };
+		7615CAC02D34550800C08D72 /* ggml-metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ggml-metal.m"; sourceTree = "<group>"; };
+		7615CAC12D34550800C08D72 /* ggml.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ggml.c; sourceTree = "<group>"; };
+		7615CAC22D34550800C08D72 /* ggml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ggml.h; sourceTree = "<group>"; };
+		7615CAC32D34550800C08D72 /* ggml-alloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-alloc.c"; sourceTree = "<group>"; };
+		7615CAC42D34550800C08D72 /* ggml-alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-alloc.h"; sourceTree = "<group>"; };
+		7615CAC52D34550800C08D72 /* llama.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = llama.cpp; sourceTree = "<group>"; };
+		7615CAC62D34550800C08D72 /* llama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llama.h; sourceTree = "<group>"; };
+		7615CAC82D34550800C08D72 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
+		7615CAC92D34550800C08D72 /* LibLlama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibLlama.swift; sourceTree = "<group>"; };
+		7615CACB2D3455F600C08D72 /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
 		767453062D2DC15D0026C123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,16 +76,56 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */,
-				7645D4192D33531F001E1089 /* llmfarm_core in Frameworks */,
+				7615CAB92D3454BB00C08D72 /* Metal.framework in Frameworks */,
+				7615CAB72D34549A00C08D72 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7615CAC72D34550800C08D72 /* llama.cpp */ = {
+			isa = PBXGroup;
+			children = (
+				7615CABA2D34550800C08D72 /* ggml-backend.c */,
+				7615CABB2D34550800C08D72 /* ggml-backend.h */,
+				7615CABC2D34550800C08D72 /* ggml-quants.h */,
+				7615CABD2D34550800C08D72 /* ggml-quants.c */,
+				7615CABE2D34550800C08D72 /* ggml-metal.metal */,
+				7615CABF2D34550800C08D72 /* ggml-metal.h */,
+				7615CAC02D34550800C08D72 /* ggml-metal.m */,
+				7615CAC12D34550800C08D72 /* ggml.c */,
+				7615CAC22D34550800C08D72 /* ggml.h */,
+				7615CAC32D34550800C08D72 /* ggml-alloc.c */,
+				7615CAC42D34550800C08D72 /* ggml-alloc.h */,
+				7615CAC52D34550800C08D72 /* llama.cpp */,
+				7615CAC62D34550800C08D72 /* llama.h */,
+			);
+			name = llama.cpp;
+			sourceTree = "<group>";
+		};
+		7615CACA2D34550800C08D72 /* llama.cpp.swift */ = {
+			isa = PBXGroup;
+			children = (
+				7615CAC82D34550800C08D72 /* bridging-header.h */,
+				7615CAC92D34550800C08D72 /* LibLlama.swift */,
+			);
+			path = llama.cpp.swift;
+			sourceTree = "<group>";
+		};
+		7615CACC2D3455F600C08D72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7615CACB2D3455F600C08D72 /* LlamaState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7615CAB82D3454BB00C08D72 /* Metal.framework */,
+				7615CAB62D34549A00C08D72 /* Accelerate.framework */,
 				7A7BDC102A457EC400AC5F6B /* StoreKit.framework */,
 			);
 			name = Frameworks;
@@ -99,6 +158,9 @@
 		8B91BFF7298AD09E0079AF26 = {
 			isa = PBXGroup;
 			children = (
+				7615CACC2D3455F600C08D72 /* Models */,
+				7615CAC72D34550800C08D72 /* llama.cpp */,
+				7615CACA2D34550800C08D72 /* llama.cpp.swift */,
 				7A4306852A38D869003C8135 /* Puul.ai-Info.plist */,
 				8B057591298E52CB00A56C9A /* src */,
 				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
@@ -126,7 +188,6 @@
 			);
 			name = Puul;
 			packageProductDependencies = (
-				7645D4182D33531F001E1089 /* llmfarm_core */,
 			);
 			productName = XCAChatGPT;
 			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
@@ -157,7 +218,6 @@
 			);
 			mainGroup = 8B91BFF7298AD09E0079AF26;
 			packageReferences = (
-				7645D4172D33531F001E1089 /* XCRemoteSwiftPackageReference "llmfarm_core" */,
 			);
 			productRefGroup = 8B91BFF7298AD09E0079AF26;
 			projectDirPath = "";
@@ -335,6 +395,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPT/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/../../../../../../../../../Users/wheezycapowdis/Documents/PUUL/Puul",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = /Users/wheezysalem/Desktop/PUUL/ChatGPTSwiftUI/src/Puul.entitlements;
 				INFOPLIST_FILE = "Puul.ai-Info.plist";
@@ -374,6 +438,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"XCAChatGPT/Preview Content\"";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/../../../../../../../../../Users/wheezycapowdis/Documents/PUUL/Puul",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = /Users/wheezysalem/Desktop/PUUL/ChatGPTSwiftUI/src/Puul.entitlements;
 				INFOPLIST_FILE = "Puul.ai-Info.plist";
@@ -423,25 +491,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7645D4172D33531F001E1089 /* XCRemoteSwiftPackageReference "llmfarm_core" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/guinmoon/llmfarm_core.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7645D4182D33531F001E1089 /* llmfarm_core */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7645D4172D33531F001E1089 /* XCRemoteSwiftPackageReference "llmfarm_core" */;
-			productName = llmfarm_core;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8B91BFF8298AD09E0079AF26 /* Project object */;
 }
