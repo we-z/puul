@@ -29,24 +29,6 @@
 /* Begin PBXFileReference section */
 		7615CAB62D34549A00C08D72 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7615CAB82D3454BB00C08D72 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		7615CABA2D34550800C08D72 /* ggml-backend.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-backend.c"; sourceTree = "<group>"; };
-		7615CABB2D34550800C08D72 /* ggml-backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-backend.h"; sourceTree = "<group>"; };
-		7615CABC2D34550800C08D72 /* ggml-quants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-quants.h"; sourceTree = "<group>"; };
-		7615CABD2D34550800C08D72 /* ggml-quants.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-quants.c"; sourceTree = "<group>"; };
-		7615CABE2D34550800C08D72 /* ggml-metal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = "ggml-metal.metal"; sourceTree = "<group>"; };
-		7615CABF2D34550800C08D72 /* ggml-metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-metal.h"; sourceTree = "<group>"; };
-		7615CAC02D34550800C08D72 /* ggml-metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ggml-metal.m"; sourceTree = "<group>"; };
-		7615CAC12D34550800C08D72 /* ggml.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ggml.c; sourceTree = "<group>"; };
-		7615CAC22D34550800C08D72 /* ggml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ggml.h; sourceTree = "<group>"; };
-		7615CAC32D34550800C08D72 /* ggml-alloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ggml-alloc.c"; sourceTree = "<group>"; };
-		7615CAC42D34550800C08D72 /* ggml-alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ggml-alloc.h"; sourceTree = "<group>"; };
-		7615CAC52D34550800C08D72 /* llama.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = llama.cpp; sourceTree = "<group>"; };
-		7615CAC62D34550800C08D72 /* llama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llama.h; sourceTree = "<group>"; };
-		7615CAC82D34550800C08D72 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
-		7615CAC92D34550800C08D72 /* LibLlama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibLlama.swift; sourceTree = "<group>"; };
-		7615CACB2D3455F600C08D72 /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
-		7615CACD2D3457A100C08D72 /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
-		7615CACE2D3457A100C08D72 /* llamacpp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = llamacpp.swift; sourceTree = "<group>"; };
 		767453062D2DC15D0026C123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,52 +68,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7615CAC72D34550800C08D72 /* llama.cpp */ = {
-			isa = PBXGroup;
-			children = (
-				7615CABA2D34550800C08D72 /* ggml-backend.c */,
-				7615CABB2D34550800C08D72 /* ggml-backend.h */,
-				7615CABC2D34550800C08D72 /* ggml-quants.h */,
-				7615CABD2D34550800C08D72 /* ggml-quants.c */,
-				7615CABE2D34550800C08D72 /* ggml-metal.metal */,
-				7615CABF2D34550800C08D72 /* ggml-metal.h */,
-				7615CAC02D34550800C08D72 /* ggml-metal.m */,
-				7615CAC12D34550800C08D72 /* ggml.c */,
-				7615CAC22D34550800C08D72 /* ggml.h */,
-				7615CAC32D34550800C08D72 /* ggml-alloc.c */,
-				7615CAC42D34550800C08D72 /* ggml-alloc.h */,
-				7615CAC52D34550800C08D72 /* llama.cpp */,
-				7615CAC62D34550800C08D72 /* llama.h */,
-			);
-			name = llama.cpp;
-			sourceTree = "<group>";
-		};
-		7615CACA2D34550800C08D72 /* llama.cpp.swift */ = {
-			isa = PBXGroup;
-			children = (
-				7615CAC82D34550800C08D72 /* bridging-header.h */,
-				7615CAC92D34550800C08D72 /* LibLlama.swift */,
-			);
-			path = llama.cpp.swift;
-			sourceTree = "<group>";
-		};
-		7615CACC2D3455F600C08D72 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7615CACB2D3455F600C08D72 /* LlamaState.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7615CACF2D3457A100C08D72 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				7615CACE2D3457A100C08D72 /* llamacpp.swift */,
-				7615CACD2D3457A100C08D72 /* DownloadButton.swift */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +81,6 @@
 		8B057591298E52CB00A56C9A /* src */ = {
 			isa = PBXGroup;
 			children = (
-				7615CACF2D3457A100C08D72 /* UI */,
 				767452FF2D2DB7830026C123 /* Onboarding */,
 				7A4B73F42A29B5BC0064800C /* AccountView.swift */,
 				7A4B73F92A2A84900064800C /* AppInfoView.swift */,
@@ -170,9 +105,6 @@
 		8B91BFF7298AD09E0079AF26 = {
 			isa = PBXGroup;
 			children = (
-				7615CACC2D3455F600C08D72 /* Models */,
-				7615CAC72D34550800C08D72 /* llama.cpp */,
-				7615CACA2D34550800C08D72 /* llama.cpp.swift */,
 				7A4306852A38D869003C8135 /* Puul.ai-Info.plist */,
 				8B057591298E52CB00A56C9A /* src */,
 				7B10ECE5AEC28C28EDDD5E0F /* Frameworks */,
