@@ -45,6 +45,8 @@
 		7615CAC82D34550800C08D72 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
 		7615CAC92D34550800C08D72 /* LibLlama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibLlama.swift; sourceTree = "<group>"; };
 		7615CACB2D3455F600C08D72 /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
+		7615CACD2D3457A100C08D72 /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
+		7615CACE2D3457A100C08D72 /* llamacpp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = llamacpp.swift; sourceTree = "<group>"; };
 		767453062D2DC15D0026C123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +123,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		7615CACF2D3457A100C08D72 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				7615CACD2D3457A100C08D72 /* DownloadButton.swift */,
+				7615CACE2D3457A100C08D72 /* llamacpp.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +169,7 @@
 		8B91BFF7298AD09E0079AF26 = {
 			isa = PBXGroup;
 			children = (
+				7615CACF2D3457A100C08D72 /* UI */,
 				7615CACC2D3455F600C08D72 /* Models */,
 				7615CAC72D34550800C08D72 /* llama.cpp */,
 				7615CACA2D34550800C08D72 /* llama.cpp.swift */,
