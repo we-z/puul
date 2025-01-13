@@ -3,9 +3,7 @@ import SwiftUI
 struct TempView: View {
     @State var add_chat_dialog = false
     @State var edit_chat_dialog = false
-    @State var title = ""
     @State private var chat_selection: Dictionary<String, String>?
-    @State var after_chat_edit: () -> Void = {}
     @StateObject var aiChatModel = AIChatModel()
     
     func close_chat() -> Void{
@@ -15,13 +13,10 @@ struct TempView: View {
     var body: some View {
         ChatView(
             chatSelection: $chat_selection,
-            title: $title,
             CloseChat:close_chat,
-            AfterChatEdit: $after_chat_edit,
             addChatDialog:$add_chat_dialog,
             editChatDialog:$edit_chat_dialog
             ).environmentObject(aiChatModel)
-            .frame(maxWidth: .infinity,maxHeight: .infinity)
     }
 }
 

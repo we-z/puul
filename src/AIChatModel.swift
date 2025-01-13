@@ -115,11 +115,11 @@ final class AIChatModel: ObservableObject {
                                   attachment: String? = nil,
                                   attachment_type: String? = nil){
         if load_result != "[Done]" ||
-            self.chat?.model == nil || 
+            self.chat?.model == nil ||
             self.chat?.model!.context == nil {
             self.finish_load(append_err_msg: true, msg_text: "Load Model Error: \(load_result)")
             return
-        }            
+        }
 
         self.finish_load()
         //Set prompt model if in config or try to set promt format by filename
@@ -134,7 +134,7 @@ final class AIChatModel: ObservableObject {
         }
         self.chat?.model?.parse_skip_tokens()
         Task{
-            await self.send(message: in_text, 
+            await self.send(message: in_text,
                             append_user_message:false,
                             system_prompt:system_prompt,
                             attachment:attachment,
@@ -150,7 +150,7 @@ final class AIChatModel: ObservableObject {
         self.chat = nil
     }
     
-    public func remove_dump_state(){        
+    public func remove_dump_state(){
         if FileManager.default.fileExists(atPath: self.state_dump_path){
             try? FileManager.default.removeItem(atPath: self.state_dump_path)
         }
@@ -158,12 +158,12 @@ final class AIChatModel: ObservableObject {
 
     public func reload_chat(_ chat_selection: Dictionary<String, String>){
         self.stop_predict()
-//        self.model_name = model_name        
+//        self.model_name = model_name
         self.chat_name = chat_selection["chat"] ?? "Not selected"
         self.Title = chat_selection["title"] ?? ""
         self.is_mmodal =  chat_selection["mmodal"] ?? "" == "1"
         messages_lock.lock()
-        self.messages = []        
+        self.messages = []
         self.messages = load_chat_history(chat_selection["chat"]!+".json") ?? []
         messages_lock.unlock()
         self.state_dump_path = get_state_path_by_chat_name(chat_name) ?? ""
@@ -183,10 +183,10 @@ final class AIChatModel: ObservableObject {
         // self.chat?.model?.sampleParams = self.model_sample_param
         // self.chat?.model?.contextParams = self.model_context_param
         self.chat?.model?.contextParams = get_model_context_param_by_config(chat_config!)
-        self.chat?.model?.sampleParams = get_model_sample_param_by_config(chat_config!)        
+        self.chat?.model?.sampleParams = get_model_sample_param_by_config(chat_config!)
     }
     
-    public func load_model_by_chat_name_prepare(_ chat_name: String,in_text:String, 
+    public func load_model_by_chat_name_prepare(_ chat_name: String,in_text:String,
                                                 attachment: String? = nil,
                                                 attachment_type: String? = nil) -> Bool?{
         let chat_config = getChatInfo(chat_name)
@@ -225,10 +225,10 @@ final class AIChatModel: ObservableObject {
         if (chat_config!["current_model"] != nil){
             self.currentModel = getCurrentModelFromStr(chat_config?["current_model"] as? String ?? "")
         }
-        if (chat_config!["comparison_algorithm"] != nil){ 
+        if (chat_config!["comparison_algorithm"] != nil){
             self.comparisonAlgorithm =  getComparisonAlgorithmFromStr(chat_config?["comparison_algorithm"] as? String ?? "")
         }
-        if (chat_config!["chunk_method"] != nil){ 
+        if (chat_config!["chunk_method"] != nil){
             self.chunkMethod =  getChunkMethodFromStr(chat_config?["chunk_method"] as? String ?? "")
         }
         
@@ -295,7 +295,7 @@ final class AIChatModel: ObservableObject {
     
     public func stop_predict(is_error:Bool=false){
         self.chat?.flagExit = true
-        self.total_sec = Double((DispatchTime.now().uptimeNanoseconds - self.start_predicting_time.uptimeNanoseconds)) / 1_000_000_000        
+        self.total_sec = Double((DispatchTime.now().uptimeNanoseconds - self.start_predicting_time.uptimeNanoseconds)) / 1_000_000_000
         if let last_message =  messages.last{
             messages_lock.lock()
             if last_message.state == .predicting || last_message.state == .none{
@@ -324,7 +324,7 @@ final class AIChatModel: ObservableObject {
         for stop_word in self.chat?.model?.contextParams.reverse_prompt ?? []{
             if token == stop_word {
                 return false
-            }	
+            }
             if message_text.hasSuffix(stop_word) {
                 if stop_word.count>0 && message_text.count>stop_word.count{
                     message_text.removeLast(stop_word.count)
@@ -346,7 +346,7 @@ final class AIChatModel: ObservableObject {
             self.chat_name == self.chat?.chatName){
             message.state = .predicting
             message.text += str
-            self.AI_typing += 1            
+            self.AI_typing += 1
             update_last_message(&message)
             self.numberOfTokens += 1
 
@@ -361,12 +361,12 @@ final class AIChatModel: ObservableObject {
             self.messages.append(Message(sender: .system, state: .error, text: msg_text, tok_sec: 0))
             self.stop_predict(is_error: true)
         }
-        self.state = .completed        
+        self.state = .completed
         self.Title = self.title_backup
     }
 
     public func finish_completion(_ final_str:String,_ message: inout Message/*, _ messageIndex: Int*/){
-//        final_str in // Finish predicting 
+//        final_str in // Finish predicting
         self.cur_t_name = ""
         self.load_progress = 0
         print(final_str)
@@ -395,9 +395,47 @@ final class AIChatModel: ObservableObject {
         self.save_chat_history_and_state()
     }
 
-    public func send(message in_text: String, 
+    
+    public func loadRAGIndex(ragURL: URL) async {
+        updateIndexComponents(currentModel:currentModel,comparisonAlgorithm:comparisonAlgorithm,chunkMethod:chunkMethod)
+        await loadExistingIndex(url: ragURL, name: "RAG_index")
+        ragIndexLoaded = true
+    }
+    
+    public func  generateRagLLMQuery(_ inputText:String,
+                                     _ searchResultsCount:Int,
+                                     _ ragURL:URL,
+                                     message in_text: String,
+                                     append_user_message:Bool = true,
+                                     system_prompt:String? = nil,
+                                     attachment: String? = nil,
+                                     attachment_type: String? = nil)  {
+        
+        let aiQueue = DispatchQueue(label: "LLMFarm-RAG", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        
+        
+        aiQueue.async {
+            Task {
+                if await !self.ragIndexLoaded {
+                    await self.loadRAGIndex(ragURL: ragURL)
+                }
+                DispatchQueue.main.async {
+                    self.state = .ragSearch
+                }
+                let results = await searchIndexWithQuery(query: inputText, top: searchResultsCount)
+                let llmPrompt = SimilarityIndex.exportLLMPrompt(query: inputText, results: results!)
+                await self.send(message: llmPrompt,
+                                 append_user_message: false,
+                                 system_prompt: system_prompt,
+                                 attachment: llmPrompt,
+                                 attachment_type:"rag")
+            }
+        }
+    }
+
+    public func send(message in_text: String,
                      append_user_message:Bool = true,
-                     system_prompt:String? = nil, 
+                     system_prompt:String? = nil,
                      attachment: String? = nil,
                      attachment_type: String? = nil,
                      useRag: Bool = false)  async {
@@ -431,8 +469,20 @@ final class AIChatModel: ObservableObject {
             }
         }
         
+        if useRag {
+            self.state = .ragIndexLoading
+            self.generateRagLLMQuery(in_text,
+                                    self.ragTop, self.ragUrl,
+                                    message: in_text,
+                                    append_user_message:append_user_message,
+                                    system_prompt:system_prompt,
+                                    attachment: attachment,
+                                    attachment_type:attachment_type)
+            return
+        }
         
-        self.AI_typing += 1    
+        
+        self.AI_typing += 1
         
         
        
@@ -459,7 +509,7 @@ final class AIChatModel: ObservableObject {
         
         self.state = .completed
         self.chat?.chatName = self.chat_name
-        self.chat?.flagExit = false        
+        self.chat?.flagExit = false
         var message = Message(sender: .system, text: "",tok_sec: 0)
         self.messages.append(message)
         self.numberOfTokens = 0
@@ -474,8 +524,8 @@ final class AIChatModel: ObservableObject {
             { str, time in //Predicting
                 _ = self.process_predicted_str(str, time, &message/*, messageIndex*/)
             },
-            { final_str in // Finish predicting 
-                self.finish_completion(final_str, &message/*, messageIndex*/)   
+            { final_str in // Finish predicting
+                self.finish_completion(final_str, &message/*, messageIndex*/)
 //                self.llmStatus = "Done"
             },
             system_prompt:system_prompt,img_path:img_real_path)

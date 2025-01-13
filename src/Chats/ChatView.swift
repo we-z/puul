@@ -20,9 +20,7 @@ struct ChatView: View {
 // #endif
     
     @Binding var chatSelection: Dictionary<String, String>?
-    @Binding var title: String
     var CloseChat: () -> Void
-    @Binding var AfterChatEdit: () -> Void 
     @Binding var addChatDialog:Bool
     @Binding var editChatDialog:Bool
     @State var chatStyle: String = "None"

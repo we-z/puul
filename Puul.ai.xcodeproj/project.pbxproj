@@ -32,6 +32,7 @@
 		767EBC172D34A0C5003FCB43 /* LLMTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC142D34A0C5003FCB43 /* LLMTextInput.swift */; };
 		767EBC182D34A0C5003FCB43 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC152D34A0C5003FCB43 /* Tabs.swift */; };
 		767EBC192D34A0C5003FCB43 /* ThreeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC132D34A0C5003FCB43 /* ThreeDots.swift */; };
+		76E015DD2D35A0B3002C57B0 /* RAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E015DB2D35A0B3002C57B0 /* RAG.swift */; };
 		7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73E52A267E1C0064800C /* StoreKit.swift */; };
 		7A4B73EB2A267F900064800C /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EA2A267F900064800C /* SubscriptionView.swift */; };
 		7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
@@ -68,6 +69,7 @@
 		767EBC132D34A0C5003FCB43 /* ThreeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDots.swift; sourceTree = "<group>"; };
 		767EBC142D34A0C5003FCB43 /* LLMTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMTextInput.swift; sourceTree = "<group>"; };
 		767EBC152D34A0C5003FCB43 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		76E015DB2D35A0B3002C57B0 /* RAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAG.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4B73E42A24684B0064800C /* products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = products.storekit; sourceTree = "<group>"; };
@@ -154,6 +156,14 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		76E015DC2D35A0B3002C57B0 /* RAG */ = {
+			isa = PBXGroup;
+			children = (
+				76E015DB2D35A0B3002C57B0 /* RAG.swift */,
+			);
+			path = RAG;
+			sourceTree = "<group>";
+		};
 		7B10ECE5AEC28C28EDDD5E0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 		8B057591298E52CB00A56C9A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				76E015DC2D35A0B3002C57B0 /* RAG */,
 				767EBC162D34A0C5003FCB43 /* UIComponents */,
 				767EBBFC2D349EE1003FCB43 /* Lib */,
 				767EBC032D349EE1003FCB43 /* Chats */,
@@ -304,6 +315,7 @@
 				767EBC042D349EE1003FCB43 /* ChatListView.swift in Sources */,
 				767EBC052D349EE1003FCB43 /* Orientation_helper.swift in Sources */,
 				767EBC062D349EE1003FCB43 /* Extensions.swift in Sources */,
+				76E015DD2D35A0B3002C57B0 /* RAG.swift in Sources */,
 				767EBC072D349EE1003FCB43 /* ChatSettingsTemplate.swift in Sources */,
 				767EBC082D349EE1003FCB43 /* log_helper.swift in Sources */,
 				767EBC092D349EE1003FCB43 /* Message.swift in Sources */,

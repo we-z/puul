@@ -21,7 +21,7 @@ struct MessageView: View {
         var body: some View {
             switch sender {
             case .user:
-                Text("You")
+                Text("")
                     .font(.caption)
                     .foregroundColor(.accentColor)
             case .user_rag:
@@ -29,7 +29,7 @@ struct MessageView: View {
                     .font(.caption)
                     .foregroundColor(.accentColor)
             case .system:
-                Text(current_model)
+                Text("Puul")
                     .font(.caption)
                     .foregroundColor(.accentColor)
             }
