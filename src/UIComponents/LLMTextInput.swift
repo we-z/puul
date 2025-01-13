@@ -245,7 +245,7 @@ public struct LLMTextInput: View {
 #else
         .frame(minWidth: calcPopoverWidth(), maxHeight: 60)
 #endif
-        .presentationCompactAdaptation(.popover)
+//        .presentationCompactAdaptation(.popover)
     }
     
     private func calcPopoverWidth() -> CGFloat{

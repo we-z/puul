@@ -395,44 +395,6 @@ final class AIChatModel: ObservableObject {
         self.save_chat_history_and_state()
     }
 
-    
-    public func loadRAGIndex(ragURL: URL) async {
-        updateIndexComponents(currentModel:currentModel,comparisonAlgorithm:comparisonAlgorithm,chunkMethod:chunkMethod)
-        await loadExistingIndex(url: ragURL, name: "RAG_index")
-        ragIndexLoaded = true
-    }
-    
-    public func  generateRagLLMQuery(_ inputText:String,
-                                     _ searchResultsCount:Int,
-                                     _ ragURL:URL,
-                                     message in_text: String,
-                                     append_user_message:Bool = true,
-                                     system_prompt:String? = nil,
-                                     attachment: String? = nil,
-                                     attachment_type: String? = nil)  {
-        
-        let aiQueue = DispatchQueue(label: "LLMFarm-RAG", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
-        
-        
-        aiQueue.async {
-            Task {
-                if await !self.ragIndexLoaded {
-                    await self.loadRAGIndex(ragURL: ragURL)
-                }
-                DispatchQueue.main.async {
-                    self.state = .ragSearch
-                }
-                let results = await searchIndexWithQuery(query: inputText, top: searchResultsCount)
-                let llmPrompt = SimilarityIndex.exportLLMPrompt(query: inputText, results: results!)
-                await self.send(message: llmPrompt,
-                                 append_user_message: false,
-                                 system_prompt: system_prompt,
-                                 attachment: llmPrompt,
-                                 attachment_type:"rag")
-            }
-        }
-    }
-
     public func send(message in_text: String, 
                      append_user_message:Bool = true,
                      system_prompt:String? = nil, 
@@ -467,18 +429,6 @@ final class AIChatModel: ObservableObject {
             else {
                 return ;
             }
-        }
-        
-        if useRag {
-            self.state = .ragIndexLoading
-            self.generateRagLLMQuery(in_text,
-                                    self.ragTop, self.ragUrl,
-                                    message: in_text,
-                                    append_user_message:append_user_message,
-                                    system_prompt:system_prompt,
-                                    attachment: attachment,
-                                    attachment_type:attachment_type)
-            return
         }
         
         

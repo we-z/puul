@@ -248,16 +248,16 @@ struct ChatView: View {
 //            .focused($focusedField, equals: .firstName)
             
         }
-        .sheet(isPresented: $toggleEditChat) {
-            ChatSettingsView(add_chat_dialog: $toggleEditChat,
-                        edit_chat_dialog: $editChatDialog,
-                        chat_name: aiChatModel.chat_name,
-                        after_chat_edit: $AfterChatEdit,
-                        toggleSettings: .constant(false)).environmentObject(aiChatModel)
-#if os(macOS)
-                .frame(minWidth: 400,minHeight: 600)
-#endif
-        }
+//        .sheet(isPresented: $toggleEditChat) {
+//            ChatSettingsView(add_chat_dialog: $toggleEditChat,
+//                        edit_chat_dialog: $editChatDialog,
+//                        chat_name: aiChatModel.chat_name,
+//                        after_chat_edit: $AfterChatEdit,
+//                        toggleSettings: .constant(false)).environmentObject(aiChatModel)
+//#if os(macOS)
+//                .frame(minWidth: 400,minHeight: 600)
+//#endif
+//        }
         .textSelection(.enabled)
     }
 }

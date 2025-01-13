@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct ChatListView: View {
-    @EnvironmentObject var fineTuneModel: FineTuneModel
+//    @EnvironmentObject var fineTuneModel: FineTuneModel
     @EnvironmentObject var aiChatModel: AIChatModel
     
     @State var searchText: String = ""
@@ -163,33 +163,33 @@ struct ChatListView: View {
                 
             }
         }
-        .sheet(isPresented: $toggleSettings) {
-            SettingsView(current_detail_view_name:$current_detail_view_name).environmentObject(fineTuneModel)
-#if os(macOS)
-                .frame(minWidth: 400,minHeight: 600)
-#endif
-        }
-        .sheet(isPresented: $toggleAddChat) {
-            if edit_chat_dialog{
-                ChatSettingsView(add_chat_dialog: $toggleAddChat,
-                            edit_chat_dialog: $edit_chat_dialog,
-                            chat_name: aiChatModel.chat_name,
-                            after_chat_edit: $after_chat_edit,
-                            toggleSettings: $toggleSettings).environmentObject(aiChatModel)
-#if os(macOS)
-                    .frame(minWidth: 400,minHeight: 600)
-#endif
-            }else{
-                ChatSettingsView(add_chat_dialog: $toggleAddChat,
-                            edit_chat_dialog: $edit_chat_dialog,
-                            after_chat_edit: $after_chat_edit,
-                            toggleSettings: $toggleSettings).environmentObject(aiChatModel)
-#if os(macOS)
-                    .frame(minWidth: 400,minHeight: 600)
-#endif
-            }
-            
-        }
+//        .sheet(isPresented: $toggleSettings) {
+//            SettingsView(current_detail_view_name:$current_detail_view_name).environmentObject(fineTuneModel)
+//#if os(macOS)
+//                .frame(minWidth: 400,minHeight: 600)
+//#endif
+//        }
+//        .sheet(isPresented: $toggleAddChat) {
+//            if edit_chat_dialog{
+//                ChatSettingsView(add_chat_dialog: $toggleAddChat,
+//                            edit_chat_dialog: $edit_chat_dialog,
+//                            chat_name: aiChatModel.chat_name,
+//                            after_chat_edit: $after_chat_edit,
+//                            toggleSettings: $toggleSettings).environmentObject(aiChatModel)
+//#if os(macOS)
+//                    .frame(minWidth: 400,minHeight: 600)
+//#endif
+//            }else{
+//                ChatSettingsView(add_chat_dialog: $toggleAddChat,
+//                            edit_chat_dialog: $edit_chat_dialog,
+//                            after_chat_edit: $after_chat_edit,
+//                            toggleSettings: $toggleSettings).environmentObject(aiChatModel)
+//#if os(macOS)
+//                    .frame(minWidth: 400,minHeight: 600)
+//#endif
+//            }
+//            
+//        }
     }
 }
 

@@ -2,7 +2,7 @@ import AVKit
 import Combine
 import SwiftUI
 
-struct ChatView: View {
+struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @FocusState var isTextFieldFocused: Bool
     @Environment(\.dismiss) private var dismiss
@@ -172,6 +172,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView()
+        HomeView()
     }
 }
