@@ -19,7 +19,6 @@ struct ChatView: View {
 //     @State private var inputText: String = ""
 // #endif
     
-    @Binding var modelName: String
     @Binding var chatSelection: Dictionary<String, String>?
     @Binding var title: String
     var CloseChat: () -> Void

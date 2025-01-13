@@ -3,7 +3,6 @@ import SwiftUI
 struct TempView: View {
     @State var add_chat_dialog = false
     @State var edit_chat_dialog = false
-    @State var model_name = ""
     @State var title = ""
     @State private var chat_selection: Dictionary<String, String>?
     @State var after_chat_edit: () -> Void = {}
@@ -15,7 +14,6 @@ struct TempView: View {
     
     var body: some View {
         ChatView(
-            modelName: $model_name,
             chatSelection: $chat_selection,
             title: $title,
             CloseChat:close_chat,
