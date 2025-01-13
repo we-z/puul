@@ -40,18 +40,18 @@ struct HomeView: View {
                         showMenu = true
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
-                            .font(.system(size: 24))
+                            .font(.system(size: 27))
                     }
                     .buttonStyle(HapticButtonStyle())
                     Spacer()
                     Text("Puul")
-                        .font(.system(size: 21))
+                        .font(.system(size: 27))
                         .bold()
                     Spacer()
                     Button {
                     } label: {
                         Image(systemName: "square.and.pencil")
-                            .font(.system(size: 24))
+                            .font(.system(size: 27))
                     }
                     .buttonStyle(HapticButtonStyle())
                 }

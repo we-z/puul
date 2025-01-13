@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		7615CAB72D34549A00C08D72 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7615CAB62D34549A00C08D72 /* Accelerate.framework */; };
 		7615CAB92D3454BB00C08D72 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7615CAB82D3454BB00C08D72 /* Metal.framework */; };
+		761FF5202D34B1F200CE2336 /* SimilaritySearchKit in Frameworks */ = {isa = PBXBuildFile; productRef = 761FF51F2D34B1F200CE2336 /* SimilaritySearchKit */; };
+		761FF5222D34B1F200CE2336 /* SimilaritySearchKitDistilbert in Frameworks */ = {isa = PBXBuildFile; productRef = 761FF5212D34B1F200CE2336 /* SimilaritySearchKitDistilbert */; };
+		761FF5242D34B1F200CE2336 /* SimilaritySearchKitMiniLMAll in Frameworks */ = {isa = PBXBuildFile; productRef = 761FF5232D34B1F200CE2336 /* SimilaritySearchKitMiniLMAll */; };
+		761FF5262D34B1F200CE2336 /* SimilaritySearchKitMiniLMMultiQA in Frameworks */ = {isa = PBXBuildFile; productRef = 761FF5252D34B1F200CE2336 /* SimilaritySearchKitMiniLMMultiQA */; };
 		767453072D2DC15D0026C123 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767453062D2DC15D0026C123 /* ContentView.swift */; };
 		767EBBEA2D34983F003FCB43 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBBE92D34983F003FCB43 /* llmfarm_core */; };
-		767EBBED2D349DC3003FCB43 /* SimilaritySearchKit in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBBEC2D349DC3003FCB43 /* SimilaritySearchKit */; };
-		767EBBEF2D349DC3003FCB43 /* SimilaritySearchKitDistilbert in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBBEE2D349DC3003FCB43 /* SimilaritySearchKitDistilbert */; };
-		767EBBF12D349DC3003FCB43 /* SimilaritySearchKitMiniLMAll in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBBF02D349DC3003FCB43 /* SimilaritySearchKitMiniLMAll */; };
-		767EBBF32D349DC3003FCB43 /* SimilaritySearchKitMiniLMMultiQA in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBBF22D349DC3003FCB43 /* SimilaritySearchKitMiniLMMultiQA */; };
 		767EBBF52D349E6F003FCB43 /* AIChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBBF42D349E6F003FCB43 /* AIChatModel.swift */; };
 		767EBC042D349EE1003FCB43 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC002D349EE1003FCB43 /* ChatListView.swift */; };
 		767EBC052D349EE1003FCB43 /* Orientation_helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBBF72D349EE1003FCB43 /* Orientation_helper.swift */; };
@@ -95,14 +95,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				767EBBF32D349DC3003FCB43 /* SimilaritySearchKitMiniLMMultiQA in Frameworks */,
-				767EBBEF2D349DC3003FCB43 /* SimilaritySearchKitDistilbert in Frameworks */,
-				767EBBED2D349DC3003FCB43 /* SimilaritySearchKit in Frameworks */,
+				761FF5262D34B1F200CE2336 /* SimilaritySearchKitMiniLMMultiQA in Frameworks */,
+				761FF5242D34B1F200CE2336 /* SimilaritySearchKitMiniLMAll in Frameworks */,
 				767EBC122D349FA8003FCB43 /* MarkdownUI in Frameworks */,
 				7A7BDC112A457EC400AC5F6B /* StoreKit.framework in Frameworks */,
-				767EBBF12D349DC3003FCB43 /* SimilaritySearchKitMiniLMAll in Frameworks */,
 				7615CAB92D3454BB00C08D72 /* Metal.framework in Frameworks */,
 				7615CAB72D34549A00C08D72 /* Accelerate.framework in Frameworks */,
+				761FF5222D34B1F200CE2336 /* SimilaritySearchKitDistilbert in Frameworks */,
+				761FF5202D34B1F200CE2336 /* SimilaritySearchKit in Frameworks */,
 				767EBBEA2D34983F003FCB43 /* llmfarm_core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,11 +223,11 @@
 			name = Puul;
 			packageProductDependencies = (
 				767EBBE92D34983F003FCB43 /* llmfarm_core */,
-				767EBBEC2D349DC3003FCB43 /* SimilaritySearchKit */,
-				767EBBEE2D349DC3003FCB43 /* SimilaritySearchKitDistilbert */,
-				767EBBF02D349DC3003FCB43 /* SimilaritySearchKitMiniLMAll */,
-				767EBBF22D349DC3003FCB43 /* SimilaritySearchKitMiniLMMultiQA */,
 				767EBC112D349FA8003FCB43 /* MarkdownUI */,
+				761FF51F2D34B1F200CE2336 /* SimilaritySearchKit */,
+				761FF5212D34B1F200CE2336 /* SimilaritySearchKitDistilbert */,
+				761FF5232D34B1F200CE2336 /* SimilaritySearchKitMiniLMAll */,
+				761FF5252D34B1F200CE2336 /* SimilaritySearchKitMiniLMMultiQA */,
 			);
 			productName = XCAChatGPT;
 			productReference = 7A48E55D29FE56E60068362F /* Puul.app */;
@@ -258,8 +258,8 @@
 			);
 			mainGroup = 8B91BFF7298AD09E0079AF26;
 			packageReferences = (
-				767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */,
 				767EBC102D349FA8003FCB43 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+				761FF51E2D34B1F200CE2336 /* XCLocalSwiftPackageReference "similarity-search-kit" */,
 			);
 			productRefGroup = 8B91BFF7298AD09E0079AF26;
 			projectDirPath = "";
@@ -322,6 +322,7 @@
 		8B91C00C298AD09F0079AF26 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -357,6 +358,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -375,7 +377,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -385,6 +387,7 @@
 		8B91C00D298AD09F0079AF26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -420,6 +423,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -432,6 +436,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -442,6 +447,7 @@
 		8B91C00F298AD09F0079AF26 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = src/Puul.entitlements;
@@ -485,6 +491,7 @@
 		8B91C010298AD09F0079AF26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = src/Puul.entitlements;
@@ -548,15 +555,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZachNagengast/similarity-search-kit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.15;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		761FF51E2D34B1F200CE2336 /* XCLocalSwiftPackageReference "similarity-search-kit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "similarity-search-kit";
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		767EBC102D349FA8003FCB43 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
@@ -568,29 +574,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		761FF51F2D34B1F200CE2336 /* SimilaritySearchKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SimilaritySearchKit;
+		};
+		761FF5212D34B1F200CE2336 /* SimilaritySearchKitDistilbert */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SimilaritySearchKitDistilbert;
+		};
+		761FF5232D34B1F200CE2336 /* SimilaritySearchKitMiniLMAll */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SimilaritySearchKitMiniLMAll;
+		};
+		761FF5252D34B1F200CE2336 /* SimilaritySearchKitMiniLMMultiQA */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SimilaritySearchKitMiniLMMultiQA;
+		};
 		767EBBE92D34983F003FCB43 /* llmfarm_core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = llmfarm_core;
-		};
-		767EBBEC2D349DC3003FCB43 /* SimilaritySearchKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */;
-			productName = SimilaritySearchKit;
-		};
-		767EBBEE2D349DC3003FCB43 /* SimilaritySearchKitDistilbert */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */;
-			productName = SimilaritySearchKitDistilbert;
-		};
-		767EBBF02D349DC3003FCB43 /* SimilaritySearchKitMiniLMAll */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */;
-			productName = SimilaritySearchKitMiniLMAll;
-		};
-		767EBBF22D349DC3003FCB43 /* SimilaritySearchKitMiniLMMultiQA */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 767EBBEB2D349DC3003FCB43 /* XCRemoteSwiftPackageReference "similarity-search-kit" */;
-			productName = SimilaritySearchKitMiniLMMultiQA;
 		};
 		767EBC112D349FA8003FCB43 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
