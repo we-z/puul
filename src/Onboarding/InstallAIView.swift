@@ -93,8 +93,15 @@ struct InstallAIView: View {
             }
             // MARK: - Next / Rate Us Button
             Button{
+                
                 if status.isEmpty {
-                    download()
+                    if FileManager.default.fileExists(atPath: getFileURLFormPathStr(dir:"models",filename: filename).path)  {
+                        withAnimation(.easeInOut) {
+                            done = true
+                        }
+                    } else {
+                        download()
+                    }
                 }
             } label: {
                 Text("Install Puul AI")
