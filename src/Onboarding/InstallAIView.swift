@@ -38,9 +38,10 @@ struct InstallAIView: View {
                     try FileManager.default.copyItem(at: temporaryURL, to: fileURL)
                     print("Writing to \(filename) completed")
                     
-                    
-                    //                    let model = Model(name: modelName, url: modelUrl, filename: filename, status: "downloaded")
                     status = "downloaded"
+                    withAnimation(.easeInOut) {
+                        done = true
+                    }
                 }
             } catch let err {
                 print("Error: \(err.localizedDescription)")
@@ -48,7 +49,7 @@ struct InstallAIView: View {
         }
         
         observation = downloadTask?.progress.observe(\.fractionCompleted) { progress, _ in
-            self.progress = progress.fractionCompleted
+            self.progress = progress.fractionCompleted  * 100
         }
         
         downloadTask?.resume()
@@ -92,9 +93,11 @@ struct InstallAIView: View {
             }
             // MARK: - Next / Rate Us Button
             Button{
-                
+                if status.isEmpty {
+                    download()
+                }
             } label: {
-                Text("Install AI on your device")
+                Text("Install Puul AI")
                     .bold()
                     .font(.title2)
                     .padding()
@@ -109,14 +112,6 @@ struct InstallAIView: View {
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -500 : 0)
-        .onChange(of: progress) { newValue in
-            // Once progress hits 100, show the final message
-            if newValue >= 100 {
-                withAnimation(.easeInOut) {
-                    done = true
-                }
-            }
-        }
     }
 }
 
