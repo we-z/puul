@@ -15,6 +15,7 @@ struct InstallAIView: View {
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
+    @State var showingAlert = false
     
     private func download() {
         withAnimation(.easeInOut) {
@@ -100,14 +101,11 @@ struct InstallAIView: View {
                 if status.isEmpty {
                     download()
                 } else if status == "downloading" {
-                    downloadTask?.cancel()
-                    withAnimation {
-                        status = ""
-                    }
+                    showingAlert = true
                 }
             } label: {
                 HStack{
-                    Text(status.isEmpty ? "Install local AI" : "Cancel")
+                    Text(status.isEmpty ? "Install local AI" : "Stop Installation")
                     Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
                 }
                 .bold()
@@ -130,6 +128,19 @@ struct InstallAIView: View {
         }
         .onDisappear() {
             downloadTask?.cancel()
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Are you sure?"),
+                message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi recommended"),
+                primaryButton: .destructive(Text("Stop"), action: {
+                    downloadTask?.cancel()
+                    withAnimation {
+                        status = ""
+                    }
+                }),
+                secondaryButton: .cancel(Text("cancel"))
+            )
         }
         .offset(x: done ? -500 : 0)
     }
