@@ -88,8 +88,13 @@ struct InstallAIView: View {
             }
             Spacer()
             if status == "downloading" {
-                Text("Installing \(Int(progress))%")
-                    .bold()
+                HStack{
+                    
+                    Text("Installing \(Int(progress))%")
+                        .bold()
+                        .padding(.horizontal)
+                    ProgressView()
+                }
                 ProgressView(value: progress, total: 100)
                     .progressViewStyle(LinearProgressViewStyle())
                     .accentColor(.primary)
