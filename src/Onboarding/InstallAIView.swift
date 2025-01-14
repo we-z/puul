@@ -9,7 +9,51 @@ import SwiftUI
 
 struct InstallAIView: View {
     @State var done: Bool = false
-    @State private var progressValue: Double = -20
+    @State var modelUrl: String = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q5_K_M.gguf?download=true"
+    @State var status: String = ""
+    @State var filename: String = "puulai.gguf"
+    @State private var downloadTask: URLSessionDownloadTask?
+    @State private var observation: NSKeyValueObservation?
+    @State private var progress: Double = -20
+    
+    private func download() {
+        status = "downloading"
+        print("Downloading model from \(modelUrl)")
+        guard let url = URL(string: modelUrl) else { return }
+        let fileURL = getFileURLFormPathStr(dir:"models",filename: filename)
+        
+        downloadTask = URLSession.shared.downloadTask(with: url) { temporaryURL, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            do {
+                if let temporaryURL = temporaryURL {
+                    try FileManager.default.copyItem(at: temporaryURL, to: fileURL)
+                    print("Writing to \(filename) completed")
+                    
+                    
+                    //                    let model = Model(name: modelName, url: modelUrl, filename: filename, status: "downloaded")
+                    status = "downloaded"
+                }
+            } catch let err {
+                print("Error: \(err.localizedDescription)")
+            }
+        }
+        
+        observation = downloadTask?.progress.observe(\.fractionCompleted) { progress, _ in
+            self.progress = progress.fractionCompleted
+        }
+        
+        downloadTask?.resume()
+    }
+    
     var body: some View {
         VStack {
             Spacer()
@@ -39,8 +83,8 @@ struct InstallAIView: View {
                     .padding()
             }
             Spacer()
-            if progressValue >= 0 {
-                ProgressView(value: progressValue, total: 100)
+            if progress >= 0 {
+                ProgressView(value: progress, total: 100)
                     .progressViewStyle(LinearProgressViewStyle())
                     .accentColor(.primary)
                     .frame(width: 250)
@@ -48,19 +92,11 @@ struct InstallAIView: View {
             }
             // MARK: - Next / Rate Us Button
             Button{
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-                    if progressValue <= 100 {
-                        withAnimation(.spring) {
-                            progressValue += 20 // Increment progress by 10 each second
-                        }
-                    } else {
-                        timer.invalidate() // Stop the timer when progress reaches 100
-                    }
-                }
+                
             } label: {
-                Text("Install Private AI")
+                Text("Install AI on your device")
                     .bold()
-                    .font(.title)
+                    .font(.title2)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.primary)
@@ -73,9 +109,9 @@ struct InstallAIView: View {
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -500 : 0)
-        .onChange(of: progressValue) { newValue in
+        .onChange(of: progress) { newValue in
             // Once progress hits 100, show the final message
-            if newValue > 100 {
+            if newValue >= 100 {
                 withAnimation(.easeInOut) {
                     done = true
                 }
