@@ -41,7 +41,9 @@ struct InstallAIView: View {
                     try FileManager.default.copyItem(at: temporaryURL, to: fileURL)
                     print("Writing to \(filename) completed")
                     
-                    status = "downloaded"
+                    withAnimation(.easeInOut) {
+                        status = "downloaded"
+                    }
                     withAnimation(.easeInOut) {
                         done = true
                     }
@@ -97,6 +99,12 @@ struct InstallAIView: View {
                     .accentColor(.primary)
                     .padding()
                     .padding(.horizontal)
+            } else if status == "downloaded" {
+                Image(systemName:"checkmark.circle.fill")
+                    .padding()
+                Text("Installaion Complete")
+                    .bold()
+                    .padding()
             }
             // MARK: - Next / Rate Us Button
             Button{
