@@ -157,8 +157,21 @@ func getChunkMethodFromStr(_ modelStr: String) -> TextSplitterType{
 
 
 
-func getFileURLFormPathStr(dir:String,filename: String) -> URL {
-    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(dir).appendingPathComponent(filename)
+/// Helper function to create the "models" directory if it does not exist.
+func createDirectoryIfNeeded(dir: String) throws {
+    let fileManager = FileManager.default
+    let modelsDirURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        .appendingPathComponent(dir)
+    
+    if !fileManager.fileExists(atPath: modelsDirURL.path) {
+        try fileManager.createDirectory(at: modelsDirURL, withIntermediateDirectories: true)
+    }
+}
+
+/// Returns a file URL for the given filename in the "models" subdirectory.
+func getFileURLFormPathStr(dir: String, filename: String) -> URL {
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    return documentsURL.appendingPathComponent(dir).appendingPathComponent(filename)
 }
 
 func get_model_setting_templates() -> [ChatSettingsTemplate]{
