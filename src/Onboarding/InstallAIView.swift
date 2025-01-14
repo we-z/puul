@@ -49,7 +49,9 @@ struct InstallAIView: View {
         }
         
         observation = downloadTask?.progress.observe(\.fractionCompleted) { progress, _ in
-            self.progress = progress.fractionCompleted  * 100
+            withAnimation(.easeInOut) {
+                self.progress = progress.fractionCompleted  * 100
+            }
         }
         
         downloadTask?.resume()
@@ -85,11 +87,12 @@ struct InstallAIView: View {
             }
             Spacer()
             if progress >= 0 {
+                Text("\(Int(progress))%")
                 ProgressView(value: progress, total: 100)
                     .progressViewStyle(LinearProgressViewStyle())
                     .accentColor(.primary)
                     .frame(width: 250)
-                    .padding(.bottom, 20)
+                    .padding()
             }
             // MARK: - Next / Rate Us Button
             Button{
@@ -118,6 +121,9 @@ struct InstallAIView: View {
             .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
+        .onDisappear() {
+            downloadTask?.cancel()
+        }
         .offset(x: done ? -500 : 0)
     }
 }
