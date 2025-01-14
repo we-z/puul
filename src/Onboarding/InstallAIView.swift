@@ -113,12 +113,25 @@ struct InstallAIView: View {
                 .padding()
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.white)
-//                .colorInvert()
-                .background(status == "downloading" ? Color.red : Color .blue)
+                .colorInvert()
+                .background(.primary)
                 .cornerRadius(18)
                 .padding()
             }
             .buttonStyle(HapticButtonStyle())
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi recommended"),
+                    primaryButton: .destructive(Text("Stop"), action: {
+                        downloadTask?.cancel()
+                        withAnimation {
+                            status = ""
+                        }
+                    }),
+                    secondaryButton: .cancel(Text("cancel"))
+                )
+            }
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .onAppear {
@@ -128,19 +141,6 @@ struct InstallAIView: View {
         }
         .onDisappear() {
             downloadTask?.cancel()
-        }
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Are you sure?"),
-                message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi recommended"),
-                primaryButton: .destructive(Text("Stop"), action: {
-                    downloadTask?.cancel()
-                    withAnimation {
-                        status = ""
-                    }
-                }),
-                secondaryButton: .cancel(Text("cancel"))
-            )
         }
         .offset(x: done ? -500 : 0)
     }
