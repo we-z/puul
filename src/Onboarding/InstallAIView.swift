@@ -11,7 +11,7 @@ struct InstallAIView: View {
     @State var done: Bool = false
     @State var modelUrl: String = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q5_K_M.gguf?download=true"
     @State var status: String = ""
-    @State var filename: String = "puulai.gguf"
+    @State var filename: String = "Llama-3.2-1B-Instruct-Q5_K_M.gguf"
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
@@ -44,11 +44,9 @@ struct InstallAIView: View {
                     withAnimation(.easeInOut) {
                         status = "downloaded"
                     }
-                    withAnimation(.easeInOut) {
-                        done = true
-                    }
                 }
             } catch let err {
+                print("problem writing to \(filename)")
                 print("Error: \(err.localizedDescription)")
             }
         }
@@ -105,6 +103,13 @@ struct InstallAIView: View {
                 Text("Installaion Complete")
                     .bold()
                     .padding()
+                    .onAppear{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            withAnimation(.easeInOut) {
+                                done = true
+                            }
+                        }
+                    }
             }
             // MARK: - Next / Rate Us Button
             Button{
