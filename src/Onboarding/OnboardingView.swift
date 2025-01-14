@@ -117,9 +117,9 @@ struct OnboardingView: View {
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(.primary)
-                    .colorInvert()
-                    .background(.primary)
+                    .foregroundColor(.white)
+//                    .colorInvert()
+                    .background(.blue)
                     .cornerRadius(18)
                     .padding()
             }

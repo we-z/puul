@@ -14,10 +14,12 @@ struct InstallAIView: View {
     @State var filename: String = "puulai.gguf"
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var observation: NSKeyValueObservation?
-    @State private var progress: Double = -20
+    @State private var progress: Double = 0
     
     private func download() {
-        status = "downloading"
+        withAnimation(.easeInOut) {
+            status = "downloading"
+        }
         print("Downloading model from \(modelUrl)")
         guard let url = URL(string: modelUrl) else { return }
         let fileURL = getFileURLFormPathStr(dir:"models",filename: filename)
@@ -49,9 +51,7 @@ struct InstallAIView: View {
         }
         
         observation = downloadTask?.progress.observe(\.fractionCompleted) { progress, _ in
-            withAnimation(.easeInOut) {
-                self.progress = progress.fractionCompleted  * 100
-            }
+            self.progress = progress.fractionCompleted  * 100
         }
         
         downloadTask?.resume()
@@ -79,48 +79,55 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul AI is a locally hosted AI model < 1 GB in size and is completely private and runs on your device.")
+                Text("Puul AI is a locally hosted AI model < 1 GB in size and is completely private and runs on your device with no internet connection required.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
             }
             Spacer()
-            if progress >= 0 {
-                Text("\(Int(progress))%")
+            if status == "downloading" {
+                Text("Installing \(Int(progress))%")
+                    .bold()
                 ProgressView(value: progress, total: 100)
                     .progressViewStyle(LinearProgressViewStyle())
                     .accentColor(.primary)
-                    .frame(width: 250)
                     .padding()
+                    .padding(.horizontal)
             }
             // MARK: - Next / Rate Us Button
             Button{
-                
                 if status.isEmpty {
-                    if FileManager.default.fileExists(atPath: getFileURLFormPathStr(dir:"models",filename: filename).path)  {
-                        withAnimation(.easeInOut) {
-                            done = true
-                        }
-                    } else {
-                        download()
+                    download()
+                } else if status == "downloading" {
+                    downloadTask?.cancel()
+                    withAnimation {
+                        status = ""
                     }
                 }
             } label: {
-                Text("Install Puul AI")
-                    .bold()
-                    .font(.title2)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.primary)
-                    .colorInvert()
-                    .background(.primary)
-                    .cornerRadius(18)
-                    .padding()
+                HStack{
+                    Text(status.isEmpty ? "Install local AI" : "Cancel")
+                    Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
+                }
+                .bold()
+                .font(.title)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+//                .colorInvert()
+                .background(status == "downloading" ? Color.red : Color .blue)
+                .cornerRadius(18)
+                .padding()
             }
             .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
+        .onAppear {
+            if FileManager.default.fileExists(atPath: getFileURLFormPathStr(dir:"models",filename: filename).path)  {
+                done = true
+            }
+        }
         .onDisappear() {
             downloadTask?.cancel()
         }
