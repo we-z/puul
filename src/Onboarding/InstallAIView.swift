@@ -112,7 +112,7 @@ struct InstallAIView: View {
                 .font(.title)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .colorInvert()
                 .background(.primary)
                 .cornerRadius(18)
