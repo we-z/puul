@@ -166,7 +166,7 @@ struct ChatView: View {
                 }
                 
                 
-                .disabled(chatSelection == nil)
+//                .disabled(chatSelection == nil)
                 .onAppear(){
                     scrollProxy = scrollView
 //                    after_chat_edit = after_chat_edit_func
