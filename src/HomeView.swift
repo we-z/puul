@@ -24,7 +24,7 @@ struct HomeView: View {
     ]
 
     var body: some View {
-        chatListView
+        mainChatView
             .onReceive(Just(shouldClearConversation), perform: { shouldClear in
                 if shouldClear {
                     shouldClearConversation = false // Reset the binding value after clearing
@@ -32,7 +32,7 @@ struct HomeView: View {
             })
     }
 
-    var chatListView: some View {
+    var mainChatView: some View {
         ScrollViewReader { proxy in
             VStack(spacing: 0) {
                 HStack {
