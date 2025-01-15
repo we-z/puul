@@ -9,4 +9,4 @@ This is an AI financial advisor that is built on Llama using Swift and llama.cpp
 - SimilaritySearchKit package
 
 ## llmfarm_core package
-You can use this standalone api client to access ChatGPT API.
+You can use this standalone package to interface with local LLMs
