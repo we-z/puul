@@ -225,9 +225,9 @@ public func duplicateChat(_ chat:Dictionary<String, String>) -> Bool{
             title  = title + "_2"
             chat_info?["title"] = title as AnyObject
         }
-        if !CreateChat(chat_info!){
-            return false
-        }
+//        if !CreateChat(chat_info!){
+//            return false
+//        }
     }
     return true
 }
@@ -551,50 +551,69 @@ var exclude_from_settings_template_keys = ["lora_adapters",
                                             "model_settings_template",
                                             "chat_style"]
 
-func CreateChat(_ in_options:Dictionary<String, Any>,edit_chat_dialog:Bool = false,chat_name: String = "", save_as_template:Bool = false) -> Bool{
+public func CreateChat(
+    _ in_options: Dictionary<String, Any>,
+    edit_chat_dialog: Bool = false,
+    chat_name: String = "",
+    save_as_template: Bool = false
+) -> String? {
     do {
-        var options:Dictionary<String, Any> = [:]
+        // Create a copy of in_options to work with
+        var options: Dictionary<String, Any> = [:]
         for (key, value) in in_options {
-            print("\(key) : \(value)")
             if !save_as_template {
-                options[key] = value                
-            }
-            else if !exclude_from_settings_template_keys.contains(key) {
+                // Normal chat creation: copy every key/value
+                options[key] = value
+            } else if !exclude_from_settings_template_keys.contains(key) {
+                // Saving as a template: exclude certain keys
                 options[key] = value
             }
         }
-        let fileManager = FileManager.default
+        
+        // Prepare JSON data
         let jsonData = try JSONSerialization.data(withJSONObject: options, options: .prettyPrinted)
+        
+        // Determine directory (chats or model_setting_templates)
+        let fileManager = FileManager.default
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        var target_dir = "chats"
-        if save_as_template{
-            target_dir = "model_setting_templates"
+        var targetDir = "chats"
+        if save_as_template {
+            targetDir = "model_setting_templates"
         }
-        let destinationURL = documentsPath!.appendingPathComponent(target_dir)
-        try fileManager.createDirectory (at: destinationURL, withIntermediateDirectories: true, attributes: nil)
-        let today = Date()
-        // convert Date to TimeInterval (typealias for Double)
-        let timeInterval = today.timeIntervalSince1970
-        // convert to Integer
+        
+        let destinationURL = documentsPath!.appendingPathComponent(targetDir)
+        try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+        
+        // Generate unique file name if not editing
+        let timeInterval = Date().timeIntervalSince1970
         let salt = "_" + String(Int(timeInterval))
         var fname = ""
-        if edit_chat_dialog{
+        
+        if edit_chat_dialog {
+            // If editing an existing chat, use the old name
             fname = chat_name
-        }else{
-            fname = options["title"]! as! String + salt + ".json"
+        } else {
+            // If it's a new chat, build name from "title"
+            let title = (options["title"] as? String) ?? "Chat"
+            fname = title + salt + ".json"
         }
-        if save_as_template{
+        
+        // If saving as a template, override fname with chat_name
+        if save_as_template {
             fname = chat_name
         }
+        
+        // Write the file
         let path = destinationURL.appendingPathComponent(fname)
         try jsonData.write(to: path)
-        return true
-    }
-    catch {
-        // handle error
+        
+        // Return the file name so we can assign aiChatModel.chat_name
+        return fname
+    } catch {
+        // If any error occurs, return nil
         print(error)
+        return nil
     }
-    return false
 }
 
 func GetFileNameWithoutExt(fileName:String) -> String{

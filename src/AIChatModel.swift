@@ -444,10 +444,64 @@ final class AIChatModel: ObservableObject {
         self.AI_typing += 1
         
         if append_user_message{
-//            var attachment_type:String? = nil
-//            if attachment != nil{
-//                attachment_type = "img"
-//            }
+            if messages.isEmpty {
+                let chatOptions: [String: Any] = [
+                    // Keep your model file and typical chat settings here:
+                    "model": "Llama-3.2-1B-Instruct-Q5_K_M.gguf",
+                    "use_clip_metal": false,
+                    "lora_adapters": [],
+                    "title": in_text,        // first user message = chat title
+                    "icon": "ava0",
+                    "save_load_state": true,
+                    "skip_tokens": "",
+                    "chat_style": "DocC",
+                    "chunk_size": 256,
+                    "chunk_overlap": 100,
+                    "rag_top": 3,
+                    "current_model": "minilmMultiQA",
+                    "comparison_algorithm": "dotproduct",
+                    "chunk_method": "recursive",
+                    
+                    // Now merge in the requested model parameters:
+                    "model_inference": "llama",
+                    "use_metal": true,
+                    "mmap": true,
+                    "mlock": false,
+                    "flash_attn": false,
+                    
+                    "context": 8192,
+                    "n_batch": 512,
+                    "numberOfThreads": 10,
+                    
+                    "temp": 0.9,                          // (0.89999997615814209 rounded to 0.9)
+                    "top_p": 0.95,                        // (0.94999998807907104 rounded to 0.95)
+                    "top_k": 40,
+                    "repeat_penalty": 1.0,
+                    "repeat_last_n": 64,
+                    
+                    "mirostat": 0,
+                    "mirostat_tau": 5,
+                    "mirostat_eta": 0.1,
+                    "tfs_z": 1,
+                    "typical_p": 1,
+                    
+                    "add_bos_token": false,
+                    "add_eos_token": false,
+                    "parse_special_tokens": true,
+                    
+                    "prompt_format": "[system](<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an AI<|eot_id|>)\n\n\n<|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
+                    "reverse_prompt": "<|eot_id|>",
+                    "warm_prompt": "\n\n\n",
+                    "grammar": "<None>",
+                    
+                    // Just for reference (optional), storing the template name:
+                    "template_name": "LLaMa3 Instruct"
+                ]
+                if let newFileName = CreateChat(chatOptions) {
+                    // IMPORTANT: set AIChatModel's chat_name so LLMTextInput is enabled
+                    self.chat_name = newFileName
+                }
+            }
             let requestMessage = Message(sender: .user, state: .typed, text: text, tok_sec: 0,
                                         attachment:attachment,attachment_type:attachment_type)
             self.messages.append(requestMessage)

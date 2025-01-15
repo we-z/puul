@@ -19,8 +19,11 @@ struct ChatView: View {
 //     @State private var inputText: String = ""
 // #endif
     
+    @Binding var modelName: String
     @Binding var chatSelection: Dictionary<String, String>?
+    @Binding var title: String
     var CloseChat: () -> Void
+    @Binding var AfterChatEdit: () -> Void
     @Binding var addChatDialog:Bool
     @Binding var editChatDialog:Bool
     @State var chatStyle: String = "None"
@@ -31,7 +34,7 @@ struct ChatView: View {
     
     @State private var scrollTarget: Int?
     @State private var toggleEditChat = false
-    @State private var clearChatAlert = false    
+    @State private var clearChatAlert = false
     
     @State private var autoScroll = true
     @State private var enableRAG = false
@@ -80,7 +83,7 @@ struct ChatView: View {
     func reload() async{
         if chatSelection == nil {
             return
-        }                
+        }
         print(chatSelection)
         print("\nreload\n")
         aiChatModel.reload_chat(chatSelection!)
@@ -95,7 +98,7 @@ struct ChatView: View {
         Button {
             Task{
                 autoScroll = true
-                scrollToBottom()                
+                scrollToBottom()
             }
         }
         
@@ -122,7 +125,7 @@ struct ChatView: View {
     var body: some View {
         VStack{
             VStack{
-                if aiChatModel.state == .loading || 
+                if aiChatModel.state == .loading ||
                     aiChatModel.state == .ragIndexLoading ||
                     aiChatModel.state == .ragSearch{
                     VStack {
@@ -241,7 +244,7 @@ struct ChatView: View {
                          focusedField:$focusedField,
                          auto_scroll:$autoScroll,
                          enableRAG:$enableRAG).environmentObject(aiChatModel)
-                .disabled(self.aiChatModel.chat_name == "")
+//                .disabled(self.aiChatModel.chat_name == "")
 //            .focused($focusedField, equals: .firstName)
             
         }
