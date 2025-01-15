@@ -1,13 +1,12 @@
 # Puul.ai
 
-This is a Wealth Management Platform that interactins with ChatGPT built using SwiftUI and OpenAPI API. It's using Official ChatGPT endpoint with `gpt-3.5-turbo` model.
+This is an AI financial advisor that is built on Llama using Swift and llama.cpp. We are currently using Llama 3.2 1B Instruct
 
 ## Requirements
 - Xcode 14 
-- Register at openai.com/api
-- Plaid API client id and secret
-- Create API Key
-- Paste API key in ContentView where the ChatGPTAPI instance is declared
+- Llama gguf file
+- llmfarm_core package
+- SimilaritySearchKit package
 
-## ChatGPTSwift API Lib
+## llmfarm_core package
 You can use this standalone api client to access ChatGPT API.
