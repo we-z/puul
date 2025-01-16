@@ -39,7 +39,7 @@ struct HomeView: View {
                     Button {
                         showMenu = true
                     } label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
+                        Image(systemName: "folder")
                             .font(.system(size: 27))
                     }
                     .buttonStyle(HapticButtonStyle())
