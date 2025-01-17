@@ -99,6 +99,7 @@ struct ChatView: View {
             HStack {
                 // The folder button calls the closure to go back to ChatListView (tab 0)
                 Button {
+                    isTextFieldFocused = false
                     switchToChatListTab()
                 } label: {
                     Image(systemName: "folder")
@@ -249,6 +250,9 @@ struct ChatView: View {
                     Image(systemName: reloadButtonIcon)
                 }
             }
+        }
+        .onDisappear {
+            isTextFieldFocused = false
         }
         .onChange(of: chatSelection) { _ in
             Task {
