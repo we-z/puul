@@ -182,12 +182,6 @@ struct ChatView: View {
                         .onTapGesture {
                             isTextFieldFocused.toggle()
                         }
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onEnded { _ in
-                                    isTextFieldFocused.toggle()
-                                }
-                        )
                     } else {
                         ScrollView {
                             ForEach(aiChatModel.messages, id: \.id) { message in
