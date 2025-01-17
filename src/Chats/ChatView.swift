@@ -147,7 +147,7 @@ struct ChatView: View {
             }
             ScrollViewReader { scrollView in
                 VStack {
-                    List {
+                    ScrollView {
                         ForEach(aiChatModel.messages, id: \.id) { message in
                             MessageView(message: message, chatStyle: $chatStyle,status: nil ).id(message.id)
                                 .textSelection(.enabled)
@@ -155,10 +155,10 @@ struct ChatView: View {
                         .listRowSeparator(.hidden)
                         Text("").id("latest")
                     }
+                    .listRowSeparator(.hidden)
                     .textSelection(.enabled)
                     .listStyle(PlainListStyle())
-//                    .overlay(scrollDownOverlay, alignment: .bottomTrailing)
-//                    .overlay(debugOverlay, alignment: .bottomLeading)
+
                 }
                 .textSelection(.enabled)
                 .onChange(of: aiChatModel.AI_typing){ ai_typing in

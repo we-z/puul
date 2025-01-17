@@ -176,7 +176,7 @@ public struct LLMTextInput: View {
 #if !os(macOS)
                 .scaleEffect(0.8)
 #endif
-                .offset(x: 5)
+//                .offset(x: 5)
 //                    .toggleStyle(SymbolToggleStyle(systemImage: "o.circle.fill", activeColor: .purple))
             
         }
