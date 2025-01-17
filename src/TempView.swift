@@ -58,7 +58,7 @@ struct TempView: View {
             .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        
+        .accentColor(.primary)
     }
 }
 
