@@ -52,74 +52,72 @@ struct ChatListView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            HStack {
-                Text("Chats")
-                    .font(.title3)
-                    .bold()
-                Spacer()
-                // Right arrow button in top right corner of ChatListView
-                // to switch to ChatView tab.
-                Button {
-                    // Switch tab to ChatView
-                    withAnimation {
-                        tabSelection = 1
-                    }
-                } label: {
-                    Image(systemName: "chevron.right.2")
-                        .font(.system(size: 24))
-                }
-                .buttonStyle(HapticButtonStyle())
-            }
-            .padding(.horizontal)
-            
+        VStack(alignment: .leading) {
             VStack {
-                List(selection: $chat_selection) {
-                    ForEach(chats_previews, id: \.self) { chat_preview in
-                        // Instead of NavigationLink, just a row.
-                        // When tapped, we set the selection and go to tab 1.
-                        ChatItem(
-                            chatImage: String(describing: chat_preview["icon"]!),
-                            chatTitle: String(describing: chat_preview["title"]!),
-                            message: String(describing: chat_preview["message"]!),
-                            time: String(describing: chat_preview["time"]!),
-                            model: String(describing: chat_preview["model"]!),
-                            chat: String(describing: chat_preview["chat"]!),
-                            model_size: String(describing: chat_preview["model_size"]!),
-                            model_name: $model_name,
-                            title: $title,
-                            close_chat: close_chat
-                        )
-                        .onTapGesture {
-                            // Update the binding with tapped item
-                            chat_selection = chat_preview
-                            // Animate to ChatView tab
-                            withAnimation {
-                                tabSelection = 1
+                NavigationView {
+                    List(selection: $chat_selection) {
+                        ForEach(chats_previews, id: \.self) { chat_preview in
+                            // Instead of NavigationLink, just a row.
+                            // When tapped, we set the selection and go to tab 1.
+                            ChatItem(
+                                chatImage: String(describing: chat_preview["icon"]!),
+                                chatTitle: String(describing: chat_preview["title"]!),
+                                message: String(describing: chat_preview["message"]!),
+                                time: String(describing: chat_preview["time"]!),
+                                model: String(describing: chat_preview["model"]!),
+                                chat: String(describing: chat_preview["chat"]!),
+                                model_size: String(describing: chat_preview["model_size"]!),
+                                model_name: $model_name,
+                                title: $title,
+                                close_chat: close_chat
+                            )
+                            .onTapGesture {
+                                // Update the binding with tapped item
+                                chat_selection = chat_preview
+                                // Animate to ChatView tab
+                                withAnimation {
+                                    tabSelection = 1
+                                }
+                            }
+                            .listRowInsets(.init())
+                            .contextMenu {
+                                Button(action: {
+                                    Duplicate(at: chat_preview)
+                                }) {
+                                    Text("Duplicate chat")
+                                }
+                                Button(action: {
+                                    Delete(at: chat_preview)
+                                }) {
+                                    Text("Remove chat")
+                                }
                             }
                         }
-                        .listRowInsets(.init())
-                        .contextMenu {
-                            Button(action: {
-                                Duplicate(at: chat_preview)
-                            }) {
-                                Text("Duplicate chat")
+                        //                    .onDelete(perform: Delete)
+                    }
+                    .searchable(text: $searchText, prompt: "Search")
+                    .navigationTitle("Sessions")
+                    .listStyle(InsetListStyle())
+                    .toolbar {
+                        ToolbarItemGroup(placement: .topBarLeading) {
+                            Button {
+                            } label: {
+                                Image(systemName: "gear")
                             }
-                            Button(action: {
-                                Delete(at: chat_preview)
-                            }) {
-                                Text("Remove chat")
+                            .buttonStyle(HapticButtonStyle())
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                withAnimation {
+                                    tabSelection = 1
+                                }
+                            } label: {
+                                Image(systemName: "chevron.right.2")
                             }
+                            .buttonStyle(HapticButtonStyle())
                         }
                     }
-//                    .onDelete(perform: Delete)
                 }
-#if os(macOS)
-                .listStyle(.sidebar)
-#else
-                .listStyle(InsetListStyle())
-#endif
-                .frame(maxHeight: .infinity)
             }
             .background(.opacity(0))
             
