@@ -11,98 +11,63 @@ struct ChatView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
     @EnvironmentObject var orientationInfo: OrientationInfo
     
-// #if os(iOS)
     @State var placeholderString: String = "Message"
     @State private var inputText: String = "Message"
-// #else
-//     @State var placeholderString: String = ""
-//     @State private var inputText: String = ""
-// #endif
     
     @Binding var modelName: String
     @Binding var chatSelection: Dictionary<String, String>?
     @Binding var title: String
     var CloseChat: () -> Void
     @Binding var AfterChatEdit: () -> Void
-    @Binding var addChatDialog:Bool
-    @Binding var editChatDialog:Bool
+    @Binding var addChatDialog: Bool
+    @Binding var editChatDialog: Bool
     @State var chatStyle: String = "None"
     @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
     @State private var clearChatButtonIcon: String = "eraser.line.dashed.fill"
     
     @State private var scrollProxy: ScrollViewProxy? = nil
-    
     @State private var scrollTarget: Int?
     @State private var toggleEditChat = false
     @State private var clearChatAlert = false
     
     @State private var autoScroll = true
     @State private var enableRAG = false
-
+    @State private var inputTextValue: String = ""
+    @State private var isAttachmentPopoverPresented: Bool = false
+    @State private var selectedImageData: Data? = nil
+    @State private var imgCachePath: String? = nil
+    
     @FocusState var focusedField: Field?
     
     @Namespace var bottomID
     
-//    func after_chat_edit_func(){
-//        aiChatModel.update_chat_params()
-//    }
-    
-    @FocusState
-    private var isInputFieldFocused: Bool
-    
-    func scrollToBottom(with_animation:Bool = false) {
-        var scroll_bug = true
-#if os(macOS)
-        scroll_bug = false
-#else
-        if #available(iOS 16.4, *){
-            scroll_bug = false
-        }
-#endif
-        if scroll_bug {
-            return
-        }
-        if !autoScroll {
-            return
-        }
-        let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
-        if last_msg != nil && last_msg?.id != nil && scrollProxy != nil{
-            if with_animation{
-                withAnimation {
-                    //                    scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
-                    scrollProxy?.scrollTo("latest")
-                }
-            }else{
-                //                scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
-                scrollProxy?.scrollTo("latest")
-            }
-        }
+    func scrollToBottom(withAnimation: Bool = false) {
+        if !autoScroll { return }
+        guard let lastMessage = aiChatModel.messages.last else { return }
         
+//        if withAnimation {
+//            withAnimation(.spring()) {
+//                scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+//            }
+//        } else {
+//            scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+//        }
     }
     
-    func reload() async{
-        if chatSelection == nil {
-            return
-        }
-        print(chatSelection)
-        print("\nreload\n")
-        aiChatModel.reload_chat(chatSelection!)
+    func reload() async {
+        guard let selection = chatSelection else { return }
+        aiChatModel.reload_chat(selection)
     }
     
-    func hard_reload_chat(){
-        self.aiChatModel.hard_reload_chat()
+    func hardReloadChat() {
+        aiChatModel.hard_reload_chat()
     }
     
     private var scrollDownOverlay: some View {
-        
         Button {
-            Task{
-                autoScroll = true
-                scrollToBottom()
-            }
-        }
-        
-        label: {
+            autoScroll = true
+            scrollToBottom()
+        } label: {
             Image(systemName: "arrow.down.circle")
                 .resizable()
                 .foregroundColor(.white)
@@ -113,143 +78,84 @@ struct ChatView: View {
         .buttonStyle(BorderlessButtonStyle())
     }
     
-    private var debugOverlay: some View {
-        Text(String(describing: aiChatModel.state))
-            .foregroundColor(.white)
-            .frame(width: 185, height: 25)
-//            .padding([.top, .leading], 5)
-            .opacity(0.4)
-    }
-    
-    
     var body: some View {
-        VStack{
-            VStack{
-                if aiChatModel.state == .loading ||
-                    aiChatModel.state == .ragIndexLoading ||
-                    aiChatModel.state == .ragSearch{
-                    VStack {
-                        HStack{
-                            Text(String(describing: aiChatModel.state))
-                                .foregroundColor(.accentColor)
-                                .frame(width: 200 /*,height: 25*/)
-                    //            .padding([.top, .leading], 5)
-                                .opacity(0.4)
-                                .offset(x: -75,y: 8)
-                                .frame(alignment: .leading)
-                                .font(.footnote)
-                            ProgressView(value: aiChatModel.load_progress)
-                                .padding(.leading,-195)
-                                .offset(x: 0,y: -4)
-                        }
-                    }
+        VStack {
+            VStack {
+                if aiChatModel.state == .loading || aiChatModel.state == .ragIndexLoading || aiChatModel.state == .ragSearch {
+                    ProgressView(value: aiChatModel.load_progress)
+                        .padding()
                 }
             }
             ScrollViewReader { scrollView in
                 VStack {
                     ScrollView {
                         ForEach(aiChatModel.messages, id: \.id) { message in
-                            MessageView(message: message, chatStyle: $chatStyle,status: nil ).id(message.id)
-                                .textSelection(.enabled)
+                            MessageView(message: message, chatStyle: $chatStyle, status: nil)
+                                .id(message.id)
+                                .padding()
                         }
-                        .listRowSeparator(.hidden)
                         Text("").id("latest")
                     }
-                    .listRowSeparator(.hidden)
-                    .textSelection(.enabled)
-                    .listStyle(PlainListStyle())
-
-                }
-                .textSelection(.enabled)
-                .onChange(of: aiChatModel.AI_typing){ ai_typing in
-                    scrollToBottom(with_animation: false)
-                }
-//                .disabled(chatSelection == nil)
-                .onAppear(){
-                    scrollProxy = scrollView
-//                    after_chat_edit = after_chat_edit_func
-                    scrollToBottom(with_animation: false)
+                    .onAppear {
+                        scrollProxy = scrollView
+                        scrollToBottom()
+                    }
                 }
             }
-            .textSelection(.enabled)
             .frame(maxHeight: .infinity)
-            .disabled(aiChatModel.state == .loading)
-            .onChange(of: chatSelection) { selection in
-                Task {
-                    if selection == nil{
-                        CloseChat()
-                    }
-                    else{
-                        print(selection)
-                        chatStyle = selection!["chat_style"] as String? ?? "none"
-                        await self.reload()
-                    }
-                }
-            }
-            .onTapGesture { location in
-                print("Tapped at \(location)")
-                focusedField = nil
-                autoScroll = false
-            }
-            .toolbar {
-                Button {
-                    Task {
-                        clearChatAlert = true
-                    }
-                } label: {
-                    Image(systemName: clearChatButtonIcon)
-                }
-                .alert("Are you sure?", isPresented: $clearChatAlert, actions: {
-                    Button("Cancel", role: .cancel, action: {})
-                    Button("Clear", role: .destructive, action: {
-                        aiChatModel.messages = []
-                        save_chat_history(aiChatModel.messages,aiChatModel.chat_name+".json")
-                        clearChatButtonIcon = "checkmark"
-                        hard_reload_chat()
-                        run_after_delay(delay:1200, function:{clearChatButtonIcon = "eraser.line.dashed.fill"})
-                    })
-                }, message: {
-                    Text("The message history will be cleared")
-                })
-                Button {
-                    Task {
-                        hard_reload_chat()
-                        reloadButtonIcon = "checkmark"
-                        run_after_delay(delay:1200, function:{reloadButtonIcon = "arrow.counterclockwise.circle"})
-//                        delayIconChange()
-                    }
-                } label: {
-                    Image(systemName: reloadButtonIcon)
-                }
-                .disabled(aiChatModel.predicting)
-                //                .font(.title2)
-                Button {
-                    Task {
-                                            //    add_chat_dialog = true
-                        toggleEditChat = true
-                        editChatDialog = true
-                        //                        chat_selection = nil
-                    }
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                }
-                //                .font(.title2)
-            }
-            .navigationTitle(aiChatModel.Title)
+            .onChange(of: aiChatModel.AI_typing) { _ in scrollToBottom() }
             
-            LLMTextInput(messagePlaceholder: placeholderString,
-                         show_attachment_btn:self.aiChatModel.is_mmodal,
-                         focusedField:$focusedField,
-                         auto_scroll:$autoScroll,
-                         enableRAG:$enableRAG).environmentObject(aiChatModel)
-            
+            HStack(alignment: .bottom) {
+                TextField(placeholderString, text: $inputTextValue, axis: .vertical)
+                    .onSubmit { sendMessage() }
+                    .textFieldStyle(.plain)
+                    .padding(9)
+                    .background(Color.primary.opacity(0.1))
+                    .cornerRadius(24)
+                    .focused($focusedField, equals: .msg)
+                    .lineLimit(1...5)
+                
+                Button(action: { sendMessage() }) {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .font(.system(size: 33))
+                }
+                .buttonStyle(HapticButtonStyle())
+                .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
+            }
+            .padding()
         }
-        .textSelection(.enabled)
+        .toolbar {
+            Button(action: { clearChatAlert = true }) {
+                Image(systemName: clearChatButtonIcon)
+            }
+            .alert("Are you sure?", isPresented: $clearChatAlert) {
+                Button("Cancel", role: .cancel, action: {})
+                Button("Clear", role: .destructive, action: {
+                    aiChatModel.messages = []
+                    hardReloadChat()
+                })
+            }
+            
+            Button(action: { hardReloadChat() }) {
+                Image(systemName: reloadButtonIcon)
+            }
+        }
+    }
+    
+    private func sendMessage() {
+        Task {
+            if aiChatModel.predicting {
+                aiChatModel.stop_predict()
+            } else {
+                await aiChatModel.send(message: inputTextValue, attachment: imgCachePath, attachment_type: imgCachePath != nil ? "img" : nil, useRag: enableRAG)
+                inputTextValue = ""
+                imgCachePath = nil
+            }
+        }
     }
 }
 
 struct ChatView_Previews: PreviewProvider {
-    
     static var previews: some View {
         ChatView(
             modelName: .constant(""),
@@ -257,9 +163,9 @@ struct ChatView_Previews: PreviewProvider {
             title: .constant("Title"),
             CloseChat: {},
             AfterChatEdit: .constant({}),
-            addChatDialog:.constant(false),
-            editChatDialog:.constant(false)
-            )
+            addChatDialog: .constant(false),
+            editChatDialog: .constant(false)
+        )
         .environmentObject(AIChatModel())
     }
 }

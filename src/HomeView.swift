@@ -105,9 +105,6 @@ struct HomeView: View {
                                 isTextFieldFocused.toggle()
                             }
                     )
-//                    .onAppear {
-//                        isTextFieldFocused = true
-//                    }
                 }
                 bottomView(image: "person", proxy: proxy)
                     .gesture(
