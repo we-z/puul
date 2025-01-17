@@ -244,26 +244,24 @@ struct ChatView: View {
                          focusedField:$focusedField,
                          auto_scroll:$autoScroll,
                          enableRAG:$enableRAG).environmentObject(aiChatModel)
-//                .disabled(self.aiChatModel.chat_name == "")
-//            .focused($focusedField, equals: .firstName)
             
         }
-//        .sheet(isPresented: $toggleEditChat) {
-//            ChatSettingsView(add_chat_dialog: $toggleEditChat,
-//                        edit_chat_dialog: $editChatDialog,
-//                        chat_name: aiChatModel.chat_name,
-//                        after_chat_edit: $AfterChatEdit,
-//                        toggleSettings: .constant(false)).environmentObject(aiChatModel)
-//#if os(macOS)
-//                .frame(minWidth: 400,minHeight: 600)
-//#endif
-//        }
         .textSelection(.enabled)
     }
 }
 
-//struct ChatView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChatView(chat_selected: .constant(true),model_name: .constant(""),chat_name:.constant(""),title: .constant("Title"),close_chat: {},add_chat_dialog:.constant(false),edit_chat_dialog:.constant(false))
-//    }
-//}
+struct ChatView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        ChatView(
+            modelName: .constant(""),
+            chatSelection: .constant([:]),
+            title: .constant("Title"),
+            CloseChat: {},
+            AfterChatEdit: .constant({}),
+            addChatDialog:.constant(false),
+            editChatDialog:.constant(false)
+            )
+        .environmentObject(AIChatModel())
+    }
+}

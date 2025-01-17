@@ -167,7 +167,7 @@ struct HomeView: View {
     }
 }
 
-struct ChatView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
