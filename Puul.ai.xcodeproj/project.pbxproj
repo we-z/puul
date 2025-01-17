@@ -29,7 +29,6 @@
 		767EBC0E2D349EE1003FCB43 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBBFE2D349EE1003FCB43 /* MessageView.swift */; };
 		767EBC0F2D349EE1003FCB43 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBBFA2D349EE1003FCB43 /* DownloadManager.swift */; };
 		767EBC122D349FA8003FCB43 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBC112D349FA8003FCB43 /* MarkdownUI */; };
-		767EBC172D34A0C5003FCB43 /* LLMTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC142D34A0C5003FCB43 /* LLMTextInput.swift */; };
 		767EBC182D34A0C5003FCB43 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC152D34A0C5003FCB43 /* Tabs.swift */; };
 		767EBC192D34A0C5003FCB43 /* ThreeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC132D34A0C5003FCB43 /* ThreeDots.swift */; };
 		76E015DD2D35A0B3002C57B0 /* RAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E015DB2D35A0B3002C57B0 /* RAG.swift */; };
@@ -67,7 +66,6 @@
 		767EBC012D349EE1003FCB43 /* ChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItem.swift; sourceTree = "<group>"; };
 		767EBC022D349EE1003FCB43 /* MessageImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImage.swift; sourceTree = "<group>"; };
 		767EBC132D34A0C5003FCB43 /* ThreeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDots.swift; sourceTree = "<group>"; };
-		767EBC142D34A0C5003FCB43 /* LLMTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMTextInput.swift; sourceTree = "<group>"; };
 		767EBC152D34A0C5003FCB43 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		76E015DB2D35A0B3002C57B0 /* RAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAG.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				767EBC132D34A0C5003FCB43 /* ThreeDots.swift */,
-				767EBC142D34A0C5003FCB43 /* LLMTextInput.swift */,
 				767EBC152D34A0C5003FCB43 /* Tabs.swift */,
 			);
 			path = UIComponents;
@@ -301,7 +298,6 @@
 				7A4B73FA2A2A84900064800C /* AppInfoView.swift in Sources */,
 				767453072D2DC15D0026C123 /* ContentView.swift in Sources */,
 				7A4B73FF2A2ADBC50064800C /* AppModel.swift in Sources */,
-				767EBC172D34A0C5003FCB43 /* LLMTextInput.swift in Sources */,
 				767EBC182D34A0C5003FCB43 /* Tabs.swift in Sources */,
 				767EBC192D34A0C5003FCB43 /* ThreeDots.swift in Sources */,
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,

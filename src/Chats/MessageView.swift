@@ -138,7 +138,7 @@ struct MessageView: View {
                                    sender: message.sender)
                     .padding(12.0)
                     .background(Color.secondary.opacity(0.2))
-                    .cornerRadius(12.0)
+                    .cornerRadius(24)
             }
 
             if message.sender == .system {
