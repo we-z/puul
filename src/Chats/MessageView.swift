@@ -61,12 +61,12 @@ struct MessageView: View {
 
             case .typed:
                 VStack(alignment: .leading) {
-                    if message.header != ""{
-                        Text(message.header)
-                            .font(.footnote)
-                            .foregroundColor(Color.gray)
-                            .textSelection(.enabled)
-                    }
+//                    if message.header != ""{
+//                        Text(message.header)
+//                            .font(.footnote)
+//                            .foregroundColor(Color.gray)
+//                            .textSelection(.enabled)
+//                    }
                     MessageImage(message: message)
                     if sender == .user_rag{
                         VStack{
