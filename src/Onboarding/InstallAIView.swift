@@ -1,4 +1,15 @@
+//
+//  InstallAIView.swift
+//  YourApp
+//
+//  NOTE: This file demonstrates how to automatically load the model
+//        immediately after writing the downloaded file. This forces
+//        the llama_load_model_from_file logs to appear as soon as
+//        the download/copy completes.
+//
+
 import SwiftUI
+import llmfarm_core
 
 struct InstallAIView: View {
     @State private var done: Bool = false
@@ -34,8 +45,10 @@ struct InstallAIView: View {
             // Handle any network or server errors
             if let error = error {
                 print("Download error: \(error.localizedDescription)")
-                withAnimation(.easeInOut) {
-                    self.status = ""
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut) {
+                        self.status = ""
+                    }
                 }
                 return
             }
@@ -46,8 +59,10 @@ struct InstallAIView: View {
                 (200...299).contains(response.statusCode)
             else {
                 print("Server error!")
-                withAnimation(.easeInOut) {
-                    self.status = ""
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut) {
+                        self.status = ""
+                    }
                 }
                 return
             }
@@ -55,22 +70,55 @@ struct InstallAIView: View {
             // Attempt to move/copy from the temp location to your destination
             guard let temporaryURL = temporaryURL else {
                 print("No valid temporary URL!")
-                withAnimation(.easeInOut) {
-                    self.status = ""
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut) {
+                        self.status = ""
+                    }
                 }
                 return
             }
             
             do {
                 // Move or copy the file to your destination
-                // Moving is often preferred, but either works:
                 try FileManager.default.copyItem(at: temporaryURL, to: fileURL)
                 
                 print("Writing to \(self.filename) completed.")
+                
+                // ---------------------------------------------------------------
+                // ADDED: Immediately load the model in the background so that
+                //        the same llama_load_model_from_file logs appear now.
+                // ---------------------------------------------------------------
                 DispatchQueue.main.async {
+                    // After hooking everything up, set the status to "downloaded"
+                    // so that UI can proceed.
                     withAnimation(.easeInOut) {
                         self.status = "downloaded"
                     }
+                    
+                    // Create an ephemeral AI object:
+                    let ephemeralAI = AI(_modelPath: fileURL.path,
+                                         _chatName: "AutoLoadBackgroundChat")
+                    
+                    // We tell the ephemeral AI to use LLaMa_gguf or whichever
+                    // is appropriate for your model. (You can pass a custom
+                    // ModelAndContextParams if needed.)
+                    ephemeralAI.initModel(.LLama_gguf)
+                    
+                    // Hook progress callback to see progress in the logs:
+                    ephemeralAI.model?.modelLoadProgressCallback = { progress in
+                        print("Auto-load progress: \(progress)")
+                        return true
+                    }
+                    
+                    // Hook completion callback to see final logs:
+                    ephemeralAI.model?.modelLoadCompleteCallback = { loadResult in
+                        print("Auto-load complete: \(loadResult)")
+                    }
+                    
+                    // Actually load the model now:
+                    ephemeralAI.loadModel()
+                    
+                    
                 }
             } catch {
                 print("Problem writing to \(self.filename)")

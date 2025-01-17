@@ -125,9 +125,6 @@ struct HomeView: View {
                        .presentationDetents([.height(600)])
                        .buttonStyle(HapticButtonStyle())
                })
-        .sheet(isPresented: $showMenu) {
-            Text("Menu")
-        }
     }
 
     func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
