@@ -250,6 +250,11 @@ struct ChatView: View {
                 }
             }
         }
+        .onChange(of: chatSelection) { _ in
+            Task {
+                await reload()
+            }
+        }
     }
     
     private func sendMessage() {
