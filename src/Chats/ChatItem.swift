@@ -28,25 +28,14 @@ struct ChatItem: View {
             VStack(alignment: .leading, spacing: 5){
                 HStack{
                     Text(chatTitle)
+                        .font(.title3)
                         .fontWeight(.semibold)
-                    //                            .font(.title3)
-                        .padding(.top, 3)
+                        .padding()
                         .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                        .lineLimit(1)
                     Spacer()
-                    //                        Text(time)
-                    //                            .foregroundColor(Color("color_primary"))
-                    //                            .padding(.top, 3)
                 }
-                
-                
-                Text(message + " " + model_size+"G")
-                    .font(.footnote)
-                    .opacity(0.6)
-                    .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                
             }
         }
-//        .border(Color.black)
-        
     }
 }
