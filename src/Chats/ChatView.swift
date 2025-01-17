@@ -92,6 +92,26 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Button {
+                } label: {
+                    Image(systemName: "folder")
+                        .font(.system(size: 24))
+                }
+                .buttonStyle(HapticButtonStyle())
+                Spacer()
+                Text("Puul")
+                    .font(.system(size: 24))
+                    .bold()
+                Spacer()
+                Button {
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .font(.system(size: 24))
+                }
+                .buttonStyle(HapticButtonStyle())
+            }
+            .padding()
             VStack {
                 if aiChatModel.state == .loading || aiChatModel.state == .ragIndexLoading || aiChatModel.state == .ragSearch {
                     ProgressView(value: aiChatModel.load_progress)
