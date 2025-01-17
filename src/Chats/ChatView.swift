@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct ChatView: View {
-    
     @EnvironmentObject var aiChatModel: AIChatModel
     @EnvironmentObject var orientationInfo: OrientationInfo
     
@@ -21,6 +20,7 @@ struct ChatView: View {
     @Binding var AfterChatEdit: () -> Void
     @Binding var addChatDialog: Bool
     @Binding var editChatDialog: Bool
+    
     @State var chatStyle: String = "None"
     @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
     @State private var clearChatButtonIcon: String = "eraser.line.dashed.fill"
@@ -53,17 +53,20 @@ struct ChatView: View {
         "How much should I be\nsaving each month?"
     ]
     
+    /// Closure that sets the tabSelection to 0 (ChatListView) with animation.
+    var switchToChatListTab: () -> Void
+    
     func scrollToBottom(withAnimation: Bool = false) {
-        if !autoScroll { return }
-        guard let lastMessage = aiChatModel.messages.last else { return }
-        
-//        if withAnimation {
-//            withAnimation(.spring()) {
-//                scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
-//            }
-//        } else {
-//            scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
-//        }
+        guard autoScroll else { return }
+        guard let _ = aiChatModel.messages.last else { return }
+        // Example if using scrollProxy:
+        // if withAnimation {
+        //    withAnimation(.spring()) {
+        //        scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+        //    }
+        // } else {
+        //    scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+        // }
     }
     
     func reload() async {
@@ -92,19 +95,27 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
+            // Top Bar
             HStack {
+                // The folder button calls the closure to go back to ChatListView (tab 0)
                 Button {
+                    switchToChatListTab()
                 } label: {
                     Image(systemName: "folder")
                         .font(.system(size: 24))
                 }
                 .buttonStyle(HapticButtonStyle())
+                
                 Spacer()
+                
                 Text("Puul")
                     .font(.system(size: 24))
                     .bold()
+                
                 Spacer()
+                
                 Button {
+                    // Some action for square.and.pencil
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .font(.system(size: 24))
@@ -112,15 +123,21 @@ struct ChatView: View {
                 .buttonStyle(HapticButtonStyle())
             }
             .padding()
+            
+            // If AI is loading or performing tasks, show progress
             VStack {
-                if aiChatModel.state == .loading || aiChatModel.state == .ragIndexLoading || aiChatModel.state == .ragSearch {
+                if aiChatModel.state == .loading ||
+                    aiChatModel.state == .ragIndexLoading ||
+                    aiChatModel.state == .ragSearch {
                     ProgressView(value: aiChatModel.load_progress)
                         .padding()
                 }
             }
+            
             ScrollViewReader { scrollView in
                 VStack {
                     if aiChatModel.messages.isEmpty {
+                        // Prompt area for new user
                         VStack {
                             Spacer()
                             HStack {
@@ -158,6 +175,7 @@ struct ChatView: View {
                             }
                             .scrollIndicators(.hidden)
                             .padding(.bottom)
+                            
                         }
                         .background(.primary.opacity(0.001))
                         .onTapGesture {
@@ -170,7 +188,6 @@ struct ChatView: View {
                                 }
                         )
                     } else {
-                        
                         ScrollView {
                             ForEach(aiChatModel.messages, id: \.id) { message in
                                 MessageView(message: message, chatStyle: $chatStyle, status: nil)
@@ -190,8 +207,11 @@ struct ChatView: View {
                 }
             }
             .frame(maxHeight: .infinity)
-            .onChange(of: aiChatModel.AI_typing) { _ in scrollToBottom() }
+            .onChange(of: aiChatModel.AI_typing) { _ in
+                scrollToBottom()
+            }
             
+            // Input bar
             HStack(alignment: .bottom) {
                 TextField(placeholderString, text: $inputTextValue, axis: .vertical)
                     .onSubmit { sendMessage() }
@@ -212,19 +232,22 @@ struct ChatView: View {
             .padding([.horizontal, .bottom])
         }
         .toolbar {
-            Button(action: { clearChatAlert = true }) {
-                Image(systemName: clearChatButtonIcon)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { clearChatAlert = true }) {
+                    Image(systemName: clearChatButtonIcon)
+                }
+                .alert("Are you sure?", isPresented: $clearChatAlert) {
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Clear", role: .destructive, action: {
+                        aiChatModel.messages = []
+                        hardReloadChat()
+                    })
+                }
             }
-            .alert("Are you sure?", isPresented: $clearChatAlert) {
-                Button("Cancel", role: .cancel, action: {})
-                Button("Clear", role: .destructive, action: {
-                    aiChatModel.messages = []
-                    hardReloadChat()
-                })
-            }
-            
-            Button(action: { hardReloadChat() }) {
-                Image(systemName: reloadButtonIcon)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { hardReloadChat() }) {
+                    Image(systemName: reloadButtonIcon)
+                }
             }
         }
     }
@@ -234,7 +257,12 @@ struct ChatView: View {
             if aiChatModel.predicting {
                 aiChatModel.stop_predict()
             } else {
-                await aiChatModel.send(message: inputTextValue, attachment: imgCachePath, attachment_type: imgCachePath != nil ? "img" : nil, useRag: enableRAG)
+                await aiChatModel.send(
+                    message: inputTextValue,
+                    attachment: imgCachePath,
+                    attachment_type: (imgCachePath != nil ? "img" : nil),
+                    useRag: enableRAG
+                )
                 inputTextValue = ""
                 imgCachePath = nil
             }
@@ -251,7 +279,8 @@ struct ChatView_Previews: PreviewProvider {
             CloseChat: {},
             AfterChatEdit: .constant({}),
             addChatDialog: .constant(false),
-            editChatDialog: .constant(false)
+            editChatDialog: .constant(false),
+            switchToChatListTab: {}
         )
         .environmentObject(AIChatModel())
     }
