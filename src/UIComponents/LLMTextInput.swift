@@ -101,7 +101,8 @@ public struct LLMTextInput: View {
                     sendMessageButtonPressed(img_path:imgCahcePath)
                 }
                 .textFieldStyle(.plain)
-                .padding(12)
+                .padding(9)
+                .padding(.horizontal,6)
                 .background(Color.primary.opacity(0.1))
                 .cornerRadius(24)
                 .focused(focusedField, equals: .msg)
@@ -112,7 +113,7 @@ public struct LLMTextInput: View {
                 },
                 label: {
                     Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 39))
+                        .font(.system(size: 33))
                 }
             )
             .buttonStyle(HapticButtonStyle())

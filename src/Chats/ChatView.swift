@@ -12,8 +12,8 @@ struct ChatView: View {
     @EnvironmentObject var orientationInfo: OrientationInfo
     
 // #if os(iOS)
-    @State var placeholderString: String = "Type your message..."
-    @State private var inputText: String = "Type your message..."
+    @State var placeholderString: String = "Message"
+    @State private var inputText: String = "Message"
 // #else
 //     @State var placeholderString: String = ""
 //     @State private var inputText: String = ""
@@ -157,15 +157,13 @@ struct ChatView: View {
                     }
                     .textSelection(.enabled)
                     .listStyle(PlainListStyle())
-                    .overlay(scrollDownOverlay, alignment: .bottomTrailing)
+//                    .overlay(scrollDownOverlay, alignment: .bottomTrailing)
 //                    .overlay(debugOverlay, alignment: .bottomLeading)
                 }
                 .textSelection(.enabled)
                 .onChange(of: aiChatModel.AI_typing){ ai_typing in
                     scrollToBottom(with_animation: false)
                 }
-                
-                
 //                .disabled(chatSelection == nil)
                 .onAppear(){
                     scrollProxy = scrollView
