@@ -25,12 +25,6 @@ struct ChatItem: View {
     
     var body: some View {
         HStack{
-            Image(chatImage+"_85")
-                .resizable()
-                .background( Color("color_bg_inverted").opacity(0.05))
-                .padding(EdgeInsets(top: 7, leading: 5, bottom: 7, trailing: 5))
-                .frame(width: 85, height: 85)
-                .clipShape(Circle())
             VStack(alignment: .leading, spacing: 5){
                 HStack{
                     Text(chatTitle)
@@ -46,14 +40,13 @@ struct ChatItem: View {
                 
                 
                 Text(message + " " + model_size+"G")
-                    .foregroundColor(Color("color_bg_inverted").opacity(0.5))
                     .font(.footnote)
                     .opacity(0.6)
                     .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
                 
             }
         }
-//        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+//        .border(Color.black)
         
     }
 }
