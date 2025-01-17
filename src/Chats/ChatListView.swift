@@ -111,7 +111,7 @@ struct ChatListView: View {
                             }
                         }
                     }
-                    .onDelete(perform: Delete)
+//                    .onDelete(perform: Delete)
                 }
 #if os(macOS)
                 .listStyle(.sidebar)
