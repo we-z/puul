@@ -101,10 +101,7 @@ public struct LLMTextInput: View {
                     sendMessageButtonPressed(img_path:imgCahcePath)
                 }
                 .textFieldStyle(.plain)
-                .padding(.vertical, 6)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
+                .padding(12)
                 .background(Color.primary.opacity(0.1))
                 .cornerRadius(24)
                 .focused(focusedField, equals: .msg)
