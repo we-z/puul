@@ -66,9 +66,10 @@ struct ChatListView: View {
                         tabSelection = 1
                     }
                 } label: {
-                    Image(systemName: "arrow.right.circle")
+                    Image(systemName: "chevron.right.2")
+                        .font(.system(size: 24))
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(HapticButtonStyle())
             }
             .padding(.horizontal)
             
