@@ -179,3 +179,18 @@ struct ChatListView: View {
         }
     }
 }
+
+struct ChatListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatListView(tabSelection: .constant(1),
+                     model_name: .constant(""),
+                     title: .constant(""),
+                     add_chat_dialog: .constant(false),
+                     close_chat: {},
+                     edit_chat_dialog: .constant(false),
+                     chat_selection: .constant([:]),
+                     after_chat_edit: .constant({})
+        )
+        .environmentObject(AIChatModel())
+    }
+}
