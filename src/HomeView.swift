@@ -128,25 +128,27 @@ struct HomeView: View {
     }
 
     func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
-        HStack(alignment: .bottom, spacing: 8) {
-            TextField("Message", text: $message, axis: .vertical)
-                .textFieldStyle(.plain)
-                .focused($isTextFieldFocused)
-                .padding(.vertical, 6)
-
+        HStack(alignment: .bottom, spacing: 8){
+            HStack(alignment: .bottom, spacing: 8) {
+                TextField("Message", text: $message, axis: .vertical)
+                    .textFieldStyle(.plain)
+                    .focused($isTextFieldFocused)
+                    .padding(.vertical, 6)
+                
+            }
+            .padding(.vertical, 6)
+            .padding(.trailing, 9)
+            .padding(.leading)
+            .background(Color.primary.opacity(0.1))
+            .cornerRadius(24)
             Button {
                 sendMessage()
             } label: {
                 Image(systemName: "arrow.up.circle.fill")
-                    .font(.system(size: 30))
+                    .font(.system(size: 36))
             }
             .buttonStyle(HapticButtonStyle())
         }
-        .padding(.vertical, 6)
-        .padding(.trailing, 9)
-        .padding(.leading)
-        .background(Color.primary.opacity(0.1))
-        .cornerRadius(24)
         .padding()
     }
 

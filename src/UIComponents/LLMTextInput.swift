@@ -96,90 +96,33 @@ public struct LLMTextInput: View {
     
     public var body: some View {
         HStack(alignment: .bottom) {
-//            if self.showAttachmentBtn{
-                if imgCahcePath != nil && platformImage != nil{
-                    HStack{
-#if os(macOS)
-                        Image(nsImage:platformImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 30,maxHeight: 40)
-#else
-                        Image(uiImage:platformImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 30,maxHeight: 40)
-                        //                            .clipShape(Circle())
-#endif
-                        // image!
-                    }
-                    .cornerRadius(5) /// make the background rounded
-                    .overlay( /// apply a rounded border
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray, lineWidth: 1)
-                    )
-                }
-                Group {
-                    attachButton
-                }
-                .frame(minWidth: 33)
-                .padding(.leading, -22)
-                .zIndex(1)
-//            }
-            
             TextField(messagePlaceholder, text: $input_text, axis: .vertical )
                 .onSubmit {
                     sendMessageButtonPressed(img_path:imgCahcePath)
                 }
                 .textFieldStyle(.plain)
+                .padding(.vertical, 6)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-#if os(macOS)
-                        .stroke(Color(NSColor.systemGray), lineWidth: 0.2)
-#else
-                        .stroke(Color(UIColor.systemGray2), lineWidth: 0.2)
-#endif
-                        .background {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(.white.opacity(0.1))
-                        }
-                        .padding(.trailing, -42)
-                        .padding(.leading,-22)
-//                        .padding(.leading, self.showAttachmentBtn ? 5: 0)
-                    
-                }
+                .padding(.vertical, 6)
+                .background(Color.primary.opacity(0.1))
+                .cornerRadius(24)
                 .focused(focusedField, equals: .msg)
                 .lineLimit(1...5)
-            Group {
-                sendButton
-                    .disabled(disable_send())
-            }
-            .frame(minWidth: 33)
-            
+            Button(
+                action: {
+                    sendMessageButtonPressed(img_path:imgCahcePath)
+                },
+                label: {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .font(.system(size: 39))
+                }
+            )
+            .buttonStyle(HapticButtonStyle())
+            .disabled(disable_send())
         }
-        .padding(.horizontal, 16)
-#if os(macOS)
-        .padding(.top, 2)
-#else
-        .padding(.top, 6)
-#endif
-        .padding(.bottom, 10)
-        .background(.thinMaterial)
-        .background {
-            GeometryReader { proxy in
-                Color.clear
-                    .onAppear {
-                        messageViewHeight = proxy.size.height
-                    }
-                    .onChange(of: input_text) { msg in
-                        messageViewHeight = proxy.size.height
-                    }
-            }
-        }
-        .messageInputViewHeight(messageViewHeight)
+        .padding()
+        .accentColor(.primary)
     }
     
     private func disable_send() -> Bool{
@@ -256,27 +199,6 @@ public struct LLMTextInput: View {
         }
     }
     
-    private var sendButton: some View {
-
-        Button(
-            action: {
-                sendMessageButtonPressed(img_path:imgCahcePath)
-            },
-            label: {
-                Image(systemName: aiChatModel.action_button_icon)
-                //                    .accessibilityLabel(String(localized: "SEND_MESSAGE", bundle: .module))
-                    .font(.title2)
-#if os(macOS)
-                    .foregroundColor(disable_send() ? Color(.systemGray) : .accentColor)
-#else
-                    .foregroundColor(disable_send() ? Color(.systemGray5) : .accentColor)
-#endif
-            }
-        )
-        .buttonStyle(.borderless)
-        .offset(x: -5, y: -7)
-    }
-    
     private var attachButton: some View {
         Button(action: {
             self.isAttachmentPopoverPresented = true
@@ -335,10 +257,6 @@ public struct LLMTextInput: View {
                 await aiChatModel.send(message: input_text,attachment: img_path,
                                        attachment_type:img_path == nil ? nil: "img", useRag: enableRAG)
                 input_text = ""
-//                Task {
-//                    await aiChatModel.send(message: input_text,img_path: img_path, useRag: enableRAG)
-//                    input_text = ""
-//                }
             }
         }
         
