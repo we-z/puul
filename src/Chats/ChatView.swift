@@ -158,6 +158,9 @@ struct ChatView: View {
                             }
                             Text("").id("latest")
                         }
+                        .onTapGesture {
+                            isTextFieldFocused = false
+                        }
                         .onAppear {
                             scrollProxy = scrollView
                             scrollToBottom()
