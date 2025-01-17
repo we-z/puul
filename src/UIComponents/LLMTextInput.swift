@@ -382,7 +382,15 @@ struct SymbolToggleStyle: ToggleStyle {
 }
 
 #endif
-//
-//#Preview {
-//    LLMTextInput()
-//}
+
+#Preview {
+    @FocusState var focusedField: Field?
+    
+    return LLMTextInput(
+        show_attachment_btn: false,
+        focusedField: $focusedField,
+        auto_scroll: .constant(false),
+        enableRAG: .constant(false)
+    )
+    .environmentObject(AIChatModel())
+}
