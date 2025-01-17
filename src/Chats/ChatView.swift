@@ -157,6 +157,7 @@ struct ChatView: View {
                                 .padding(.horizontal)
                             }
                             .scrollIndicators(.hidden)
+                            .padding(.bottom)
                         }
                         .background(.primary.opacity(0.001))
                         .onTapGesture {
@@ -208,7 +209,7 @@ struct ChatView: View {
                 .buttonStyle(HapticButtonStyle())
                 .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
             }
-            .padding()
+            .padding([.horizontal, .bottom])
         }
         .toolbar {
             Button(action: { clearChatAlert = true }) {
