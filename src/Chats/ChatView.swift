@@ -37,9 +37,21 @@ struct ChatView: View {
     @State private var selectedImageData: Data? = nil
     @State private var imgCachePath: String? = nil
     
-    @FocusState var focusedField: Field?
+    @FocusState var isTextFieldFocused: Bool
     
     @Namespace var bottomID
+    
+    let financialQuestions = [
+        "How can I improve\nmy credit score?",
+        "Should I refinance\nmy mortgage?",
+        "How much should I\nsave for retirement?",
+        "What should I do\nto reduce my debt?",
+        "Is my investment\nportfolio balanced?",
+        "How much should I save\nfor my child's education?",
+        "Am I on track to\nmeet my financial goals?",
+        "What are the best\ntax-saving strategies for me?",
+        "How much should I be\nsaving each month?"
+    ]
     
     func scrollToBottom(withAnimation: Bool = false) {
         if !autoScroll { return }
@@ -88,17 +100,68 @@ struct ChatView: View {
             }
             ScrollViewReader { scrollView in
                 VStack {
-                    ScrollView {
-                        ForEach(aiChatModel.messages, id: \.id) { message in
-                            MessageView(message: message, chatStyle: $chatStyle, status: nil)
-                                .id(message.id)
-                                .padding()
+                    if aiChatModel.messages.isEmpty {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Text("Ask your AI financial advisor any question")
+                                Spacer()
+                                VStack {
+                                    Spacer()
+                                        .frame(maxHeight: 120)
+                                    Image(systemName: "arrow.turn.right.down")
+                                }
+                            }
+                            .padding(.vertical)
+                            .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                            .padding(.horizontal, 35)
+                            
+                            ScrollView(.horizontal) {
+                                HStack(spacing: 10) {
+                                    ForEach(financialQuestions, id: \.self) { question in
+                                        Button {
+                                            inputTextValue = question.replacingOccurrences(of: "\n", with: " ")
+                                            sendMessage()
+                                        } label: {
+                                            Text(question)
+                                                .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                                                .multilineTextAlignment(.leading)
+                                                .padding()
+                                                .background(Color.primary.opacity(0.1))
+                                                .cornerRadius(20)
+                                                .padding(.vertical, 5)
+                                        }
+                                        .buttonStyle(HapticButtonStyle())
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            .scrollIndicators(.hidden)
                         }
-                        Text("").id("latest")
-                    }
-                    .onAppear {
-                        scrollProxy = scrollView
-                        scrollToBottom()
+                        .background(.primary.opacity(0.001))
+                        .onTapGesture {
+                            isTextFieldFocused.toggle()
+                        }
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onEnded { _ in
+                                    isTextFieldFocused.toggle()
+                                }
+                        )
+                    } else {
+                        
+                        ScrollView {
+                            ForEach(aiChatModel.messages, id: \.id) { message in
+                                MessageView(message: message, chatStyle: $chatStyle, status: nil)
+                                    .id(message.id)
+                                    .padding()
+                            }
+                            Text("").id("latest")
+                        }
+                        .onAppear {
+                            scrollProxy = scrollView
+                            scrollToBottom()
+                        }
                     }
                 }
             }
@@ -112,7 +175,7 @@ struct ChatView: View {
                     .padding(9)
                     .background(Color.primary.opacity(0.1))
                     .cornerRadius(24)
-                    .focused($focusedField, equals: .msg)
+                    .focused($isTextFieldFocused)
                     .lineLimit(1...5)
                 
                 Button(action: { sendMessage() }) {
