@@ -259,6 +259,9 @@ struct ChatView: View {
                 .padding(.horizontal)
                 .padding(.top, 3)
                 .padding(.bottom, 9)
+                .onTapGesture {
+                    isTextFieldFocused = true
+                }
             }
             .onDisappear {
                 isTextFieldFocused = false
