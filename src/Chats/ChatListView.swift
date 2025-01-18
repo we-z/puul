@@ -105,6 +105,7 @@ struct ChatListView: View {
                             }
                         }
                     }
+                    .scrollIndicators(.hidden)
                     .searchable(text: $searchText, isPresented: $isSearching, prompt: Text("Search..."))
                     .refreshable {
                         refresh_chat_list()

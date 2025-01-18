@@ -178,6 +178,7 @@ struct ChatView: View {
                                     }
                                     Text("").id("latest")
                                 }
+                                .scrollIndicators(.hidden)
                                 .onTapGesture {
                                     isTextFieldFocused = false
                                 }
