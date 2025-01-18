@@ -1,13 +1,5 @@
-//
-//  MessageView.swift
-//  AlpacaChatApp
-//
-//  Created by Yoshimasa Niwa on 3/20/23.
-//
-
 import SwiftUI
 import MarkdownUI
-
 
 struct MessageView: View {
     var message: Message
@@ -17,7 +9,7 @@ struct MessageView: View {
     private struct SenderView: View {
         var sender: Message.Sender
         var current_model = "LLM"
-        
+
         var body: some View {
             switch sender {
             case .user:
@@ -30,7 +22,8 @@ struct MessageView: View {
                     .foregroundColor(.accentColor)
             case .system:
                 Text("Puul")
-                    .font(.caption)
+                    .font(.headline)
+                    .bold()
                     .foregroundColor(.accentColor)
             }
         }
@@ -42,83 +35,81 @@ struct MessageView: View {
         @Binding var status: String?
         var sender: Message.Sender
         @State var showRag = false
-        
+
         var body: some View {
+            let processedText: String = {
+                if sender == .system {
+                    return message.text.replacingOccurrences(of: "\n\n", with: "", options: [], range: message.text.range(of: "\n\n"))
+                } else {
+                    return message.text
+                }
+            }()
+
             switch message.state {
             case .none:
                 VStack(alignment: .leading) {
                     ProgressView()
-                    if status != nil{
+                    if status != nil {
                         Text(status!)
                             .font(.footnote)
                     }
                 }
 
             case .error:
-                Text(message.text)
+                Text(processedText)
                     .foregroundColor(Color.red)
                     .textSelection(.enabled)
 
             case .typed:
                 VStack(alignment: .leading) {
-//                    if message.header != ""{
-//                        Text(message.header)
-//                            .font(.footnote)
-//                            .foregroundColor(Color.gray)
-//                            .textSelection(.enabled)
-//                    }
                     MessageImage(message: message)
-                    if sender == .user_rag{
-                        VStack{
+                    if sender == .user_rag {
+                        VStack {
                             Button(
                                 action: {
                                     showRag = !showRag
                                 },
                                 label: {
-                                    if showRag{
+                                    if showRag {
                                         Text("Hide")
                                             .font(.footnote)
-                                    }else{
+                                    } else {
                                         Text("Show text")
                                             .font(.footnote)
                                     }
                                 }
                             )
                             .buttonStyle(.borderless)
-                            //                        .frame(maxWidth:50,maxHeight: 50)
-                            if showRag{
-                                Text(LocalizedStringKey(message.text)).font(.footnote).textSelection(.enabled)
+                            if showRag {
+                                Text(LocalizedStringKey(processedText)).font(.footnote).textSelection(.enabled)
                             }
                         }.textSelection(.enabled)
-                    }else{
-                        Text(LocalizedStringKey(message.text))
+                    } else {
+                        Text(LocalizedStringKey(processedText))
                             .textSelection(.enabled)
                     }
                 }.textSelection(.enabled)
 
             case .predicting:
                 HStack {
-                    Text(message.text).textSelection(.enabled)
+                    Text(processedText).textSelection(.enabled)
                     ProgressView()
                         .padding(.leading, 3.0)
-                        .frame(maxHeight: .infinity,alignment: .bottom)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
                 }.textSelection(.enabled)
 
-            case .predicted(totalSecond: let totalSecond):
+            case .predicted(totalSecond: _):
                 VStack(alignment: .leading) {
                     switch chatStyle {
                     case "DocC":
-                        Markdown(message.text).markdownTheme(.docC).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.docC).textSelection(.enabled)
                     case "Basic":
-                        Markdown(message.text).markdownTheme(.basic).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.basic).textSelection(.enabled)
                     case "GitHub":
-                        Markdown(message.text).markdownTheme(.gitHub).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.gitHub).textSelection(.enabled)
                     default:
-                        Text(message.text).textSelection(.enabled).textSelection(.enabled)
+                        Text(processedText).textSelection(.enabled)
                     }
-//                    Text(String(format: "%.2f ses, %.2f t/s", totalSecond,message.tok_sec))
-//                        .font(.footnote)
-//                        .foregroundColor(Color.gray)
                 }.textSelection(.enabled)
             }
         }
@@ -132,12 +123,12 @@ struct MessageView: View {
 
             VStack(alignment: .leading, spacing: 6.0) {
                 SenderView(sender: message.sender)
-                MessageContentView(message: message, 
+                MessageContentView(message: message,
                                    chatStyle: $chatStyle,
-                                   status:$status,
+                                   status: $status,
                                    sender: message.sender)
                     .padding(12.0)
-                    .background(Color.secondary.opacity(0.2))
+                    .background(message.sender == .system ? Color.clear : Color.secondary.opacity(0.2))
                     .cornerRadius(24)
             }
 
@@ -147,14 +138,3 @@ struct MessageView: View {
         }
     }
 }
-
-// struct MessageView_Previews: PreviewProvider {
-//     static var previews: some View {
-//         VStack {
-//             MessageView(message: Message(sender: .user, state: .none, text: "none", tok_sec: 0))
-//             MessageView(message: Message(sender: .user, state: .error, text: "error", tok_sec: 0))
-//             MessageView(message: Message(sender: .user, state: .predicting, text: "predicting", tok_sec: 0))
-//             MessageView(message: Message(sender: .user, state: .predicted(totalSecond: 3.1415), text: "predicted", tok_sec: 0))
-//         }
-//     }
-// }

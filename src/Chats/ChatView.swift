@@ -20,7 +20,7 @@ struct ChatView: View {
     @Binding var AfterChatEdit: () -> Void
     @Binding var swiping: Bool
     
-    @State var chatStyle: String = "None"
+    @State var chatStyle: String = "DocC"
     @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
     @State private var clearChatButtonIcon: String = "eraser.line.dashed.fill"
     
