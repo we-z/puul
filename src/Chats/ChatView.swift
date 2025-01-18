@@ -127,15 +127,15 @@ struct ChatView: View {
     var body: some View {
             VStack {
                 
-                // If AI is loading or performing tasks, show progress
-                VStack {
-                    if aiChatModel.state == .loading ||
-                        aiChatModel.state == .ragIndexLoading ||
-                        aiChatModel.state == .ragSearch {
-                        ProgressView(value: aiChatModel.load_progress)
-                            .padding()
-                    }
-                }
+//                // If AI is loading or performing tasks, show progress
+//                VStack {
+//                    if aiChatModel.state == .loading ||
+//                        aiChatModel.state == .ragIndexLoading ||
+//                        aiChatModel.state == .ragSearch {
+//                        ProgressView(value: aiChatModel.load_progress)
+//                            .padding()
+//                    }
+//                }
                 
                 ScrollViewReader { scrollView in
                     NavigationStack {
