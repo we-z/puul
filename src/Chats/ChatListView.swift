@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct ChatListView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
     
@@ -26,9 +24,20 @@ struct ChatListView: View {
     @State private var toggleSettings = false
     @State private var toggleAddChat = false
     
-    func refresh_chat_list(){
+    var filteredChats: [Dictionary<String, String>] {
+        if searchText.isEmpty {
+            return chats_previews
+        } else {
+            return chats_previews.filter { chat in
+                (chat["title"]?.localizedCaseInsensitiveContains(searchText) ?? false) ||
+                (chat["message"]?.localizedCaseInsensitiveContains(searchText) ?? false)
+            }
+        }
+    }
+    
+    func refresh_chat_list() {
         print("refreshing chat list")
-        if is_first_run(){
+        if is_first_run() {
             create_demo_chat()
         }
         self.chats_previews = get_chats_list() ?? []
@@ -41,13 +50,13 @@ struct ChatListView: View {
         refresh_chat_list()
     }
     
-    func Delete(at elem:Dictionary<String, String>){
+    func Delete(at elem: Dictionary<String, String>) {
         _ = deleteChats([elem])
         self.chats_previews.removeAll(where: { $0 == elem })
         refresh_chat_list()
     }
     
-    func Duplicate(at elem:Dictionary<String, String>){
+    func Duplicate(at elem: Dictionary<String, String>) {
         _ = duplicateChat(elem)
         refresh_chat_list()
     }
@@ -57,18 +66,13 @@ struct ChatListView: View {
             VStack {
                 NavigationStack {
                     ScrollView {
-                        ForEach(chats_previews, id: \.self) { chat_preview in
-                            // Instead of NavigationLink, just a row.
-                            // When tapped, we set the selection and go to tab 1.
+                        ForEach(filteredChats, id: \.self) { chat_preview in
                             Button {
-                                // Update the binding with tapped item
                                 chat_selection = chat_preview
-                                // Animate to ChatView tab
                                 withAnimation {
                                     tabSelection = 1
                                 }
                             } label: {
-                                
                                 ChatItem(
                                     chatImage: String(describing: chat_preview["icon"]!),
                                     chatTitle: String(describing: chat_preview["title"]!),
@@ -96,7 +100,6 @@ struct ChatListView: View {
                                 }
                             }
                         }
-                        //                    .onDelete(perform: Delete)
                     }
                     .refreshable {
                         refresh_chat_list()
@@ -157,7 +160,6 @@ struct ChatListView: View {
         }
     }
 }
-
 struct ChatListView_Previews: PreviewProvider {
     static var previews: some View {
         ChatListView(tabSelection: .constant(1),
