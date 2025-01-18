@@ -55,7 +55,7 @@ struct ChatListView: View {
         VStack(alignment: .leading) {
             VStack {
                 NavigationView {
-                    List(selection: $chat_selection) {
+                    ScrollView {
                         ForEach(chats_previews, id: \.self) { chat_preview in
                             // Instead of NavigationLink, just a row.
                             // When tapped, we set the selection and go to tab 1.
