@@ -71,7 +71,7 @@ struct HomeView: View {
             .offset(x: currentOffset + dragOffset)
             // DRAG GESTURE
             .gesture(
-                DragGesture()
+                DragGesture(minimumDistance: 0)
                     .updating($dragOffset) { value, state, _ in
                         let translation = value.translation.width
                         // Scale the drag offset if swiping beyond the edges
