@@ -179,7 +179,7 @@ struct ChatView: View {
                                     isTextFieldFocused = false
                                     switchToChatListTab()
                                 } label: {
-                                    Image(systemName: "folder")
+                                    Image(systemName: "sidebar.left")
                                 }
                                 .buttonStyle(HapticButtonStyle())
                             }
