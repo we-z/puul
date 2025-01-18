@@ -1,5 +1,7 @@
 import SwiftUI
 
+let impactSoft = UIImpactFeedbackGenerator(style: .soft)
+
 struct HomeView: View {
     
     @State var add_chat_dialog = false
@@ -103,6 +105,7 @@ struct HomeView: View {
             )
             // Keep offset in sync any time selectedTab changes programmatically
             .onChange(of: selectedTab) { newIndex in
+                impactSoft.impactOccurred()
                 withAnimation {
                     currentOffset = -CGFloat(newIndex) * screenWidth
                 }
