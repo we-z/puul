@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChatListView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
-    
+    @State private var showSettings = false
     @State var searchText: String = ""
     @Binding var tabSelection: Int
     @Binding var model_name: String
@@ -109,6 +109,7 @@ struct ChatListView: View {
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
+                                showSettings = true
                             } label: {
                                 Image(systemName: "gear")
                             }
@@ -157,6 +158,10 @@ struct ChatListView: View {
         .task {
             after_chat_edit = refresh_chat_list
             refresh_chat_list()
+        }
+        .sheet(isPresented: $showSettings) {
+            AccountView()
+                .environmentObject(AppModel())
         }
     }
 }

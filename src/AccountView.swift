@@ -26,9 +26,9 @@ struct AccountView: View {
             Spacer()
             HStack {
                 Text("Account")
+                    .font(.title)
             }
             .bold()
-            .font(.system(size: 21))
             .padding()
             List {
                 Section(header: Text("Account")) {
