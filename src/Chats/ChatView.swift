@@ -262,6 +262,9 @@ struct ChatView: View {
                 .onTapGesture {
                     isTextFieldFocused = true
                 }
+                .onChange(of: isTextFieldFocused) { _ in
+                    impactSoft.impactOccurred()
+                }
             }
             .onDisappear {
                 isTextFieldFocused = false
