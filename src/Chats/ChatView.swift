@@ -214,14 +214,15 @@ struct ChatView: View {
                         .lineLimit(1...5)
                     
                     Button(action: { sendMessage() }) {
-                        Image(systemName: "arrow.up.circle.fill")
+                        Image(systemName: aiChatModel.predicting ? "stop.circle.fill" : "arrow.up.circle.fill")
                             .font(.system(size: 33))
                     }
                     .buttonStyle(HapticButtonStyle())
                     .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 6)
+                .padding(.top, 3)
+                .padding(.bottom, 9)
             }
             .onDisappear {
                 isTextFieldFocused = false
