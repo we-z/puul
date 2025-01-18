@@ -54,7 +54,7 @@ struct ChatListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
-                NavigationStack {
+                NavigationView {
                     ScrollView {
                         ForEach(chats_previews, id: \.self) { chat_preview in
                             // Instead of NavigationLink, just a row.
@@ -96,7 +96,6 @@ struct ChatListView: View {
                     }
                     .searchable(text: $searchText, prompt: "Search")
                     .navigationTitle("Sessions")
-                    .listStyle(InsetListStyle())
                     .toolbar {
                         ToolbarItemGroup(placement: .topBarLeading) {
                             Button {

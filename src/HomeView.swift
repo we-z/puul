@@ -60,7 +60,7 @@ struct HomeView: View {
             .environmentObject(orientationInfo)
             .tag(1)
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .accentColor(.primary)
     }
 }
