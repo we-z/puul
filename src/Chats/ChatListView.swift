@@ -1,4 +1,13 @@
+//
+//  ChatListView.swift
+//  ChatUI
+//
+//  Created by Shezad Ahamed on 05/08/21.
+//
+
 import SwiftUI
+
+
 
 struct ChatListView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
@@ -44,43 +53,73 @@ struct ChatListView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            // No extra NavigationStack here
-            // If you want searching, use a .searchable or a custom filter
-            ScrollView {
-                ForEach(chats_previews, id: \.self) { chat_preview in
-                    // Each chat item
-                    ChatItem(
-                        chatImage: String(describing: chat_preview["icon"]!),
-                        chatTitle: String(describing: chat_preview["title"]!),
-                        message: String(describing: chat_preview["message"]!),
-                        time: String(describing: chat_preview["time"]!),
-                        model: String(describing: chat_preview["model"]!),
-                        chat: String(describing: chat_preview["chat"]!),
-                        model_size: String(describing: chat_preview["model_size"]!),
-                        model_name: $model_name,
-                        title: $title,
-                        close_chat: close_chat
-                    )
-                    .onTapGesture {
-                        // Move to ChatView
-                        chat_selection = chat_preview
-                        withAnimation {
-                            tabSelection = 1
+            VStack {
+                NavigationStack {
+                    ScrollView {
+                        ForEach(chats_previews, id: \.self) { chat_preview in
+                            // Instead of NavigationLink, just a row.
+                            // When tapped, we set the selection and go to tab 1.
+                            ChatItem(
+                                chatImage: String(describing: chat_preview["icon"]!),
+                                chatTitle: String(describing: chat_preview["title"]!),
+                                message: String(describing: chat_preview["message"]!),
+                                time: String(describing: chat_preview["time"]!),
+                                model: String(describing: chat_preview["model"]!),
+                                chat: String(describing: chat_preview["chat"]!),
+                                model_size: String(describing: chat_preview["model_size"]!),
+                                model_name: $model_name,
+                                title: $title,
+                                close_chat: close_chat
+                            )
+                            .onTapGesture {
+                                // Update the binding with tapped item
+                                chat_selection = chat_preview
+                                // Animate to ChatView tab
+                                withAnimation {
+                                    tabSelection = 1
+                                }
+                            }
+                            .contextMenu {
+                                Button(action: {
+                                    Duplicate(at: chat_preview)
+                                }) {
+                                    Text("Duplicate chat")
+                                }
+                                Button(action: {
+                                    Delete(at: chat_preview)
+                                }) {
+                                    Text("Remove chat")
+                                }
+                            }
                         }
+                        //                    .onDelete(perform: Delete)
                     }
-                    .contextMenu {
-                        Button("Duplicate chat") {
-                            Duplicate(at: chat_preview)
+                    .searchable(text: $searchText, prompt: "Search")
+                    .navigationTitle("Sessions")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                            .buttonStyle(HapticButtonStyle())
                         }
-                        Button("Remove chat") {
-                            Delete(at: chat_preview)
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                withAnimation {
+                                    tabSelection = 1
+                                }
+                            } label: {
+                                Image(systemName: "chevron.right.2")
+                            }
+                            .buttonStyle(HapticButtonStyle())
                         }
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Search")
+            .background(.opacity(0))
             
-            if chats_previews.isEmpty {
+            if chats_previews.count <= 0 {
                 VStack {
                     Button {
                         toggleAddChat = true

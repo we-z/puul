@@ -1,3 +1,9 @@
+//
+//  ChatView.swift
+//
+//  Created by Guinmoon
+//
+
 import SwiftUI
 
 struct ChatView: View {
@@ -47,12 +53,20 @@ struct ChatView: View {
         "How much should I be\nsaving each month?"
     ]
     
+    /// Closure that sets the tabSelection to 0 (ChatListView) with animation.
     var switchToChatListTab: () -> Void
     
     func scrollToBottom(withAnimation: Bool = false) {
         guard autoScroll else { return }
         guard let _ = aiChatModel.messages.last else { return }
-        // your existing logic...
+        // Example if using scrollProxy:
+        // if withAnimation {
+        //    withAnimation(.spring()) {
+        //        scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+        //    }
+        // } else {
+        //    scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
+        // }
     }
     
     func reload() async {
@@ -80,117 +94,142 @@ struct ChatView: View {
     }
     
     var body: some View {
-        VStack {
-            // If AI is loading or performing tasks, show progress
-            if aiChatModel.state == .loading ||
-               aiChatModel.state == .ragIndexLoading ||
-               aiChatModel.state == .ragSearch {
-                ProgressView(value: aiChatModel.load_progress)
-                    .padding()
-            }
-            
-            // Scroll / messages
-            ScrollViewReader { scrollView in
+            VStack {
+                
+                // If AI is loading or performing tasks, show progress
                 VStack {
-                    if aiChatModel.messages.isEmpty {
+                    if aiChatModel.state == .loading ||
+                        aiChatModel.state == .ragIndexLoading ||
+                        aiChatModel.state == .ragSearch {
+                        ProgressView(value: aiChatModel.load_progress)
+                            .padding()
+                    }
+                }
+                
+                ScrollViewReader { scrollView in
+                    NavigationStack {
                         VStack {
-                            Spacer()
-                            HStack {
-                                Text("Ask your AI financial advisor any question")
-                                Spacer()
+                            if aiChatModel.messages.isEmpty {
+                                // Prompt area for new user
                                 VStack {
                                     Spacer()
-                                        .frame(maxHeight: 120)
-                                    Image(systemName: "arrow.turn.right.down")
-                                }
-                            }
-                            .padding(.vertical)
-                            .padding(.horizontal, 35)
-                            .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                            
-                            // Some suggestions
-                            ScrollView(.horizontal) {
-                                HStack(spacing: 10) {
-                                    ForEach(financialQuestions, id: \.self) { question in
-                                        Button {
-                                            inputTextValue = question.replacingOccurrences(of: "\n", with: " ")
-                                            sendMessage()
-                                        } label: {
-                                            Text(question)
-                                                .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                                                .multilineTextAlignment(.leading)
-                                                .padding()
-                                                .background(Color.primary.opacity(0.1))
-                                                .cornerRadius(20)
-                                                .padding(.vertical, 5)
+                                    HStack {
+                                        Text("Ask your AI financial advisor any question")
+                                        Spacer()
+                                        VStack {
+                                            Spacer()
+                                                .frame(maxHeight: 120)
+                                            Image(systemName: "arrow.turn.right.down")
                                         }
-                                        .buttonStyle(HapticButtonStyle())
                                     }
+                                    .padding(.vertical)
+                                    .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                                    .padding(.horizontal, 35)
+                                    
+                                    ScrollView(.horizontal) {
+                                        HStack(spacing: 10) {
+                                            ForEach(financialQuestions, id: \.self) { question in
+                                                Button {
+                                                    inputTextValue = question.replacingOccurrences(of: "\n", with: " ")
+                                                    sendMessage()
+                                                } label: {
+                                                    Text(question)
+                                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                                                        .multilineTextAlignment(.leading)
+                                                        .padding()
+                                                        .background(Color.primary.opacity(0.1))
+                                                        .cornerRadius(20)
+                                                        .padding(.vertical, 5)
+                                                }
+                                                .buttonStyle(HapticButtonStyle())
+                                            }
+                                        }
+                                        .padding(.horizontal)
+                                    }
+                                    .scrollIndicators(.hidden)
+                                    .padding(.bottom)
+                                    
                                 }
-                                .padding(.horizontal)
+                                .background(.primary.opacity(0.001))
+                                .onTapGesture {
+                                    isTextFieldFocused.toggle()
+                                }
+                            } else {
+                                ScrollView {
+                                    ForEach(aiChatModel.messages, id: \.id) { message in
+                                        MessageView(message: message, chatStyle: $chatStyle, status: nil)
+                                            .id(message.id)
+                                            .padding()
+                                    }
+                                    Text("").id("latest")
+                                }
+                                .onTapGesture {
+                                    isTextFieldFocused = false
+                                }
+                                .onAppear {
+                                    scrollProxy = scrollView
+                                    scrollToBottom()
+                                }
                             }
-                            .scrollIndicators(.hidden)
-                            .padding(.bottom)
-                            
                         }
-                        .background(Color.primary.opacity(0.001))
-                        .onTapGesture {
-                            isTextFieldFocused.toggle()
-                        }
-                    } else {
-                        ScrollView {
-                            ForEach(aiChatModel.messages, id: \.id) { message in
-                                MessageView(message: message, chatStyle: $chatStyle, status: nil)
-                                    .id(message.id)
-                                    .padding()
+                        .navigationTitle("Puul")
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    isTextFieldFocused = false
+                                    switchToChatListTab()
+                                } label: {
+                                    Image(systemName: "folder")
+                                }
+                                .buttonStyle(HapticButtonStyle())
                             }
-                            Text("") // for final scrolling
-                                .id("latest")
-                        }
-                        .onTapGesture {
-                            isTextFieldFocused = false
-                        }
-                        .onAppear {
-                            scrollProxy = scrollView
-                            scrollToBottom()
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "square.and.pencil")
+                                }
+                                .buttonStyle(HapticButtonStyle())
+                            }
                         }
                     }
                 }
+                .frame(maxHeight: .infinity)
                 .onChange(of: aiChatModel.AI_typing) { _ in
                     scrollToBottom()
                 }
+                
+                // Input bar
+                HStack(alignment: .bottom) {
+                    TextField(placeholderString, text: $inputTextValue, axis: .vertical)
+                        .onSubmit { sendMessage() }
+                        .textFieldStyle(.plain)
+                        .padding(9)
+                        .padding(.horizontal, 9)
+                        .background(Color.primary.opacity(0.12))
+                        .cornerRadius(24)
+                        .focused($isTextFieldFocused)
+                        .lineLimit(1...5)
+                    
+                    Button(action: { sendMessage() }) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.system(size: 33))
+                    }
+                    .buttonStyle(HapticButtonStyle())
+                    .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
+                }
+                .padding([.horizontal, .bottom])
             }
-            .frame(maxHeight: .infinity)
+            .navigationTitle("Puul")
+            
+            .onDisappear {
+                isTextFieldFocused = false
+            }
             .onChange(of: chatSelection) { _ in
                 Task {
                     await reload()
                 }
             }
-            
-            // Input bar
-            HStack(alignment: .bottom) {
-                TextField(placeholderString, text: $inputTextValue, axis: .vertical)
-                    .onSubmit { sendMessage() }
-                    .textFieldStyle(.plain)
-                    .padding(9)
-                    .padding(.horizontal, 9)
-                    .background(Color.primary.opacity(0.12))
-                    .cornerRadius(24)
-                    .focused($isTextFieldFocused)
-                    .lineLimit(1...5)
-                
-                Button(action: { sendMessage() }) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 33))
-                }
-                .buttonStyle(HapticButtonStyle())
-                .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
-            }
-            .padding([.horizontal, .bottom])
-        }
-        .onDisappear {
-            isTextFieldFocused = false
-        }
     }
     
     private func sendMessage() {
@@ -210,7 +249,6 @@ struct ChatView: View {
         }
     }
 }
-
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
