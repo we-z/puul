@@ -56,8 +56,6 @@ struct HomeView: View {
                     title: $title,
                     CloseChat: close_chat,
                     AfterChatEdit: $after_chat_edit,
-                    addChatDialog: $add_chat_dialog,
-                    editChatDialog: $edit_chat_dialog,
                     swiping: $swiping,
                     switchToChatListTab: {
                         withAnimation {

@@ -18,8 +18,6 @@ struct ChatView: View {
     @Binding var title: String
     var CloseChat: () -> Void
     @Binding var AfterChatEdit: () -> Void
-    @Binding var addChatDialog: Bool
-    @Binding var editChatDialog: Bool
     @Binding var swiping: Bool
     
     @State var chatStyle: String = "None"
@@ -77,6 +75,22 @@ struct ChatView: View {
     
     func hardReloadChat() {
         aiChatModel.hard_reload_chat()
+    }
+    
+    func newChat() {
+        // 1) Save the current chat
+        aiChatModel.save_chat_history_and_state()
+        
+        // 2) Clear out in-memory chat data for a new empty session
+        aiChatModel.chat = nil
+        aiChatModel.messages.removeAll()
+        aiChatModel.chat_name = ""
+        aiChatModel.model_name = ""
+        aiChatModel.Title = ""
+        
+        // 3) Clear local UI bindings
+        chatSelection = nil
+        title = ""
     }
     
     private var scrollDownOverlay: some View {
@@ -187,12 +201,17 @@ struct ChatView: View {
                             }
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button {
-                                    
+                                    if !aiChatModel.messages.isEmpty {
+                                        newChat()
+                                    }
                                 } label: {
                                     Image(systemName: "square.and.pencil")
                                 }
+                                .disabled(aiChatModel.messages.isEmpty)
+                                .opacity(aiChatModel.messages.isEmpty ? 0.3 : 1)
                                 .buttonStyle(HapticButtonStyle())
                             }
+                            
                         }
                     }
                 }
@@ -263,8 +282,6 @@ struct ChatView_Previews: PreviewProvider {
             title: .constant("Title"),
             CloseChat: {},
             AfterChatEdit: .constant({}),
-            addChatDialog: .constant(false),
-            editChatDialog: .constant(false),
             swiping: .constant(false),
             switchToChatListTab: {}
         )
