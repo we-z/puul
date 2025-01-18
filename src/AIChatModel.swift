@@ -489,7 +489,7 @@ final class AIChatModel: ObservableObject {
                     "add_eos_token": false,
                     "parse_special_tokens": true,
                     
-                    "prompt_format": "[system](<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an AI financial advisor. keep your answers brief and to the point.<|eot_id|>)\n\n\n<|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
+                    "prompt_format": "[system](<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an AI financial advisor. keep your answers medium sized and to the point.<|eot_id|>)\n\n\n<|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
                     "reverse_prompt": "<|eot_id|>",
                     "warm_prompt": "\n\n\n",
                     "grammar": "<None>",
