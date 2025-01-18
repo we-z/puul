@@ -18,6 +18,7 @@ struct ChatListView: View {
     var close_chat: () -> Void
     @Binding var edit_chat_dialog: Bool
     @Binding var chat_selection: Dictionary<String, String>?
+    @Binding var swiping: Bool
     @Binding var after_chat_edit: () -> Void
     
     @State var chats_previews: [Dictionary<String, String>] = []
@@ -174,6 +175,7 @@ struct ChatListView_Previews: PreviewProvider {
                      close_chat: {},
                      edit_chat_dialog: .constant(false),
                      chat_selection: .constant([:]),
+                     swiping: .constant(false),
                      after_chat_edit: .constant({})
         )
         .environmentObject(AIChatModel())

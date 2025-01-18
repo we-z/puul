@@ -20,6 +20,7 @@ struct ChatView: View {
     @Binding var AfterChatEdit: () -> Void
     @Binding var addChatDialog: Bool
     @Binding var editChatDialog: Bool
+    @Binding var swiping: Bool
     
     @State var chatStyle: String = "None"
     @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
@@ -260,6 +261,7 @@ struct ChatView_Previews: PreviewProvider {
             AfterChatEdit: .constant({}),
             addChatDialog: .constant(false),
             editChatDialog: .constant(false),
+            swiping: .constant(false),
             switchToChatListTab: {}
         )
         .environmentObject(AIChatModel())

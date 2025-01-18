@@ -8,7 +8,7 @@ struct HomeView: View {
     @State var edit_chat_dialog = false
     @State var model_name = ""
     @State var title = ""
-    
+    @State var swiping = false
     @StateObject var aiChatModel = AIChatModel()
     @StateObject var orientationInfo = OrientationInfo()
     
@@ -43,6 +43,7 @@ struct HomeView: View {
                     close_chat: close_chat,
                     edit_chat_dialog: $edit_chat_dialog,
                     chat_selection: $chat_selection,
+                    swiping: $swiping,
                     after_chat_edit: $after_chat_edit
                 )
                 .environmentObject(aiChatModel)
@@ -57,6 +58,7 @@ struct HomeView: View {
                     AfterChatEdit: $after_chat_edit,
                     addChatDialog: $add_chat_dialog,
                     editChatDialog: $edit_chat_dialog,
+                    swiping: $swiping,
                     switchToChatListTab: {
                         withAnimation {
                             selectedTab = 0
@@ -76,6 +78,7 @@ struct HomeView: View {
                     .updating($dragOffset) { value, state, _ in
                         // As we drag, update dragOffset
                         state = value.translation.width
+                        swiping = true
                     }
                     .onEnded { value in
                         // Once the drag ends, decide which page to snap to
