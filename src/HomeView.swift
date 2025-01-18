@@ -78,7 +78,7 @@ struct HomeView: View {
                     }
                     .onEnded { value in
                         // Once the drag ends, decide which page to snap to
-                        let threshold = screenWidth * 0.3
+                        let threshold = screenWidth * 0.1
                         let distance = value.translation.width
                         var newIndex = selectedTab
                         
@@ -98,7 +98,7 @@ struct HomeView: View {
                         }
                         selectedTab = newIndex
                         // Animate from the drag end to the final offset
-                        withAnimation {
+                        withAnimation(.spring) {
                             currentOffset = -CGFloat(selectedTab) * screenWidth
                         }
                     }
@@ -106,7 +106,7 @@ struct HomeView: View {
             // Keep offset in sync any time selectedTab changes programmatically
             .onChange(of: selectedTab) { newIndex in
                 impactSoft.impactOccurred()
-                withAnimation {
+                withAnimation(.spring) {
                     currentOffset = -CGFloat(newIndex) * screenWidth
                 }
             }
