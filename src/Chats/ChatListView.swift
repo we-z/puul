@@ -54,7 +54,7 @@ struct ChatListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
-                NavigationView {
+                NavigationStack {
                     ScrollView {
                         ForEach(chats_previews, id: \.self) { chat_preview in
                             // Instead of NavigationLink, just a row.
