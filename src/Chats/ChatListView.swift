@@ -54,7 +54,7 @@ struct ChatListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
-                NavigationView {
+                NavigationStack {
                     ScrollView {
                         ForEach(chats_previews, id: \.self) { chat_preview in
                             // Instead of NavigationLink, just a row.
@@ -79,7 +79,6 @@ struct ChatListView: View {
                                     tabSelection = 1
                                 }
                             }
-                            .listRowInsets(.init())
                             .contextMenu {
                                 Button(action: {
                                     Duplicate(at: chat_preview)
@@ -146,34 +145,6 @@ struct ChatListView: View {
         .task {
             after_chat_edit = refresh_chat_list
             refresh_chat_list()
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
-                Menu {
-                    Button {
-                        toggleSettings = true
-                    } label: {
-                        HStack {
-                            Text("Settings")
-                            Image(systemName: "gear")
-                        }
-                    }
-#if os(iOS)
-                    EditButton()
-#endif
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                }
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    add_chat_dialog = true
-                    edit_chat_dialog = false
-                    toggleAddChat = true
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
         }
     }
 }
