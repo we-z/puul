@@ -59,26 +59,29 @@ struct ChatListView: View {
                         ForEach(chats_previews, id: \.self) { chat_preview in
                             // Instead of NavigationLink, just a row.
                             // When tapped, we set the selection and go to tab 1.
-                            ChatItem(
-                                chatImage: String(describing: chat_preview["icon"]!),
-                                chatTitle: String(describing: chat_preview["title"]!),
-                                message: String(describing: chat_preview["message"]!),
-                                time: String(describing: chat_preview["time"]!),
-                                model: String(describing: chat_preview["model"]!),
-                                chat: String(describing: chat_preview["chat"]!),
-                                model_size: String(describing: chat_preview["model_size"]!),
-                                model_name: $model_name,
-                                title: $title,
-                                close_chat: close_chat
-                            )
-                            .onTapGesture {
+                            Button {
                                 // Update the binding with tapped item
                                 chat_selection = chat_preview
                                 // Animate to ChatView tab
                                 withAnimation {
                                     tabSelection = 1
                                 }
+                            } label: {
+                                
+                                ChatItem(
+                                    chatImage: String(describing: chat_preview["icon"]!),
+                                    chatTitle: String(describing: chat_preview["title"]!),
+                                    message: String(describing: chat_preview["message"]!),
+                                    time: String(describing: chat_preview["time"]!),
+                                    model: String(describing: chat_preview["model"]!),
+                                    chat: String(describing: chat_preview["chat"]!),
+                                    model_size: String(describing: chat_preview["model_size"]!),
+                                    model_name: $model_name,
+                                    title: $title,
+                                    close_chat: close_chat
+                                )
                             }
+                            .buttonStyle(HapticButtonStyle())
                             .contextMenu {
                                 Button(action: {
                                     Duplicate(at: chat_preview)
@@ -93,6 +96,9 @@ struct ChatListView: View {
                             }
                         }
                         //                    .onDelete(perform: Delete)
+                    }
+                    .refreshable {
+                        refresh_chat_list()
                     }
                     .searchable(text: $searchText, prompt: "Search")
                     .navigationTitle("Sessions")

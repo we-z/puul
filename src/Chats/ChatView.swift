@@ -172,6 +172,7 @@ struct ChatView: View {
                                 }
                             }
                         }
+//                        .navigationBarTitleDisplayMode(.inline)
                         .navigationTitle("Puul")
                         .toolbar {
                             ToolbarItem(placement: .topBarLeading) {
@@ -220,8 +221,6 @@ struct ChatView: View {
                 }
                 .padding([.horizontal, .bottom])
             }
-            .navigationTitle("Puul")
-            
             .onDisappear {
                 isTextFieldFocused = false
             }
