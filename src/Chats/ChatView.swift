@@ -231,6 +231,9 @@ struct ChatView: View {
                     await reload()
                 }
             }
+            .onChange(of: swiping) { _ in
+                isTextFieldFocused = false
+            }
     }
     
     private func sendMessage() {

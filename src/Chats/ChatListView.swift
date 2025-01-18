@@ -11,6 +11,8 @@ struct ChatListView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
     @State private var showSettings = false
     @State var searchText: String = ""
+    @State var isSearching: Bool = false
+
     @Binding var tabSelection: Int
     @Binding var model_name: String
     @Binding var title: String
@@ -20,11 +22,11 @@ struct ChatListView: View {
     @Binding var chat_selection: Dictionary<String, String>?
     @Binding var swiping: Bool
     @Binding var after_chat_edit: () -> Void
-    
+
     @State var chats_previews: [Dictionary<String, String>] = []
     @State private var toggleSettings = false
     @State private var toggleAddChat = false
-    
+
     var filteredChats: [Dictionary<String, String>] {
         if searchText.isEmpty {
             return chats_previews
@@ -35,7 +37,7 @@ struct ChatListView: View {
             }
         }
     }
-    
+
     func refresh_chat_list() {
         print("refreshing chat list")
         if is_first_run() {
@@ -44,28 +46,29 @@ struct ChatListView: View {
         self.chats_previews = get_chats_list() ?? []
         aiChatModel.update_chat_params()
     }
-    
+
     func Delete(at offsets: IndexSet) {
         let chatsToDelete = offsets.map { self.chats_previews[$0] }
         _ = deleteChats(chatsToDelete)
         refresh_chat_list()
     }
-    
+
     func Delete(at elem: Dictionary<String, String>) {
         _ = deleteChats([elem])
         self.chats_previews.removeAll(where: { $0 == elem })
         refresh_chat_list()
     }
-    
+
     func Duplicate(at elem: Dictionary<String, String>) {
         _ = duplicateChat(elem)
         refresh_chat_list()
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
                 NavigationStack {
+                    // Explicitly using SwiftUI.ScrollView to avoid ambiguity
                     ScrollView {
                         ForEach(filteredChats, id: \.self) { chat_preview in
                             Button {
@@ -102,10 +105,11 @@ struct ChatListView: View {
                             }
                         }
                     }
+                    .searchable(text: $searchText, isPresented: $isSearching, prompt: Text("Search..."))
                     .refreshable {
                         refresh_chat_list()
                     }
-                    .searchable(text: $searchText, prompt: "Search")
+                    
                     .navigationTitle("Sessions")
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
@@ -130,8 +134,8 @@ struct ChatListView: View {
                 }
             }
             .background(.opacity(0))
-            
-            if chats_previews.count <= 0 {
+
+            if chats_previews.isEmpty {
                 VStack {
                     Button {
                         toggleAddChat = true
@@ -139,20 +143,26 @@ struct ChatListView: View {
                         edit_chat_dialog = false
                     } label: {
                         Image(systemName: "plus.square.dashed")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.primary)
                             .font(.system(size: 40))
                     }
                     .buttonStyle(.borderless)
                     .controlSize(.large)
-                    
+
                     Text("Start new chat")
                         .font(.title3)
                         .frame(maxWidth: .infinity)
                 }
-                .opacity(0.4)
+//                .opacity(0.4)
                 .frame(maxWidth: .infinity, alignment: .center)
             }
         }
+        // Whenever swiping changes, clear search text and dismiss the search
+        .onChange(of: swiping) { _ in
+            isSearching = false
+            searchText = ""
+        }
+        // Refresh the list whenever the tab changes
         .onChange(of: tabSelection) { _ in
             refresh_chat_list()
         }
@@ -166,17 +176,19 @@ struct ChatListView: View {
         }
     }
 }
+
 struct ChatListView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatListView(tabSelection: .constant(1),
-                     model_name: .constant(""),
-                     title: .constant(""),
-                     add_chat_dialog: .constant(false),
-                     close_chat: {},
-                     edit_chat_dialog: .constant(false),
-                     chat_selection: .constant([:]),
-                     swiping: .constant(false),
-                     after_chat_edit: .constant({})
+        ChatListView(
+            tabSelection: .constant(1),
+            model_name: .constant(""),
+            title: .constant(""),
+            add_chat_dialog: .constant(false),
+            close_chat: {},
+            edit_chat_dialog: .constant(false),
+            chat_selection: .constant([:]),
+            swiping: .constant(false),
+            after_chat_edit: .constant({})
         )
         .environmentObject(AIChatModel())
     }

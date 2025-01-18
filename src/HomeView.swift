@@ -78,7 +78,7 @@ struct HomeView: View {
                     .updating($dragOffset) { value, state, _ in
                         // As we drag, update dragOffset
                         state = value.translation.width
-                        swiping = true
+                        swiping.toggle()
                     }
                     .onEnded { value in
                         // Once the drag ends, decide which page to snap to
