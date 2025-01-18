@@ -3,166 +3,65 @@ import Combine
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(\.colorScheme) var colorScheme
-    @FocusState var isTextFieldFocused: Bool
-    @Environment(\.dismiss) private var dismiss
-    @State private var showInfoPage = false
-    @State private var shouldClearConversation = false
-    @State private var showMenu = false
-    @State var message = ""
-
-    let financialQuestions = [
-        "How can I improve\nmy credit score?",
-        "Should I refinance\nmy mortgage?",
-        "How much should I\nsave for retirement?",
-        "What should I do\nto reduce my debt?",
-        "Is my investment\nportfolio balanced?",
-        "How much should I save\nfor my child's education?",
-        "Am I on track to\nmeet my financial goals?",
-        "What are the best\ntax-saving strategies for me?",
-        "How much should I be\nsaving each month?"
-    ]
-
+    
+    @State var add_chat_dialog = false
+    @State var edit_chat_dialog = false
+    @State var model_name = ""
+    @State var title = ""
+    
+    @StateObject var aiChatModel = AIChatModel()
+    @StateObject var orientationInfo = OrientationInfo()
+    
+    @State private var chat_selection: Dictionary<String, String>?
+    @State var after_chat_edit: () -> Void = {}
+    
+    // 0 = ChatListView, 1 = ChatView
+    @State private var selectedTab: Int = 1  // Default to 2nd tab (ChatView)
+    
+    func close_chat() -> Void {
+        aiChatModel.stop_predict()
+    }
+        
     var body: some View {
-        mainChatView
-            .onReceive(Just(shouldClearConversation), perform: { shouldClear in
-                if shouldClear {
-                    shouldClearConversation = false // Reset the binding value after clearing
-                }
-            })
-    }
-
-    var mainChatView: some View {
-        ScrollViewReader { proxy in
-            VStack(spacing: 0) {
-                HStack {
-                    Button {
-                        showMenu = true
-                    } label: {
-                        Image(systemName: "folder")
-                            .font(.system(size: 27))
-                    }
-                    .buttonStyle(HapticButtonStyle())
-                    Spacer()
-                    Text("Puul")
-                        .font(.system(size: 27))
-                        .bold()
-                    Spacer()
-                    Button {
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                            .font(.system(size: 27))
-                    }
-                    .buttonStyle(HapticButtonStyle())
-                }
-                .padding()
-
-                if true {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Text("Ask your AI financial advisor any question")
-                            Spacer()
-                            VStack {
-                                Spacer()
-                                    .frame(maxHeight: 120)
-                                Image(systemName: "arrow.turn.right.down")
-                            }
-                        }
-                        .padding(.vertical)
-                        .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                        .padding(.horizontal, 35)
+        TabView(selection: $selectedTab) {
                         
-                        ScrollView(.horizontal) {
-                            HStack(spacing: 10) {
-                                ForEach(financialQuestions, id: \.self) { question in
-                                    Button {
-                                        message = question.replacingOccurrences(of: "\n", with: " ")
-                                        sendMessage()
-                                    } label: {
-                                        Text(question)
-                                            .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                                            .multilineTextAlignment(.leading)
-                                            .padding()
-                                            .background(Color.primary.opacity(0.1))
-                                            .cornerRadius(20)
-                                            .padding(.vertical, 5)
-                                    }
-                                    .buttonStyle(HapticButtonStyle())
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        .scrollIndicators(.hidden)
-                    }
-                    .background(.primary.opacity(0.001))
-                    .onTapGesture {
-                        isTextFieldFocused.toggle()
-                    }
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onEnded { _ in
-                                isTextFieldFocused.toggle()
-                            }
-                    )
-                }
-                bottomView(image: "person", proxy: proxy)
-                    .gesture(
-                        swipeGesture
-                    )
-            }
-            .accentColor(.primary)
-        }
-
-        .sheet(isPresented: $showInfoPage,
-               onDismiss: {
-                   self.showInfoPage = false
-               }, content: {
-                   ChatInfoView(shouldClearConversation: $shouldClearConversation)
-                       .presentationDetents([.height(600)])
-                       .buttonStyle(HapticButtonStyle())
-               })
-    }
-
-    func bottomView(image _: String, proxy: ScrollViewProxy) -> some View {
-        HStack(alignment: .bottom, spacing: 8){
-            HStack(alignment: .bottom, spacing: 8) {
-                TextField("Message", text: $message, axis: .vertical)
-                    .textFieldStyle(.plain)
-                    .focused($isTextFieldFocused)
-                    .padding(.vertical, 6)
+            // MARK: - Tab 0: ChatListView
+            ChatListView(
+                tabSelection: $selectedTab,
+                model_name: $model_name,
+                title: $title,
+                add_chat_dialog: $add_chat_dialog,
+                close_chat: close_chat,
+                edit_chat_dialog: $edit_chat_dialog,
+                chat_selection: $chat_selection,
+                after_chat_edit: $after_chat_edit
+            )
+            .environmentObject(aiChatModel)
+            .tag(0)
+            
+            // MARK: - Tab 1: ChatView
+            ChatView(
+                modelName: $model_name,
+                chatSelection: $chat_selection,
+                title: $title,
+                CloseChat: close_chat,
+                AfterChatEdit: $after_chat_edit,
+                addChatDialog: $add_chat_dialog,
+                editChatDialog: $edit_chat_dialog,
                 
-            }
-            .padding(.vertical, 6)
-            .padding(.trailing, 9)
-            .padding(.leading)
-            .background(Color.primary.opacity(0.1))
-            .cornerRadius(24)
-            Button {
-                sendMessage()
-            } label: {
-                Image(systemName: "arrow.up.circle.fill")
-                    .font(.system(size: 36))
-            }
-            .buttonStyle(HapticButtonStyle())
-        }
-        .padding()
-    }
-
-    func sendMessage() {
-            Task { @MainActor in
-                isTextFieldFocused = false
-            }
-    }
-
-    var swipeGesture: some Gesture {
-        DragGesture(minimumDistance: 50, coordinateSpace: .local)
-            .onChanged { value in
-                if value.translation.height > 0 {
-                    print("down swipe gesture detected!")
-                    isTextFieldFocused = false
+                // Here we implement the closure to switch back to tab 0:
+                switchToChatListTab: {
+                    withAnimation {
+                        selectedTab = 0
+                    }
                 }
-            }
+            )
+            .environmentObject(aiChatModel)
+            .environmentObject(orientationInfo)
+            .tag(1)
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .accentColor(.primary)
     }
 }
 
