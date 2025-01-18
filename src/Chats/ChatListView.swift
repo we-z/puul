@@ -71,25 +71,29 @@ struct ChatListView: View {
                     // Explicitly using SwiftUI.ScrollView to avoid ambiguity
                     ScrollView {
                         ForEach(filteredChats, id: \.self) { chat_preview in
-                            Button {
-                                chat_selection = chat_preview
-                                withAnimation {
-                                    tabSelection = 1
+                            HStack {
+                                Button {
+                                    chat_selection = chat_preview
+                                    withAnimation {
+                                        tabSelection = 1
+                                    }
+                                } label: {
+                                    ChatItem(
+                                        chatImage: String(describing: chat_preview["icon"]!),
+                                        chatTitle: String(describing: chat_preview["title"]!),
+                                        message: String(describing: chat_preview["message"]!),
+                                        time: String(describing: chat_preview["time"]!),
+                                        model: String(describing: chat_preview["model"]!),
+                                        chat: String(describing: chat_preview["chat"]!),
+                                        model_size: String(describing: chat_preview["model_size"]!),
+                                        model_name: $model_name,
+                                        title: $title,
+                                        close_chat: close_chat
+                                    )
                                 }
-                            } label: {
-                                ChatItem(
-                                    chatImage: String(describing: chat_preview["icon"]!),
-                                    chatTitle: String(describing: chat_preview["title"]!),
-                                    message: String(describing: chat_preview["message"]!),
-                                    time: String(describing: chat_preview["time"]!),
-                                    model: String(describing: chat_preview["model"]!),
-                                    chat: String(describing: chat_preview["chat"]!),
-                                    model_size: String(describing: chat_preview["model_size"]!),
-                                    model_name: $model_name,
-                                    title: $title,
-                                    close_chat: close_chat
-                                )
+                                Spacer()
                             }
+                            .background(.primary.opacity(0.001))
                             .buttonStyle(HapticButtonStyle())
                             .contextMenu {
                                 Button(action: {
