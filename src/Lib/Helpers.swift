@@ -198,18 +198,30 @@ func get_model_setting_templates() -> [ChatSettingsTemplate]{
     return model_setting_templates
 }
 
-public func getChatInfo(_ chat_fname:String) -> Dictionary<String, AnyObject>? {
+public func getChatInfo(_ chat_fname: String) -> Dictionary<String, AnyObject>? {
+    guard !chat_fname.isEmpty else {
+        print("getChatInfo called with an empty filename!")
+        return nil
+    }
     do {
         let fileManager = FileManager.default
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         let destinationURL = documentsPath!.appendingPathComponent("chats")
-        let path = destinationURL.appendingPathComponent(chat_fname).path
-        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        
+        let filePath = destinationURL.appendingPathComponent(chat_fname)
+        // Ensure the file exists and is not a directory:
+        var isDir: ObjCBool = false
+        guard fileManager.fileExists(atPath: filePath.path, isDirectory: &isDir),
+              !isDir.boolValue else {
+            print("Path does not exist or is a directory: \(filePath.path)")
+            return nil
+        }
+        
+        let data = try Data(contentsOf: filePath, options: .mappedIfSafe)
         let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-        let jsonResult_dict = jsonResult as? Dictionary<String, AnyObject>
-        return jsonResult_dict
+        return jsonResult as? Dictionary<String, AnyObject>
     } catch {
-        print(error)
+        print("Error in getChatInfo:", error)
     }
     return nil
 }
