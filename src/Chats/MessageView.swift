@@ -116,9 +116,9 @@ struct MessageView: View {
                     default:
                         Text(message.text).textSelection(.enabled).textSelection(.enabled)
                     }
-                    Text(String(format: "%.2f ses, %.2f t/s", totalSecond,message.tok_sec))
-                        .font(.footnote)
-                        .foregroundColor(Color.gray)
+//                    Text(String(format: "%.2f ses, %.2f t/s", totalSecond,message.tok_sec))
+//                        .font(.footnote)
+//                        .foregroundColor(Color.gray)
                 }.textSelection(.enabled)
             }
         }

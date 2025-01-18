@@ -67,6 +67,7 @@ struct HomeView: View {
                 .environmentObject(orientationInfo)
                 .frame(width: screenWidth)
             }
+            .accentColor(.primary)
             // Offset by our "currentOffset" plus whatever drag is happening
             .offset(x: currentOffset + dragOffset)
             // DRAG GESTURE

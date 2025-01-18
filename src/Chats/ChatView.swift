@@ -219,7 +219,8 @@ struct ChatView: View {
                     .buttonStyle(HapticButtonStyle())
                     .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
                 }
-                .padding([.horizontal, .bottom])
+                .padding(.horizontal)
+                .padding(.vertical, 6)
             }
             .onDisappear {
                 isTextFieldFocused = false

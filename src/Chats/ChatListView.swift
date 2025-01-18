@@ -27,6 +27,7 @@ struct ChatListView: View {
     @State private var toggleAddChat = false
     
     func refresh_chat_list(){
+        print("refreshing chat list")
         if is_first_run(){
             create_demo_chat()
         }
@@ -146,6 +147,9 @@ struct ChatListView: View {
                 .opacity(0.4)
                 .frame(maxWidth: .infinity, alignment: .center)
             }
+        }
+        .onChange(of: tabSelection) { _ in
+            refresh_chat_list()
         }
         .task {
             after_chat_edit = refresh_chat_list
