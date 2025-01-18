@@ -200,7 +200,7 @@ func get_model_setting_templates() -> [ChatSettingsTemplate]{
 
 public func getChatInfo(_ chat_fname: String) -> Dictionary<String, AnyObject>? {
     guard !chat_fname.isEmpty else {
-        print("getChatInfo called with an empty filename!")
+//        print("getChatInfo called with an empty filename!")
         return nil
     }
     do {
@@ -336,7 +336,7 @@ public func get_chats_list() -> [Dictionary<String, String>]?{
     do {
         let fileManager = FileManager.default
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        print(documentsPath)
+//        print(documentsPath)
         let destinationURL = documentsPath!.appendingPathComponent("chats")
         //        let files = try fileManager.contentsOfDirectory(atPath: destinationURL.path)
         let files = try fileManager.contentsOfDirectory(at: destinationURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).sorted(by: {
