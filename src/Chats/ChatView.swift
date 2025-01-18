@@ -55,17 +55,34 @@ struct ChatView: View {
     /// Closure that sets the tabSelection to 0 (ChatListView) with animation.
     var switchToChatListTab: () -> Void
     
-    func scrollToBottom(withAnimation: Bool = false) {
-        guard autoScroll else { return }
-        guard let _ = aiChatModel.messages.last else { return }
-        // Example if using scrollProxy:
-        // if withAnimation {
-        //    withAnimation(.spring()) {
-        //        scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
-        //    }
-        // } else {
-        //    scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
-        // }
+    func scrollToBottom(with_animation:Bool = false) {
+        var scroll_bug = true
+#if os(macOS)
+        scroll_bug = false
+#else
+        if #available(iOS 16.4, *){
+            scroll_bug = false
+        }
+#endif
+        if scroll_bug {
+            return
+        }
+        if !autoScroll {
+            return
+        }
+        let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
+        if last_msg != nil && last_msg?.id != nil && scrollProxy != nil{
+            if with_animation{
+                withAnimation {
+                    //                    scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
+                    scrollProxy?.scrollTo("latest")
+                }
+            }else{
+                //                scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
+                scrollProxy?.scrollTo("latest")
+            }
+        }
+        
     }
     
     func reload() async {
@@ -98,12 +115,11 @@ struct ChatView: View {
             autoScroll = true
             scrollToBottom()
         } label: {
-            Image(systemName: "arrow.down.circle")
+            Image(systemName: "arrow.down.circle.fill")
                 .resizable()
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(width: 25, height: 25)
-                .padding([.bottom, .trailing], 15)
-                .opacity(0.4)
+                .padding([.bottom], 15)
         }
         .buttonStyle(BorderlessButtonStyle())
     }
