@@ -137,7 +137,6 @@ struct AccountView: View {
                    AppInfoView()
                        .buttonStyle(HapticButtonStyle())
                })
-        .preferredColorScheme(model.isLightMode ? .light : .dark)
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
         // .environmentObject(StoreVM())
     }

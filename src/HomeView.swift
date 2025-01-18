@@ -32,7 +32,6 @@ struct HomeView: View {
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             
-            // A horizontal HStack that contains both "pages"
             HStack(spacing: 0) {
                 // MARK: - Page 0: ChatListView
                 ChatListView(
@@ -68,47 +67,70 @@ struct HomeView: View {
                 .frame(width: screenWidth)
             }
             .accentColor(.primary)
-            // Offset by our "currentOffset" plus whatever drag is happening
+            // Offset by currentOffset plus any active drag offset
             .offset(x: currentOffset + dragOffset)
             // DRAG GESTURE
             .gesture(
                 DragGesture()
                     .updating($dragOffset) { value, state, _ in
-                        // As we drag, update dragOffset
-                        state = value.translation.width
+                        let translation = value.translation.width
+                        // Scale the drag offset if swiping beyond the edges
+                        if (selectedTab == 0 && translation > 0) ||
+                           (selectedTab == 1 && translation < 0) {
+                            state = translation / 3
+                        } else {
+                            state = translation
+                        }
                         swiping.toggle()
                     }
                     .onEnded { value in
-                        // Once the drag ends, decide which page to snap to
                         let threshold = screenWidth * 0.1
                         let distance = value.translation.width
-                        var newIndex = selectedTab
                         
+                        var newIndex = selectedTab
+                        // Decide whether to switch pages
                         if distance > threshold {
-                            // Swiped right enough to go back
                             newIndex = max(newIndex - 1, 0)
                         } else if distance < -threshold {
-                            // Swiped left enough to go forward
                             newIndex = min(newIndex + 1, 1)
                         }
                         
-                        if selectedTab == 0 {
-                            currentOffset = distance
+                        // If we stay on the same page but went beyond an edge, apply the 1/3 offset
+                        if newIndex == selectedTab {
+                            if selectedTab == 0 && distance > 0 {
+                                // Already on left page, swiped further left
+                                currentOffset = distance / 3
+                            } else if selectedTab == 1 && distance < 0 {
+                                // Already on right page, swiped further right
+                                currentOffset = distance / 3 - screenWidth
+                            } else {
+                                // Normal offset if not beyond edges
+                                currentOffset = (selectedTab == 0)
+                                    ? distance
+                                    : distance - screenWidth
+                            }
                         } else {
-                            // adjust correct currentOffset here
-                            currentOffset = distance - screenWidth
+                            // If we’re actually switching pages, do the normal offset
+                            if selectedTab == 0 {
+                                currentOffset = distance
+                            } else {
+                                currentOffset = distance - screenWidth
+                            }
                         }
+                        
+                        // Update the selected tab
                         selectedTab = newIndex
-                        // Animate from the drag end to the final offset
-                        withAnimation(.spring) {
+                        
+                        // Animate to the final offset
+                        withAnimation(.spring()) {
                             currentOffset = -CGFloat(selectedTab) * screenWidth
                         }
                     }
             )
-            // Keep offset in sync any time selectedTab changes programmatically
+            // Keep offset in sync when the tab changes programmatically
             .onChange(of: selectedTab) { newIndex in
                 impactSoft.impactOccurred()
-                withAnimation(.spring) {
+                withAnimation(.spring()) {
                     currentOffset = -CGFloat(newIndex) * screenWidth
                 }
             }
