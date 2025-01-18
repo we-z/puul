@@ -165,6 +165,7 @@ struct ChatView: View {
                                                     sendMessage()
                                                 } label: {
                                                     Text(question)
+                                                        .font(.system(size: 18))
                                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
                                                         .multilineTextAlignment(.leading)
                                                         .padding()
@@ -242,6 +243,7 @@ struct ChatView: View {
                     TextField(placeholderString, text: $inputTextValue, axis: .vertical)
                         .onSubmit { sendMessage() }
                         .textFieldStyle(.plain)
+                        .font(.system(size: 18))
                         .padding(9)
                         .padding(.horizontal, 9)
                         .background(Color.primary.opacity(0.12))

@@ -28,7 +28,8 @@ struct ChatItem: View {
             VStack(alignment: .leading, spacing: 5){
                 HStack{
                     Text(chatTitle)
-                        .font(.title3)
+                        .font(.system(size: 21))
+                        .bold()
                         .fontWeight(.semibold)
                         .padding()
                         .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
