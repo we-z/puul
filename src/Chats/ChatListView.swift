@@ -37,6 +37,22 @@ struct ChatListView: View {
             }
         }
     }
+    
+    func newChat() {
+        // 1) Save the current chat
+        aiChatModel.save_chat_history_and_state()
+        
+        // 2) Clear out in-memory chat data for a new empty session
+        aiChatModel.chat = nil
+        aiChatModel.messages.removeAll()
+        aiChatModel.chat_name = ""
+        aiChatModel.model_name = ""
+        aiChatModel.Title = ""
+        
+        // 3) Clear local UI bindings
+        title = ""
+        tabSelection = 1
+    }
 
     func refresh_chat_list() {
         print("refreshing chat list")
@@ -59,10 +75,10 @@ struct ChatListView: View {
         refresh_chat_list()
     }
 
-    func Duplicate(at elem: Dictionary<String, String>) {
-        _ = duplicateChat(elem)
-        refresh_chat_list()
-    }
+//    func Duplicate(at elem: Dictionary<String, String>) {
+//        _ = duplicateChat(elem)
+//        refresh_chat_list()
+//    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -98,15 +114,15 @@ struct ChatListView: View {
                             .padding(.horizontal)
                             .buttonStyle(HapticButtonStyle())
                             .contextMenu {
-                                Button(action: {
-                                    Duplicate(at: chat_preview)
-                                }) {
-                                    Text("Duplicate chat")
-                                }
+//                                Button(action: {
+//                                    Duplicate(at: chat_preview)
+//                                }) {
+//                                    Text("Duplicate chat")
+//                                }
                                 Button(action: {
                                     Delete(at: chat_preview)
                                 }) {
-                                    Text("Remove chat")
+                                    Text("Delete Session")
                                 }
                             }
                         }
@@ -121,6 +137,17 @@ struct ChatListView: View {
                             } label: {
                                 Image(systemName: "gear")
                             }
+                            .buttonStyle(HapticButtonStyle())
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                if !aiChatModel.messages.isEmpty {
+                                    newChat()
+                                }
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .padding()
                             .buttonStyle(HapticButtonStyle())
                         }
                         ToolbarItem(placement: .topBarTrailing) {

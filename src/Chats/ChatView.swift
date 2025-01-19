@@ -244,7 +244,7 @@ struct ChatView: View {
                     TextField(placeholderString, text: $inputTextValue, axis: .vertical)
                         .onSubmit { sendMessage() }
                         .textFieldStyle(.plain)
-                        .font(.system(size: 18))
+                        .font(.system(size: 17))
                         .padding(9)
                         .padding(.horizontal, 9)
                         .background(Color.primary.opacity(0.15))
