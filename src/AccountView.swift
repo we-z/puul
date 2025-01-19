@@ -33,23 +33,14 @@ struct AccountView: View {
             List {
                 Section(header: Text("Account")) {
                     Button(action: {
-                        if !model.isPurchased {
-                            self.showSubscriptions = true
-                        } else {
-                            showManageSubscriptions = true
-                        }
+                        showManageSubscriptions = true
                     }) {
                         HStack {
                             Image(systemName: "arrow.clockwise")
                             Text("Subscription")
                             Spacer()
-                            if !storeVM.hasUnlockedPro {
-                                Text("Free Plan")
-                                    .foregroundColor(.gray)
-                            } else {
-                                Text("Premium Plan")
-                                    .foregroundColor(.gray)
-                            }
+                            Text("View")
+                                .foregroundColor(.gray)
                         }
                     }
                     Button(action: {
