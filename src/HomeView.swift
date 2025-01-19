@@ -13,6 +13,7 @@ struct HomeView: View {
     @State var model_name = ""
     @State var title = ""
     @State var swiping = false
+    @State var allowSwiping = true
     @StateObject var aiChatModel = AIChatModel()
     @StateObject var orientationInfo = OrientationInfo()
     
@@ -53,6 +54,7 @@ struct HomeView: View {
                     edit_chat_dialog: $edit_chat_dialog,
                     chat_selection: $chat_selection,
                     swiping: $swiping,
+                    allowSwiping: $allowSwiping,
                     after_chat_edit: $after_chat_edit
                 )
                 .environmentObject(aiChatModel)
@@ -102,6 +104,7 @@ struct HomeView: View {
                         let horizontalDistance = abs(value.translation.width)
                         let verticalDistance = abs(value.translation.height)
                         guard horizontalDistance > verticalDistance else { return }
+                        guard allowSwiping else { return }
                         let translation = value.translation.width
                         // Scale the drag offset if swiping beyond the edges
                         if (selectedTab == 0 && translation > 0) ||
@@ -116,6 +119,8 @@ struct HomeView: View {
                         let horizontalDistance = abs(value.translation.width)
                         let verticalDistance = abs(value.translation.height)
                         guard horizontalDistance > verticalDistance else { return }
+                        guard allowSwiping else { return }
+                        
                         let threshold = screenWidth * 0.1
                         let distance = value.translation.width
                         

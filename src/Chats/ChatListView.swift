@@ -21,6 +21,7 @@ struct ChatListView: View {
     @Binding var edit_chat_dialog: Bool
     @Binding var chat_selection: Dictionary<String, String>?
     @Binding var swiping: Bool
+    @Binding var allowSwiping: Bool
     @Binding var after_chat_edit: () -> Void
 
     @State var chats_previews: [Dictionary<String, String>] = []
@@ -133,7 +134,16 @@ struct ChatListView: View {
                     .navigationTitle("Sessions")
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
-                            NavigationLink(destination: AccountView().environmentObject(AppModel())) {
+                            NavigationLink(destination:
+                                AccountView()
+                                .onAppear {
+                                    allowSwiping = false
+                                }
+                                .onDisappear {
+                                    allowSwiping = true
+                                }
+                                .environmentObject(AppModel())
+                            ) {
                                 Image(systemName: "gear")
                             }
                             .buttonStyle(HapticButtonStyle())
@@ -216,6 +226,7 @@ struct ChatListView_Previews: PreviewProvider {
             edit_chat_dialog: .constant(false),
             chat_selection: .constant([:]),
             swiping: .constant(false),
+            allowSwiping: .constant(true),
             after_chat_edit: .constant({})
         )
         .environmentObject(AIChatModel())
