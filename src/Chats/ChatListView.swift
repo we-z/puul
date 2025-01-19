@@ -141,9 +141,7 @@ struct ChatListView: View {
                         }
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
-                                if !aiChatModel.messages.isEmpty {
-                                    newChat()
-                                }
+                                newChat()
                             } label: {
                                 Image(systemName: "square.and.pencil")
                             }

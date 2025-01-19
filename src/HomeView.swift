@@ -86,7 +86,7 @@ struct HomeView: View {
                         // Then linearly interpolate:
                         //   ratio = 0 => blur = 100
                         //   ratio = 1 => blur = 0.1
-                        let blurValue = (30 - (29.99 * ratio))
+                        let blurValue = (10 - (9.99 * ratio))
                         return blurValue
                     }()
                 )

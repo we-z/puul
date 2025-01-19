@@ -100,11 +100,11 @@ struct ChatView: View {
         
         // 2) Clear out in-memory chat data for a new empty session
         aiChatModel.chat = nil
-        aiChatModel.messages.removeAll()
+        
         aiChatModel.chat_name = ""
         aiChatModel.model_name = ""
         aiChatModel.Title = ""
-        
+        aiChatModel.messages.removeAll()
         // 3) Clear local UI bindings
         chatSelection = nil
         title = ""
@@ -220,7 +220,9 @@ struct ChatView: View {
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button {
                                     if !aiChatModel.messages.isEmpty {
-                                        newChat()
+                                        withAnimation(.easeInOut) {
+                                            newChat()
+                                        }
                                     }
                                 } label: {
                                     Image(systemName: "square.and.pencil")
