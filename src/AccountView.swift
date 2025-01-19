@@ -10,6 +10,7 @@ import SwiftUI
 struct AccountView: View {
     @State private var showSubscriptions = false
     @State private var showDataInfo = false
+    @State private var showSurvey = false
     @Environment(\.dismiss) private var dismiss
     @ObservedObject public var storeVM = StoreVM()
     @EnvironmentObject public var model: AppModel
@@ -43,7 +44,7 @@ struct AccountView: View {
                 //                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("Settings")) {
                     Button(action: {
-
+                        showSurvey = true
                     }) {
                         HStack {
                             Image(systemName: "checklist")
@@ -124,6 +125,9 @@ struct AccountView: View {
                    AppInfoView()
                        .buttonStyle(HapticButtonStyle())
                })
+        .fullScreenCover(isPresented: $showSurvey) {
+            SurveyView()
+        }
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
         // .environmentObject(StoreVM())
     }
