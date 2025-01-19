@@ -170,9 +170,9 @@ struct ChatListView: View {
             searchText = ""
         }
         // Refresh the list whenever the tab changes
-        .onChange(of: tabSelection) { _ in
-            refresh_chat_list()
-        }
+//        .onChange(of: tabSelection) { _ in
+//            refresh_chat_list()
+//        }
         .task {
             after_chat_edit = refresh_chat_list
             refresh_chat_list()

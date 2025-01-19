@@ -1,3 +1,7 @@
+//
+//  HomeView.swift
+//
+
 import SwiftUI
 
 let impactSoft = UIImpactFeedbackGenerator(style: .soft)
@@ -22,9 +26,13 @@ struct HomeView: View {
     @State private var currentOffset: CGFloat = 0
     
     /// Temporary offset during a drag gesture.
-    @GestureState private var dragOffset: CGFloat = 0.0
+    @GestureState private var dragOffset: CGFloat = 0
     
-    func close_chat() -> Void {
+    /// Once we detect the user is swiping horizontally, we lock it in
+    /// so that subsequent moves stay horizontal.
+    @State private var isHorizontalDrag = false
+    
+    func close_chat() {
         aiChatModel.stop_predict()
     }
     
@@ -32,7 +40,9 @@ struct HomeView: View {
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             
+            // The two "pages"
             HStack(spacing: 0) {
+                
                 // MARK: - Page 0: ChatListView
                 ChatListView(
                     tabSelection: $selectedTab,
@@ -70,63 +80,63 @@ struct HomeView: View {
             // Offset by currentOffset plus any active drag offset
             .offset(x: currentOffset + dragOffset)
             // DRAG GESTURE
-//            .gesture(
-//                DragGesture()
-//                    .updating($dragOffset) { value, state, _ in
-//                        let translation = value.translation.width
-//                        // Scale the drag offset if swiping beyond the edges
-//                        if (selectedTab == 0 && translation > 0) ||
-//                           (selectedTab == 1 && translation < 0) {
+            .simultaneousGesture(
+                DragGesture()
+                    .updating($dragOffset) { value, state, _ in
+                        let translation = value.translation.width
+                        // Scale the drag offset if swiping beyond the edges
+                        if (selectedTab == 0 && translation > 0) ||
+                           (selectedTab == 1 && translation < 0) {
 //                            state = translation / 3
-//                        } else {
-//                            state = translation
-//                        }
-//                        swiping.toggle()
-//                    }
-//                    .onEnded { value in
-//                        let threshold = screenWidth * 0.1
-//                        let distance = value.translation.width
-//                        
-//                        var newIndex = selectedTab
-//                        // Decide whether to switch pages
-//                        if distance > threshold {
-//                            newIndex = max(newIndex - 1, 0)
-//                        } else if distance < -threshold {
-//                            newIndex = min(newIndex + 1, 1)
-//                        }
-//                        
-//                        // If we stay on the same page but went beyond an edge, apply the 1/3 offset
-//                        if newIndex == selectedTab {
-//                            if selectedTab == 0 && distance > 0 {
-//                                // Already on left page, swiped further left
+                        } else {
+                            state = translation
+                        }
+                        swiping.toggle()
+                    }
+                    .onEnded { value in
+                        let threshold = screenWidth * 0.1
+                        let distance = value.translation.width
+                        
+                        var newIndex = selectedTab
+                        // Decide whether to switch pages
+                        if distance > threshold {
+                            newIndex = max(newIndex - 1, 0)
+                        } else if distance < -threshold {
+                            newIndex = min(newIndex + 1, 1)
+                        }
+                        
+                        // If we stay on the same page but went beyond an edge, apply the 1/3 offset
+                        if newIndex == selectedTab {
+                            if selectedTab == 0 && distance > 0 {
+                                // Already on left page, swiped further left
 //                                currentOffset = distance / 3
-//                            } else if selectedTab == 1 && distance < 0 {
-//                                // Already on right page, swiped further right
+                            } else if selectedTab == 1 && distance < 0 {
+                                // Already on right page, swiped further right
 //                                currentOffset = distance / 3 - screenWidth
-//                            } else {
-//                                // Normal offset if not beyond edges
-//                                currentOffset = (selectedTab == 0)
-//                                    ? distance
-//                                    : distance - screenWidth
-//                            }
-//                        } else {
-//                            // If we’re actually switching pages, do the normal offset
-//                            if selectedTab == 0 {
-//                                currentOffset = distance
-//                            } else {
-//                                currentOffset = distance - screenWidth
-//                            }
-//                        }
-//                        
-//                        // Update the selected tab
-//                        selectedTab = newIndex
-//                        
-//                        // Animate to the final offset
-//                        withAnimation(.spring()) {
-//                            currentOffset = -CGFloat(selectedTab) * screenWidth
-//                        }
-//                    }
-//            )
+                            } else {
+                                // Normal offset if not beyond edges
+                                currentOffset = (selectedTab == 0)
+                                    ? distance
+                                    : distance - screenWidth
+                            }
+                        } else {
+                            // If we’re actually switching pages, do the normal offset
+                            if selectedTab == 0 {
+                                currentOffset = distance
+                            } else {
+                                currentOffset = distance - screenWidth
+                            }
+                        }
+                        
+                        // Update the selected tab
+                        selectedTab = newIndex
+                        
+                        // Animate to the final offset
+                        withAnimation(.spring()) {
+                            currentOffset = -CGFloat(selectedTab) * screenWidth
+                        }
+                    }
+            )
             // Keep offset in sync when the tab changes programmatically
             .onChange(of: selectedTab) { newIndex in
                 impactSoft.impactOccurred()
