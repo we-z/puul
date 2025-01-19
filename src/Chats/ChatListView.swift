@@ -132,9 +132,7 @@ struct ChatListView: View {
                     .navigationTitle("Sessions")
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                                showSettings = true
-                            } label: {
+                            NavigationLink(destination: AccountView().environmentObject(AppModel())) {
                                 Image(systemName: "gear")
                             }
                             .buttonStyle(HapticButtonStyle())

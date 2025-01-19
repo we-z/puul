@@ -18,112 +18,98 @@ struct AccountView: View {
 
     var body: some View {
         VStack {
-//            Capsule()
-//                .frame(maxWidth: 45, maxHeight: 9)
-//                .padding(.top, 9)
-//                .foregroundColor(.primary)
-//                .opacity(0.3)
-//            Spacer()
-//            HStack {
-//                Text("Settings")
-//                    .font(.title3)
-//            }
-//            .bold()
-//            .padding()
-            NavigationView {
-                List {
-                    Section(header: Text("Account")) {
-                        Button(action: {
-                            showManageSubscriptions = true
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.clockwise")
-                                Text("Subscription")
-                                Spacer()
-                                Text("View")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        Button(action: {
-                            self.showDataInfo = true
-                        }) {
-                            HStack {
-                                Image(systemName: "info.circle")
-                                Text("About Puul")
-                            }
+            List {
+                Section(header: Text("Account")) {
+                    Button(action: {
+                        showManageSubscriptions = true
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("Subscription")
+                            Spacer()
+                            Text("View")
+                                .foregroundColor(.gray)
                         }
                     }
-                    //                .listRowBackground(Color.primary.opacity(0.12))
-                    Section(header: Text("Settings")) {
-                        Button(action: {
-                            showManageSubscriptions = true
-                        }) {
-                            HStack {
-                                Image(systemName: "checklist")
-                                Text("Client Questionnaire")
-                            }
-                        }
-                        Toggle(isOn: $model.isLightMode) {
-                            HStack {
-                                Image(systemName: "sun.max")
-                                Text("Light Mode")
-                            }
-                        }
-                        Toggle(isOn: $model.hapticModeOn) {
-                            HStack {
-                                Image(systemName: "waveform")
-                                Text("Haptic Feedback")
-                            }
+                    Button(action: {
+                        self.showDataInfo = true
+                    }) {
+                        HStack {
+                            Image(systemName: "info.circle")
+                            Text("About Puul")
                         }
                     }
-                    //                .listRowBackground(Color.primary.opacity(0.12))
-                    Section(header: Text("About")) {
-                        Button(action: {
-                            if let url = URL(string: "https://puul.ai/terms-of-use") {
-                                UIApplication.shared.open(url)
-                            }
-                        }) {
-                            HStack {
-                                Image(systemName: "newspaper")
-                                Text("Terms of Use")
-                            }
-                        }
-                        Button(action: {
-                            if let url = URL(string: "https://puul.ai/privacy-policy") {
-                                UIApplication.shared.open(url)
-                            }
-                        }) {
-                            HStack {
-                                Image(systemName: "lock")
-                                Text("Privacy Policy")
-                            }
-                        }
-                        Button(action: {
-                            let mailtoString = "mailto:inquiries@puul.ai".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                            let mailtoUrl = URL(string: mailtoString!)!
-                            if UIApplication.shared.canOpenURL(mailtoUrl) {
-                                UIApplication.shared.open(mailtoUrl, options: [:])
-                            }
-                            
-                        }) {
-                            HStack {
-                                Image(systemName: "questionmark.circle")
-                                Text("Contact Us")
-                            }
-                        }
-                        Button(action: {
-                            requestReview()
-                        }) {
-                            HStack {
-                                Image(systemName: "star")
-                                Text("Rate Us")
-                            }
-                        }
-                    }
-                    //                .listRowBackground(Color.primary.opacity(0.12))
                 }
-                .navigationTitle("Account")
+                //                .listRowBackground(Color.primary.opacity(0.12))
+                Section(header: Text("Settings")) {
+                    Button(action: {
+                        showManageSubscriptions = true
+                    }) {
+                        HStack {
+                            Image(systemName: "checklist")
+                            Text("Client Questionnaire")
+                        }
+                    }
+                    Toggle(isOn: $model.isLightMode) {
+                        HStack {
+                            Image(systemName: "sun.max")
+                            Text("Light Mode")
+                        }
+                    }
+                    Toggle(isOn: $model.hapticModeOn) {
+                        HStack {
+                            Image(systemName: "waveform")
+                            Text("Haptic Feedback")
+                        }
+                    }
+                }
+                //                .listRowBackground(Color.primary.opacity(0.12))
+                Section(header: Text("About")) {
+                    Button(action: {
+                        if let url = URL(string: "https://puul.ai/terms-of-use") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "newspaper")
+                            Text("Terms of Use")
+                        }
+                    }
+                    Button(action: {
+                        if let url = URL(string: "https://puul.ai/privacy-policy") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "lock")
+                            Text("Privacy Policy")
+                        }
+                    }
+                    Button(action: {
+                        let mailtoString = "mailto:inquiries@puul.ai".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                        let mailtoUrl = URL(string: mailtoString!)!
+                        if UIApplication.shared.canOpenURL(mailtoUrl) {
+                            UIApplication.shared.open(mailtoUrl, options: [:])
+                        }
+                        
+                    }) {
+                        HStack {
+                            Image(systemName: "questionmark.circle")
+                            Text("Contact Us")
+                        }
+                    }
+                    Button(action: {
+                        requestReview()
+                    }) {
+                        HStack {
+                            Image(systemName: "star")
+                            Text("Rate Us")
+                        }
+                    }
+                }
+                //                .listRowBackground(Color.primary.opacity(0.12))
             }
+            .navigationTitle("Account")
         }
         .accentColor(.primary)
         .sheet(isPresented: $showSubscriptions) {
