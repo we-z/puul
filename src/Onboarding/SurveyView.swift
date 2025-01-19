@@ -3,15 +3,13 @@ import SwiftUI
 // MARK: - Model
 
 /// Holds all the user's answers from the survey
-struct SurveyAnswers {
-    // Example numeric inputs
+struct SurveyAnswers: Codable {
     var age: Int = 18
     var salary: Int = 50_000
     var creditScore: Int = 700
     var debtAmount: Int = 0
     var savingMonthly: Int = 0
     
-    // Example multi-choice/single-choice
     var demographic: String = "Prefer not to say"
     var location: String = "United States"
     var riskTolerance: String = "Medium"
@@ -29,13 +27,39 @@ struct SurveyAnswers {
     var financialStatus: String = "Dependent"
 }
 
-/// ViewModel to manage the steps and hold user answers
+/// Persists SurveyAnswers to local storage
+struct SurveyPersistenceManager {
+    static private let kUserDefaultsKey = "PuulUserSurveyAnswers"
+    
+    static func saveAnswers(_ answers: SurveyAnswers) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(answers) {
+            UserDefaults.standard.set(data, forKey: kUserDefaultsKey)
+        }
+    }
+    
+    static func loadAnswers() -> SurveyAnswers? {
+        guard let data = UserDefaults.standard.data(forKey: kUserDefaultsKey) else {
+            return nil
+        }
+        let decoder = JSONDecoder()
+        return try? decoder.decode(SurveyAnswers.self, from: data)
+    }
+    
+    static func clearAnswers() {
+        // If you ever need to clear the stored answers
+        UserDefaults.standard.removeObject(forKey: kUserDefaultsKey)
+    }
+}
+
+// MARK: - ViewModel
+
 class SurveyViewModel: ObservableObject {
     @Published var currentStep: Int = 0
     @Published var answers = SurveyAnswers()
     
-    // Steps in the survey
-    let totalSteps = 14  // We'll use 0...13 for questions, 14 for final
+    // We'll use 0...13 for questions, and 14 for final
+    let totalSteps = 14
     
     func nextStep() {
         if currentStep < totalSteps {
@@ -56,7 +80,6 @@ class SurveyViewModel: ObservableObject {
         let monthlySaving = answers.savingMonthly
         let totalDebt = answers.debtAmount
         
-        // Adjust these thresholds to reflect realistic scenarios
         if monthlySaving >= 10_000 && totalDebt <= 1_000 {
             answers.financialStatus = "Financially Free"
         } else if monthlySaving >= 5_000 && totalDebt < 20_000 {
@@ -82,12 +105,12 @@ struct SurveyView: View {
 
 // MARK: - Survey Container
 
-/// Switches between different survey questions based on the current step
 struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     @State private var done: Bool = false
     @State var showingAlert = false
     @Environment(\.dismiss) private var dismiss
+    
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray4
@@ -114,6 +137,7 @@ struct SurveyContainerView: View {
                 
                 Spacer()
                 Button {
+                    // This is the skip button
                     showingAlert = true
                 } label: {
                     HStack {
@@ -126,83 +150,66 @@ struct SurveyContainerView: View {
                 .buttonStyle(HapticButtonStyle())
             }
             .opacity(surveyVM.currentStep == 0 ? 0 : 1)
-            // MARK: - Paging TabView for Survey Steps
+            
             // MARK: - Paging TabView for Survey Steps
             TabView(selection: $surveyVM.currentStep) {
                 IntroductionView()
-                    .tag(0) // New introduction view as the first page
-                
+                    .tag(0)
                 AgeQuestionView()
                     .tag(1)
-                
-                //LocationQuestionView
                 LocationQuestionView()
                     .tag(2)
-                
-                //EmploymentQuestionView
                 EmploymentQuestionView()
                     .tag(3)
-                
-                //SalaryQuestionView
                 SalaryQuestionView()
                     .tag(4)
-                
                 GoalQuestionView()
                     .tag(5)
-                
                 HumanAdvisorQuestionView()
                     .tag(6)
-                
-                //RiskToleranceQuestionView
                 RiskToleranceQuestionView()
                     .tag(7)
-                
                 IndustriesQuestionView()
                     .tag(8)
-                
                 AssetsQuestionView()
                     .tag(9)
-                
                 FileTaxesQuestionView()
                     .tag(10)
-                
                 CreditScoreQuestionView()
                     .tag(11)
-                
                 DebtQuestionView()
                     .tag(12)
-                
                 SavingMonthlyQuestionView()
                     .tag(13)
-                
                 FinalStatusView()
                     .tag(14)
             }
-            // Let users swipe between pages and show the page dots
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            // Animate changes in the current step
             .animation(.spring(), value: surveyVM.currentStep)
             
             Spacer()
             
             // MARK: - Next Button
             Button(action: {
-                // If not on the final step, go next;
-                // otherwise you could navigate away or do something else
                 if surveyVM.currentStep < surveyVM.totalSteps {
-                    if surveyVM.currentStep == 123{
-                        // If about to go from step 13 -> 14, call logic for final status
+                    // If about to go from step 13 to 14, call logic for final status
+                    if surveyVM.currentStep == 13 {
                         surveyVM.determineFinancialStatus()
                     }
                     surveyVM.nextStep()
                 } else {
+                    // If we are on the final step, user clicked "Let's Plan for the Future"
                     withAnimation(.easeInOut) {
                         done = true
+                        // -- CHANGE HERE: save the final answers to local storage
+                        SurveyPersistenceManager.saveAnswers(surveyVM.answers)
                         dismiss()
                     }
                 }
             }) {
-                Text(surveyVM.currentStep == surveyVM.totalSteps ? "Let's Plan for the Future" : "Next")
+                Text(surveyVM.currentStep == surveyVM.totalSteps
+                     ? "Let's Plan for the Future"
+                     : "Next")
                     .bold()
                     .font(.title2)
                     .padding()
@@ -222,6 +229,7 @@ struct SurveyContainerView: View {
                 title: Text("Are you sure?"),
                 message: Text("This information helps Puul provide you with better services. All data is stored on your device, protecting your privacy."),
                 primaryButton: .destructive(Text("Skip"), action: {
+                    // If user hits skip, do NOT save. We'll dismiss without storing.
                     withAnimation(.easeInOut) {
                         done = true
                         dismiss()
@@ -235,11 +243,11 @@ struct SurveyContainerView: View {
 
 // MARK: - Common Survey Navigation
 
-/// A common header with a back button (top-left)
 struct SurveyNavigationHeader: View {
     let title: String
     let onBack: () -> Void
     @EnvironmentObject var surveyVM: SurveyViewModel
+    
     var body: some View {
         VStack{
             VStack{
@@ -256,7 +264,6 @@ struct SurveyNavigationHeader: View {
     }
 }
 
-/// A common footer with a next button (bottom)
 struct SurveyNavigationFooter: View {
     let nextDisabled: Bool
     let onNext: () -> Void
@@ -271,7 +278,6 @@ struct SurveyNavigationFooter: View {
 
 // MARK: - Helper Views for Single and Multi Selection
 
-/// A simple single-selection list
 struct SingleChoiceList: View {
     let choices: [String]
     @Binding var selection: String
@@ -286,7 +292,6 @@ struct SingleChoiceList: View {
     }
 }
 
-/// A simple multi-selection list
 struct MultiChoiceList: View {
     let choices: [String]
     @Binding var selections: [String]
@@ -300,16 +305,14 @@ struct MultiChoiceList: View {
                     Text(choice)
                     Spacer()
                     if selections.contains(choice) {
-                        Image(systemName: "checkmark")
+                        Image(systemName: "checkmark.circle.fill")
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     if selections.contains(choice) {
-                        // remove
                         selections.removeAll(where: { $0 == choice })
                     } else {
-                        // add
                         selections.append(choice)
                     }
                 }
@@ -322,7 +325,6 @@ struct MultiChoiceList: View {
 
 // MARK: - QUESTION VIEWS
 
-// 0: Introduction
 struct IntroductionView: View {
     var body: some View {
         VStack {
@@ -353,7 +355,6 @@ struct IntroductionView: View {
     }
 }
 
-// 0: Age
 struct AgeQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -363,13 +364,13 @@ struct AgeQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Use a Picker for a scrolling number selector
             Picker("Select Age", selection: $surveyVM.answers.age) {
                 ForEach(4..<101, id: \.self) { age in
                     Text("\(age)").tag(age)
                 }
             }
             .pickerStyle(WheelPickerStyle())
+            
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
             }
@@ -377,7 +378,6 @@ struct AgeQuestionView: View {
     }
 }
 
-// 1: Salary
 struct SalaryQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -387,7 +387,6 @@ struct SalaryQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Convert the stride to an array for ForEach
             Picker("Select Salary (in thousands)", selection: $surveyVM.answers.salary) {
                 ForEach(Array(stride(from: 0, through: 2_000_000, by: 5_000)), id: \.self) { salaryValue in
                     Text("$\(salaryValue)").tag(salaryValue)
@@ -402,7 +401,6 @@ struct SalaryQuestionView: View {
     }
 }
 
-// 2: Demographic
 struct DemographicQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -430,7 +428,6 @@ struct DemographicQuestionView: View {
     }
 }
 
-// 3: Location
 struct LocationQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -460,7 +457,6 @@ struct LocationQuestionView: View {
     }
 }
 
-// 4: Risk Tolerance
 struct RiskToleranceQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -481,7 +477,6 @@ struct RiskToleranceQuestionView: View {
     }
 }
 
-// 5: Goal
 struct GoalQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -502,7 +497,6 @@ struct GoalQuestionView: View {
     }
 }
 
-// 6: Human Advisor
 struct HumanAdvisorQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -526,7 +520,7 @@ struct HumanAdvisorQuestionView: View {
         "Other"
     ]
     
-    @State private var showAdvisorPicker = false  // Local state for animation
+    @State private var showAdvisorPicker = false
     
     var body: some View {
         VStack {
@@ -534,7 +528,6 @@ struct HumanAdvisorQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Single choice list for Yes/No
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasAdvisor)
                 .onChange(of: surveyVM.answers.hasAdvisor) { newValue in
                     withAnimation(.easeInOut) {
@@ -544,8 +537,6 @@ struct HumanAdvisorQuestionView: View {
             
             if showAdvisorPicker {
                 VStack {
-                    
-                    // Advisor provider picker
                     Picker("Select Advisor Provider", selection: $surveyVM.answers.advisor) {
                         ForEach(advisorProviders, id: \.self) { provider in
                             Text(provider).tag(provider)
@@ -553,7 +544,7 @@ struct HumanAdvisorQuestionView: View {
                     }
                     .pickerStyle(WheelPickerStyle())
                 }
-                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -563,13 +554,13 @@ struct HumanAdvisorQuestionView: View {
     }
 }
 
-// 7: Employment
 struct EmploymentQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
     let choices = [
         "Unemployed",
-        "Corporate Employment",
+        "Employed Full-Time (W-2)",
+        "Employed Part-Time (1099)",
         "Self-Employed",
         "Retired",
         "Prefer Not to Say"
@@ -590,7 +581,6 @@ struct EmploymentQuestionView: View {
     }
 }
 
-// 8: Industries Interested
 struct IndustriesQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -610,7 +600,6 @@ struct IndustriesQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Multiple selection
             MultiChoiceList(choices: allIndustries, selections: $surveyVM.answers.selectedIndustries)
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -620,7 +609,6 @@ struct IndustriesQuestionView: View {
     }
 }
 
-// 9: Assets
 struct AssetsQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -642,7 +630,6 @@ struct AssetsQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Multiple selection
             MultiChoiceList(choices: choices, selections: $surveyVM.answers.ownedAssets)
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -652,8 +639,6 @@ struct AssetsQuestionView: View {
     }
 }
 
-// 10: File your own taxes?
-// 10: File your own taxes?
 struct FileTaxesQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -667,7 +652,7 @@ struct FileTaxesQuestionView: View {
         "Other"
     ]
     
-    @State private var showTaxPicker = false  // Local state for animation
+    @State private var showTaxPicker = false
     
     var body: some View {
         VStack {
@@ -675,7 +660,6 @@ struct FileTaxesQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Single choice list for Yes/No
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.filesOwnTaxes)
                 .onChange(of: surveyVM.answers.filesOwnTaxes) { newValue in
                     withAnimation(.easeInOut) {
@@ -690,7 +674,6 @@ struct FileTaxesQuestionView: View {
                         .font(.title)
                         .padding(.top, 16)
                     
-                    // Tax filing tools picker
                     Picker("Tax Filing Tools", selection: $surveyVM.answers.taxTool) {
                         ForEach(taxFilingTools, id: \.self) { tool in
                             Text(tool).tag(tool)
@@ -698,7 +681,7 @@ struct FileTaxesQuestionView: View {
                     }
                     .pickerStyle(WheelPickerStyle())
                 }
-                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -708,7 +691,6 @@ struct FileTaxesQuestionView: View {
     }
 }
 
-// 11: Credit Score
 struct CreditScoreQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -732,13 +714,12 @@ struct CreditScoreQuestionView: View {
     }
 }
 
-// 12: Debts
 struct DebtQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
     let choices = ["No", "Yes"]
     
-    @State private var showDebtPicker = false  // Local state for animation
+    @State private var showDebtPicker = false
     
     var body: some View {
         VStack {
@@ -746,7 +727,6 @@ struct DebtQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Single choice list
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasDebts)
                 .onChange(of: surveyVM.answers.hasDebts) { newValue in
                     withAnimation(.easeInOut) {
@@ -761,7 +741,6 @@ struct DebtQuestionView: View {
                         .font(.title)
                         .padding(.top, 16)
                     
-                    // Debt amount picker
                     Picker("Debt Amount (in thousands)", selection: $surveyVM.answers.debtAmount) {
                         ForEach(Array(stride(from: 0, through: 1_000_000, by: 5_000)), id: \.self) { value in
                             Text("$\(value)").tag(value)
@@ -769,7 +748,7 @@ struct DebtQuestionView: View {
                     }
                     .pickerStyle(WheelPickerStyle())
                 }
-                .transition(.move(edge: .bottom).combined(with: .opacity))  // Smooth transition
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
             SurveyNavigationFooter(nextDisabled: false) {
@@ -778,7 +757,7 @@ struct DebtQuestionView: View {
         }
     }
 }
-// 13: How much are you saving each month?
+
 struct SavingMonthlyQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
@@ -788,7 +767,6 @@ struct SavingMonthlyQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            // Convert the stride to an array for ForEach
             Picker("Monthly Savings (in thousands)", selection: $surveyVM.answers.savingMonthly) {
                 ForEach(Array(stride(from: 0, through: 1_000_000, by: 1_000)), id: \.self) { amount in
                     Text("$\(amount)").tag(amount)
@@ -797,7 +775,6 @@ struct SavingMonthlyQuestionView: View {
             .pickerStyle(WheelPickerStyle())
             
             SurveyNavigationFooter(nextDisabled: false) {
-                // On next, let's go to final page
                 surveyVM.determineFinancialStatus()
                 surveyVM.nextStep()
             }
@@ -805,7 +782,6 @@ struct SavingMonthlyQuestionView: View {
     }
 }
 
-// 14: Final Page
 struct FinalStatusView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     @State private var progressValue: Double = 0
@@ -826,14 +802,12 @@ struct FinalStatusView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 30)
             
-            // Loading bar
             ProgressView(value: progressValue, total: 100)
                 .progressViewStyle(LinearProgressViewStyle())
                 .accentColor(.primary)
                 .frame(width: 250)
                 .padding(.bottom, 20)
             
-            // Final message once loading completes
             if showFinalMessage {
                 Text("Your Custom Financial Plan Is Ready. Are You Ready To Start Your Financial Journey?")
                     .font(.title3)
@@ -845,7 +819,6 @@ struct FinalStatusView: View {
             Spacer()
         }
         .onChange(of: progressValue) { newValue in
-            // Once progress hits 100, show the final message
             if newValue >= 100 {
                 withAnimation(.spring) {
                     showFinalMessage = true
@@ -853,16 +826,14 @@ struct FinalStatusView: View {
             }
         }
         .onAppear {
-            // Start a timer to increment progressValue every second
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-                
-                    if progressValue < 100 {
-                        withAnimation(.spring) {
-                            progressValue += 30 // Increment progress by 10 each second
-                        }
-                    } else {
-                        timer.invalidate() // Stop the timer when progress reaches 100
+                if progressValue < 100 {
+                    withAnimation(.spring) {
+                        progressValue += 30
                     }
+                } else {
+                    timer.invalidate()
+                }
             }
         }
     }
