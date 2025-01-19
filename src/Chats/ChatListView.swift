@@ -93,7 +93,7 @@ struct ChatListView: View {
                                 }
                                 Spacer()
                             }
-                            .background(.primary.opacity(chat_selection == chat_preview ? 0.2 : 0.001))
+                            .background(.primary.opacity(chat_selection == chat_preview ? 0.12 : 0.001))
                             .cornerRadius(12)
                             .padding(.horizontal)
                             .buttonStyle(HapticButtonStyle())

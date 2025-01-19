@@ -165,11 +165,12 @@ struct ChatView: View {
                                                     sendMessage()
                                                 } label: {
                                                     Text(question)
+                                                        .colorInvert()
                                                         .font(.system(size: 18))
                                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
                                                         .multilineTextAlignment(.leading)
                                                         .padding()
-                                                        .background(Color.primary.opacity(0.1))
+                                                        .background(Color.primary)
                                                         .cornerRadius(20)
                                                         .padding(.vertical, 5)
                                                 }
@@ -246,7 +247,7 @@ struct ChatView: View {
                         .font(.system(size: 18))
                         .padding(9)
                         .padding(.horizontal, 9)
-                        .background(Color.primary.opacity(0.12))
+                        .background(Color.primary.opacity(0.15))
                         .cornerRadius(24)
                         .focused($isTextFieldFocused)
                         .lineLimit(1...5)

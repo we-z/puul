@@ -92,7 +92,7 @@ struct MessageView: View {
 
             case .predicting:
                 HStack {
-                    Text(processedText).textSelection(.enabled)
+                    Markdown(processedText).markdownTheme(.docC).textSelection(.enabled)
                     ProgressView()
                         .padding(.leading, 3.0)
                         .frame(maxHeight: .infinity, alignment: .bottom)
@@ -123,13 +123,24 @@ struct MessageView: View {
 
             VStack(alignment: .leading, spacing: 6.0) {
                 SenderView(sender: message.sender)
-                MessageContentView(message: message,
-                                   chatStyle: $chatStyle,
-                                   status: $status,
-                                   sender: message.sender)
+                if message.sender == .user {
+                    MessageContentView(message: message,
+                                       chatStyle: $chatStyle,
+                                       status: $status,
+                                       sender: message.sender)
+                    .colorInvert()
                     .padding(12.0)
-                    .background(message.sender == .system ? Color.clear : Color.secondary.opacity(0.2))
+                    .background(message.sender == .system ? Color.clear : Color.primary)
                     .cornerRadius(24)
+                } else {
+                    MessageContentView(message: message,
+                                       chatStyle: $chatStyle,
+                                       status: $status,
+                                       sender: message.sender)
+                    .padding(12.0)
+                    .background(message.sender == .system ? Color.clear : Color.primary)
+                    .cornerRadius(24)
+                }
             }
 
             if message.sender == .system {
