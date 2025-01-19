@@ -477,7 +477,7 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                Your name is Puul. You are an AI financial advisor. Keep answers medium-sized and to the point.
+                You are an AI financial advisor named Puul. Keep answers medium-sized and to the point.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
@@ -486,6 +486,8 @@ final class AIChatModel: ObservableObject {
                 // 4) Put that into chatOptions
                 let chatOptions: [String: Any] = [
                     "model": "Llama-3.2-1B-Instruct-Q5_K_M.gguf",
+                            
+                    // ---- General plugin/config settings ----
                     "use_clip_metal": false,
                     "lora_adapters": [],
                     "title": in_text,
@@ -493,40 +495,59 @@ final class AIChatModel: ObservableObject {
                     "save_load_state": true,
                     "skip_tokens": "",
                     "chat_style": "DocC",
-                    "chunk_size": 256,
+                    
+                    // ---- Chunking and retrieval settings ----
+                    // Increase chunk_size if you need fewer splits,
+                    // or remove chunking entirely to pass the entire prompt in one piece.
+                    "chunk_size": 512,
                     "chunk_overlap": 100,
                     "rag_top": 3,
                     "current_model": "minilmMultiQA",
                     "comparison_algorithm": "dotproduct",
                     "chunk_method": "recursive",
                     
+                    // ---- Model inference specifics for LLaMa ----
                     "model_inference": "llama",
                     "use_metal": true,
                     "mmap": true,
                     "mlock": false,
                     "flash_attn": false,
                     
-                    "context": 8192,
+                    // ---- Key parameters for controlling context and generation ----
+                    // If your model supports 8192 tokens, you can keep it here or try higher if supported.
+                    "context": 16384,
+                    // Increase n_batch if you have enough GPU/CPU memory and want faster inference.
                     "n_batch": 512,
                     "numberOfThreads": 10,
                     
-                    "temp": 0.9,
-                    "top_p": 0.95,
-                    "top_k": 40,
-                    "repeat_penalty": 1.0,
-                    "repeat_last_n": 64,
+                    // ---- Sampling hyperparameters (tweak for better recall & consistency) ----
+                    // Lower temperature and top_p encourage more deterministic, on-topic answers.
+                    "temp": 0.7,
+                    "top_p": 0.9,
+                    "top_k": 30,
                     
+                    // Slightly increase repetition penalty to deter the model from
+                    // “forgetting” or looping while reinforcing it to reuse factual data.
+                    "repeat_penalty": 1.1,
+                    
+                    // Expand how many tokens get penalized for repetition
+                    // (larger window can help keep the conversation consistent).
+                    "repeat_last_n": 256,
+                    
+                    // You can experiment with Mirostat or typical_p, but if you want
+                    // simpler results, leaving Mirostat off is often fine.
                     "mirostat": 0,
                     "mirostat_tau": 5,
                     "mirostat_eta": 0.1,
                     "tfs_z": 1,
                     "typical_p": 1,
                     
+                    // ---- Additional token-related options ----
                     "add_bos_token": false,
                     "add_eos_token": false,
                     "parse_special_tokens": true,
                     
-                    // Our final prompt format with the embedded survey logic
+                    // ---- Our final prompt format with the embedded survey logic ----
                     "prompt_format": combinedSystemPrompt,
                     
                     "reverse_prompt": "<|eot_id|>",
