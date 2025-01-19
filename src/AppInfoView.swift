@@ -12,6 +12,15 @@ struct AppInfoView: View {
     var body: some View {
         VStack {
                 ScrollView {
+                    Capsule()
+                        .frame(maxWidth: 45, maxHeight: 9)
+                        .padding(.top, 9)
+                        .foregroundColor(.primary)
+                        .opacity(0.3)
+                    Text("About Puul")
+                        .font(.system(size: 27))
+                        .bold()
+                        .padding()
                     HStack {
                         Text("What is Puul?")
                             .font(.system(size: 27))

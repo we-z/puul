@@ -87,7 +87,7 @@ struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     @State private var done: Bool = false
     @State var showingAlert = false
-    
+    @Environment(\.dismiss) private var dismiss
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray4
@@ -198,6 +198,7 @@ struct SurveyContainerView: View {
                 } else {
                     withAnimation(.easeInOut) {
                         done = true
+                        dismiss()
                     }
                 }
             }) {
@@ -223,6 +224,7 @@ struct SurveyContainerView: View {
                 primaryButton: .destructive(Text("Skip"), action: {
                     withAnimation(.easeInOut) {
                         done = true
+                        dismiss()
                     }
                 }),
                 secondaryButton: .cancel(Text("Cancel"))
