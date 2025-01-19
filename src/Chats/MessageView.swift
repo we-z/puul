@@ -22,7 +22,7 @@ struct MessageView: View {
                     .foregroundColor(.accentColor)
             case .system:
                 Text("Puul")
-                    .font(.headline)
+                    .font(.title2)
                     .bold()
                     .foregroundColor(.accentColor)
             }
