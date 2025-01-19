@@ -83,6 +83,9 @@ struct HomeView: View {
             .simultaneousGesture(
                 DragGesture()
                     .updating($dragOffset) { value, state, _ in
+                        let horizontalDistance = abs(value.translation.width)
+                        let verticalDistance = abs(value.translation.height)
+                        guard horizontalDistance > verticalDistance else { return }
                         let translation = value.translation.width
                         // Scale the drag offset if swiping beyond the edges
                         if (selectedTab == 0 && translation > 0) ||
@@ -94,6 +97,9 @@ struct HomeView: View {
                         swiping.toggle()
                     }
                     .onEnded { value in
+                        let horizontalDistance = abs(value.translation.width)
+                        let verticalDistance = abs(value.translation.height)
+                        guard horizontalDistance > verticalDistance else { return }
                         let threshold = screenWidth * 0.1
                         let distance = value.translation.width
                         
