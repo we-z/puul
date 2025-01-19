@@ -165,7 +165,7 @@ struct ChatView: View {
                                                 } label: {
                                                     Text(question)
                                                         .colorInvert()
-                                                        .font(.system(size: 18))
+                                                        .font(.system(size: 15))
                                                         .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
                                                         .multilineTextAlignment(.leading)
                                                         .padding()
