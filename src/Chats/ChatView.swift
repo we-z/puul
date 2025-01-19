@@ -161,8 +161,7 @@ struct ChatView: View {
                                         HStack(spacing: 10) {
                                             ForEach(financialQuestions, id: \.self) { question in
                                                 Button {
-                                                    inputTextValue = question.replacingOccurrences(of: "\n", with: " ")
-                                                    sendMessage()
+                                                    sendMessage(message: question.replacingOccurrences(of: "\n", with: " "))
                                                 } label: {
                                                     Text(question)
                                                         .colorInvert()
@@ -242,7 +241,6 @@ struct ChatView: View {
                 // Input bar
                 HStack(alignment: .bottom) {
                     TextField(placeholderString, text: $inputTextValue, axis: .vertical)
-                        .onSubmit { sendMessage() }
                         .textFieldStyle(.plain)
                         .font(.system(size: 17))
                         .padding(9)
@@ -252,7 +250,7 @@ struct ChatView: View {
                         .focused($isTextFieldFocused)
                         .lineLimit(1...5)
                     
-                    Button(action: { sendMessage() }) {
+                    Button(action: { sendMessage(message: inputTextValue) }) {
                         Image(systemName: aiChatModel.predicting ? "stop.circle.fill" : "arrow.up.circle.fill")
                             .font(.system(size: 33))
                     }
@@ -282,13 +280,13 @@ struct ChatView: View {
             }
     }
     
-    private func sendMessage() {
+    private func sendMessage(message: String) {
         Task {
             if aiChatModel.predicting {
                 aiChatModel.stop_predict()
             } else {
                 await aiChatModel.send(
-                    message: inputTextValue,
+                    message: message,
                     attachment: imgCachePath,
                     attachment_type: (imgCachePath != nil ? "img" : nil),
                     useRag: enableRAG
