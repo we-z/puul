@@ -43,7 +43,7 @@ struct AccountView: View {
                 //                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("Settings")) {
                     Button(action: {
-                        showManageSubscriptions = true
+
                     }) {
                         HStack {
                             Image(systemName: "checklist")

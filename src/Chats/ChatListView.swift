@@ -51,6 +51,7 @@ struct ChatListView: View {
         
         // 3) Clear local UI bindings
         title = ""
+        chat_selection = nil
         tabSelection = 1
     }
 
