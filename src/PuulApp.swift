@@ -7,6 +7,7 @@ struct PuulApp: App {
         WindowGroup {
             ZStack {
                 ContentView()
+                    .environmentObject(StoreVM())
             }
         }
     }

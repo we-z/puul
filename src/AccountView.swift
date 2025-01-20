@@ -127,6 +127,7 @@ struct AccountView: View {
                })
         .fullScreenCover(isPresented: $showSurvey) {
             SurveyView()
+                .environmentObject(StoreVM())
         }
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
         // .environmentObject(StoreVM())

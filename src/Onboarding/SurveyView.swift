@@ -227,20 +227,20 @@ struct SurveyContainerView: View {
         .background(Color.primary.colorInvert())
         .offset(x: done ? -deviceWidth : 0)
         .environmentObject(StoreVM())
-        .onAppear {
-            if storeVM.hasUnlockedPro {
-                done = true
-            } else {
-                done = false
-            }
-        }
-        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
-            if hasUnlockedPro {
-                done = true
-            } else {
-                done = false
-            }
-        }
+//        .onAppear {
+//            if storeVM.hasUnlockedPro {
+//                done = true
+//            } else {
+//                done = false
+//            }
+//        }
+//        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
+//            if hasUnlockedPro {
+//                done = true
+//            } else {
+//                done = false
+//            }
+//        }
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Are you sure?"),
