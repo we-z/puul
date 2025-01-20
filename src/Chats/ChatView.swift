@@ -195,10 +195,17 @@ struct ChatView: View {
                                     }
                                     Text("").id("latest")
                                 }
+                                .simultaneousGesture(
+                                   DragGesture()
+                                    .onEnded { _ in
+                                        autoScroll = false
+                                   }
+                                )
                                 .scrollIndicators(.hidden)
                                 .onTapGesture {
                                     isTextFieldFocused = false
                                 }
+                                
                                 .onAppear {
                                     scrollProxy = scrollView
                                     scrollToBottom()
@@ -283,6 +290,7 @@ struct ChatView: View {
     }
     
     private func sendMessage(message: String) {
+        autoScroll = true
         Task {
             if aiChatModel.predicting {
                 aiChatModel.stop_predict()

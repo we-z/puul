@@ -12,15 +12,18 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             HomeView()
-            PaywallView()
-                .environmentObject(StoreVM())
             if !storeVM.hasUnlockedPro {
+                PaywallView()
+                    .environmentObject(StoreVM())
+            
                 SurveyView()
                     .environmentObject(StoreVM())
             }
             InstallAIView()
-            OnboardingView()
-                .environmentObject(StoreVM())
+            if !storeVM.hasUnlockedPro {
+                OnboardingView()
+                    .environmentObject(StoreVM())
+            }
         }
     }
 }
