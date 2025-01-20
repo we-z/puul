@@ -142,7 +142,8 @@ struct SurveyContainerView: View {
                     showingAlert = true
                 } label: {
                     HStack {
-                        Text("skip")
+                        Text("Skip")
+                        Image(systemName: "chevron.right.2")
                     }
                     .font(.title3)
                     .foregroundColor(.primary)
