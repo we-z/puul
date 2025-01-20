@@ -10,20 +10,28 @@ import SwiftUI
 struct LogoView: View {
     var body: some View {
         ZStack {
-            Color(.gray)
-                .opacity(0.3)
-            VStack {
-                LinearGradient(
-                    colors: [.primary.opacity(0.5), .primary],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+            Color(.black)
+                .ignoresSafeArea()
+            Color(.white)
+                .opacity(0.15)
+                .ignoresSafeArea()
+            ZStack {
+                
+                VStack {
+                    LinearGradient(
+                        colors: [.white.opacity(0.5), .white],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+                .frame(width: 42, height: 90)
+                .offset(x: -52.8, y: 114)
+                Text("U")
+                    .foregroundColor(.white)
+                    .rotationEffect(.degrees(-90))
+                    .offset(x: 10)
             }
-            .frame(width: 42, height: 90)
-            .offset(x: -52.8, y: 114)
-            Text("U")
-                .rotationEffect(.degrees(-90))
-                .offset(x: 10)
+            .offset(y: -45)
         }
         .fontWeight(.heavy)
         .bold()

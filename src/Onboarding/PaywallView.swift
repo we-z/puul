@@ -147,7 +147,9 @@ struct PaywallView: View {
         }
         .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
             if hasUnlockedPro {
-                done = true
+                withAnimation(.easeInOut) {
+                    done = true
+                }
             } else {
                 done = false
             }
