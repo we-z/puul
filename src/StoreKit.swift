@@ -1,6 +1,6 @@
-
 import Foundation
 import StoreKit
+import SwiftUI
 
 @MainActor
 class StoreVM: ObservableObject {
@@ -9,18 +9,19 @@ class StoreVM: ObservableObject {
     @Published var success = false
     var model = AppModel()
 
+    // Persist hasUnlockedPro using AppStorage
+    @AppStorage("hasUnlockedPro") var hasUnlockedPro: Bool = false
+
     private let productIds: [String] = ["monthly.subscription"]
 
     var updateListenerTask: Task<Void, Error>? = nil
 
     init() {
-        // start a transaction listern as close to app launch as possible so you don't miss a transaction
-
+        // Start a transaction listener as close to app launch as possible so you don't miss a transaction
         updateListenerTask = listenForTransactions()
 
         Task {
             await requestProducts()
-
             await updatePurchasedProducts()
         }
     }
@@ -35,12 +36,12 @@ class StoreVM: ObservableObject {
             for await result in Transaction.updates {
                 do {
                     let transaction = try await self.checkVerified(result)
-                    // deliver products to the user
+                    // Deliver products to the user
                     await self.updatePurchasedProducts()
 
                     await transaction.finish()
                 } catch {
-                    print("transaction failed verification")
+                    print("Transaction failed verification")
                 }
             }
         }
@@ -62,14 +63,14 @@ class StoreVM: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
-            // request from the app store using the product ids (hardcoded)
+            // Request from the App Store using the product IDs (hardcoded)
             subscriptions = try await Product.products(for: productIds)
         } catch {
-            print("Failed product request from app store server: \(error)")
+            print("Failed product request from App Store server: \(error)")
         }
     }
 
-    // purchase the product
+    // Purchase the product
     @MainActor
     func purchase(_ product: Product) async throws {
         let result = try await product.purchase()
@@ -89,10 +90,6 @@ class StoreVM: ObservableObject {
         }
     }
 
-    var hasUnlockedPro: Bool {
-        return !purchasedProductIDs.isEmpty
-    }
-
     @MainActor
     func updatePurchasedProducts() async {
         for await result in Transaction.currentEntitlements {
@@ -109,6 +106,8 @@ class StoreVM: ObservableObject {
                 model.isPurchased = false
             }
         }
+        // Update hasUnlockedPro based on purchasedProductIDs
+        hasUnlockedPro = !purchasedProductIDs.isEmpty
     }
 
     @MainActor
