@@ -156,14 +156,14 @@ struct InstallAIView: View {
                 }
                 
                 // Title
-                Text("Welcome to Puul!")
+                Text("Welcome to Puul")
                     .font(.largeTitle)
                     .bold()
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 // Description
-                Text("Puul AI is a locally hosted AI model < 1 GB in size and is completely private, running on your device with no internet connection required.")
+                Text("AI financial advisor at your fingertips. Private AI running on your device with no internet connection required.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
@@ -208,7 +208,7 @@ struct InstallAIView: View {
                 }
             } label: {
                 HStack {
-                    Text(status.isEmpty ? "Install local AI" : "Stop Installation")
+                    Text(status.isEmpty ? "Install AI" : "Stop Installation")
                     Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
                 }
                 .bold()

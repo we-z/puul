@@ -15,15 +15,12 @@ struct ContentView: View {
             if !storeVM.hasUnlockedPro {
                 PaywallView()
                     .environmentObject(StoreVM())
-            
                 SurveyView()
                     .environmentObject(StoreVM())
-            }
-            InstallAIView()
-            if !storeVM.hasUnlockedPro {
                 OnboardingView()
                     .environmentObject(StoreVM())
             }
+            InstallAIView()
         }
     }
 }
