@@ -130,30 +130,36 @@ struct PaywallView: View {
                 .buttonStyle(HapticButtonStyle())
                 Text("1 month free trial, then $29.99 / month")
                     .font(.headline)
-                Text("Restore Purchase | Terms | Privacy")
-                    .font(.headline)
-                    .foregroundColor(.gray)
+                Button {
+                    Task {
+                        try? await AppStore.sync()
+                    }
+                } label: {
+                    Text("Restore Purchase")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
             }
             
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .offset(x: done ? -deviceWidth : 0)
-        .onAppear {
-            if storeVM.hasUnlockedPro {
-                done = true 
-            } else {
-                done = false
-            }
-        }
-        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
-            if hasUnlockedPro {
-                withAnimation(.easeInOut) {
-                    done = true
-                }
-            } else {
-                done = false
-            }
-        }
+//        .onAppear {
+//            if storeVM.hasUnlockedPro {
+//                done = true 
+//            } else {
+//                done = false
+//            }
+//        }
+//        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
+//            if hasUnlockedPro {
+//                withAnimation(.easeInOut) {
+//                    done = true
+//                }
+//            } else {
+//                done = false
+//            }
+//        }
     }
 }
 
