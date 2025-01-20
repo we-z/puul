@@ -13,8 +13,8 @@ struct PaywallView: View {
     @State var done: Bool = false
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
-        ("Unlimited Questions", "message"),
         ("Tailored Financial Plans", "doc.text.fill"),
+        ("Unlimited Questions", "message"),
         ("Expert Financial Advice", "brain.head.profile"),
         ("Access Anywhere", "globe"),
         ("Locally Running AI", "iphone"),
@@ -64,50 +64,38 @@ struct PaywallView: View {
                     }
                     
                     // Title
-                    Text("Your Financial Ally")
-                        .font(.largeTitle)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    // Description
-                    Text("Get personalized financial advice anywhere. Your money, your privacy.")
-                        .font(.body)
-                        .multilineTextAlignment(.center)
-                        .padding()
+                    HStack {
+                        Text("Invest in Your Future.")
+                            .font(.system(size: 39))
+                            .bold()
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .padding()
+//                        Spacer()
+                    }
                     
                     // Features
                     VStack {
                         ForEach(featuresWithIcons, id: \.0) { feature, icon in
                             HStack {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 21, height: 21)
-                                    .foregroundColor(.green)
-                                    .padding(.trailing, 6)
-                                Text(feature)
-                                    .bold()
-                                Spacer()
                                 Image(systemName: icon)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 21, height: 21)
-                                    .padding(.trailing, 6)
-                                    .padding(.leading, 9)
+                                    .frame(width: 27, height: 27)
+                                    .padding(.horizontal)
+                                Text(feature)
+                                    .font(.system(size: 21))
+                                    .bold()
+                                Spacer()
+                                
                             }
                             .padding()
-                            Divider()
-                                .padding(.leading, 60)
                         }
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(.secondary.opacity(0.2))
-                    .cornerRadius(15)
-                    .padding()
                 }
             }
             .scrollIndicators(.hidden)
+            
             VStack(spacing: 12) {
                 Divider()
                     .shadow(color: .black, radius: 0.3)
@@ -142,7 +130,14 @@ struct PaywallView: View {
             }
             
         }
-        .background(Color.primary.colorInvert().ignoresSafeArea())
+        .background {
+            LinearGradient(
+                colors: [.clear, .white.opacity(0.2)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+                .ignoresSafeArea()
+        }
         .offset(x: done ? -deviceWidth : 0)
 //        .onAppear {
 //            if storeVM.hasUnlockedPro {
