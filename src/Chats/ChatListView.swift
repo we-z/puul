@@ -130,7 +130,7 @@ struct ChatListView: View {
                         }
                     }
                     .scrollIndicators(.hidden)
-                    .searchable(text: $searchText, isPresented: $isSearching, prompt: Text("Search..."))
+                    .searchable(text: $searchText, prompt: Text("Search..."))
                     .navigationTitle("Sessions")
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {

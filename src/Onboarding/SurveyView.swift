@@ -107,6 +107,7 @@ struct SurveyView: View {
 
 struct SurveyContainerView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
+    @EnvironmentObject var storeVM: StoreVM
     @State private var done: Bool = false
     @State var showingAlert = false
     @Environment(\.dismiss) private var dismiss
@@ -223,7 +224,22 @@ struct SurveyContainerView: View {
             .buttonStyle(HapticButtonStyle())
         }
         .background(Color.primary.colorInvert())
-        .offset(x: done ? -500 : 0)
+        .offset(x: done ? -deviceWidth : 0)
+        .environmentObject(StoreVM())
+        .onAppear {
+            if storeVM.hasUnlockedPro {
+                done = true
+            } else {
+                done = false
+            }
+        }
+        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
+            if hasUnlockedPro {
+                done = true
+            } else {
+                done = false
+            }
+        }
         .alert(isPresented: $showingAlert) {
             Alert(
                 title: Text("Are you sure?"),
@@ -843,5 +859,6 @@ struct FinalStatusView: View {
 struct SurveyView_Previews: PreviewProvider {
     static var previews: some View {
         SurveyView()
+            .environmentObject(StoreVM())
     }
 }

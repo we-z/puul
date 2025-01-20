@@ -14,6 +14,7 @@ import SimilaritySearchKitMiniLMAll
 import SimilaritySearchKitMiniLMMultiQA
 
 let demo_model_name = "Pythia410m-V0-Instruct.Q6_K_split.gguf-00001-of-00004.gguf"
+let deviceWidth = UIScreen.main.bounds.width
 
 func parse_model_setting_template(template_path:String) -> ChatSettingsTemplate{
     var tmp_template:ChatSettingsTemplate = ChatSettingsTemplate()

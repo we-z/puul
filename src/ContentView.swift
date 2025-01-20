@@ -14,8 +14,10 @@ struct ContentView: View {
             PaywallView()
                 .environmentObject(StoreVM())
             SurveyView()
+                .environmentObject(StoreVM())
             InstallAIView()
             OnboardingView()
+                .environmentObject(StoreVM())
         }
     }
 }

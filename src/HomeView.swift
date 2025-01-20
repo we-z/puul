@@ -114,6 +114,7 @@ struct HomeView: View {
                             state = translation
                         }
                         swiping.toggle()
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
                     .onEnded { value in
                         let horizontalDistance = abs(value.translation.width)

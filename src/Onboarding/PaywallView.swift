@@ -137,7 +137,21 @@ struct PaywallView: View {
             
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
-        .offset(x: done ? -500 : 0)
+        .offset(x: done ? -deviceWidth : 0)
+        .onAppear {
+            if storeVM.hasUnlockedPro {
+                done = true 
+            } else {
+                done = false
+            }
+        }
+        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
+            if hasUnlockedPro {
+                done = true
+            } else {
+                done = false
+            }
+        }
     }
 }
 

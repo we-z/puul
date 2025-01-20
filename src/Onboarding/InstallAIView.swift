@@ -251,7 +251,7 @@ struct InstallAIView: View {
             downloadTask?.cancel()
         }
         // Slide offscreen if `done` is true
-        .offset(x: done ? -500 : 0)
+        .offset(x: done ? -deviceWidth : 0)
     }
 }
 

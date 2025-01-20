@@ -9,7 +9,7 @@ import SwiftUI
 import StoreKit
 
 struct OnboardingView: View {
-    
+    @EnvironmentObject var storeVM: StoreVM
     // MARK: - Internal model for each onboarding page
     struct OnboardingPage {
         let systemName: String
@@ -127,10 +127,25 @@ struct OnboardingView: View {
         }
         .background(Color.primary.ignoresSafeArea().colorInvert())
         .animation(.spring, value: tabSelection)
-        .offset(x: done ? -500 : 0)
+        .offset(x: done ? -deviceWidth : 0)
+        .onAppear {
+            if storeVM.hasUnlockedPro {
+                done = true
+            } else {
+                done = false
+            }
+        }
+        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
+            if hasUnlockedPro {
+                done = true
+            } else {
+                done = false
+            }
+        }
     }
 }
 
 #Preview {
     OnboardingView()
+        .environmentObject(StoreVM())
 }
