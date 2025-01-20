@@ -12,6 +12,7 @@ struct ContentView: View {
         ZStack {
             HomeView()
             PaywallView()
+                .environmentObject(StoreVM())
             SurveyView()
             InstallAIView()
             OnboardingView()

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct PaywallView: View {
+    @EnvironmentObject var storeVM: StoreVM
     @State var done: Bool = false
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
@@ -32,6 +34,20 @@ struct PaywallView: View {
         ("Educational Content Library", "book.closed.fill"),
         ("Sustainable Investment Insight", "leaf.fill")
     ]
+    
+    func buy(product: Product) async {
+        do {
+            try await storeVM.purchase(product)
+            await storeVM.updatePurchasedProducts()
+            if storeVM.success {
+                withAnimation(.easeInOut) {
+                    done = true
+                }
+            }
+        } catch {
+            print("purchase failed")
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -96,8 +112,8 @@ struct PaywallView: View {
                 Divider()
                     .shadow(color: .black, radius: 0.3)
                 Button {
-                    withAnimation(.easeInOut) {
-                        done = true
+                    Task {
+                        await buy(product: storeVM.subscriptions.first!)
                     }
                 } label: {
                     Text("Continue for free")
@@ -127,4 +143,5 @@ struct PaywallView: View {
 
 #Preview {
     PaywallView()
+        .environmentObject(StoreVM())
 }
