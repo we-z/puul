@@ -17,6 +17,7 @@
 
   ],
   "settings" : {
+    "_billingGracePeriodEnabled" : false,
     "_failTransactionsEnabled" : false,
     "_locale" : "en_US",
     "_storefront" : "USA",
@@ -87,7 +88,12 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "2C9FE60E",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "displayPrice" : "0.99",
+            "internalID" : "35229ECF",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1M"
+          },
           "localizations" : [
             {
               "description" : "",
