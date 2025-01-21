@@ -75,8 +75,8 @@ struct PaywallView: View {
                     
                     // Title
                     HStack {
-                        Text("Invest in Your Future.")
-                            .font(.system(size: 30))
+                        Text("Invest in Your Future")
+                            .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
                             .padding()
@@ -130,7 +130,7 @@ struct PaywallView: View {
                 Button {
                     impactSoft.impactOccurred()
                     Task {
-                        try? await AppStore.sync()
+                        await storeVM.restoreProducts()
                     }
                 } label: {
                     Text("Restore Purchase")
