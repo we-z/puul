@@ -224,7 +224,10 @@ struct SurveyContainerView: View {
             }
             .buttonStyle(HapticButtonStyle())
         }
-        .background(Color.primary.colorInvert())
+        .background {
+            Color.primary.colorInvert()
+                .ignoresSafeArea()
+        }
         .offset(x: done ? -deviceWidth : 0)
         .environmentObject(StoreVM())
 //        .onAppear {

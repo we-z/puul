@@ -66,7 +66,7 @@ struct PaywallView: View {
                     // Title
                     HStack {
                         Text("Invest in Your Future.")
-                            .font(.system(size: 39))
+                            .font(.system(size: 30))
                             .bold()
                             .multilineTextAlignment(.center)
                             .padding()
@@ -95,7 +95,6 @@ struct PaywallView: View {
                 }
             }
             .scrollIndicators(.hidden)
-            
             VStack(spacing: 12) {
                 Divider()
                     .shadow(color: .black, radius: 0.3)
@@ -131,30 +130,12 @@ struct PaywallView: View {
             
         }
         .background {
-            LinearGradient(
-                colors: [.clear, .white.opacity(0.2)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-                .ignoresSafeArea()
+            ZStack {
+                Color.primary.colorInvert()
+            }
+            .ignoresSafeArea()
         }
         .offset(x: done ? -deviceWidth : 0)
-//        .onAppear {
-//            if storeVM.hasUnlockedPro {
-//                done = true 
-//            } else {
-//                done = false
-//            }
-//        }
-//        .onChange(of: storeVM.hasUnlockedPro) { hasUnlockedPro in
-//            if hasUnlockedPro {
-//                withAnimation(.easeInOut) {
-//                    done = true
-//                }
-//            } else {
-//                done = false
-//            }
-//        }
     }
 }
 
