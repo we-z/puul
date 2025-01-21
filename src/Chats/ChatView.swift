@@ -181,6 +181,17 @@ struct ChatView: View {
                                         MessageView(message: message, chatStyle: $chatStyle, status: nil)
                                             .id(message.id)
                                             .padding()
+                                            .contextMenu {
+                                                Button {
+                                                    UIPasteboard.general.string = message.text
+                                                } label: {
+                                                    HStack {
+                                                        Text("Copy")
+                                                        Spacer()
+                                                        Image(systemName: "square.on.square")
+                                                    }
+                                                }
+                                            }
                                     }
                                     Text("").id("latest")
                                 }

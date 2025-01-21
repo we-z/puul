@@ -125,6 +125,8 @@ struct ChatListView: View {
                                     Delete(at: chat_preview)
                                 }) {
                                     Text("Delete Session")
+                                    Spacer()
+                                    Image(systemName: "trash")
                                 }
                             }
                         }

@@ -58,7 +58,7 @@ struct MessageView: View {
             case .error:
                 Text(processedText)
                     .foregroundColor(Color.red)
-                    .textSelection(.enabled)
+                    
 
             case .typed:
                 VStack(alignment: .leading) {
@@ -81,36 +81,36 @@ struct MessageView: View {
                             )
                             .buttonStyle(.borderless)
                             if showRag {
-                                Text(LocalizedStringKey(processedText)).font(.footnote).textSelection(.enabled)
+                                Text(LocalizedStringKey(processedText)).font(.footnote)
                             }
-                        }.textSelection(.enabled)
+                        }
                     } else {
                         Text(LocalizedStringKey(processedText))
-                            .textSelection(.enabled)
+                            
                     }
-                }.textSelection(.enabled)
+                }
 
             case .predicting:
                 HStack {
-                    Markdown(processedText).markdownTheme(.docC).textSelection(.enabled)
+                    Markdown(processedText).markdownTheme(.docC)
                     ProgressView()
                         .padding(.leading, 3.0)
                         .frame(maxHeight: .infinity, alignment: .bottom)
-                }.textSelection(.enabled)
+                }
 
             case .predicted(totalSecond: _):
                 VStack(alignment: .leading) {
                     switch chatStyle {
                     case "DocC":
-                        Markdown(processedText).markdownTheme(.docC).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.docC)
                     case "Basic":
-                        Markdown(processedText).markdownTheme(.basic).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.basic)
                     case "GitHub":
-                        Markdown(processedText).markdownTheme(.gitHub).textSelection(.enabled)
+                        Markdown(processedText).markdownTheme(.gitHub)
                     default:
-                        Text(processedText).textSelection(.enabled)
+                        Text(processedText)
                     }
-                }.textSelection(.enabled)
+                }
             }
         }
     }
