@@ -11,6 +11,8 @@ import StoreKit
 struct PaywallView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State var done: Bool = false
+    @State var processing: Bool = false
+    
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
         ("Tailored Financial Plans", "doc.text.fill"),
@@ -36,16 +38,24 @@ struct PaywallView: View {
     ]
     
     func buy(product: Product) async {
+        withAnimation(.easeInOut) {
+            processing = true
+        }
         do {
             try await storeVM.purchase(product)
             await storeVM.updatePurchasedProducts()
             if storeVM.success {
                 withAnimation(.easeInOut) {
+                    processing = false
                     done = true
                 }
             }
+            withAnimation(.easeInOut) {
+                processing = false
+            }
         } catch {
             print("purchase failed")
+            processing = false
         }
     }
 
@@ -135,6 +145,22 @@ struct PaywallView: View {
                 Color.primary.colorInvert()
             }
             .ignoresSafeArea()
+        }
+        .overlay {
+            if processing {
+                ZStack {
+                    Color.primary.opacity(0.2)
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 90)
+                        .cornerRadius(21)
+                    ProgressView()
+                        .tint(.white)
+                        .controlSize(.large)
+                }
+                .ignoresSafeArea()
+            }
         }
         .offset(x: done ? -deviceWidth : 0)
     }
