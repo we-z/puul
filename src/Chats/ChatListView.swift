@@ -200,9 +200,11 @@ struct ChatListView: View {
             searchText = ""
         }
         // Refresh the list whenever the tab changes
-        .onChange(of: tabSelection) { _ in
+        .onChange(of: aiChatModel.messages) { messages in
             Task {
-                refresh_chat_list()
+                if messages.count < 2 {                    
+                    refresh_chat_list()
+                }
             }
         }
         .task {
