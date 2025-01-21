@@ -118,6 +118,7 @@ struct PaywallView: View {
                 Text("1 month free trial, then $29.99 / month")
                     .font(.headline)
                 Button {
+                    impactSoft.impactOccurred()
                     Task {
                         try? await AppStore.sync()
                     }
