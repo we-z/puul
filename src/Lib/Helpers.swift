@@ -608,7 +608,8 @@ public func CreateChat(
         } else {
             // If it's a new chat, build name from "title"
             let title = (options["title"] as? String) ?? "Chat"
-            fname = title + salt + ".json"
+            let truncatedTitle = String(title.prefix(50))
+            fname = truncatedTitle + salt + ".json"
         }
         
         // If saving as a template, override fname with chat_name
