@@ -70,6 +70,7 @@ struct PaywallView: View {
                             .scaledToFit()
                             .frame(width: 150, height: 150)
                             .padding()
+                            .padding(.top, 90)
                     }
                     
                     // Title
