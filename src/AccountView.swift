@@ -22,6 +22,14 @@ struct AccountView: View {
             List {
                 Section(header: Text("Account")) {
                     Button(action: {
+                        showSurvey = true
+                    }) {
+                        HStack {
+                            Image(systemName: "checklist")
+                            Text("Client Questionnaire")
+                        }
+                    }
+                    Button(action: {
                         showManageSubscriptions = true
                     }) {
                         HStack {
@@ -42,28 +50,21 @@ struct AccountView: View {
                     }
                 }
                 //                .listRowBackground(Color.primary.opacity(0.12))
-                Section(header: Text("Settings")) {
-                    Button(action: {
-                        showSurvey = true
-                    }) {
-                        HStack {
-                            Image(systemName: "checklist")
-                            Text("Client Questionnaire")
-                        }
-                    }
-                    Toggle(isOn: $model.isLightMode) {
-                        HStack {
-                            Image(systemName: "sun.max")
-                            Text("Light Mode")
-                        }
-                    }
-                    Toggle(isOn: $model.hapticModeOn) {
-                        HStack {
-                            Image(systemName: "waveform")
-                            Text("Haptic Feedback")
-                        }
-                    }
-                }
+//                Section(header: Text("Settings")) {
+//                    
+//                    Toggle(isOn: $model.isLightMode) {
+//                        HStack {
+//                            Image(systemName: "sun.max")
+//                            Text("Light Mode")
+//                        }
+//                    }
+//                    Toggle(isOn: $model.hapticModeOn) {
+//                        HStack {
+//                            Image(systemName: "waveform")
+//                            Text("Haptic Feedback")
+//                        }
+//                    }
+//                }
                 //                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("About")) {
                     Button(action: {

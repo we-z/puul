@@ -146,7 +146,7 @@ struct ChatListView: View {
                                 }
                                 .environmentObject(AppModel())
                             ) {
-                                Image(systemName: "gear")
+                                Image(systemName: "person.crop.circle")
                             }
                             .buttonStyle(HapticButtonStyle())
                         }
