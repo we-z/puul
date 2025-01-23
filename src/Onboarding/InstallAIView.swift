@@ -40,8 +40,20 @@ struct InstallAIView: View {
         
         let fileURL = getFileURLFormPathStr(dir: "models", filename: filename)
         
-        // Start the download task
-        downloadTask = URLSession.shared.downloadTask(with: url) { temporaryURL, response, error in
+        // --------------------------------------------------------------------
+        // IMPORTANT FIX:
+        // Use a custom URLSession with extended timeouts instead of
+        // URLSession.shared to avoid -1001 (request timed out) errors.
+        // --------------------------------------------------------------------
+        let config = URLSessionConfiguration.default
+        // How long we wait before concluding the request timed out
+        config.timeoutIntervalForRequest = 300 // 5 minutes
+        // How long we allow a resource to be retrieved from the time you start the request
+        config.timeoutIntervalForResource = 3600 // 1 hour (tweak as needed)
+        
+        let customSession = URLSession(configuration: config)
+        
+        downloadTask = customSession.downloadTask(with: url) { temporaryURL, response, error in
             // Handle any network or server errors
             if let error = error {
                 print("Download error: \(error.localizedDescription)")
@@ -117,8 +129,6 @@ struct InstallAIView: View {
                     
                     // Actually load the model now:
                     ephemeralAI.loadModel()
-                    
-                    
                 }
             } catch {
                 print("Problem writing to \(self.filename)")
@@ -151,7 +161,6 @@ struct InstallAIView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
-//                        .cornerRadius(120)
                         .padding()
                 }
                 
