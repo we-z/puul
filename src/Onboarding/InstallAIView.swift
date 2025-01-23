@@ -163,7 +163,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("AI financial advisor at your fingertips. Private AI running on your device with no internet connection required.")
+                Text("The private AI financial advisor running on your phone. Install once and get started!")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
@@ -174,8 +174,10 @@ struct InstallAIView: View {
             // Progress Section
             if status == "downloading" {
                 ProgressView()
+                    .controlSize(.large)
                     .padding()
                 Text("Installing \(Int(progress))%")
+                    .font(.title3)
                     .bold()
                 ProgressView(value: progress, total: 100)
                     .progressViewStyle(LinearProgressViewStyle())
