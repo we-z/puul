@@ -21,20 +21,20 @@ struct PaywallView: View {
         ("Access Anywhere.", "globe"),
         ("Locally Running AI.", "iphone"),
         ("Privacy-First AI.", "lock.shield"),
-        ("No Tracking.", "eye.slash.fill"),
-        ("Secure Model.", "checkmark.shield.fill"),
-        ("Personalized Investment Strategizing.", "chart.bar.fill"),
-        ("AI Market Insights.", "eye.fill"),
+        ("No Tracking.", "eye.slash"),
+        ("Secure Model.", "checkmark.shield"),
+        ("Personalized Investment Strategizing.", "chart.bar"),
+        ("AI Market Insights.", "eye"),
         ("Tax Optimization Guidance.", "percent"),
-        ("Budgeting Assistance.", "dollarsign.circle.fill"),
+        ("Budgeting Assistance.", "dollarsign.circle"),
         ("Retirement Planning.", "figure.walk"),
-        ("Risk Assessment Methods.", "exclamationmark.triangle.fill"),
-        ("Portfolio Analysis.", "chart.pie.fill"),
+        ("Risk Assessment Methods.", "exclamationmark.triangle"),
+        ("Portfolio Analysis.", "chart.pie"),
         ("Goal-Oriented Savings Plans.", "target"),
-        ("Crypto and Alternative Asset Insights.", "bitcoinsign.circle.fill"),
-        ("Debt Reduction Advice.", "arrow.down.circle.fill"),
-        ("Educational Content Library.", "book.closed.fill"),
-        ("Sustainable Investment Insight.", "leaf.fill")
+        ("Crypto and Alternative Asset Insights.", "bitcoinsign.circle"),
+        ("Debt Reduction Advice.", "arrow.down.circle"),
+        ("Educational Content Library.", "book.closed"),
+        ("Sustainable Investment Insight.", "leaf")
     ]
     
     func buy(product: Product) async {

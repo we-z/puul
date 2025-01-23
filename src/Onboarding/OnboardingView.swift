@@ -33,7 +33,7 @@ struct OnboardingView: View {
             description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
         ),
         OnboardingPage(
-            systemName: "lock.shield.fill",
+            systemName: "lock.shield",
             title: "Secure Wealth Management",
             description: "Keep your financial data and personal information safe with a locally running AI assistant"
         ),

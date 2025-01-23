@@ -22,7 +22,6 @@ struct ChatView: View {
     
     @State var chatStyle: String = "DocC"
     @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
-    @State private var clearChatButtonIcon: String = "eraser.line.dashed.fill"
     
     @State private var scrollProxy: ScrollViewProxy? = nil
     @State private var scrollTarget: Int?
