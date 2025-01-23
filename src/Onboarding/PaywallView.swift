@@ -15,26 +15,26 @@ struct PaywallView: View {
     
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
-        ("Tailored Financial Plans", "doc.text.fill"),
-        ("Unlimited Questions", "message"),
-        ("Expert Financial Advice", "brain.head.profile"),
-        ("Access Anywhere", "globe"),
-        ("Locally Running AI", "iphone"),
-        ("Privacy-First AI", "lock.shield.fill"),
-        ("No Tracking", "eye.slash.fill"),
-        ("Secure Model", "checkmark.shield.fill"),
-        ("Personalized Investment Strategizing", "chart.bar.fill"),
-        ("AI Market Insights", "eye.fill"),
-        ("Tax Optimization Guidance", "percent"),
-        ("Budgeting Assistance", "dollarsign.circle.fill"),
-        ("Retirement Planning", "figure.walk"),
-        ("Risk Assessment Methods", "exclamationmark.triangle.fill"),
-        ("Portfolio Analysis", "chart.pie.fill"),
-        ("Goal-Oriented Savings Plans", "target"),
-        ("Crypto and Alternative Asset Insights", "bitcoinsign.circle.fill"),
-        ("Debt Reduction Advice", "arrow.down.circle.fill"),
-        ("Educational Content Library", "book.closed.fill"),
-        ("Sustainable Investment Insight", "leaf.fill")
+        ("Tailored Financial Plans.", "doc.text"),
+        ("Unlimited Questions.", "message"),
+        ("Expert Financial Advice.", "brain.head.profile"),
+        ("Access Anywhere.", "globe"),
+        ("Locally Running AI.", "iphone"),
+        ("Privacy-First AI.", "lock.shield"),
+        ("No Tracking.", "eye.slash.fill"),
+        ("Secure Model.", "checkmark.shield.fill"),
+        ("Personalized Investment Strategizing.", "chart.bar.fill"),
+        ("AI Market Insights.", "eye.fill"),
+        ("Tax Optimization Guidance.", "percent"),
+        ("Budgeting Assistance.", "dollarsign.circle.fill"),
+        ("Retirement Planning.", "figure.walk"),
+        ("Risk Assessment Methods.", "exclamationmark.triangle.fill"),
+        ("Portfolio Analysis.", "chart.pie.fill"),
+        ("Goal-Oriented Savings Plans.", "target"),
+        ("Crypto and Alternative Asset Insights.", "bitcoinsign.circle.fill"),
+        ("Debt Reduction Advice.", "arrow.down.circle.fill"),
+        ("Educational Content Library.", "book.closed.fill"),
+        ("Sustainable Investment Insight.", "leaf.fill")
     ]
     
     func buy(product: Product) async {
@@ -75,7 +75,7 @@ struct PaywallView: View {
                     
                     // Title
                     HStack {
-                        Text("Invest in Your Future")
+                        Text("Invest in Your Future.")
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
@@ -125,7 +125,7 @@ struct PaywallView: View {
                         .padding([.horizontal])
                 }
                 .buttonStyle(HapticButtonStyle())
-                Text("1 month free trial, then $29.99 / month")
+                Text("1 month free trial, then $29.99 / month.")
                     .font(.headline)
                 HStack(spacing: 6) {
                     Button {
