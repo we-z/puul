@@ -177,16 +177,15 @@ struct ChatListView: View {
             if chats_previews.isEmpty {
                 VStack {
                     Button {
-                        toggleAddChat = true
-                        add_chat_dialog = true
-                        edit_chat_dialog = false
+                        tabSelection = 1
                     } label: {
-                        Image(systemName: "plus.square.dashed")
+                        Image(systemName: "square.and.pencil")
                             .foregroundColor(.primary)
                             .font(.system(size: 40))
                     }
                     .buttonStyle(.borderless)
                     .controlSize(.large)
+                    .padding()
 
                     Text("Start new chat")
                         .font(.title3)
