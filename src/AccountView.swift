@@ -113,10 +113,6 @@ struct AccountView: View {
             .navigationTitle("Account")
         }
         .accentColor(.primary)
-        .sheet(isPresented: $showSubscriptions) {
-            SubscriptionView()
-                .presentationDetents([.height(560)])
-        }
         .sheet(isPresented: $showDataInfo,
                onDismiss: {
                    self.showDataInfo = false

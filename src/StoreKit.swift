@@ -9,7 +9,6 @@ class StoreVM: ObservableObject {
     @Published var success = false
     var model = AppModel()
 
-    // Persist hasUnlockedPro using AppStorage
     @AppStorage("hasUnlockedPro") var hasUnlockedPro: Bool = false
 
     private let productIds: [String] = ["monthly.subscription"]
@@ -106,7 +105,6 @@ class StoreVM: ObservableObject {
                 model.isPurchased = false
             }
         }
-        // Update hasUnlockedPro based on purchasedProductIDs
         hasUnlockedPro = !purchasedProductIDs.isEmpty
     }
 

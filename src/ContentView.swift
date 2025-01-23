@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var storeVM: StoreVM
+    @Environment(\.scenePhase) var scenePhase
     var body: some View {
         ZStack {
             HomeView()
@@ -21,6 +22,12 @@ struct ContentView: View {
                     .environmentObject(StoreVM())
             }
             InstallAIView()
+        }
+        .onChange(of: scenePhase) { _ in
+            Task {
+                await storeVM.requestProducts()
+                await storeVM.updatePurchasedProducts()
+            }
         }
     }
 }
