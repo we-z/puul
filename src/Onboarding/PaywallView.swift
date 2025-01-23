@@ -127,15 +127,44 @@ struct PaywallView: View {
                 .buttonStyle(HapticButtonStyle())
                 Text("1 month free trial, then $29.99 / month")
                     .font(.headline)
-                Button {
-                    impactSoft.impactOccurred()
-                    Task {
-                        await storeVM.restoreProducts()
+                HStack(spacing: 6) {
+                    Button {
+                        impactSoft.impactOccurred()
+                        Task {
+                            await storeVM.restoreProducts()
+                        }
+                    } label: {
+                        Text("Restore Purchase")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
                     }
-                } label: {
-                    Text("Restore Purchase")
-                        .font(.headline)
+                    Text("|")
                         .foregroundColor(.gray)
+                    Button {
+                        impactSoft.impactOccurred()
+                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Terms")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                    Text("|")
+                        .foregroundColor(.gray)
+                    Button {
+                        impactSoft.impactOccurred()
+                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Privacy")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
                 }
             }
             

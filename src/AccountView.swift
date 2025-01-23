@@ -68,7 +68,7 @@ struct AccountView: View {
                 //                .listRowBackground(Color.primary.opacity(0.12))
                 Section(header: Text("About")) {
                     Button(action: {
-                        if let url = URL(string: "https://puul.ai/terms-of-use") {
+                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
                             UIApplication.shared.open(url)
                         }
                     }) {
@@ -78,7 +78,7 @@ struct AccountView: View {
                         }
                     }
                     Button(action: {
-                        if let url = URL(string: "https://puul.ai/privacy-policy") {
+                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
                             UIApplication.shared.open(url)
                         }
                     }) {
