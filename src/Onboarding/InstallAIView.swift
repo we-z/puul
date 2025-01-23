@@ -147,11 +147,11 @@ struct InstallAIView: View {
             VStack {
                 // Large icon or logo
                 ZStack {
-                    Image("logo")
+                    Image(systemName: "person.crop.circle")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
-                        .cornerRadius(120)
+//                        .cornerRadius(120)
                         .padding()
                 }
                 

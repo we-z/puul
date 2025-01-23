@@ -65,11 +65,10 @@ struct PaywallView: View {
                 VStack {
                     // Large SF Symbol icon
                     ZStack {
-                        Image("logo")
+                        Image(systemName: "chart.line.uptrend.xyaxis")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 150, height: 150)
-                            .cornerRadius(120)
                             .padding()
                     }
                     

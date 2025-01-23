@@ -11,31 +11,36 @@ struct LogoView: View {
     var body: some View {
         ZStack {
             Color(.black)
-                .ignoresSafeArea()
+//            Color(.white)
+//                .opacity(0.15)
+//                .ignoresSafeArea()
+//            ZStack {
+//                
+//                VStack {
+//                    LinearGradient(
+//                        colors: [.black.opacity(0.5), .black],
+//                        startPoint: .top,
+//                        endPoint: .bottom
+//                    )
+//                }
+//                .frame(width: 42, height: 90)
+//                .offset(x: -52.8, y: 114)
+//                Text("U")
+//                    .foregroundColor(.black)
+//                    .rotationEffect(.degrees(-90))
+//                    .offset(x: 10)
+//            }
+//            .offset(y: -45)
             Color(.white)
-                .opacity(0.15)
-                .ignoresSafeArea()
-            ZStack {
-                
-                VStack {
-                    LinearGradient(
-                        colors: [.white.opacity(0.5), .white],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                }
-                .frame(width: 42, height: 90)
-                .offset(x: -52.8, y: 114)
-                Text("U")
-                    .foregroundColor(.white)
-                    .rotationEffect(.degrees(-90))
-                    .offset(x: 10)
-            }
-            .offset(y: -45)
+                .aspectRatio(contentMode: .fit)
+            Text("Puul")
+                .bold()
+                .foregroundColor(.black)
+                .font(.system(size: 150))
         }
-        .fontWeight(.heavy)
-        .bold()
-        .font(.system(size: 240))
+//        .fontWeight(.heavy)
+//        .bold()
+//        .font(.system(size: 240))
     }
 }
 

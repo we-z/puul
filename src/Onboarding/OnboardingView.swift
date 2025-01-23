@@ -28,7 +28,7 @@ struct OnboardingView: View {
             description: "Leverage the power of AI to analyze your finances and provide expert guidance for smarter decisions."
         ),
         OnboardingPage(
-            systemName: "chart.line.uptrend.xyaxis",
+            systemName: "list.bullet.clipboard",
             title: "Financial Planning Made Simple",
             description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
         ),

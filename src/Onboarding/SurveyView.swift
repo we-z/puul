@@ -334,11 +334,10 @@ struct MultiChoiceList: View {
 struct IntroductionView: View {
     var body: some View {
         VStack {
-            Image("logo")
+            Image(systemName: "doc.text")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-                .cornerRadius(120)
                 .padding()
             Text("Client Questionnaire")
                 .font(.largeTitle)
@@ -795,11 +794,10 @@ struct FinalStatusView: View {
     
     var body: some View {
         VStack {
-            Image("logo")
+            Image(systemName: "list.clipboard")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-                .cornerRadius(120)
                 .padding()
             
             Text("Creating Your Custom Financial Plan")
