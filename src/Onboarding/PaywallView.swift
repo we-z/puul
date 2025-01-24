@@ -70,7 +70,7 @@ struct PaywallView: View {
                             .scaledToFit()
                             .frame(width: 150, height: 150)
                             .padding()
-                            .padding(.top, 30)
+                            .padding(.top, 90)
                     }
                     
                     // Title
@@ -108,12 +108,19 @@ struct PaywallView: View {
             VStack(spacing: 12) {
                 Divider()
                     .shadow(color: .black, radius: 0.3)
+                HStack {
+                    Image(systemName: "checkmark")
+                        .bold()
+                    Text("No Payment Due Now")
+                        .bold()
+                        .font(.system(size: 18))
+                }
                 Button {
                     Task {
                         await buy(product: storeVM.subscriptions.first!)
                     }
                 } label: {
-                    Text("Continue")
+                    Text("Start Free Trial")
                         .bold()
                         .font(.title2)
                         .padding()
@@ -125,47 +132,49 @@ struct PaywallView: View {
                         .padding([.horizontal])
                 }
                 .buttonStyle(HapticButtonStyle())
-                Text("1 month free trial, then $29.99 / month.")
-                    .font(.headline)
-                HStack(spacing: 6) {
-                    Button {
-                        impactSoft.impactOccurred()
-                        Task {
-                            await storeVM.restoreProducts()
-                        }
-                    } label: {
-                        Text("Restore Purchase")
-                            .bold()
-                            .font(.system(size: 15))
-                            .foregroundColor(.gray)
-                    }
-                    Text("|")
-                        .foregroundColor(.gray)
-                    Button {
-                        impactSoft.impactOccurred()
-                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-                            UIApplication.shared.open(url)
-                        }
-                    } label: {
-                        Text("Terms")
-                            .bold()
-                            .font(.system(size: 15))
-                            .foregroundColor(.gray)
-                    }
-                    Text("|")
-                        .foregroundColor(.gray)
-                    Button {
-                        impactSoft.impactOccurred()
-                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
-                            UIApplication.shared.open(url)
-                        }
-                    } label: {
-                        Text("Privacy")
-                            .bold()
-                            .font(.system(size: 15))
-                            .foregroundColor(.gray)
-                    }
-                }
+                Text("1 month free, then $29.99 per month.")
+                    .bold()
+                    .font(.system(size: 18))
+                    .foregroundColor(.gray)
+//                HStack(spacing: 6) {
+//                    Button {
+//                        impactSoft.impactOccurred()
+//                        Task {
+//                            await storeVM.restoreProducts()
+//                        }
+//                    } label: {
+//                        Text("Restore Purchase")
+//                            .bold()
+//                            .font(.system(size: 15))
+//                            .foregroundColor(.gray)
+//                    }
+//                    Text("|")
+//                        .foregroundColor(.gray)
+//                    Button {
+//                        impactSoft.impactOccurred()
+//                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+//                            UIApplication.shared.open(url)
+//                        }
+//                    } label: {
+//                        Text("Terms")
+//                            .bold()
+//                            .font(.system(size: 15))
+//                            .foregroundColor(.gray)
+//                    }
+//                    Text("|")
+//                        .foregroundColor(.gray)
+//                    Button {
+//                        impactSoft.impactOccurred()
+//                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
+//                            UIApplication.shared.open(url)
+//                        }
+//                    } label: {
+//                        Text("Privacy")
+//                            .bold()
+//                            .font(.system(size: 15))
+//                            .foregroundColor(.gray)
+//                    }
+//                }
             }
             
         }
