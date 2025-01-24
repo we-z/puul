@@ -283,14 +283,20 @@ struct InstallAIView: View {
                 message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended."),
                 primaryButton: .destructive(Text("Stop"), action: {
                     // Cancel the ongoing download
-                    downloadTask?.cancel()
                     withAnimation {
                         status = ""
-                        progress = 0
                     }
                 }),
                 secondaryButton: .cancel(Text("Cancel"))
             )
+        }
+        .onChange(of: status) { newStatus in
+            if newStatus == "" {
+                progress = 0
+                Task {
+                    downloadTask?.cancel()
+                }
+            }
         }
     }
 }
