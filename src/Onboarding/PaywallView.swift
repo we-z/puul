@@ -70,7 +70,7 @@ struct PaywallView: View {
                             .scaledToFit()
                             .frame(width: 150, height: 150)
                             .padding()
-                            .padding(.top, 90)
+                            .padding(.top, 30)
                     }
                     
                     // Title
@@ -113,7 +113,7 @@ struct PaywallView: View {
                         await buy(product: storeVM.subscriptions.first!)
                     }
                 } label: {
-                    Text("Continue for free")
+                    Text("Continue")
                         .bold()
                         .font(.title2)
                         .padding()
