@@ -244,20 +244,15 @@ struct InstallAIView: View {
                 .padding()
             }
             .buttonStyle(HapticButtonStyle())
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("Are you sure?"),
-                    message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended."),
-                    primaryButton: .destructive(Text("Stop"), action: {
-                        // Cancel the ongoing download
-                        downloadTask?.cancel()
-                        withAnimation {
-                            status = ""
-                            progress = 0
-                        }
-                    }),
-                    secondaryButton: .cancel(Text("Cancel"))
-                )
+            if status != "downloading" {
+                Button {
+                    exit(0)
+                } label: {
+                    Text("Cancel")
+                        .bold()
+                        .font(.title)
+                }
+                .buttonStyle(HapticButtonStyle())
             }
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
@@ -281,8 +276,22 @@ struct InstallAIView: View {
             // Stop any active download when leaving this view
             downloadTask?.cancel()
         }
-        // Slide offscreen if `done` is true
         .offset(x: done ? -deviceWidth : 0)
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Are you sure?"),
+                message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended."),
+                primaryButton: .destructive(Text("Stop"), action: {
+                    // Cancel the ongoing download
+                    downloadTask?.cancel()
+                    withAnimation {
+                        status = ""
+                        progress = 0
+                    }
+                }),
+                secondaryButton: .cancel(Text("Cancel"))
+            )
+        }
     }
 }
 
