@@ -21,6 +21,10 @@ struct InstallAIView: View {
     @State private var progress: Double = 0
     @State private var showingAlert = false
     
+    // Icons to cycle through
+    private let icons = ["person.crop.circle", "sparkles", "brain", "dollarsign.circle", "chart.line.uptrend.xyaxis"]
+    @State private var currentIconIndex = 0
+    
     /// Initiates the download and handles the copy/move on completion.
     private func download() {
         withAnimation(.easeInOut) {
@@ -155,13 +159,15 @@ struct InstallAIView: View {
         VStack {
             Spacer()
             VStack {
-                // Large icon or logo
+                // Large icon (animated every 3 seconds)
                 ZStack {
-                    Image(systemName: "person.crop.circle")
+                    Image(systemName: icons[currentIconIndex])
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
                         .padding()
+                        .transition(.opacity)
+                        .id(currentIconIndex)
                 }
                 
                 // Title
@@ -177,10 +183,9 @@ struct InstallAIView: View {
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
-                
-                
             }
             Spacer()
+            
             Text("(Wi-Fi connection recommended)")
                 .bold()
                 .font(.body)
@@ -227,7 +232,6 @@ struct InstallAIView: View {
             } label: {
                 HStack {
                     Text(status.isEmpty ? "Download AI" : "Stop Download")
-//                    Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
                 }
                 .bold()
                 .font(.title)
@@ -262,6 +266,15 @@ struct InstallAIView: View {
             let fileURL = getFileURLFormPathStr(dir: "models", filename: filename)
             if FileManager.default.fileExists(atPath: fileURL.path) {
                 done = true
+            }
+            // Cycle through icons every 3 seconds
+            Task {
+                while !done {
+                    try await Task.sleep(for: .seconds(6))
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        currentIconIndex = (currentIconIndex + 1) % icons.count
+                    }
+                }
             }
         }
         .onDisappear {
