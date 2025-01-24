@@ -172,13 +172,20 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("The Puul AI model is less than 1GB in size (0.91GB). Install once and get started!")
+                Text("Puul is less than 1GB in size (0.91GB). Download on your device to continue.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
+                
+                
             }
             Spacer()
+            Text("(Wi-Fi connection recommended)")
+                .bold()
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .padding()
             
             // Progress Section
             if status == "downloading" {
@@ -219,11 +226,11 @@ struct InstallAIView: View {
                 }
             } label: {
                 HStack {
-                    Text(status.isEmpty ? "Download AI To Continue" : "Stop Download")
-                    Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
+                    Text(status.isEmpty ? "Download AI" : "Stop Download")
+//                    Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
                 }
                 .bold()
-                .font(.title3)
+                .font(.title)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.primary)
