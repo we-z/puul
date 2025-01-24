@@ -172,7 +172,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("The private AI financial advisor running on your phone. Install once and get started!")
+                Text("The Puul AI model is less than 1GB in size (0.91GB). Install once and get started!")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
@@ -185,7 +185,7 @@ struct InstallAIView: View {
                 ProgressView()
                     .controlSize(.large)
                     .padding()
-                Text("Installing \(Int(progress))%")
+                Text("Downloading \(Int(progress))%")
                     .font(.title3)
                     .bold()
                 ProgressView(value: progress, total: 100)
@@ -219,11 +219,11 @@ struct InstallAIView: View {
                 }
             } label: {
                 HStack {
-                    Text(status.isEmpty ? "Install AI" : "Stop Installation")
+                    Text(status.isEmpty ? "Download AI To Continue" : "Stop Download")
                     Image(systemName: status.isEmpty ? "icloud.and.arrow.down" : "icloud.slash")
                 }
                 .bold()
-                .font(.title)
+                .font(.title3)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.primary)
