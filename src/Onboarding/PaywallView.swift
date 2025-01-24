@@ -70,7 +70,7 @@ struct PaywallView: View {
                             .scaledToFit()
                             .frame(width: 150, height: 150)
                             .padding()
-                            .padding(.top, 90)
+                            .padding(.top, 60)
                     }
                     
                     // Title
@@ -105,9 +105,7 @@ struct PaywallView: View {
                 }
             }
             .scrollIndicators(.hidden)
-            VStack(spacing: 12) {
-                Divider()
-                    .shadow(color: .black, radius: 0.3)
+            VStack {
                 HStack {
                     Image(systemName: "checkmark")
                         .bold()
@@ -115,6 +113,7 @@ struct PaywallView: View {
                         .bold()
                         .font(.system(size: 18))
                 }
+                .padding(.top)
                 Button {
                     Task {
                         await buy(product: storeVM.subscriptions.first!)
@@ -129,7 +128,7 @@ struct PaywallView: View {
                         .colorInvert()
                         .background(Color.primary)
                         .cornerRadius(21)
-                        .padding([.horizontal])
+                        .padding()
                 }
                 .buttonStyle(HapticButtonStyle())
                 Text("1 month free, then $29.99 per month.")
@@ -175,6 +174,10 @@ struct PaywallView: View {
 //                            .foregroundColor(.gray)
 //                    }
 //                }
+            }
+            .background {
+                Color.primary.opacity(0.1)
+                    .ignoresSafeArea()
             }
             
         }
