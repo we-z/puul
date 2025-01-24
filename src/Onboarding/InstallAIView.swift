@@ -190,7 +190,6 @@ struct InstallAIView: View {
                 .bold()
                 .font(.body)
                 .multilineTextAlignment(.center)
-                .padding()
             
             // Progress Section
             if status == "downloading" {
@@ -248,9 +247,9 @@ struct InstallAIView: View {
                 Button {
                     exit(0)
                 } label: {
-                    Text("Cancel")
+                    Text("Cancel to Exit")
                         .bold()
-                        .font(.title)
+                        .font(.title2)
                 }
                 .buttonStyle(HapticButtonStyle())
             }
