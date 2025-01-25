@@ -211,7 +211,6 @@ struct ChatView: View {
                                 }
                             }
                         }
-//                        .navigationBarTitleDisplayMode(.inline)
                         .navigationTitle("Puul")
                         .toolbar {
                             ToolbarItem(placement: .topBarLeading) {
