@@ -132,6 +132,7 @@ struct MessageView: View {
                     .padding(12.0)
                     .background(message.sender == .system ? Color.clear : Color.primary)
                     .cornerRadius(24)
+                    .padding(.leading)
                 } else {
                     MessageContentView(message: message,
                                        chatStyle: $chatStyle,
