@@ -106,14 +106,17 @@ struct PaywallView: View {
             }
             .scrollIndicators(.hidden)
             VStack {
-                HStack {
-                    Image(systemName: "checkmark")
-                        .bold()
-                    Text("No Payment Due Now")
-                        .bold()
-                        .font(.system(size: 18))
-                }
-                .padding(.top)
+//                HStack {
+//                    Image(systemName: "checkmark")
+//                        .bold()
+//                    Text("No Payment Due Now")
+//                        .bold()
+//                        .font(.system(size: 18))
+//                }
+//                .padding(.top)
+                Divider()
+                    .frame(height: 1)
+                    .overlay(.primary)
                 Button {
                     Task {
                         await buy(product: storeVM.subscriptions.first!)
@@ -134,7 +137,8 @@ struct PaywallView: View {
                 Text("1 month free, then $29.99 per month.")
                     .bold()
                     .font(.system(size: 18))
-                    .foregroundColor(.gray)
+//                    .foregroundColor(.gray)
+                    .padding(.bottom)
 //                HStack(spacing: 6) {
 //                    Button {
 //                        impactSoft.impactOccurred()
@@ -175,10 +179,10 @@ struct PaywallView: View {
 //                    }
 //                }
             }
-            .background {
-                Color.primary.opacity(0.1)
-                    .ignoresSafeArea()
-            }
+//            .background {
+//                Color.primary.opacity(0.1)
+//                    .ignoresSafeArea()
+//            }
             
         }
         .background {

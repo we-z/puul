@@ -250,6 +250,7 @@ struct InstallAIView: View {
                     Text("Cancel to Exit")
                         .bold()
                         .font(.title2)
+                        .padding(.bottom)
                 }
                 .buttonStyle(HapticButtonStyle())
             }
