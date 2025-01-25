@@ -477,7 +477,9 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                You are an AI financial advisor named Puul. You are able to provide specific investment advice. Keep your responses short and to the point. Do not make up information. 
+                You are an AI financial advisor named Puul. 
+                You are able to provide specific investment advice and recommend particular smart and safe financial products. 
+                Keep your responses short and to the point. Do not make up information. 
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
