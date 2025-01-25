@@ -470,7 +470,7 @@ final class AIChatModel: ObservableObject {
                     // The user never completed the survey
                     surveyPrompt = """
                     The client has NOT completed the Puul questionnaire.
-                    Remind them to do so in client questionnaire in the account page for more accurate, personalized advice.
+                    Remind them in every response to do so in client questionnaire in the account page for more accurate, personalized advice.
                     All questionnaire data is stored privately on the user's phone.
                     """
                 }
