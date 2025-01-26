@@ -450,7 +450,6 @@ final class AIChatModel: ObservableObject {
                     • Credit Score: \(answers.creditScore)
                     • Debt Amount: \(answers.debtAmount)
                     • Saving Monthly: \(answers.savingMonthly)
-                    • Demographic: \(answers.demographic)
                     • Location: \(answers.location)
                     • Risk Tolerance: \(answers.riskTolerance)
                     • Goals: \(answers.goals.joined(separator: ", "))
@@ -658,7 +657,7 @@ final class AIChatModel: ObservableObject {
                                 { final_str in
             self.finish_completion(final_str, &message)
         },
-                                system_prompt: self.messages.isEmpty ? nil : system_prompt,
+                                system_prompt: system_prompt,
                                 img_path: img_real_path)
     }
 }

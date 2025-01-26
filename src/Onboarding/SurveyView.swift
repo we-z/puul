@@ -10,7 +10,6 @@ struct SurveyAnswers: Codable {
     var debtAmount: Int = 0
     var savingMonthly: Int = 0
     
-    var demographic: String = "Prefer not to say"
     var location: String = "United States"
     var riskTolerance: String = "Medium"
     var goals: [String] = []
@@ -398,33 +397,6 @@ struct SalaryQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
-        }
-    }
-}
-
-struct DemographicQuestionView: View {
-    @EnvironmentObject var surveyVM: SurveyViewModel
-    
-    let choices = [
-        "Prefer not to say",
-        "Gen Z",
-        "Millennial",
-        "Gen X",
-        "Baby Boomer",
-        "Other"
-    ]
-    
-    var body: some View {
-        VStack {
-            SurveyNavigationHeader(title: "Demographic Group") {
-                surveyVM.previousStep()
-            }
-            
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.demographic)
             
             SurveyNavigationFooter(nextDisabled: false) {
                 surveyVM.nextStep()
