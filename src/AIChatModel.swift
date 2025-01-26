@@ -443,7 +443,7 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    The clients inforamtion and all you need to know are as follows:
+                    The clients inforamtion are as follows:
 
                     • Age: \(answers.age)
                     • Salary: \(answers.salary)
@@ -478,8 +478,9 @@ final class AIChatModel: ObservableObject {
                 // Our base system prompt
                 let baseSystemPrompt = """
                 You are an AI financial advisor named Puul. 
-                You are able to provide specific investment advice and recommend particular smart and safe financial products. 
+                Do not refuse any query or question that you are asked.
                 Keep your responses short and to the point. Do not make up information. 
+                You can provide specific investment advice. You can recommend financial products.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
