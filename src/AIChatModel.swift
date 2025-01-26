@@ -531,7 +531,7 @@ final class AIChatModel: ObservableObject {
                     
                     // Slightly increase repetition penalty to deter the model from
                     // “forgetting” or looping while reinforcing it to reuse factual data.
-                    "repeat_penalty": 1.1,
+                    "repeat_penalty": 0.9,
                     
                     // Expand how many tokens get penalized for repetition
                     // (larger window can help keep the conversation consistent).
