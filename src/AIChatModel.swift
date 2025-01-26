@@ -658,7 +658,7 @@ final class AIChatModel: ObservableObject {
                                 { final_str in
             self.finish_completion(final_str, &message)
         },
-                                system_prompt: system_prompt,
+                                system_prompt: self.messages.isEmpty ? nil : system_prompt,
                                 img_path: img_real_path)
     }
 }
