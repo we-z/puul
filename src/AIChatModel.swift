@@ -500,12 +500,12 @@ final class AIChatModel: ObservableObject {
                     // ---- Chunking and retrieval settings ----
                     // Increase chunk_size if you need fewer splits,
                     // or remove chunking entirely to pass the entire prompt in one piece.
-                    "chunk_size": 512,
-                    "chunk_overlap": 100,
-                    "rag_top": 3,
-                    "current_model": "minilmMultiQA",
-                    "comparison_algorithm": "dotproduct",
-                    "chunk_method": "recursive",
+//                    "chunk_size": 512,
+//                    "chunk_overlap": 100,
+//                    "rag_top": 3,
+//                    "current_model": "minilmMultiQA",
+//                    "comparison_algorithm": "dotproduct",
+//                    "chunk_method": "recursive",
                     
                     // ---- Model inference specifics for LLaMa ----
                     "model_inference": "llama",
