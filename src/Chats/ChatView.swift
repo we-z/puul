@@ -242,7 +242,9 @@ struct ChatView: View {
                 }
                 .frame(maxHeight: .infinity)
                 .onChange(of: aiChatModel.AI_typing) { _ in
-                    scrollToBottom()
+                    if !autoScroll {
+                        scrollToBottom()
+                    }
                 }
                 
                 // Input bar
@@ -288,7 +290,7 @@ struct ChatView: View {
     }
     
     private func sendMessage(message: String) {
-        autoScroll = true
+        self.autoScroll = true
         Task {
             if aiChatModel.predicting {
                 aiChatModel.stop_predict()

@@ -482,7 +482,7 @@ final class AIChatModel: ObservableObject {
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
-                let combinedSystemPrompt = "<|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\(surveyPrompt)<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+                let combinedSystemPrompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\(surveyPrompt)\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
                 
                 // 4) Put that into chatOptions
                 let chatOptions: [String: Any] = [
@@ -515,33 +515,32 @@ final class AIChatModel: ObservableObject {
                     "flash_attn": false,
                     
                     // ---- Key parameters for controlling context and generation ----
-                    // If your model supports 8192 tokens, you can keep it here or try higher if supported.
-                    "context": 16384,
+                    "context": 8000,
                     // Increase n_batch if you have enough GPU/CPU memory and want faster inference.
                     "n_batch": 512,
                     "numberOfThreads": 10,
                     
                     // ---- Sampling hyperparameters (tweak for better recall & consistency) ----
                     // Lower temperature and top_p encourage more deterministic, on-topic answers.
-                    "temp": 0.7,
-                    "top_p": 0.9,
-                    "top_k": 30,
+                    "temp": 0.1,
+//                    "top_p": 0.5,
+//                    "top_k": 30,
                     
                     // Slightly increase repetition penalty to deter the model from
                     // “forgetting” or looping while reinforcing it to reuse factual data.
-                    "repeat_penalty": 0.9,
+                    "repeat_penalty": 1,
                     
                     // Expand how many tokens get penalized for repetition
                     // (larger window can help keep the conversation consistent).
-                    "repeat_last_n": 256,
+                    "repeat_last_n": 64,
                     
                     // You can experiment with Mirostat or typical_p, but if you want
                     // simpler results, leaving Mirostat off is often fine.
-                    "mirostat": 0,
-                    "mirostat_tau": 5,
-                    "mirostat_eta": 0.1,
-                    "tfs_z": 1,
-                    "typical_p": 1,
+//                    "mirostat": 0,
+//                    "mirostat_tau": 5,
+//                    "mirostat_eta": 0.1,
+//                    "tfs_z": 1,
+//                    "typical_p": 1,
                     
                     // ---- Additional token-related options ----
                     "add_bos_token": false,
@@ -554,7 +553,7 @@ final class AIChatModel: ObservableObject {
                     "reverse_prompt": "<|eot_id|>",
                     "warm_prompt": "\n\n\n",
                     "grammar": "<None>",
-                    "template_name": "LLaMa3 Instruct"
+//                    "template_name": "LLaMa3 Instruct"
                 ]
                 
                 if let newFileName = CreateChat(chatOptions) {
