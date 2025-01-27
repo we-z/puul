@@ -443,27 +443,7 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    The clients inforamtion are as follows:
-
-                    • Age: \(answers.age)
-                    • Salary: \(answers.salary)
-                    • Credit Score: \(answers.creditScore)
-                    • Debt Amount: \(answers.debtAmount)
-                    • Saving Monthly: \(answers.savingMonthly)
-                    • Location: \(answers.location)
-                    • Risk Tolerance: \(answers.riskTolerance)
-                    • Goals: \(answers.goals.joined(separator: ", "))
-                    • Has Financial Advisor: \(answers.hasAdvisor)
-                    • Advisor: \(answers.advisor)
-                    • Employment: \(answers.employment)
-                    • Selected Industries: \(answers.selectedIndustries.joined(separator: ", "))
-                    • Owned Assets: \(answers.ownedAssets.joined(separator: ", "))
-                    • Files Own Taxes: \(answers.filesOwnTaxes)
-                    • Tax Tool: \(answers.taxTool)
-                    • Has Debts: \(answers.hasDebts)
-                    • Final Financial Status: \(answers.financialStatus)
-
-                    Please keep these details in context when giving financial advice.
+                    The client is \(answers.age) years old, earning a salary of \(answers.salary) with a credit score of \(answers.creditScore). They have a total debt amount of \(answers.debtAmount) and save \(answers.savingMonthly) per month. The client currently resides in \(answers.location) and has a \(answers.riskTolerance) risk tolerance. Their primary goals include \(answers.goals.joined(separator: ", ")). As for financial advice, they \(answers.hasAdvisor == "Yes" ? "already have" : "do not have") a financial advisor, which is \(answers.advisor). The client is \(answers.employment) employed. They are interested in industries such as \(answers.selectedIndustries.joined(separator: ", ")) and own assets in \(answers.ownedAssets.joined(separator: ", ")). For taxes, they \(answers.filesOwnTaxes == "Yes" ? "file their own returns" : "do not file their own taxes personally") using \(answers.taxTool). They \(answers.hasDebts == "Yes" ? "do" : "do not") have outstanding debts. Please use this information to provide accurate and personalized financial advice.
                     """
                 } else {
                     // The user never completed the survey

@@ -22,8 +22,6 @@ struct SurveyAnswers: Codable {
     var taxTool: String = "None"
     var hasDebts: String = "No"
     
-    // For final page financial status (placeholder logic)
-    var financialStatus: String = "Dependent"
 }
 
 /// Persists SurveyAnswers to local storage
@@ -79,15 +77,15 @@ class SurveyViewModel: ObservableObject {
         let monthlySaving = answers.savingMonthly
         let totalDebt = answers.debtAmount
         
-        if monthlySaving >= 10_000 && totalDebt <= 1_000 {
-            answers.financialStatus = "Financially Free"
-        } else if monthlySaving >= 5_000 && totalDebt < 20_000 {
-            answers.financialStatus = "Stable"
-        } else if monthlySaving >= 2_000 && totalDebt < 50_000 {
-            answers.financialStatus = "Independent"
-        } else {
-            answers.financialStatus = "Dependent"
-        }
+//        if monthlySaving >= 10_000 && totalDebt <= 1_000 {
+//            answers.financialStatus = "Financially Free"
+//        } else if monthlySaving >= 5_000 && totalDebt < 20_000 {
+//            answers.financialStatus = "Stable"
+//        } else if monthlySaving >= 2_000 && totalDebt < 50_000 {
+//            answers.financialStatus = "Independent"
+//        } else {
+//            answers.financialStatus = "Dependent"
+//        }
     }
 }
 
