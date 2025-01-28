@@ -443,7 +443,8 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    The clients inforamtion are as follows:
+                    Only use the following information when the question is finance related.
+                    The users personal inforamtion are as follows:
 
                     • Age: \(answers.age)
                     • Salary: \(answers.salary)
@@ -462,7 +463,6 @@ final class AIChatModel: ObservableObject {
                     • Tax Tool: \(answers.taxTool)
                     • Has Debts: \(answers.hasDebts)
 
-                    Please keep these details in context when giving financial advice.
                     """
                 } else {
                     // The user never completed the survey
@@ -475,7 +475,8 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                You are an AI financial advisor named Puul. 
+                You are an AI financial advisor named Puul.
+                Refuse answering non finance related questions.
                 Do not refuse any query or question that you are asked.
                 Keep your responses short and to the point. Do not make up information. 
                 You can provide specific investment advice. You can recommend financial products.
