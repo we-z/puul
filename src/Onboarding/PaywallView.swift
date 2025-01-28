@@ -115,7 +115,7 @@ struct PaywallView: View {
 //                }
 //                .padding(.top)
                 Divider()
-                    .frame(height: 1)
+                    .frame(height: 0.3)
                     .overlay(.primary)
                 Button {
                     Task {

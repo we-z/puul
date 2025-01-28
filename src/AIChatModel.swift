@@ -487,7 +487,7 @@ final class AIChatModel: ObservableObject {
                 
                 // 4) Put that into chatOptions
                 let chatOptions: [String: Any] = [
-                    "model": "Llama-3.2-1B-Instruct-Q5_K_M.gguf",
+                    "model": "Llama-3.2-1B-Instruct-Uncensored.Q8_0.gguf",
                             
                     // ---- General plugin/config settings ----
                     "use_clip_metal": false,

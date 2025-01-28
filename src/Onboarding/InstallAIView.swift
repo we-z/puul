@@ -13,7 +13,7 @@ import llmfarm_core
 
 struct InstallAIView: View {
     @State private var done: Bool = false
-    @State private var modelUrl: String = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q5_K_M.gguf?download=true"
+    @State private var modelUrl: String = "https://huggingface.co/mradermacher/Llama-3.2-1B-Instruct-Uncensored-GGUF/resolve/main/Llama-3.2-1B-Instruct-Uncensored.Q8_0.gguf"
     @State private var status: String = ""
     @State private var filename: String = "Llama-3.2-1B-Instruct-Q5_K_M.gguf"
     @State private var downloadTask: URLSessionDownloadTask?
@@ -178,7 +178,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul AI model is less than 1GB in size (0.91GB). Download to run LLM locally on your device.")
+                Text("Puul AI model is 1.32GB in size. Download to run the expert LLM locally on your device.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
