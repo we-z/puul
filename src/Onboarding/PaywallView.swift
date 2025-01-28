@@ -131,53 +131,54 @@ struct PaywallView: View {
                         .colorInvert()
                         .background(Color.primary)
                         .cornerRadius(21)
-                        .padding()
+                        .padding(.horizontal)
                 }
                 .buttonStyle(HapticButtonStyle())
                 Text("1 month free, then $29.99 per month.")
                     .bold()
                     .font(.system(size: 18))
 //                    .foregroundColor(.gray)
-                    .padding(.bottom)
-//                HStack(spacing: 6) {
-//                    Button {
-//                        impactSoft.impactOccurred()
-//                        Task {
-//                            await storeVM.restoreProducts()
-//                        }
-//                    } label: {
-//                        Text("Restore Purchase")
-//                            .bold()
-//                            .font(.system(size: 15))
-//                            .foregroundColor(.gray)
-//                    }
-//                    Text("|")
-//                        .foregroundColor(.gray)
-//                    Button {
-//                        impactSoft.impactOccurred()
-//                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-//                            UIApplication.shared.open(url)
-//                        }
-//                    } label: {
-//                        Text("Terms")
-//                            .bold()
-//                            .font(.system(size: 15))
-//                            .foregroundColor(.gray)
-//                    }
-//                    Text("|")
-//                        .foregroundColor(.gray)
-//                    Button {
-//                        impactSoft.impactOccurred()
-//                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
-//                            UIApplication.shared.open(url)
-//                        }
-//                    } label: {
-//                        Text("Privacy")
-//                            .bold()
-//                            .font(.system(size: 15))
-//                            .foregroundColor(.gray)
-//                    }
-//                }
+                    .padding(.vertical, 6)
+                HStack(spacing: 6) {
+                    Button {
+                        impactSoft.impactOccurred()
+                        Task {
+                            await storeVM.restoreProducts()
+                        }
+                    } label: {
+                        Text("Restore Purchase")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                    Text("|")
+                        .foregroundColor(.gray)
+                    Button {
+                        impactSoft.impactOccurred()
+                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Terms")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                    Text("|")
+                        .foregroundColor(.gray)
+                    Button {
+                        impactSoft.impactOccurred()
+                        if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Privacy")
+                            .bold()
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                }
+                .padding(.bottom, 6)
             }
 //            .background {
 //                Color.primary.opacity(0.1)
