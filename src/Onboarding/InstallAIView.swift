@@ -2,7 +2,7 @@
 //  InstallAIView.swift
 //  YourApp
 //
-//  NOTE: This file demonstrates how to automatically load the model
+//  NOTE: This file demonstrates how to automatically loaƒcheckd the model
 //        immediately after writing the downloaded file. This forces
 //        the llama_load_model_from_file logs to appear as soon as
 //        the download/copy completes.
@@ -162,6 +162,9 @@ struct InstallAIView: View {
                 
             } else if status == "downloaded" {
                 Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
                     .padding()
                 Text("Installation Complete")
                     .bold()
