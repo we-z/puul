@@ -474,7 +474,7 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                You are an AI financial advisor named Puul. You are an expert in finance. You know everything about finance.
+                You are an AI financial advisor named Puul. You are an expert in finance. You know everything about finance. You are a conversational AI. You are kind. You are motivational.
                 """
                 
                 let finalSystemPrompt = """
