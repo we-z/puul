@@ -443,7 +443,7 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    ONLY use the following information when the user asks a finance related question that NEEDS this information. The list of the users personal inforamtion are as follows:
+                    ONLY use the following list of user information when the user asks a FINANCE related question that NEEDS this information:
 
                     • Age: \(answers.age)
                     • Salary: \(answers.salary)
@@ -478,7 +478,7 @@ final class AIChatModel: ObservableObject {
                 """
                 
                 let finalSystemPrompt = """
-                Respond with SHORT messages and respond directly to the users message. Respond to short messages with short responses. The conversation starts NOW.
+                Respond with SHORT messages. Respond directly to the users message. Keep responses concise and to the point. Respond to greetings with greetings. Respond to questions and requests in one sentence. The conversation starts NOW.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
