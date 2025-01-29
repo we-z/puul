@@ -55,20 +55,6 @@ struct ChatView: View {
     var switchToChatListTab: () -> Void
     
     func scrollToBottom(with_animation:Bool = false) {
-        var scroll_bug = true
-#if os(macOS)
-        scroll_bug = false
-#else
-        if #available(iOS 16.4, *){
-            scroll_bug = false
-        }
-#endif
-        if scroll_bug {
-            return
-        }
-        if !autoScroll {
-            return
-        }
         let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
         if last_msg != nil && last_msg?.id != nil && scrollProxy != nil{
             if with_animation{
@@ -109,20 +95,6 @@ struct ChatView: View {
         title = ""
         inputTextValue = ""
         isTextFieldFocused = true
-    }
-    
-    private var scrollDownOverlay: some View {
-        Button {
-            autoScroll = true
-            scrollToBottom()
-        } label: {
-            Image(systemName: "arrow.down.circle.fill")
-                .resizable()
-                .foregroundColor(.primary)
-                .frame(width: 25, height: 25)
-                .padding([.bottom], 15)
-        }
-        .buttonStyle(BorderlessButtonStyle())
     }
     
     var body: some View {
@@ -199,7 +171,7 @@ struct ChatView: View {
                                 .simultaneousGesture(
                                    DragGesture()
                                     .onEnded { _ in
-                                        autoScroll = false
+                                        self.autoScroll = false
                                    }
                                 )
                                 .scrollIndicators(.hidden)
@@ -244,7 +216,7 @@ struct ChatView: View {
                 }
                 .frame(maxHeight: .infinity)
                 .onChange(of: aiChatModel.AI_typing) { _ in
-                    if !autoScroll {
+                    if autoScroll {
                         scrollToBottom()
                     }
                 }
