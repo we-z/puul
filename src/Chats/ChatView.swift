@@ -107,6 +107,8 @@ struct ChatView: View {
         // 3) Clear local UI bindings
         chatSelection = nil
         title = ""
+        inputTextValue = ""
+        isTextFieldFocused = true
     }
     
     private var scrollDownOverlay: some View {
