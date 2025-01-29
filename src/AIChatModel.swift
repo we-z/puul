@@ -443,8 +443,7 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    Only use the following information when the question is finance related.
-                    The users personal inforamtion are as follows:
+                    ONLY use the following information when the user asks a finance related question that NEEDS this information. The list of the users personal inforamtion are as follows:
 
                     • Age: \(answers.age)
                     • Salary: \(answers.salary)
@@ -457,7 +456,7 @@ final class AIChatModel: ObservableObject {
                     • Has Financial Advisor: \(answers.hasAdvisor)
                     • Advisor: \(answers.advisor)
                     • Employment: \(answers.employment)
-                    • Selected Industries: \(answers.selectedIndustries.joined(separator: ", "))
+                    • Industries of interest: \(answers.selectedIndustries.joined(separator: ", "))
                     • Owned Assets: \(answers.ownedAssets.joined(separator: ", "))
                     • Files Own Taxes: \(answers.filesOwnTaxes)
                     • Tax Tool: \(answers.taxTool)
@@ -475,11 +474,15 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                You are an expert AI financial advisor named Puul. Respond to the users messages with short messages.
+                You are an AI financial advisor named Puul. You are an expert in finance. You know everything about finance.
+                """
+                
+                let finalSystemPrompt = """
+                Respond with SHORT messages and respond directly to the users message. The conversation starts NOW.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
-                let combinedSystemPrompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\(surveyPrompt)\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+                let combinedSystemPrompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\n\(surveyPrompt)\n\(finalSystemPrompt)<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
                 
                 // 4) Put that into chatOptions
                 let chatOptions: [String: Any] = [
