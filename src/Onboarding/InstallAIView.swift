@@ -232,19 +232,21 @@ struct InstallAIView: View {
             downloadTask?.cancel()
         }
         .offset(x: done ? -deviceWidth : 0)
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Are you sure?"),
-                message: Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended."),
-                primaryButton: .destructive(Text("Stop"), action: {
-                    // Cancel the ongoing download
-                    withAnimation {
-                        status = ""
+        .alert("Are you sure?",
+                       isPresented: $showingAlert,
+                       actions: {
+                    Button("Stop", role: .destructive) {
+                        withAnimation {
+                            status = ""
+                        }
                     }
-                }),
-                secondaryButton: .cancel(Text("Cancel"))
-            )
-        }
+                    Button("Cancel", role: .cancel) {
+                        // Do nothing, just dismiss
+                    }
+                },
+                       message: {
+                    Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended.")
+                })
         .onChange(of: status) { newStatus in
             if newStatus == "" {
                 progress = 0
