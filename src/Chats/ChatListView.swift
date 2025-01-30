@@ -13,7 +13,6 @@ struct ChatListView: View {
     @State var searchText: String = ""
     @State var isSearching: Bool = false
 
-    @Binding var tabSelection: Int
     @Binding var model_name: String
     @Binding var title: String
     @Binding var add_chat_dialog: Bool
@@ -27,6 +26,8 @@ struct ChatListView: View {
     @State var chats_previews: [Dictionary<String, String>] = []
     @State private var toggleSettings = false
     @State private var toggleAddChat = false
+    
+    @State private var showAccountView = false
 
     var filteredChats: [Dictionary<String, String>] {
         if searchText.isEmpty {
@@ -52,8 +53,7 @@ struct ChatListView: View {
         
         // 3) Clear local UI bindings
         title = ""
-        chat_selection = nil
-        tabSelection = 1
+        chat_selection = [:]
     }
 
     func refresh_chat_list() {
@@ -85,91 +85,71 @@ struct ChatListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
-                NavigationStack {
                     // Explicitly using SwiftUI.ScrollView to avoid ambiguity
-                    ScrollView {
-                        ForEach(filteredChats, id: \.self) { chat_preview in
-                            HStack {
-                                Button {
-                                    chat_selection = chat_preview
-                                    withAnimation {
-                                        tabSelection = 1
-                                    }
-                                } label: {
-                                    ChatItem(
-                                        chatImage: String(describing: chat_preview["icon"]!),
-                                        chatTitle: String(describing: chat_preview["title"]!),
-                                        message: String(describing: chat_preview["message"]!),
-                                        time: String(describing: chat_preview["time"]!),
-                                        model: String(describing: chat_preview["model"]!),
-                                        chat: String(describing: chat_preview["chat"]!),
-                                        model_size: String(describing: chat_preview["model_size"]!),
-                                        model_name: $model_name,
-                                        title: $title,
-                                        close_chat: close_chat
-                                    )
-                                }
+                List(selection: $chat_selection) {
+                    ForEach(filteredChats, id: \.self) { chat_preview in
+                        HStack {
+                            NavigationLink(value: chat_preview) {
+                                ChatItem(
+                                    chatImage: String(describing: chat_preview["icon"]!),
+                                    chatTitle: String(describing: chat_preview["title"]!),
+                                    message: String(describing: chat_preview["message"]!),
+                                    time: String(describing: chat_preview["time"]!),
+                                    model: String(describing: chat_preview["model"]!),
+                                    chat: String(describing: chat_preview["chat"]!),
+                                    model_size: String(describing: chat_preview["model_size"]!),
+                                    model_name: $model_name,
+                                    title: $title,
+                                    close_chat: close_chat
+                                )
+                            }
+                            Spacer()
+                        }
+                        .listRowInsets(.init())
+//                        .background(.primary.opacity(chat_selection == chat_preview ? 0.12 : 0.001))
+//                        .cornerRadius(12)
+                        .padding(.horizontal)
+                        .buttonStyle(HapticButtonStyle())
+                        .contextMenu {
+                            Button(action: {
+                                Delete(at: chat_preview)
+                            }) {
+                                Text("Delete Session")
                                 Spacer()
-                            }
-                            .background(.primary.opacity(chat_selection == chat_preview ? 0.12 : 0.001))
-                            .cornerRadius(12)
-                            .padding(.horizontal)
-                            .buttonStyle(HapticButtonStyle())
-                            .contextMenu {
-//                                Button(action: {
-//                                    Duplicate(at: chat_preview)
-//                                }) {
-//                                    Text("Duplicate chat")
-//                                }
-                                Button(action: {
-                                    Delete(at: chat_preview)
-                                }) {
-                                    Text("Delete Session")
-                                    Spacer()
-                                    Image(systemName: "trash")
-                                }
+                                Image(systemName: "trash")
                             }
                         }
                     }
-                    .scrollIndicators(.hidden)
-                    .searchable(text: $searchText, prompt: Text("Search..."))
-                    .navigationTitle("Sessions")
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            NavigationLink(destination:
-                                AccountView()
-                                .onAppear {
-                                    allowSwiping = false
-                                }
-                                .onDisappear {
-                                    allowSwiping = true
-                                }
-                                .environmentObject(AppModel())
-                            ) {
-                                Image(systemName: "person.crop.circle")
-                            }
-                            .buttonStyle(HapticButtonStyle())
+                    .listRowSeparator(.hidden)
+                }
+                .listStyle(PlainListStyle())
+                .scrollIndicators(.hidden)
+                .searchable(text: $searchText, prompt: Text("Search..."))
+                .navigationTitle("Sessions")
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            // Clear selection on tap
+                            chat_selection = nil
+                            // Trigger navigation
+                            showAccountView = true
+                        } label: {
+                            Image(systemName: "gear")
                         }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                newChat()
-                            } label: {
-                                Image(systemName: "square.and.pencil")
-                            }
-                            .padding()
-                            .buttonStyle(HapticButtonStyle())
-                        }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                withAnimation {
-                                    tabSelection = 1
-                                }
-                            } label: {
-                                Image(systemName: "chevron.right.2")
-                            }
-                            .buttonStyle(HapticButtonStyle())
-                        }
+                        .buttonStyle(HapticButtonStyle())
                     }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            newChat()
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                        }
+                        .buttonStyle(HapticButtonStyle())
+                    }
+                }
+                .navigationDestination(isPresented: $showAccountView) {
+                    AccountView()
+                        .environmentObject(AppModel())
                 }
             }
             .background(.opacity(0))
@@ -177,7 +157,7 @@ struct ChatListView: View {
             if chats_previews.isEmpty {
                 VStack {
                     Button {
-                        tabSelection = 1
+                        newChat()
                     } label: {
                         Image(systemName: "square.and.pencil")
                             .foregroundColor(.primary)
@@ -211,17 +191,12 @@ struct ChatListView: View {
         .task {
             refresh_chat_list()
         }
-        .sheet(isPresented: $showSettings) {
-            AccountView()
-                .environmentObject(AppModel())
-        }
     }
 }
 
 struct ChatListView_Previews: PreviewProvider {
     static var previews: some View {
         ChatListView(
-            tabSelection: .constant(1),
             model_name: .constant(""),
             title: .constant(""),
             add_chat_dialog: .constant(false),
