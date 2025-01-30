@@ -262,11 +262,11 @@ struct ChatView: View {
             .onChange(of: swiping) { _ in
                 isTextFieldFocused = false
             }
-            .toolbarRole(.editor)
-            .onAppear {
-                UINavigationBar.appearance().backIndicatorImage = UIImage(systemName: "sidebar.left")
-                UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(systemName: "sidebar.left")
-            }
+//            .toolbarRole(.editor)
+//            .onAppear {
+//                UINavigationBar.appearance().backIndicatorImage = UIImage(systemName: "sidebar.left")
+//                UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(systemName: "sidebar.left")
+//            }
     }
     
     private func sendMessage(message: String) {

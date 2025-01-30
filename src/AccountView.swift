@@ -127,7 +127,7 @@ struct AccountView: View {
                 .environmentObject(StoreVM())
         }
         .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
-        .toolbarRole(.editor)
+//        .toolbarRole(.editor)
         // .environmentObject(StoreVM())
     }
 }

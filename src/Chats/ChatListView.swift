@@ -125,7 +125,7 @@ struct ChatListView: View {
                 .listStyle(PlainListStyle())
                 .scrollIndicators(.hidden)
                 .searchable(text: $searchText, prompt: Text("Search..."))
-                .navigationTitle("Sessions")
+                .navigationTitle("Chats")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
