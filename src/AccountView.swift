@@ -111,6 +111,7 @@ struct AccountView: View {
                 }
                 //                .listRowBackground(Color.primary.opacity(0.12))
             }
+            .listStyle(.sidebar)
             .navigationTitle("Account")
         }
         .accentColor(.primary)

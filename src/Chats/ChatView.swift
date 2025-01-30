@@ -6,12 +6,10 @@
 
 import SwiftUI
 
-var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-
 struct ChatView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
     @EnvironmentObject var orientationInfo: OrientationInfo
-    @Environment(\.dismiss) private var dismiss
+    
     @State var placeholderString: String = "Message"
     @State private var inputText: String = "Message"
     
@@ -53,6 +51,8 @@ struct ChatView: View {
         "How much should I be\nsaving each month?"
     ]
     
+    /// Closure that sets the tabSelection to 0 (ChatListView) with animation.
+    var switchToChatListTab: () -> Void
     
     func scrollToBottom(with_animation:Bool = false) {
         let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
@@ -91,7 +91,7 @@ struct ChatView: View {
         aiChatModel.Title = ""
         aiChatModel.messages.removeAll()
         // 3) Clear local UI bindings
-        chatSelection = [:]
+        chatSelection = nil
         title = ""
         inputTextValue = ""
         isTextFieldFocused = true
@@ -100,6 +100,7 @@ struct ChatView: View {
     var body: some View {
             VStack {
                 ScrollViewReader { scrollView in
+                    NavigationStack {
                         VStack {
                             if aiChatModel.messages.isEmpty {
                                 // Prompt area for new user
@@ -185,19 +186,16 @@ struct ChatView: View {
                             }
                         }
                         .navigationTitle("Puul")
-//                        .navigationBarBackButtonHidden()
                         .toolbar {
-//                            if idiom != .pad {
-//                                
-//                                ToolbarItem(placement: .topBarLeading) {
-//                                    Button {
-//                                        chatSelection = nil
-//                                    } label: {
-//                                        Image(systemName: "sidebar.left")
-//                                    }
-//                                    .buttonStyle(HapticButtonStyle())
-//                                }
-//                            }
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    isTextFieldFocused = false
+                                    switchToChatListTab()
+                                } label: {
+                                    Image(systemName: "sidebar.left")
+                                }
+                                .buttonStyle(HapticButtonStyle())
+                            }
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button {
                                     if !aiChatModel.messages.isEmpty {
@@ -214,6 +212,7 @@ struct ChatView: View {
                             }
                             
                         }
+                    }
                 }
                 .frame(maxHeight: .infinity)
                 .onChange(of: aiChatModel.AI_typing) { _ in
@@ -262,11 +261,6 @@ struct ChatView: View {
             .onChange(of: swiping) { _ in
                 isTextFieldFocused = false
             }
-//            .toolbarRole(.editor)
-//            .onAppear {
-//                UINavigationBar.appearance().backIndicatorImage = UIImage(systemName: "sidebar.left")
-//                UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(systemName: "sidebar.left")
-//            }
     }
     
     private func sendMessage(message: String) {
@@ -296,7 +290,8 @@ struct ChatView_Previews: PreviewProvider {
             title: .constant("Title"),
             CloseChat: {},
             AfterChatEdit: .constant({}),
-            swiping: .constant(false)
+            swiping: .constant(false),
+            switchToChatListTab: {}
         )
         .environmentObject(AIChatModel())
     }
