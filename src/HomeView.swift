@@ -115,6 +115,7 @@ struct HomeView: View {
                         }
                 }
             }
+            .frame(width: screenWidth)
 //            .overlay {
 //                Text("\(currentOffset + dragOffset)")
 //            }
@@ -147,10 +148,11 @@ struct HomeView: View {
                         if (xOffset + distance) <= chatListViewOffset && (xOffset + distance) >= chatViewOffset {
                             xOffset += distance
                         }
+                        
                         if distance > threshold {
-                            xOffset = chatViewOffset
-                        } else if distance < -threshold {
                             xOffset = chatListViewOffset
+                        } else if distance < -threshold {
+                            xOffset = chatViewOffset
                         }
                         impactSoft.impactOccurred()
                     }
