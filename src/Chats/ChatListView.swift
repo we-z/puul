@@ -136,39 +136,33 @@ struct ChatListView: View {
                     .navigationTitle("Sessions")
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
-                            NavigationLink(destination:
-                                AccountView()
-                                .onAppear {
-                                    allowSwiping = false
-                                }
-                                .onDisappear {
-                                    allowSwiping = true
-                                }
-                                .environmentObject(AppModel())
-                            ) {
+                            Button{
+                                showSettings = true
+                            } label: {
                                 Image(systemName: "person.crop.circle")
+                                    .font(.system(size: 21))
                             }
                             .buttonStyle(HapticButtonStyle())
                         }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                newChat()
-                            } label: {
-                                Image(systemName: "square.and.pencil")
-                            }
-                            .padding()
-                            .buttonStyle(HapticButtonStyle())
-                        }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                withAnimation {
-                                    tabSelection = 1
-                                }
-                            } label: {
-                                Image(systemName: "chevron.right.2")
-                            }
-                            .buttonStyle(HapticButtonStyle())
-                        }
+//                        ToolbarItem(placement: .topBarTrailing) {
+//                            Button {
+//                                newChat()
+//                            } label: {
+//                                Image(systemName: "square.and.pencil")
+//                            }
+//                            .padding()
+//                            .buttonStyle(HapticButtonStyle())
+//                        }
+//                        ToolbarItem(placement: .topBarTrailing) {
+//                            Button {
+//                                withAnimation {
+//                                    tabSelection = 1
+//                                }
+//                            } label: {
+//                                Image(systemName: "chevron.right.2")
+//                            }
+//                            .buttonStyle(HapticButtonStyle())
+//                        }
                     }
                 }
             }
@@ -214,6 +208,7 @@ struct ChatListView: View {
         .sheet(isPresented: $showSettings) {
             AccountView()
                 .environmentObject(AppModel())
+                .presentationDetents([.height(500)])
         }
     }
 }

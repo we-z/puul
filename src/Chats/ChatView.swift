@@ -13,6 +13,7 @@ struct ChatView: View {
     @State var placeholderString: String = "Message"
     @State private var inputText: String = "Message"
     
+    @Binding var xOffset: CGFloat
     @Binding var modelName: String
     @Binding var chatSelection: Dictionary<String, String>?
     @Binding var title: String
@@ -50,10 +51,7 @@ struct ChatView: View {
         "What are the best\ntax-saving strategies for me?",
         "How much should I be\nsaving each month?"
     ]
-    
-    /// Closure that sets the tabSelection to 0 (ChatListView) with animation.
-    var switchToChatListTab: () -> Void
-    
+        
     func scrollToBottom(with_animation:Bool = false) {
         let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
         if last_msg != nil && last_msg?.id != nil && scrollProxy != nil{
@@ -190,7 +188,7 @@ struct ChatView: View {
                             ToolbarItem(placement: .topBarLeading) {
                                 Button {
                                     isTextFieldFocused = false
-                                    switchToChatListTab()
+                                    xOffset = chatListViewOffset
                                 } label: {
                                     Image(systemName: "sidebar.left")
                                 }
@@ -285,13 +283,13 @@ struct ChatView: View {
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView(
+            xOffset: .constant(1),
             modelName: .constant(""),
             chatSelection: .constant([:]),
             title: .constant("Title"),
             CloseChat: {},
             AfterChatEdit: .constant({}),
-            swiping: .constant(false),
-            switchToChatListTab: {}
+            swiping: .constant(false)
         )
         .environmentObject(AIChatModel())
     }

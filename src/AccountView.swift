@@ -19,6 +19,10 @@ struct AccountView: View {
 
     var body: some View {
         VStack {
+            Text("Profile")
+                .bold()
+                .font(.system(size: 21))
+                .padding()
             List {
                 Section(header: Text("Account")) {
                     Button(action: {
@@ -112,7 +116,6 @@ struct AccountView: View {
                 //                .listRowBackground(Color.primary.opacity(0.12))
             }
             .listStyle(.sidebar)
-            .navigationTitle("Account")
         }
         .accentColor(.primary)
         .sheet(isPresented: $showDataInfo,
