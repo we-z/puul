@@ -245,7 +245,7 @@ struct ChatView: View {
                     isTextFieldFocused = true
                 }
                 .onChange(of: isTextFieldFocused) { _ in
-                    impactSoft.impactOccurred()
+                    impactMedium.impactOccurred()
                 }
             }
             .onDisappear {
