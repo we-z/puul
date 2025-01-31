@@ -70,7 +70,7 @@ struct PaywallView: View {
                             .scaledToFit()
                             .frame(width: 150, height: 150)
                             .padding()
-                            .padding(.top, 60)
+                            .padding(.top, 30)
                     }
                     
                     // Title
@@ -80,12 +80,25 @@ struct PaywallView: View {
                             .bold()
                             .multilineTextAlignment(.center)
                             .padding()
-                            .padding()
+                            .padding(.top)
 //                        Spacer()
                     }
+                    Text("Strategize with your personal AI financial advisor today. financial literacy on tap.")
+                        .bold()
+                        .multilineTextAlignment(.center)
+                        .padding([.horizontal, .bottom])
+                        .foregroundColor(.gray)
                     
                     // Features
                     VStack {
+                        HStack {
+                            Text("Features:")
+                                .font(.system(size: 27))
+                                .bold()
+                            Spacer()
+                        }
+                        .padding([.horizontal, .top])
+                        .padding(.horizontal)
                         ForEach(featuresWithIcons, id: \.0) { feature, icon in
                             HStack {
                                 Image(systemName: icon)
@@ -93,6 +106,7 @@ struct PaywallView: View {
                                     .scaledToFit()
                                     .frame(width: 27, height: 27)
                                     .padding(.horizontal)
+                                    .foregroundColor(.gray)
                                 Text(feature)
                                     .font(.system(size: 21))
                                     .bold()
@@ -122,7 +136,7 @@ struct PaywallView: View {
                         await buy(product: storeVM.subscriptions.first!)
                     }
                 } label: {
-                    Text("Start Free Trial")
+                    Text("Continue for free >>")
                         .bold()
                         .font(.title2)
                         .padding()

@@ -5,6 +5,7 @@
 import SwiftUI
 
 let impactSoft = UIImpactFeedbackGenerator(style: .soft)
+let impactMedium = UIImpactFeedbackGenerator(style: .medium)
 
 let sideMenuWidth = deviceWidth * 0.75
 let chatViewOffset: CGFloat = -((sideMenuWidth) / 2)
@@ -100,23 +101,21 @@ struct HomeView: View {
                 .overlay {
                     let offset = xOffset + dragOffset
                     // Same ratio for overlay fade
-                    let ratio = max(0, min(1, -offset / chatListViewOffset))
+                    let ratio = -offset / chatListViewOffset
                     let blurValue = 10 - 9.99 * ratio
-                    Color.primary.opacity(blurValue / 60)
+                    Color.primary.opacity(blurValue / 90)
                         .ignoresSafeArea()
                         .allowsHitTesting(xOffset == chatListViewOffset)
                         .onTapGesture {
                             if xOffset == chatListViewOffset {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                impactMedium.impactOccurred()
                                 xOffset = chatViewOffset
                             }
                         }
                 }
             }
             .frame(width: screenWidth)
-//            .overlay {
-//                Text("\(currentOffset + dragOffset)")
-//            }
             .accentColor(.primary)
             // Offset by currentOffset plus any active drag offset
             .offset(x: xOffset + dragOffset)
@@ -152,7 +151,7 @@ struct HomeView: View {
                         } else if distance < -threshold {
                             xOffset = chatViewOffset
                         }
-                        impactSoft.impactOccurred()
+//                        impactMedium.impactOccurred()
                     }
             )
     }
