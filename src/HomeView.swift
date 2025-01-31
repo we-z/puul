@@ -150,7 +150,7 @@ struct HomeView: View {
                     
                     if distance > threshold {
                         xOffset = chatListViewOffset
-                    } else if distance < -threshold {
+                    } else {
                         xOffset = chatViewOffset
                     }
 //                        impactMedium.impactOccurred()
