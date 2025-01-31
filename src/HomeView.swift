@@ -24,11 +24,6 @@ struct HomeView: View {
     @State private var chat_selection: Dictionary<String, String>?
     @State var after_chat_edit: () -> Void = {}
     
-    // 0 = ChatListView, 1 = ChatView
-    @State private var selectedTab: Int = 1  // Default to second "page"
-    
-    /// Current offset of the entire pager (without drag).
-//    @State private var currentOffset: CGFloat = 0
     /// Default chat view position
     @State private var xOffset: CGFloat = chatViewOffset
     
@@ -64,7 +59,7 @@ struct HomeView: View {
                 
                 // MARK: - Page 0: ChatListView
                 ChatListView(
-                    tabSelection: $selectedTab,
+                    xOffset: $xOffset,
                     model_name: $model_name,
                     title: $title,
                     add_chat_dialog: $add_chat_dialog,
@@ -153,11 +148,10 @@ struct HomeView: View {
                             xOffset += distance
                         }
                         if distance > threshold {
-                            selectedTab = 0
+                            xOffset = chatViewOffset
                         } else if distance < -threshold {
-                            selectedTab = 1
+                            xOffset = chatListViewOffset
                         }
-                        xOffset = offsetForTab(selectedTab, screenWidth: screenWidth)
                         impactSoft.impactOccurred()
                     }
             )

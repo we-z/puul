@@ -13,7 +13,7 @@ struct ChatListView: View {
     @State var searchText: String = ""
     @State var isSearching: Bool = false
 
-    @Binding var tabSelection: Int
+    @Binding var xOffset: CGFloat
     @Binding var model_name: String
     @Binding var title: String
     @Binding var add_chat_dialog: Bool
@@ -53,7 +53,7 @@ struct ChatListView: View {
         // 3) Clear local UI bindings
         title = ""
         chat_selection = nil
-        tabSelection = 1
+        xOffset = chatViewOffset
     }
 
     func refresh_chat_list() {
@@ -93,7 +93,7 @@ struct ChatListView: View {
                                 Button {
                                     chat_selection = chat_preview
                                     withAnimation {
-                                        tabSelection = 1
+                                        xOffset = chatViewOffset
                                     }
                                 } label: {
                                     ChatItem(
@@ -144,25 +144,6 @@ struct ChatListView: View {
                             }
                             .buttonStyle(HapticButtonStyle())
                         }
-//                        ToolbarItem(placement: .topBarTrailing) {
-//                            Button {
-//                                newChat()
-//                            } label: {
-//                                Image(systemName: "square.and.pencil")
-//                            }
-//                            .padding()
-//                            .buttonStyle(HapticButtonStyle())
-//                        }
-//                        ToolbarItem(placement: .topBarTrailing) {
-//                            Button {
-//                                withAnimation {
-//                                    tabSelection = 1
-//                                }
-//                            } label: {
-//                                Image(systemName: "chevron.right.2")
-//                            }
-//                            .buttonStyle(HapticButtonStyle())
-//                        }
                     }
                 }
             }
@@ -171,7 +152,7 @@ struct ChatListView: View {
             if chats_previews.isEmpty {
                 VStack {
                     Button {
-                        tabSelection = 1
+                        xOffset = chatViewOffset
                     } label: {
                         Image(systemName: "square.and.pencil")
                             .foregroundColor(.primary)
@@ -216,7 +197,7 @@ struct ChatListView: View {
 struct ChatListView_Previews: PreviewProvider {
     static var previews: some View {
         ChatListView(
-            tabSelection: .constant(1),
+            xOffset: .constant(1),
             model_name: .constant(""),
             title: .constant(""),
             add_chat_dialog: .constant(false),
