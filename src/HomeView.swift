@@ -91,13 +91,10 @@ struct HomeView: View {
 //                .blur(
 //                    radius: {
 //                        let offset = xOffset + dragOffset
-//                        // Our valid range of offset: [0 ... -0.75 * screenWidth]
-//                        // Map that to a ratio [0 ... 1]
-//                        let maxOffset = -0.75 * screenWidth
 //                        // Clamp to 0...1 so we don't get a negative ratio or above 1
-//                        let ratio = max(0, min(1, -offset / (0.75 * screenWidth)))
+//                        let ratio = max(0, min(1, -offset / chatListViewOffset))
 //                        // Then linearly interpolate the blur from 10 down to ~0.01
-//                        return 10 - (9.99 * ratio)
+//                        return 10 - (9.999 * ratio)
 //                    }()
 //                )
                 .overlay {
@@ -105,11 +102,12 @@ struct HomeView: View {
                     // Same ratio for overlay fade
                     let ratio = max(0, min(1, -offset / chatListViewOffset))
                     let blurValue = 10 - 9.99 * ratio
-                    Color.primary.opacity(blurValue / 100)
+                    Color.primary.opacity(blurValue / 60)
                         .ignoresSafeArea()
                         .allowsHitTesting(xOffset == chatListViewOffset)
                         .onTapGesture {
                             if xOffset == chatListViewOffset {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 xOffset = chatViewOffset
                             }
                         }

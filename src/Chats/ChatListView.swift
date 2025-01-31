@@ -189,7 +189,7 @@ struct ChatListView: View {
         .sheet(isPresented: $showSettings) {
             AccountView()
                 .environmentObject(AppModel())
-                .presentationDetents([.height(500)])
+//                .presentationDetents([.height(600)])
         }
     }
 }
