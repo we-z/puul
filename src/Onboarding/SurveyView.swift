@@ -258,6 +258,7 @@ struct SurveyNavigationHeader: View {
                     .bold()
                     .font(.largeTitle)
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.5)
                     .padding()
             }
             .frame(maxHeight: .infinity)
@@ -331,6 +332,7 @@ struct MultiChoiceList: View {
 struct IntroductionView: View {
     var body: some View {
         VStack {
+            Spacer()
             Image(systemName: "doc.text")
                 .resizable()
                 .scaledToFit()
@@ -353,6 +355,7 @@ struct IntroductionView: View {
             .bold()
             .padding()
             Spacer()
+            Spacer()
         }
     }
 }
@@ -362,6 +365,11 @@ struct AgeQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "person.crop.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "What's your Age?") {
                 surveyVM.previousStep()
             }
@@ -385,6 +393,11 @@ struct SalaryQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "dollarsign.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "What's your Salary?") {
                 surveyVM.previousStep()
             }
@@ -419,6 +432,11 @@ struct LocationQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "mappin.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Your Location") {
                 surveyVM.previousStep()
             }
@@ -439,6 +457,11 @@ struct RiskToleranceQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "exclamationmark.triangle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Risk Tolerance") {
                 surveyVM.previousStep()
             }
@@ -459,6 +482,11 @@ struct GoalQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "target")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "What are your primary goals?") {
                 surveyVM.previousStep()
             }
@@ -499,6 +527,11 @@ struct HumanAdvisorQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "person.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you currently have a financial advisor?") {
                 surveyVM.previousStep()
             }
@@ -543,6 +576,11 @@ struct EmploymentQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "bag")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "What is your employment status?") {
                 surveyVM.previousStep()
             }
@@ -571,6 +609,11 @@ struct IndustriesQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "building.2")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Which industries are you interested in?") {
                 surveyVM.previousStep()
             }
@@ -601,6 +644,11 @@ struct AssetsQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "chart.pie")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Where do you have assets?") {
                 surveyVM.previousStep()
             }
@@ -631,6 +679,11 @@ struct FileTaxesQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "building.columns")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you file your own taxes?") {
                 surveyVM.previousStep()
             }
@@ -646,8 +699,8 @@ struct FileTaxesQuestionView: View {
                 VStack {
                     Text("Which tool do you use?")
                         .bold()
-                        .font(.title)
-                        .padding(.top, 16)
+                        .font(.title3)
+//                        .padding(.top, 16)
                     
                     Picker("Tax Filing Tools", selection: $surveyVM.answers.taxTool) {
                         ForEach(taxFilingTools, id: \.self) { tool in
@@ -671,6 +724,11 @@ struct CreditScoreQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "creditcard")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "What is your credit score?") {
                 surveyVM.previousStep()
             }
@@ -698,6 +756,11 @@ struct DebtQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "paperclip")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you have any debts?") {
                 surveyVM.previousStep()
             }
@@ -713,8 +776,8 @@ struct DebtQuestionView: View {
                 VStack {
                     Text("How much total debt?")
                         .bold()
-                        .font(.title)
-                        .padding(.top, 16)
+                        .font(.title3)
+//                        .padding(.top, 16)
                     
                     Picker("Debt Amount (in thousands)", selection: $surveyVM.answers.debtAmount) {
                         ForEach(Array(stride(from: 0, through: 1_000_000, by: 5_000)), id: \.self) { value in
@@ -738,6 +801,11 @@ struct SavingMonthlyQuestionView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "brain")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 45)
             SurveyNavigationHeader(title: "How much do you save each month?") {
                 surveyVM.previousStep()
             }
@@ -764,6 +832,7 @@ struct FinalStatusView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             Image(systemName: "list.clipboard")
                 .resizable()
                 .scaledToFit()
@@ -789,7 +858,7 @@ struct FinalStatusView: View {
                     .multilineTextAlignment(.center)
                     .padding()
             }
-            
+            Spacer()
             Spacer()
         }
         .onChange(of: progressValue) { newValue in
