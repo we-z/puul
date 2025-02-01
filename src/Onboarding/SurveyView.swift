@@ -1,5 +1,5 @@
 import SwiftUI
-
+import Charts
 // MARK: - Model
 
 /// Holds all the user's answers from the survey
@@ -97,6 +97,8 @@ struct SurveyView: View {
     var body: some View {
         SurveyContainerView()
             .environmentObject(surveyVM)
+//        AssetsQuestionView()
+//            .environmentObject(surveyVM)
     }
 }
 
@@ -275,17 +277,6 @@ struct SurveyNavigationHeader: View {
     }
 }
 
-struct SurveyNavigationFooter: View {
-    let nextDisabled: Bool
-    let onNext: () -> Void
-    
-    var body: some View {
-        VStack {
-            Text(" ")
-                .padding()
-        }
-    }
-}
 
 // MARK: - Helper Views for Single and Multi Selection
 
@@ -313,11 +304,11 @@ struct MultiChoiceList: View {
                 .font(.headline)
             List(choices, id: \.self) { choice in
                 HStack {
-                    Text(choice)
-                    Spacer()
                     if selections.contains(choice) {
                         Image(systemName: "checkmark.circle.fill")
                     }
+                    Text(choice)
+                    Spacer()
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -331,8 +322,195 @@ struct MultiChoiceList: View {
             .listStyle(.plain)
         }
         .frame(maxHeight: .infinity)
+        .padding(.bottom, 45)
     }
 }
+
+
+
+struct AssetsQuestionView: View {
+    @EnvironmentObject var surveyVM: SurveyViewModel
+    
+    let choices = [
+        "Real Estate",
+        "Liquid Bank Accounts",
+        "Brokerage/Equity Holdings",
+        "Retirement Accounts (401k, IRA, etc.)",
+        "Cryptocurrency",
+        "Commodities (Gold, Silver, etc.)",
+        "Private Business Ownership",
+        "Collectibles (Art, Antiques, etc.)",
+        "None of the above"
+    ]
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                Image(systemName: "chart.pie")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
+                    .padding(.top, 45)
+                SurveyNavigationHeader(title: "Where do you have assets?") {
+                    surveyVM.previousStep()
+                }
+                MultiChoiceAssetList(selections: $surveyVM.answers.ownedAssets)
+                
+            }
+        }
+    }
+}
+
+struct AssetData: Identifiable, Hashable {
+    var category: String
+    var amount: Double
+    var id = UUID()
+}
+
+struct MultiChoiceAssetList: View {
+    // The list of available asset choices.
+    let assetData: [AssetData] = [
+        AssetData(category: "Real Estate", amount: 500000),
+        AssetData(category: "Liquid Bank Accounts", amount: 60000),
+        AssetData(category: "Brokerage/Equity Holdings", amount: 100000),
+        AssetData(category: "Retirement Accounts (401k, IRA, etc.)", amount: 60000),
+        AssetData(category: "Cryptocurrency", amount: 30000),
+        AssetData(category: "Commodities (Gold, Silver, etc.)", amount: 15000),
+        AssetData(category: "Private Business Ownership", amount: 35000),
+        AssetData(category: "Collectibles (Art, Antiques, etc.)", amount: 20000),
+        AssetData(category: "None of the above", amount: 1000)
+    ]
+    
+    // The list of assets that have been selected. Their amounts are updated by the text fields.
+    @State private var selectedAssetData: [AssetData] = []
+    
+    // An external binding for selections (using the asset category).
+    @Binding var selections: [String]
+    
+    @EnvironmentObject var surveyVM: SurveyViewModel
+    
+    // Use FocusState to track which text field is active. Here we use the asset category as an identifier.
+    @FocusState private var focusedField: String?
+    
+    // Adjust the chart’s height based on the number of selected assets.
+    var dynamicChartHeight: CGFloat {
+        let minHeight: CGFloat = 60
+        let additionalHeightPerAsset: CGFloat = 30
+        return selectedAssetData.count > 1
+            ? minHeight + CGFloat(selectedAssetData.count - 1) * additionalHeightPerAsset
+            : minHeight
+    }
+    
+    var body: some View {
+        VStack {
+            // Show the chart and net worth if at least one asset is selected.
+            if !selectedAssetData.isEmpty {
+                VStack {
+                    GroupBox("Total Net Worth: $\(Int(selectedAssetData.reduce(0) { $0 + $1.amount }))") {
+                        Chart(selectedAssetData) { asset in
+                            BarMark(
+                                x: .value("Amount", asset.amount),
+                                stacking: .normalized
+                            )
+                            .foregroundStyle(by: .value("Category", asset.category))
+                        }
+                        .frame(height: dynamicChartHeight)
+                    }
+                }
+                .padding()
+            }
+            
+            Text("Multiple Selection")
+                .font(.headline)
+            
+            // List all available assets.
+            ForEach(assetData) { asset in
+                // Determine if this asset is already selected.
+                let isSelected = selectedAssetData.contains(where: { $0.category == asset.category })
+                
+                HStack {
+                    // Tappable row for selection/deselection.
+                    HStack {
+                        if isSelected {
+                            Image(systemName: "checkmark.circle.fill")
+                        }
+                        Text(asset.category)
+                        Spacer()
+                    }
+                    // Increase the tap area.
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+                        impactMedium.impactOccurred()
+                        if isSelected {
+                            // Remove from selections.
+                            selectedAssetData.removeAll(where: { $0.category == asset.category })
+                            selections.removeAll(where: { $0 == asset.category })
+                        } else {
+                            // Add the asset with its default amount.
+                            selectedAssetData.append(asset)
+                            selections.append(asset.category)
+                        }
+                    }
+                    
+                    // If the asset is selected, show a text field to update its amount.
+                    if isSelected,
+                       let index = selectedAssetData.firstIndex(where: { $0.category == asset.category })
+                    {
+                        // Create a binding that converts between the Double amount and a String with a "$" prefix.
+                        let amountBinding = Binding<String>(
+                            get: {
+                                "$\(Int(selectedAssetData[index].amount))"
+                            },
+                            set: { newValue in
+                                let cleaned = newValue.replacingOccurrences(of: "$", with: "")
+                                if let value = Double(cleaned) {
+                                    selectedAssetData[index].amount = value
+                                }
+                            }
+                        )
+                        
+                        TextField("Amount", text: amountBinding)
+                            .keyboardType(.numberPad)
+                            .frame(width: 80)
+                            .multilineTextAlignment(.trailing)
+                            // Attach the focus state to this text field.
+                            .focused($focusedField, equals: asset.category)
+                    }
+                }
+                .padding()
+                
+                Divider()
+                    .background(Color.gray)
+                    .padding(.leading)
+            }
+        }
+        .animation(.default, value: selectedAssetData)
+        .padding(.bottom, 45)
+        // Attach a global toolbar to the view. Only one "Done" button appears when any text field is focused.
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                if focusedField != nil {
+                    Button("Done") {
+                        // Clearing the focus will dismiss the keyboard.
+                        focusedField = nil
+                    }
+                }
+            }
+        }
+    }
+}
+
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
 
 // MARK: - QUESTION VIEWS
 
@@ -351,9 +529,8 @@ struct IntroductionView: View {
                 .padding()
             
             Text("The following questions help Puul create your financial plan based on your needs and goals.")
-                .font(.title3)
-                .bold()
                 .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
                 .padding()
             HStack {
                 Image(systemName: "clock")
@@ -388,9 +565,6 @@ struct AgeQuestionView: View {
             }
             .pickerStyle(WheelPickerStyle())
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -416,9 +590,6 @@ struct SalaryQuestionView: View {
             }
             .pickerStyle(WheelPickerStyle())
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -450,9 +621,6 @@ struct LocationQuestionView: View {
             
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.location)
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -475,9 +643,6 @@ struct RiskToleranceQuestionView: View {
             
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.riskTolerance)
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -500,9 +665,6 @@ struct GoalQuestionView: View {
             
             MultiChoiceList(choices: choices, selections: $surveyVM.answers.goals)
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -562,9 +724,6 @@ struct HumanAdvisorQuestionView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -594,9 +753,6 @@ struct EmploymentQuestionView: View {
             
             SingleChoiceList(choices: choices, selection: $surveyVM.answers.employment)
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -627,44 +783,6 @@ struct IndustriesQuestionView: View {
             
             MultiChoiceList(choices: allIndustries, selections: $surveyVM.answers.selectedIndustries)
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
-        }
-    }
-}
-
-struct AssetsQuestionView: View {
-    @EnvironmentObject var surveyVM: SurveyViewModel
-    
-    let choices = [
-        "Real Estate",
-        "Liquid Bank Accounts",
-        "Brokerage/Equity Holdings",
-        "Retirement Accounts (401k, IRA, etc.)",
-        "Cryptocurrency",
-        "Commodities (Gold, Silver, etc.)",
-        "Private Business Ownership",
-        "Collectibles (Art, Antiques, etc.)",
-        "None of the above"
-    ]
-    
-    var body: some View {
-        VStack {
-            Image(systemName: "chart.pie")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
-                .padding(.top, 45)
-            SurveyNavigationHeader(title: "Where do you have assets?") {
-                surveyVM.previousStep()
-            }
-            
-            MultiChoiceList(choices: choices, selections: $surveyVM.answers.ownedAssets)
-            
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -718,10 +836,7 @@ struct FileTaxesQuestionView: View {
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
-            
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
+
         }
     }
 }
@@ -746,10 +861,7 @@ struct CreditScoreQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
+
         }
     }
 }
@@ -796,9 +908,6 @@ struct DebtQuestionView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.nextStep()
-            }
         }
     }
 }
@@ -824,10 +933,7 @@ struct SavingMonthlyQuestionView: View {
             }
             .pickerStyle(WheelPickerStyle())
             
-            SurveyNavigationFooter(nextDisabled: false) {
-                surveyVM.determineFinancialStatus()
-                surveyVM.nextStep()
-            }
+
         }
     }
 }
