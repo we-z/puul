@@ -135,7 +135,6 @@ struct HomeView: View {
                     }
                 }
                 .onEnded { value in
-                    
                     let horizontalDistance = abs(value.translation.width)
                     let verticalDistance = abs(value.translation.height)
                     guard horizontalDistance > verticalDistance else { return }
@@ -153,7 +152,6 @@ struct HomeView: View {
                     } else {
                         xOffset = chatViewOffset
                     }
-//                        impactMedium.impactOccurred()
                 }
         )
     }

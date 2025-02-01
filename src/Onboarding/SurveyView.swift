@@ -116,37 +116,44 @@ struct SurveyContainerView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    if surveyVM.currentStep > 0 {
-                        withAnimation(.easeInOut) {
-                            surveyVM.currentStep -= 1
+            VStack {
+                HStack {
+                    Button {
+                        if surveyVM.currentStep > 0 {
+                            withAnimation(.easeInOut) {
+                                surveyVM.currentStep -= 1
+                            }
                         }
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .font(.title3)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal)
                     }
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
+                    
+                    Spacer()
+                    Button {
+                        // This is the skip button
+                        showingAlert = true
+                    } label: {
+                        HStack {
+                            Text("Skip")
+                            Image(systemName: "chevron.right.2")
+                        }
+                        .font(.title3)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal)
                     }
-                    .font(.title3)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal)
-                }
-                
-                Spacer()
-                Button {
-                    // This is the skip button
-                    showingAlert = true
-                } label: {
-                    HStack {
-                        Text("Skip")
-                        Image(systemName: "chevron.right.2")
-                    }
-                    .font(.title3)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal)
                 }
                 .buttonStyle(HapticButtonStyle())
+                ProgressView(value: Double(surveyVM.currentStep), total: 14)
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .accentColor(.primary)
+                    .padding(.horizontal)
+                    .animation(.linear(duration: 1), value: surveyVM.currentStep)
             }
             .opacity(surveyVM.currentStep == 0 ? 0 : 1)
             
