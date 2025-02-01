@@ -342,8 +342,8 @@ struct IntroductionView: View {
             Spacer()
             Image(systemName: "doc.text")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding()
             Text("Client Questionnaire")
                 .font(.largeTitle)
@@ -374,8 +374,8 @@ struct AgeQuestionView: View {
         VStack {
             Image(systemName: "person.crop.circle")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "What's your Age?") {
                 surveyVM.previousStep()
@@ -402,8 +402,8 @@ struct SalaryQuestionView: View {
         VStack {
             Image(systemName: "dollarsign.circle")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "What's your Salary?") {
                 surveyVM.previousStep()
@@ -441,8 +441,8 @@ struct LocationQuestionView: View {
         VStack {
             Image(systemName: "mappin.circle")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Your Location") {
                 surveyVM.previousStep()
@@ -466,8 +466,8 @@ struct RiskToleranceQuestionView: View {
         VStack {
             Image(systemName: "exclamationmark.triangle")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Risk Tolerance") {
                 surveyVM.previousStep()
@@ -491,8 +491,8 @@ struct GoalQuestionView: View {
         VStack {
             Image(systemName: "target")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "What are your primary goals?") {
                 surveyVM.previousStep()
@@ -536,8 +536,8 @@ struct HumanAdvisorQuestionView: View {
         VStack {
             Image(systemName: "person.fill")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you currently have a financial advisor?") {
                 surveyVM.previousStep()
@@ -585,8 +585,8 @@ struct EmploymentQuestionView: View {
         VStack {
             Image(systemName: "bag")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "What is your employment status?") {
                 surveyVM.previousStep()
@@ -618,8 +618,8 @@ struct IndustriesQuestionView: View {
         VStack {
             Image(systemName: "building.2")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Which industries are you interested in?") {
                 surveyVM.previousStep()
@@ -653,8 +653,8 @@ struct AssetsQuestionView: View {
         VStack {
             Image(systemName: "chart.pie")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Where do you have assets?") {
                 surveyVM.previousStep()
@@ -688,8 +688,8 @@ struct FileTaxesQuestionView: View {
         VStack {
             Image(systemName: "building.columns")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you file your own taxes?") {
                 surveyVM.previousStep()
@@ -733,8 +733,8 @@ struct CreditScoreQuestionView: View {
         VStack {
             Image(systemName: "creditcard")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "What is your credit score?") {
                 surveyVM.previousStep()
@@ -765,8 +765,8 @@ struct DebtQuestionView: View {
         VStack {
             Image(systemName: "paperclip")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "Do you have any debts?") {
                 surveyVM.previousStep()
@@ -810,8 +810,8 @@ struct SavingMonthlyQuestionView: View {
         VStack {
             Image(systemName: "brain")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
             SurveyNavigationHeader(title: "How much do you save each month?") {
                 surveyVM.previousStep()
@@ -842,8 +842,8 @@ struct FinalStatusView: View {
             Spacer()
             Image(systemName: "list.clipboard")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+                .aspectRatio(contentMode: .fit)
+                .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding()
             
             Text("Creating Your Custom Financial Plan")
