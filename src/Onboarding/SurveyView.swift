@@ -448,6 +448,7 @@ struct MultiChoiceAssetList: View {
                             selections.removeAll(where: { $0 == asset.category })
                         } else {
                             // Add the asset with its default amount.
+                            focusedField = asset.category
                             selectedAssetData.append(asset)
                             selections.append(asset.category)
                         }
