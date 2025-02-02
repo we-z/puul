@@ -479,7 +479,7 @@ final class AIChatModel: ObservableObject {
                 """
                 
                 let finalSystemPrompt = """
-                Respond with SHORT messages. Respond directly to the users message. Keep responses concise and to the point. Respond to greetings with greetings. Respond to questions and requests in one sentence. The conversation starts NOW.
+                Keep responses concise and to the point. Respond to greetings with greetings. The conversation starts NOW.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
@@ -523,7 +523,7 @@ final class AIChatModel: ObservableObject {
                     
                     // ---- Sampling hyperparameters (tweak for better recall & consistency) ----
                     // Lower temperature and top_p encourage more deterministic, on-topic answers.
-//                    "temp": 0.1,
+                    "temp": 0.1,
 //                    "top_p": 0.5,
 //                    "top_k": 30,
                     
