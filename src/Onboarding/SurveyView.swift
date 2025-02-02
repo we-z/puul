@@ -370,15 +370,18 @@ struct MultiChoiceAssetList: View {
         AssetData(category: "None of the above", amount: 1000)
     ]
     
-    // The list of assets that have been selected. Their amounts are updated by the text fields.
+    // The list of assets that have been selected. Their amounts are updated by text fields.
     @State private var selectedAssetData: [AssetData] = []
+    
+    // Keep track of raw text inputs per category to avoid forcing SwiftUI re-renders.
+    @State private var inputAmounts: [String: String] = [:]
     
     // An external binding for selections (using the asset category).
     @Binding var selections: [String]
     
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    // Use FocusState to track which text field is active. Here we use the asset category as an identifier.
+    // Use FocusState to track which text field is active. We use the asset category as an identifier.
     @FocusState private var focusedField: String?
     
     // Adjust the chart’s height based on the number of selected assets.
@@ -404,6 +407,7 @@ struct MultiChoiceAssetList: View {
                             .foregroundStyle(by: .value("Category", asset.category))
                         }
                         .frame(height: dynamicChartHeight)
+                        .animation(.default, value: selectedAssetData)
                     }
                 }
                 .padding()
@@ -412,9 +416,8 @@ struct MultiChoiceAssetList: View {
             Text("Multiple Selection")
                 .font(.headline)
             
-            // List all available assets.
-            ForEach(assetData) { asset in
-                // Determine if this asset is already selected.
+            // List all available assets (identifiable by category).
+            ForEach(assetData, id: \.category) { asset in
                 let isSelected = selectedAssetData.contains(where: { $0.category == asset.category })
                 
                 HStack {
@@ -426,49 +429,65 @@ struct MultiChoiceAssetList: View {
                         Text(asset.category)
                         Spacer()
                     }
-                    // Increase the tap area.
                     .contentShape(Rectangle())
                     .onTapGesture {
                         let impactMedium = UIImpactFeedbackGenerator(style: .medium)
                         impactMedium.impactOccurred()
+                        
                         if isSelected {
                             // Remove from selections.
                             selectedAssetData.removeAll(where: { $0.category == asset.category })
                             selections.removeAll(where: { $0 == asset.category })
+                            // Clear out any cached text for this category.
+                            inputAmounts[asset.category] = nil
                         } else {
                             // Add the asset with its default amount.
+                            // Focus the text field for quick editing.
                             focusedField = asset.category
                             selectedAssetData.append(asset)
                             selections.append(asset.category)
+                            // Initialize text for this category.
+                            inputAmounts[asset.category] = "\(Int(asset.amount))"
                         }
                     }
                     .onChange(of: selectedAssetData) { _ in
-                        surveyVM.answers.totalNetWorth = Int(selectedAssetData.reduce(0) { $0 + $1.amount })
+                        recalcTotalNetWorth()
                     }
                     
                     // If the asset is selected, show a text field to update its amount.
                     if isSelected,
-                       let index = selectedAssetData.firstIndex(where: { $0.category == asset.category })
-                    {
-                        // Create a binding that converts between the Double amount and a String with a "$" prefix.
-                        let amountBinding = Binding<String>(
-                            get: {
-                                "$\(Int(selectedAssetData[index].amount))"
-                            },
-                            set: { newValue in
-                                let cleaned = newValue.replacingOccurrences(of: "$", with: "")
-                                if let value = Double(cleaned) {
-                                    selectedAssetData[index].amount = value
-                                }
-                            }
-                        )
+                       let index = selectedAssetData.firstIndex(where: { $0.category == asset.category }) {
                         
-                        TextField("Amount", text: amountBinding)
-                            .keyboardType(.numberPad)
-                            .frame(width: 80)
-                            .multilineTextAlignment(.trailing)
-                            // Attach the focus state to this text field.
-                            .focused($focusedField, equals: asset.category)
+                        TextField(
+                            "Amount",
+                            text: Binding<String>(
+                                get: {
+                                    // Show whatever the user typed; fall back to the asset's current value if needed
+                                    inputAmounts[asset.category] ?? "\(Int(asset.amount))"
+                                },
+                                set: { newText in
+                                    // Store the typed text in our dictionary
+                                    inputAmounts[asset.category] = newText
+                                    
+                                    // Strip out non-digit characters or handle them
+                                    let sanitized = newText.filter { $0.isNumber }
+                                    
+                                    if let value = Double(sanitized) {
+                                        // Update the underlying asset amount as user types
+                                        selectedAssetData[index].amount = value
+                                        recalcTotalNetWorth()
+                                    } else {
+                                        // If there's nothing valid, set the amount to zero
+                                        selectedAssetData[index].amount = 0
+                                        recalcTotalNetWorth()
+                                    }
+                                }
+                            )
+                        )
+                        .keyboardType(.numberPad)
+                        .frame(width: 80)
+                        .multilineTextAlignment(.trailing)
+                        .focused($focusedField, equals: asset.category)
                     }
                 }
                 .padding()
@@ -478,9 +497,8 @@ struct MultiChoiceAssetList: View {
                     .padding(.leading)
             }
         }
-        .animation(.default, value: selectedAssetData)
         .padding(.bottom, 45)
-        // Attach a global toolbar to the view. Only one "Done" button appears when any text field is focused.
+        // Global toolbar to dismiss the keyboard.
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -493,16 +511,21 @@ struct MultiChoiceAssetList: View {
             }
         }
     }
-}
-
-#if canImport(UIKit)
-extension View {
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                        to: nil, from: nil, for: nil)
+    
+    /// Recalculate and store the total net worth in the surveyVM.
+    private func recalcTotalNetWorth() {
+        let total = selectedAssetData.reduce(0) { $0 + $1.amount }
+        surveyVM.answers.totalNetWorth = Int(total)
     }
 }
-#endif
+//#if canImport(UIKit)
+//extension View {
+//    func hideKeyboard() {
+//        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+//                                        to: nil, from: nil, for: nil)
+//    }
+//}
+//#endif
 
 
 // MARK: - QUESTION VIEWS
