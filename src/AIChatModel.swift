@@ -458,6 +458,7 @@ final class AIChatModel: ObservableObject {
                     • Employment: \(answers.employment)
                     • Industries of interest: \(answers.selectedIndustries.joined(separator: ", "))
                     • Owned Assets: \(answers.ownedAssets.joined(separator: ", "))
+                    • Total Net Worth: \(answers.totalNetWorth)
                     • Files Own Taxes: \(answers.filesOwnTaxes)
                     • Tax Tool: \(answers.taxTool)
                     • Has Debts: \(answers.hasDebts)
