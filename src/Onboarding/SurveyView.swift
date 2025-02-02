@@ -18,6 +18,7 @@ struct SurveyAnswers: Codable {
     var employment: String = "Unemployed"
     var selectedIndustries: [String] = []
     var ownedAssets: [String] = []
+    var totalNetWorth: Int = 0
     var filesOwnTaxes: String = "No"
     var taxTool: String = "None"
     var hasDebts: String = "No"
@@ -331,18 +332,6 @@ struct MultiChoiceList: View {
 struct AssetsQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    let choices = [
-        "Real Estate",
-        "Liquid Bank Accounts",
-        "Brokerage/Equity Holdings",
-        "Retirement Accounts (401k, IRA, etc.)",
-        "Cryptocurrency",
-        "Commodities (Gold, Silver, etc.)",
-        "Private Business Ownership",
-        "Collectibles (Art, Antiques, etc.)",
-        "None of the above"
-    ]
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -452,6 +441,9 @@ struct MultiChoiceAssetList: View {
                             selectedAssetData.append(asset)
                             selections.append(asset.category)
                         }
+                    }
+                    .onChange(of: selectedAssetData) { _ in
+                        surveyVM.answers.totalNetWorth = Int(selectedAssetData.reduce(0) { $0 + $1.amount })
                     }
                     
                     // If the asset is selected, show a text field to update its amount.
