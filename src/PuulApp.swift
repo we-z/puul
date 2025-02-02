@@ -6,9 +6,8 @@ struct PuulApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                AssetsQuestionView()
+                SurveyView()
                     .environmentObject(StoreVM())
-                    .environmentObject(SurveyViewModel())
             }
         }
     }

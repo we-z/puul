@@ -162,35 +162,67 @@ struct SurveyContainerView: View {
             
             // MARK: - Paging TabView for Survey Steps
             TabView(selection: $surveyVM.currentStep) {
-                IntroductionView()
+                ScrollView {
+                    IntroductionView()
+                }
                     .tag(0)
-                AgeQuestionView()
+                ScrollView {
+                    AgeQuestionView()
+                }
                     .tag(1)
-                LocationQuestionView()
+                ScrollView {
+                    LocationQuestionView()
+                }
                     .tag(2)
-                EmploymentQuestionView()
+                ScrollView {
+                    EmploymentQuestionView()
+                }
                     .tag(3)
-                SalaryQuestionView()
+                ScrollView {
+                    SalaryQuestionView()
+                }
                     .tag(4)
-                GoalQuestionView()
+                ScrollView {
+                    GoalQuestionView()
+                }
                     .tag(5)
-                HumanAdvisorQuestionView()
+                ScrollView {
+                    HumanAdvisorQuestionView()
+                }
+                .defaultScrollAnchor(.bottom)
                     .tag(6)
-                RiskToleranceQuestionView()
+                ScrollView {
+                    RiskToleranceQuestionView()
+                }
                     .tag(7)
-                IndustriesQuestionView()
+                ScrollView {
+                    IndustriesQuestionView()
+                }
                     .tag(8)
-                AssetsQuestionView()
+                ScrollView {
+                    AssetsQuestionView()
+                }
                     .tag(9)
-                FileTaxesQuestionView()
+                ScrollView {
+                    FileTaxesQuestionView()
+                }
+                .defaultScrollAnchor(.bottom)
                     .tag(10)
-                CreditScoreQuestionView()
+                ScrollView {
+                    CreditScoreQuestionView()
+                }
                     .tag(11)
-                DebtQuestionView()
+                ScrollView {
+                    DebtQuestionView()
+                }
                     .tag(12)
-                SavingMonthlyQuestionView()
+                ScrollView {
+                    SavingMonthlyQuestionView()
+                }
                     .tag(13)
-                FinalStatusView()
+                ScrollView {
+                    FinalStatusView()
+                }
                     .tag(14)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
@@ -303,7 +335,7 @@ struct MultiChoiceList: View {
         VStack {
             Text("Multiple Selection")
                 .font(.headline)
-            List(choices, id: \.self) { choice in
+            ForEach(choices, id: \.self) { choice in
                 HStack {
                     if selections.contains(choice) {
                         Image(systemName: "checkmark.circle.fill")
@@ -311,7 +343,9 @@ struct MultiChoiceList: View {
                     Text(choice)
                     Spacer()
                 }
+                .animation(.default, value: selections)
                 .contentShape(Rectangle())
+                .padding()
                 .onTapGesture {
                     if selections.contains(choice) {
                         selections.removeAll(where: { $0 == choice })
@@ -732,7 +766,7 @@ struct HumanAdvisorQuestionView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
-            SurveyNavigationHeader(title: "Do you currently have a financial advisor?") {
+            SurveyNavigationHeader(title: "Do you have a financial advisor?") {
                 surveyVM.previousStep()
             }
             
