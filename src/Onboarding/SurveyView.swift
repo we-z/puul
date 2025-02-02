@@ -393,6 +393,14 @@ struct MultiChoiceAssetList: View {
             : minHeight
     }
     
+    /// A helper for formatting numbers as US currency with no decimal places.
+    private let currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        return formatter
+    }()
+    
     var body: some View {
         VStack {
             // Show the chart and net worth if at least one asset is selected.
@@ -446,7 +454,7 @@ struct MultiChoiceAssetList: View {
                             focusedField = asset.category
                             selectedAssetData.append(asset)
                             selections.append(asset.category)
-                            // Initialize text for this category.
+                            // Initialize text for this category with its current amount as raw text.
                             inputAmounts[asset.category] = "\(Int(asset.amount))"
                         }
                     }
@@ -462,14 +470,20 @@ struct MultiChoiceAssetList: View {
                             "Amount",
                             text: Binding<String>(
                                 get: {
-                                    // Show whatever the user typed; fall back to the asset's current value if needed
-                                    inputAmounts[asset.category] ?? "\(Int(asset.amount))"
+                                    // If currently focused, show raw typed text
+                                    if focusedField == asset.category {
+                                        return inputAmounts[asset.category] ?? ""
+                                    } else {
+                                        // Not focused; show formatted text
+                                        let amount = selectedAssetData[index].amount
+                                        return currencyFormatter.string(from: NSNumber(value: amount)) ?? ""
+                                    }
                                 },
                                 set: { newText in
-                                    // Store the typed text in our dictionary
+                                    // Always store whatever the user typed as raw text
                                     inputAmounts[asset.category] = newText
                                     
-                                    // Strip out non-digit characters or handle them
+                                    // Strip out non-digit characters (e.g. $, commas)
                                     let sanitized = newText.filter { $0.isNumber }
                                     
                                     if let value = Double(sanitized) {
@@ -485,7 +499,7 @@ struct MultiChoiceAssetList: View {
                             )
                         )
                         .keyboardType(.numberPad)
-                        .frame(width: 80)
+                        .frame(width: 100)
                         .multilineTextAlignment(.trailing)
                         .focused($focusedField, equals: asset.category)
                     }
@@ -518,6 +532,7 @@ struct MultiChoiceAssetList: View {
         surveyVM.answers.totalNetWorth = Int(total)
     }
 }
+
 //#if canImport(UIKit)
 //extension View {
 //    func hideKeyboard() {
