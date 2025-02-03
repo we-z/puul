@@ -190,7 +190,7 @@ struct DemoView: View {
                         }
                     }
                 } label: {
-                    Text("Next")
+                    Text("Next >")
                         .bold()
                         .font(.title2)
                         .padding()
