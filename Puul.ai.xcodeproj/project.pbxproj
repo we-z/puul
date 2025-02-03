@@ -31,6 +31,7 @@
 		767EBC122D349FA8003FCB43 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 767EBC112D349FA8003FCB43 /* MarkdownUI */; };
 		767EBC182D34A0C5003FCB43 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC152D34A0C5003FCB43 /* Tabs.swift */; };
 		767EBC192D34A0C5003FCB43 /* ThreeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767EBC132D34A0C5003FCB43 /* ThreeDots.swift */; };
+		76928BC52D5045CD007B6A9C /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76928BC42D5045CD007B6A9C /* DemoView.swift */; };
 		76E015DD2D35A0B3002C57B0 /* RAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E015DB2D35A0B3002C57B0 /* RAG.swift */; };
 		7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73E52A267E1C0064800C /* StoreKit.swift */; };
 		7A4B73F02A26C17F0064800C /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B73EF2A26C17F0064800C /* ChatInfoView.swift */; };
@@ -66,6 +67,7 @@
 		767EBC022D349EE1003FCB43 /* MessageImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImage.swift; sourceTree = "<group>"; };
 		767EBC132D34A0C5003FCB43 /* ThreeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDots.swift; sourceTree = "<group>"; };
 		767EBC152D34A0C5003FCB43 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		76928BC42D5045CD007B6A9C /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
 		76E015DB2D35A0B3002C57B0 /* RAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAG.swift; sourceTree = "<group>"; };
 		7A4306852A38D869003C8135 /* Puul.ai-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Puul.ai-Info.plist"; sourceTree = "<group>"; };
 		7A48E55D29FE56E60068362F /* Puul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Puul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +137,7 @@
 				767EBBFD2D349EE1003FCB43 /* Message.swift */,
 				767EBBFE2D349EE1003FCB43 /* MessageView.swift */,
 				767EBBFF2D349EE1003FCB43 /* ChatView.swift */,
+				76928BC42D5045CD007B6A9C /* DemoView.swift */,
 				767EBC002D349EE1003FCB43 /* ChatListView.swift */,
 				767EBC012D349EE1003FCB43 /* ChatItem.swift */,
 				767EBC022D349EE1003FCB43 /* MessageImage.swift */,
@@ -300,6 +303,7 @@
 				7A4B73E62A267E1C0064800C /* StoreKit.swift in Sources */,
 				7A81C1652A01BDA5000496E3 /* TempView.swift in Sources */,
 				8B91C004298AD09E0079AF26 /* PuulApp.swift in Sources */,
+				76928BC52D5045CD007B6A9C /* DemoView.swift in Sources */,
 				7A4B74042A367F5B0064800C /* LogoView.swift in Sources */,
 				7A4B73F52A29B5BC0064800C /* AccountView.swift in Sources */,
 				767EBBF52D349E6F003FCB43 /* AIChatModel.swift in Sources */,
@@ -457,7 +461,7 @@
 				CODE_SIGN_ENTITLEMENTS = src/Puul.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1.4;
+				CURRENT_PROJECT_VERSION = 1.1.6;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
@@ -481,7 +485,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -503,7 +507,7 @@
 				CODE_SIGN_ENTITLEMENTS = src/Puul.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1.4;
+				CURRENT_PROJECT_VERSION = 1.1.6;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3Y2Y4CJNN6;
 				ENABLE_PREVIEWS = YES;
@@ -527,7 +531,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.puul.ai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

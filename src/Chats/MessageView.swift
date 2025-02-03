@@ -24,7 +24,7 @@ struct MessageView: View {
                 Text("Puul")
                     .font(.title2)
                     .bold()
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.primary)
             }
         }
     }
