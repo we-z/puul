@@ -28,6 +28,7 @@ struct DemoView: View {
     @State private var isAttachmentPopoverPresented: Bool = false
     @State private var selectedImageData: Data? = nil
     @State private var imgCachePath: String? = nil
+    @State private var chevronOffset: CGFloat = 0.0
     
     @FocusState var isTextFieldFocused: Bool
     
@@ -73,6 +74,22 @@ struct DemoView: View {
                         if aiChatModel.messages.isEmpty {
                             // Prompt area for new user
                             VStack {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "airplane.circle.fill")
+                                    Text("Turn on Airplane Mode")
+                                        .bold()
+                                    Image(systemName: "chevron.down")
+                                        .offset(y: chevronOffset)
+                                        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: chevronOffset)
+                                        .onAppear {
+                                            chevronOffset = 12
+                                        }
+                                }
+                                .padding(.vertical)
+                                .font(.system(size: 24))
+                                .padding(.horizontal, 30)
+                                
                                 Spacer()
                                 HStack {
                                     Text("Try asking Puul an example question off-line")
@@ -81,6 +98,7 @@ struct DemoView: View {
                                         Spacer()
                                             .frame(maxHeight: 120)
                                         Image(systemName: "arrow.turn.right.down")
+                                        
                                     }
                                 }
                                 .padding(.vertical)
