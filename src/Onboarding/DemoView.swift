@@ -6,35 +6,24 @@
 //
 
 import SwiftUI
+import Network
 
 struct DemoView: View {
     @EnvironmentObject var aiChatModel: AIChatModel
-    @EnvironmentObject var orientationInfo: OrientationInfo
-    
-    @State var placeholderString: String = "Message"
-    @State private var inputText: String = "Message"
-    
+        
     @State var chatStyle: String = "DocC"
-    @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
     
     @State private var scrollProxy: ScrollViewProxy? = nil
-    @State private var scrollTarget: Int?
-    @State private var toggleEditChat = false
-    @State private var clearChatAlert = false
+    @State private var airplaneAlert = false
     
     @State private var autoScroll = true
     @State private var enableRAG = false
-    @State private var inputTextValue: String = ""
-    @State private var isAttachmentPopoverPresented: Bool = false
-    @State private var selectedImageData: Data? = nil
     @State private var imgCachePath: String? = nil
     @State private var chevronOffset: CGFloat = 0.0
     @State private var done: Bool = false
     
     @FocusState var isTextFieldFocused: Bool
-    
-    @Namespace var bottomID
-    
+        
     let financialQuestions = [
         "How can I improve\nmy credit score?",
         "Should I refinance\nmy mortgage?",
@@ -93,7 +82,7 @@ struct DemoView: View {
                             
                             Spacer()
                             HStack {
-                                Text("Try asking Puul an example question off-line")
+                                Text("Try Puul off-line with an example question ")
                                 Spacer()
                                 VStack {
                                     Spacer()
@@ -189,6 +178,19 @@ struct DemoView: View {
                             done = true
                         }
                     }
+                    let monitor = NWPathMonitor()
+                    monitor.pathUpdateHandler = { path in
+                        if path.status == .satisfied {
+                            print("Internet connection is available.")
+                            // Perform actions when internet is available
+                        } else {
+                            print("Internet connection is not available.")
+                            airplaneAlert = true
+                            // Perform actions when internet is not available
+                        }
+                    }
+                    let queue = DispatchQueue(label: "NetworkMonitor")
+                    monitor.start(queue: queue)
                 } label: {
                     Text("Next >")
                         .bold()
@@ -209,6 +211,16 @@ struct DemoView: View {
             isTextFieldFocused = false
         }
         .offset(x: done ? -deviceWidth : 0)
+        .alert("Turn off Airplane Mode",
+           isPresented: $airplaneAlert,
+                   actions: {
+                Button("Ok", role: .cancel) {
+                    // Do nothing, just dismiss
+                }
+            },
+                   message: {
+                Text("Turn off Airplane Mode, and connect to the internet to continue onboarding")
+            })
     }
     
     private func sendMessage(message: String) {
@@ -223,7 +235,6 @@ struct DemoView: View {
                     attachment_type: (imgCachePath != nil ? "img" : nil),
                     useRag: enableRAG
                 )
-                inputTextValue = ""
                 imgCachePath = nil
             }
         }

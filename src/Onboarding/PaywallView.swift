@@ -7,11 +7,13 @@
 
 import SwiftUI
 import StoreKit
+import Network
 
 struct PaywallView: View {
     @EnvironmentObject var storeVM: StoreVM
     @State var done: Bool = false
     @State var processing: Bool = false
+    @State private var airplaneAlert = false
     
     // Features of the private photo-sharing app and their respective icons
     let featuresWithIcons = [
@@ -136,6 +138,19 @@ struct PaywallView: View {
                             print("No subscription available to purchase.")
                         }
                     }
+                    let monitor = NWPathMonitor()
+                    monitor.pathUpdateHandler = { path in
+                        if path.status == .satisfied {
+                            print("Internet connection is available.")
+                            // Perform actions when internet is available
+                        } else {
+                            print("Internet connection is not available.")
+                            airplaneAlert = true
+                            // Perform actions when internet is not available
+                        }
+                    }
+                    let queue = DispatchQueue(label: "NetworkMonitor")
+                    monitor.start(queue: queue)
                 } label: {
                     Text("Continue for free >>")
                         .bold()
@@ -225,6 +240,16 @@ struct PaywallView: View {
             }
         }
         .offset(x: done ? -deviceWidth : 0)
+        .alert("Turn off Airplane Mode",
+           isPresented: $airplaneAlert,
+                   actions: {
+                Button("Ok", role: .cancel) {
+                    // Do nothing, just dismiss
+                }
+            },
+                   message: {
+                Text("Turn off Airplane Mode, and connect to the internet to continue onboarding")
+            })
     }
 }
 #Preview {
