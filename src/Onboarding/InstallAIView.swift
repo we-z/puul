@@ -252,7 +252,7 @@ struct InstallAIView: View {
                     }
                 },
                        message: {
-                    Text("Puul AI is safe and will not harm your device. Downloading over Wi-Fi is recommended.")
+                    Text("Downloading the model is required to continue. Puul AI is safe and will not harm your device.")
                 })
         .onChange(of: status) { newStatus in
             if newStatus == "" {
