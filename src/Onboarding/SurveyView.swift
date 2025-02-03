@@ -98,8 +98,6 @@ struct SurveyView: View {
     var body: some View {
         SurveyContainerView()
             .environmentObject(surveyVM)
-//        AssetsQuestionView()
-//            .environmentObject(surveyVM)
     }
 }
 
@@ -201,9 +199,9 @@ struct SurveyContainerView: View {
                 }
                 .padding(.bottom, 45)
                     .tag(8)
-                ScrollView {
+//                ScrollView {
                     AssetsQuestionView()
-                }
+//                }
                 .padding(.bottom, 45)
                     .tag(9)
 //                ScrollView {
@@ -380,73 +378,38 @@ struct MultiChoiceList: View {
     }
 }
 
-
-
-struct AssetsQuestionView: View {
-    @EnvironmentObject var surveyVM: SurveyViewModel
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                Image(systemName: "chart.pie")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
-                    .padding(.top, 45)
-                SurveyNavigationHeader(title: "Where do you have assets?") {
-                    surveyVM.previousStep()
-                }
-                MultiChoiceAssetList(selections: $surveyVM.answers.ownedAssets)
-                
-            }
-        }
-    }
-}
-
 struct AssetData: Identifiable, Hashable {
     var category: String
     var amount: Double
     var id = UUID()
 }
 
-struct MultiChoiceAssetList: View {
-    // The list of available asset choices.
-    let assetData: [AssetData] = [
-        AssetData(category: "Real Estate", amount: 500000),
-        AssetData(category: "Liquid Bank Accounts", amount: 60000),
-        AssetData(category: "Brokerage/Equity Holdings", amount: 100000),
-        AssetData(category: "Retirement Accounts (401k, IRA, etc.)", amount: 60000),
-        AssetData(category: "Cryptocurrency", amount: 30000),
-        AssetData(category: "Commodities (Gold, Silver, etc.)", amount: 15000),
-        AssetData(category: "Private Business Ownership", amount: 35000),
-        AssetData(category: "Collectibles (Art, Antiques, etc.)", amount: 20000),
-        AssetData(category: "None of the above", amount: 1000)
-    ]
-    
-    // The list of assets that have been selected. Their amounts are updated by text fields.
-    @State private var selectedAssetData: [AssetData] = []
-    
-    // Keep track of raw text inputs per category to avoid forcing SwiftUI re-renders.
-    @State private var inputAmounts: [String: String] = [:]
-    
-    // An external binding for selections (using the asset category).
-    @Binding var selections: [String]
-    
+struct AssetsQuestionView: View {
     @EnvironmentObject var surveyVM: SurveyViewModel
     
-    // Use FocusState to track which text field is active. We use the asset category as an identifier.
+    // All possible asset choices.
+    let assetData: [AssetData] = [
+        AssetData(category: "Real Estate", amount: 500_000),
+        AssetData(category: "Liquid Bank Accounts", amount: 60_000),
+        AssetData(category: "Brokerage/Equity Holdings", amount: 100_000),
+        AssetData(category: "Retirement Accounts (401k, IRA, etc.)", amount: 60_000),
+        AssetData(category: "Cryptocurrency", amount: 30_000),
+        AssetData(category: "Commodities (Gold, Silver, etc.)", amount: 15_000),
+        AssetData(category: "Private Business Ownership", amount: 35_000),
+        AssetData(category: "Collectibles (Art, Antiques, etc.)", amount: 20_000),
+        AssetData(category: "None of the above", amount: 1_000)
+    ]
+    
+    // Assets user has selected; updated amounts stored here.
+    @State private var selectedAssetData: [AssetData] = []
+    
+    // Raw text inputs keyed by category (so we keep user-entered formatting while typing).
+    @State private var inputAmounts: [String: String] = [:]
+    
+    // Track which TextField is focused. We’ll use this to auto-scroll into view.
     @FocusState private var focusedField: String?
     
-    // Adjust the chart’s height based on the number of selected assets.
-    var dynamicChartHeight: CGFloat {
-        let minHeight: CGFloat = 60
-        let additionalHeightPerAsset: CGFloat = 30
-        return selectedAssetData.count > 1
-            ? minHeight + CGFloat(selectedAssetData.count - 1) * additionalHeightPerAsset
-            : minHeight
-    }
-    
-    /// A helper for formatting numbers as US currency with no decimal places.
+    // A helper formatter for currency-like fields (no decimals).
     private let currencyFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -455,131 +418,162 @@ struct MultiChoiceAssetList: View {
     }()
     
     var body: some View {
-        VStack {
-            // Show the chart and net worth if at least one asset is selected.
-            if !selectedAssetData.isEmpty {
+        ScrollViewReader { scrollProxy in
+            ScrollView {
                 VStack {
-                    GroupBox("Total Net Worth: $\(Int(selectedAssetData.reduce(0) { $0 + $1.amount }))") {
-                        Chart(selectedAssetData) { asset in
-                            BarMark(
-                                x: .value("Amount", asset.amount),
-                                stacking: .normalized
-                            )
-                            .foregroundStyle(by: .value("Category", asset.category))
-                        }
-                        .frame(height: dynamicChartHeight)
-                        .animation(.default, value: selectedAssetData)
-                    }
-                }
-                .padding()
-            }
-            
-            Text("Multiple Selection")
-                .font(.headline)
-            
-            // List all available assets (identifiable by category).
-            ForEach(assetData, id: \.category) { asset in
-                let isSelected = selectedAssetData.contains(where: { $0.category == asset.category })
-                
-                HStack {
-                    // Tappable row for selection/deselection.
-                    HStack {
-                        if isSelected {
-                            Image(systemName: "checkmark.circle.fill")
-                        }
-                        Text(asset.category)
-                        Spacer()
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        let impactMedium = UIImpactFeedbackGenerator(style: .medium)
-                        impactMedium.impactOccurred()
-                        
-                        if isSelected {
-                            // Remove from selections.
-                            selectedAssetData.removeAll(where: { $0.category == asset.category })
-                            selections.removeAll(where: { $0 == asset.category })
-                            // Clear out any cached text for this category.
-                            inputAmounts[asset.category] = nil
-                        } else {
-                            // Add the asset with its default amount.
-                            // Focus the text field for quick editing.
-                            focusedField = asset.category
-                            selectedAssetData.append(asset)
-                            selections.append(asset.category)
-                            // Initialize text for this category with its current amount as raw text.
-                            inputAmounts[asset.category] = "\(Int(asset.amount))"
-                        }
-                    }
-                    .onChange(of: selectedAssetData) { _ in
-                        recalcTotalNetWorth()
+                    
+                    // Top illustration
+                    Image(systemName: "chart.pie")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 150, height: 150)
+                        .padding(.top, 45)
+                    
+                    // Header with back navigation
+                    SurveyNavigationHeader(title: "Where do you have assets?") {
+                        surveyVM.previousStep()
                     }
                     
-                    // If the asset is selected, show a text field to update its amount.
-                    if isSelected,
-                       let index = selectedAssetData.firstIndex(where: { $0.category == asset.category }) {
+                    // Show chart + total net worth if we have selected any assets
+                    if !selectedAssetData.isEmpty {
+                        VStack {
+                            GroupBox("Total Net Worth: $\(Int(selectedAssetData.map(\.amount).reduce(0, +)))") {
+                                Chart(selectedAssetData) { asset in
+                                    BarMark(
+                                        x: .value("Amount", asset.amount),
+                                        stacking: .normalized
+                                    )
+                                    .foregroundStyle(by: .value("Category", asset.category))
+                                }
+                                .frame(height: dynamicChartHeight)
+                                .animation(.default, value: selectedAssetData)
+                            }
+                            .padding()
+                        }
+                    }
+                    
+                    Text("Multiple Selection")
+                        .font(.headline)
+                        .padding(.top, 8)
+                    
+                    // List out all asset categories
+                    ForEach(assetData, id: \.category) { asset in
+                        let isSelected = selectedAssetData.contains { $0.category == asset.category }
                         
-                        TextField(
-                            "Amount",
-                            text: Binding<String>(
-                                get: {
-                                    // If currently focused, show raw typed text
-                                    if focusedField == asset.category {
-                                        return inputAmounts[asset.category] ?? ""
-                                    } else {
-                                        // Not focused; show formatted text
-                                        let amount = selectedAssetData[index].amount
-                                        return currencyFormatter.string(from: NSNumber(value: amount)) ?? ""
+                        VStack {
+                            HStack {
+                                // Tap to select/deselect
+                                HStack {
+                                    if isSelected {
+                                        Image(systemName: "checkmark.circle.fill")
                                     }
-                                },
-                                set: { newText in
-                                    // Always store whatever the user typed as raw text
-                                    inputAmounts[asset.category] = newText
+                                    Text(asset.category)
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle()) // Makes entire row tappable
+                                .onTapGesture {
+                                    let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+                                    impactMedium.impactOccurred()
                                     
-                                    // Strip out non-digit characters (e.g. $, commas)
-                                    let sanitized = newText.filter { $0.isNumber }
-                                    
-                                    if let value = Double(sanitized) {
-                                        // Update the underlying asset amount as user types
-                                        selectedAssetData[index].amount = value
-                                        recalcTotalNetWorth()
+                                    if isSelected {
+                                        // Deselect
+                                        selectedAssetData.removeAll { $0.category == asset.category }
+                                        surveyVM.answers.ownedAssets.removeAll { $0 == asset.category }
+                                        inputAmounts[asset.category] = nil
                                     } else {
-                                        // If there's nothing valid, set the amount to zero
-                                        selectedAssetData[index].amount = 0
-                                        recalcTotalNetWorth()
+                                        // Select
+                                        selectedAssetData.append(asset)
+                                        surveyVM.answers.ownedAssets.append(asset.category)
+                                        // Pre-fill text field with the default amount
+                                        inputAmounts[asset.category] = "\(Int(asset.amount))"
+                                        // Focus newly-added asset's text field
+                                        focusedField = asset.category
+                                    }
+                                    // Recalc total whenever selection changes
+                                    recalcTotalNetWorth()
+                                }
+                                
+                                // If selected, show a text field to update its amount
+                                if isSelected,
+                                   let index = selectedAssetData.firstIndex(where: { $0.category == asset.category }) {
+                                    
+                                    TextField(
+                                        "Amount",
+                                        text: Binding<String>(
+                                            get: {
+                                                // If user is actively editing this field, show raw typed text
+                                                if focusedField == asset.category {
+                                                    return inputAmounts[asset.category] ?? ""
+                                                } else {
+                                                    // Not focused -> show formatted amount
+                                                    let amount = selectedAssetData[index].amount
+                                                    return currencyFormatter.string(from: NSNumber(value: amount)) ?? ""
+                                                }
+                                            },
+                                            set: { newValue in
+                                                // Always store raw typed text
+                                                inputAmounts[asset.category] = newValue
+                                                // Sanitize to digits only
+                                                let sanitized = newValue.filter(\.isNumber)
+                                                if let value = Double(sanitized) {
+                                                    selectedAssetData[index].amount = value
+                                                } else {
+                                                    selectedAssetData[index].amount = 0
+                                                }
+                                                recalcTotalNetWorth()
+                                            }
+                                        )
+                                    )
+                                    .keyboardType(.numberPad)
+                                    .frame(width: 100)
+                                    .multilineTextAlignment(.trailing)
+                                    .focused($focusedField, equals: asset.category)
+                                    // Whenever focus changes, we can auto-scroll
+                                    .onChange(of: focusedField) { newFocused in
+                                        if newFocused == asset.category {
+                                            withAnimation {
+                                                scrollProxy.scrollTo(asset.category, anchor: .center)
+                                            }
+                                        }
                                     }
                                 }
-                            )
-                        )
-                        .keyboardType(.numberPad)
-                        .frame(width: 100)
-                        .multilineTextAlignment(.trailing)
-                        .focused($focusedField, equals: asset.category)
+                            }
+                            .padding()
+                            
+                            Divider()
+                                .background(Color.gray)
+                                .padding(.leading)
+                        }
+                        .id(asset.category) // For scrolling
                     }
+                    
+                    Spacer().frame(height: 45) // Extra bottom padding
                 }
-                .padding()
-                
-                Divider()
-                    .background(Color.gray)
-                    .padding(.leading)
             }
-        }
-        .padding(.bottom, 45)
-        // Global toolbar to dismiss the keyboard.
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                if focusedField != nil {
-                    Button("Done") {
-                        // Clearing the focus will dismiss the keyboard.
-                        focusedField = nil
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    if focusedField != nil {
+                        Button("Done") {
+                            // Dismiss keyboard by clearing the focused field
+                            focusedField = nil
+                        }
                     }
                 }
             }
         }
     }
     
-    /// Recalculate and store the total net worth in the surveyVM.
+    /// Dynamically adjust chart height.
+    private var dynamicChartHeight: CGFloat {
+        let minHeight: CGFloat = 60
+        let additionalHeightPerAsset: CGFloat = 30
+        return selectedAssetData.count > 1
+            ? minHeight + CGFloat(selectedAssetData.count - 1) * additionalHeightPerAsset
+            : minHeight
+    }
+    
+    /// Recompute and store the total net worth in the shared view model.
     private func recalcTotalNetWorth() {
         let total = selectedAssetData.reduce(0) { $0 + $1.amount }
         surveyVM.answers.totalNetWorth = Int(total)
