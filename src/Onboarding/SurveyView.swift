@@ -162,73 +162,76 @@ struct SurveyContainerView: View {
             
             // MARK: - Paging TabView for Survey Steps
             TabView(selection: $surveyVM.currentStep) {
-                ScrollView {
+//                ScrollView {
                     IntroductionView()
-                }
+//                }
                     .tag(0)
-                ScrollView {
+//                ScrollView {
                     AgeQuestionView()
-                }
+//                }
                     .tag(1)
-                ScrollView {
+//                ScrollView {
                     LocationQuestionView()
-                }
+//                }
                     .tag(2)
-                ScrollView {
+//                ScrollView {
                     EmploymentQuestionView()
-                }
+//                }
                     .tag(3)
-                ScrollView {
+//                ScrollView {
                     SalaryQuestionView()
-                }
+//                }
                     .tag(4)
                 ScrollView {
                     GoalQuestionView()
                 }
+                .padding(.bottom, 45)
                     .tag(5)
-                ScrollView {
+//                ScrollView {
                     HumanAdvisorQuestionView()
-                }
-                .defaultScrollAnchor(.bottom)
+//                }
+//                .defaultScrollAnchor(.bottom)
                     .tag(6)
-                ScrollView {
+//                ScrollView {
                     RiskToleranceQuestionView()
-                }
+//                }
                     .tag(7)
                 ScrollView {
                     IndustriesQuestionView()
                 }
+                .padding(.bottom, 45)
                     .tag(8)
                 ScrollView {
                     AssetsQuestionView()
                 }
+                .padding(.bottom, 45)
                     .tag(9)
-                ScrollView {
+//                ScrollView {
                     FileTaxesQuestionView()
-                }
-                .defaultScrollAnchor(.bottom)
+//                }
+//                .defaultScrollAnchor(.bottom)
                     .tag(10)
-                ScrollView {
+//                ScrollView {
                     CreditScoreQuestionView()
-                }
+//                }
                     .tag(11)
-                ScrollView {
+//                ScrollView {
                     DebtQuestionView()
-                }
+//                }
                     .tag(12)
-                ScrollView {
+//                ScrollView {
                     SavingMonthlyQuestionView()
-                }
+//                }
                     .tag(13)
-                ScrollView {
+//                ScrollView {
                     FinalStatusView()
-                }
+//                }
                     .tag(14)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             .animation(.spring(), value: surveyVM.currentStep)
             
-            Spacer()
+//            Spacer()
             
             // MARK: - Next Button
             Button(action: {
@@ -303,9 +306,8 @@ struct SurveyNavigationHeader: View {
                     .minimumScaleFactor(0.5)
                     .padding()
             }
-            .frame(maxHeight: .infinity)
+//            .frame(maxHeight: .infinity)
             .padding([.horizontal])
-            Spacer()
         }
     }
 }
@@ -324,6 +326,22 @@ struct SingleChoiceList: View {
             }
         }
         .pickerStyle(WheelPickerStyle())
+        .padding(.bottom, 45)
+    }
+}
+
+struct SegmentedSingleChoiceList: View {
+    let choices: [String]
+    @Binding var selection: String
+    
+    var body: some View {
+        Picker("", selection: $selection) {
+            ForEach(choices, id: \.self) { choice in
+                Text(choice).tag(choice)
+            }
+        }
+        .pickerStyle(.segmented)
+        .frame(width: 300)
     }
 }
 
@@ -347,6 +365,7 @@ struct MultiChoiceList: View {
                 .contentShape(Rectangle())
                 .padding()
                 .onTapGesture {
+                    impactMedium.impactOccurred()
                     if selections.contains(choice) {
                         selections.removeAll(where: { $0 == choice })
                     } else {
@@ -629,7 +648,7 @@ struct AgeQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
-            
+            .padding(.bottom, 45)
         }
     }
 }
@@ -644,7 +663,7 @@ struct SalaryQuestionView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
-            SurveyNavigationHeader(title: "What's your Salary?") {
+            SurveyNavigationHeader(title: "What's your salary?") {
                 surveyVM.previousStep()
             }
             
@@ -654,6 +673,7 @@ struct SalaryQuestionView: View {
                 }
             }
             .pickerStyle(WheelPickerStyle())
+            .padding(.bottom, 45)
             
         }
     }
@@ -680,7 +700,7 @@ struct LocationQuestionView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
-            SurveyNavigationHeader(title: "Your Location") {
+            SurveyNavigationHeader(title: "Your Location:") {
                 surveyVM.previousStep()
             }
             
@@ -770,7 +790,7 @@ struct HumanAdvisorQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasAdvisor)
+            SegmentedSingleChoiceList(choices: choices, selection: $surveyVM.answers.hasAdvisor)
                 .onChange(of: surveyVM.answers.hasAdvisor) { newValue in
                     withAnimation(.easeInOut) {
                         showAdvisorPicker = (newValue == "Yes")
@@ -784,10 +804,12 @@ struct HumanAdvisorQuestionView: View {
                             Text(provider).tag(provider)
                         }
                     }
+                    .frame(minHeight: 200)
                     .pickerStyle(WheelPickerStyle())
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
+//            Spacer()
             
         }
     }
@@ -812,7 +834,7 @@ struct EmploymentQuestionView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
                 .padding(.top, 45)
-            SurveyNavigationHeader(title: "What is your employment status?") {
+            SurveyNavigationHeader(title: "Employment status:") {
                 surveyVM.previousStep()
             }
             
@@ -878,7 +900,7 @@ struct FileTaxesQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.filesOwnTaxes)
+            SegmentedSingleChoiceList(choices: choices, selection: $surveyVM.answers.filesOwnTaxes)
                 .onChange(of: surveyVM.answers.filesOwnTaxes) { newValue in
                     withAnimation(.easeInOut) {
                         showTaxPicker = (newValue == "Yes")
@@ -889,14 +911,15 @@ struct FileTaxesQuestionView: View {
                 VStack {
                     Text("Which tool do you use?")
                         .bold()
-                        .font(.title3)
-//                        .padding(.top, 16)
+//                        .font(.title3)
+                        .padding(.top, 16)
                     
                     Picker("Tax Filing Tools", selection: $surveyVM.answers.taxTool) {
                         ForEach(taxFilingTools, id: \.self) { tool in
                             Text(tool).tag(tool)
                         }
                     }
+                    .frame(minHeight: 200)
                     .pickerStyle(WheelPickerStyle())
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -925,7 +948,9 @@ struct CreditScoreQuestionView: View {
                     Text("\(amount)").tag(amount)
                 }
             }
+            .frame(minHeight: 200)
             .pickerStyle(WheelPickerStyle())
+            .padding(.bottom, 45)
 
         }
     }
@@ -949,7 +974,7 @@ struct DebtQuestionView: View {
                 surveyVM.previousStep()
             }
             
-            SingleChoiceList(choices: choices, selection: $surveyVM.answers.hasDebts)
+            SegmentedSingleChoiceList(choices: choices, selection: $surveyVM.answers.hasDebts)
                 .onChange(of: surveyVM.answers.hasDebts) { newValue in
                     withAnimation(.easeInOut) {
                         showDebtPicker = (newValue == "Yes")
@@ -961,16 +986,18 @@ struct DebtQuestionView: View {
                     Text("How much total debt?")
                         .bold()
                         .font(.title3)
-//                        .padding(.top, 16)
+                        .padding(.top)
                     
                     Picker("Debt Amount (in thousands)", selection: $surveyVM.answers.debtAmount) {
                         ForEach(Array(stride(from: 0, through: 1_000_000, by: 5_000)), id: \.self) { value in
                             Text("$\(value)").tag(value)
                         }
                     }
+                    .frame(minHeight: 200)
                     .pickerStyle(WheelPickerStyle())
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
+                .padding(.bottom, 45)
             }
             
         }
@@ -982,7 +1009,7 @@ struct SavingMonthlyQuestionView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "brain")
+            Image(systemName: "banknote")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(minWidth: 0, maxWidth: 150, minHeight: 0, maxHeight: 150)
@@ -996,9 +1023,9 @@ struct SavingMonthlyQuestionView: View {
                     Text("$\(amount)").tag(amount)
                 }
             }
+            .frame(minHeight: 200)
             .pickerStyle(WheelPickerStyle())
-            
-
+            .padding(.bottom, 45)
         }
     }
 }
@@ -1032,7 +1059,7 @@ struct FinalStatusView: View {
             if showFinalMessage {
                 Text("Your Custom Financial Plan Is Ready. Are You Ready To Start Your Financial Journey?")
                     .font(.title3)
-                    .bold()
+//                    .bold()
                     .multilineTextAlignment(.center)
                     .padding()
             }
