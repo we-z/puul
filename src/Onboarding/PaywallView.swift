@@ -49,13 +49,16 @@ struct PaywallView: View {
                     processing = false
                     done = true
                 }
+            } else {
+                withAnimation(.easeInOut) {
+                    processing = false
+                }
             }
+        } catch {
+            print("Purchase failed: \(error)")
             withAnimation(.easeInOut) {
                 processing = false
             }
-        } catch {
-            print("purchase failed")
-            processing = false
         }
     }
 
@@ -81,7 +84,6 @@ struct PaywallView: View {
                             .multilineTextAlignment(.center)
                             .padding()
                             .padding(.top)
-//                        Spacer()
                     }
                     Text("Strategize with your personal AI financial advisor today. financial literacy on tap.")
                         .bold()
@@ -98,7 +100,7 @@ struct PaywallView: View {
                             Spacer()
                         }
                         .padding([.horizontal, .top])
-                        .padding(.horizontal)
+                        
                         ForEach(featuresWithIcons, id: \.0) { feature, icon in
                             HStack {
                                 Image(systemName: icon)
@@ -111,7 +113,6 @@ struct PaywallView: View {
                                     .font(.system(size: 21))
                                     .bold()
                                 Spacer()
-                                
                             }
                             .padding()
                         }
@@ -119,21 +120,21 @@ struct PaywallView: View {
                 }
             }
             .scrollIndicators(.hidden)
+            
             VStack {
-//                HStack {
-//                    Image(systemName: "checkmark")
-//                        .bold()
-//                    Text("No Payment Due Now")
-//                        .bold()
-//                        .font(.system(size: 18))
-//                }
-//                .padding(.top)
                 Divider()
                     .frame(height: 0.3)
                     .overlay(.primary)
+                
+                // Only enable the button when at least one subscription is loaded
                 Button {
                     Task {
-                        await buy(product: storeVM.subscriptions.first!)
+                        if let product = storeVM.subscriptions.first {
+                            await buy(product: product)
+                        } else {
+                            // Handle the case where no subscription was found
+                            print("No subscription available to purchase.")
+                        }
                     }
                 } label: {
                     Text("Continue for free >>")
@@ -148,11 +149,13 @@ struct PaywallView: View {
                         .padding(.horizontal)
                 }
                 .buttonStyle(HapticButtonStyle())
+                .disabled(storeVM.subscriptions.isEmpty) // Disable button if no products
+                
                 Text("1 month free, then $29.99 per month.")
                     .bold()
                     .font(.system(size: 18))
-//                    .foregroundColor(.gray)
                     .padding(.vertical, 6)
+                
                 HStack(spacing: 6) {
                     Button {
                         impactSoft.impactOccurred()
@@ -165,8 +168,10 @@ struct PaywallView: View {
                             .font(.system(size: 15))
                             .foregroundColor(.gray)
                     }
+                    
                     Text("|")
                         .foregroundColor(.gray)
+                    
                     Button {
                         impactSoft.impactOccurred()
                         if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
@@ -178,8 +183,10 @@ struct PaywallView: View {
                             .font(.system(size: 15))
                             .foregroundColor(.gray)
                     }
+                    
                     Text("|")
                         .foregroundColor(.gray)
+                    
                     Button {
                         impactSoft.impactOccurred()
                         if let url = URL(string: "https://endlessfall-io.firebaseapp.com/privacy-policy/") {
@@ -194,11 +201,6 @@ struct PaywallView: View {
                 }
                 .padding(.bottom, 6)
             }
-//            .background {
-//                Color.primary.opacity(0.1)
-//                    .ignoresSafeArea()
-//            }
-            
         }
         .background {
             ZStack {
@@ -225,7 +227,6 @@ struct PaywallView: View {
         .offset(x: done ? -deviceWidth : 0)
     }
 }
-
 #Preview {
     PaywallView()
         .environmentObject(StoreVM())

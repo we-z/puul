@@ -126,25 +126,24 @@ struct InstallAIView: View {
                 }
                 
                 // Title
-                Text("Welcome to Puul")
+                HStack {
+                    Text("Welcome to Puul")
+                        .bold()
+                    Image(systemName: "hand.wave")
+                }
                     .font(.largeTitle)
-                    .bold()
+                    
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 // Description
-                Text("Puul AI model is 1.32GB in size. Download to run the expert LLM locally on your device.")
+                Text("Puul AI model is 1.32GB in size. Download to continue and run the private LLM locally on your device.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding()
             }
             Spacer()
-            
-            Text("(Wi-Fi connection recommended)")
-                .bold()
-                .font(.body)
-                .multilineTextAlignment(.center)
             
             // Progress Section
             if status == "downloading" {
@@ -178,6 +177,11 @@ struct InstallAIView: View {
                         }
                     }
             }
+            
+            Text("(Wi-Fi connection recommended)")
+                .bold()
+                .font(.body)
+                .multilineTextAlignment(.center)
             
             // Download / Stop Button
             Button {
