@@ -204,6 +204,7 @@ struct DemoView: View {
                 .buttonStyle(HapticButtonStyle())
             }
         }
+        .background(Color.primary.colorInvert())
         .onDisappear {
             isTextFieldFocused = false
         }
