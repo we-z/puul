@@ -523,7 +523,7 @@ final class AIChatModel: ObservableObject {
                     
                     // ---- Sampling hyperparameters (tweak for better recall & consistency) ----
                     // Lower temperature and top_p encourage more deterministic, on-topic answers.
-                    "temp": 0.1,
+//                    "temp": 0.6,
 //                    "top_p": 0.5,
 //                    "top_k": 30,
                     
