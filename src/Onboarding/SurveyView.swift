@@ -1051,7 +1051,7 @@ struct FinalStatusView: View {
                 .padding(.bottom, 20)
             
             if showFinalMessage {
-                Text("Your Custom Financial Plan Is Ready. Are You Ready To Start Your Financial Journey?")
+                Text("Your custom financial plan is ready. Get ready to start your financial journey!")
                     .font(.title3)
 //                    .bold()
                     .multilineTextAlignment(.center)
