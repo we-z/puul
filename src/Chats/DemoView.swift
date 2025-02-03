@@ -80,15 +80,16 @@ struct DemoView: View {
                                     Text("Turn on Airplane Mode")
                                         .bold()
                                     Image(systemName: "chevron.down")
-                                        .offset(y: chevronOffset)
-                                        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: chevronOffset)
-                                        .onAppear {
-                                            chevronOffset = 12
-                                        }
+                                        
                                 }
                                 .padding(.vertical)
                                 .font(.system(size: 24))
                                 .padding(.horizontal, 30)
+                                .offset(y: chevronOffset)
+                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: chevronOffset)
+                                .onAppear {
+                                    chevronOffset = 12
+                                }
                                 
                                 Spacer()
                                 HStack {
