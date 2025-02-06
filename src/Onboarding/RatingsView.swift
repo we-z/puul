@@ -17,109 +17,107 @@ struct RatingsView: View {
     @State private var retirementReadinessValue: Double = 0
 
     var body: some View {
-        VStack {
-            Text("My Financial Stats")
-                .multilineTextAlignment(.center)
-                .font(.largeTitle)
-                .bold()
-                .padding()
-            
-            Image(systemName: "chart.bar.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
-                .padding(.bottom)
-            
-            // Overall ProgressView (Total = 100)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Overall")
-                        .bold()
-                    Text("\(Int(overallValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: overallValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+        NavigationStack {
+            VStack {
+                ScrollView {
+                    Image(systemName: "chart.bar.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .padding(.bottom)
+                    
+                    // Overall ProgressView (Total = 100)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Overall")
+                                .bold()
+                            Text("\(Int(overallValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: overallValue, total: 100)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                        
+                        // Total Net Worth (Total = 1,000,000)
+                        VStack(alignment: .leading) {
+                            Text("Total Net Worth")
+                                .bold()
+                            Text("$\(Int(totalNetWorthValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: totalNetWorthValue, total: 1_000_000)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                    }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    // Credit Score (Total = 850)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Credit Score")
+                                .bold()
+                            Text("\(Int(creditScoreValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: creditScoreValue, total: 850)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                        
+                        // Portfolio Diversity (Total = 100)
+                        VStack(alignment: .leading) {
+                            Text("Portfolio Diversity")
+                                .bold()
+                            Text("\(Int(portfolioDiversityValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: portfolioDiversityValue, total: 100)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                    }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    
+                    // Debt to Income Ratio (Total = 100)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Debt to Income Ratio")
+                                .bold()
+                            Text("\(Int(debtToIncomeValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: debtToIncomeValue, total: 100)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                        
+                        // Retirement Readiness (Total = 100)
+                        VStack(alignment: .leading) {
+                            Text("Retirement Readiness")
+                                .bold()
+                            Text("\(Int(retirementReadinessValue))")
+                                .font(.largeTitle)
+                                .bold()
+                            ProgressView(value: retirementReadinessValue, total: 100)
+                                .progressViewStyle(LinearProgressViewStyle())
+                                .accentColor(.primary)
+                        }
+                        .padding()
+                    }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    
                 }
-                .padding()
-                
-                // Total Net Worth (Total = 1,000,000)
-                VStack(alignment: .leading) {
-                    Text("Total Net Worth")
-                        .bold()
-                    Text("$\(Int(totalNetWorthValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: totalNetWorthValue, total: 1_000_000)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
-                }
-                .padding()
             }
-            .lineLimit(1)
-            .minimumScaleFactor(0.5)
-            // Credit Score (Total = 850)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Credit Score")
-                        .bold()
-                    Text("\(Int(creditScoreValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: creditScoreValue, total: 850)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
-                }
-                .padding()
-                
-                // Portfolio Diversity (Total = 100)
-                VStack(alignment: .leading) {
-                    Text("Portfolio Diversity")
-                        .bold()
-                    Text("\(Int(portfolioDiversityValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: portfolioDiversityValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
-                }
-                .padding()
-            }
-            .lineLimit(1)
-            .minimumScaleFactor(0.5)
-            
-            // Debt to Income Ratio (Total = 100)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Debt to Income Ratio")
-                        .bold()
-                    Text("\(Int(debtToIncomeValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: debtToIncomeValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
-                }
-                .padding()
-                
-                // Retirement Readiness (Total = 100)
-                VStack(alignment: .leading) {
-                    Text("Retirement Readiness")
-                        .bold()
-                    Text("\(Int(retirementReadinessValue))")
-                        .font(.largeTitle)
-                        .bold()
-                    ProgressView(value: retirementReadinessValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
-                }
-                .padding()
-            }
-            .lineLimit(1)
-            .minimumScaleFactor(0.5)
-            
-            Spacer()
+            .navigationTitle("My Financial Stats")
         }
         .onAppear {
             // Load persisted SurveyAnswers
@@ -166,7 +164,7 @@ struct RatingsView: View {
                 let targetOverall = (creditScorePercent + targetPortfolioDiversity + targetDebtToIncome + targetRetirementReadiness + netWorthPercent) / 5
                 
                 // Animate all values from 0 to their target values.
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
                     withAnimation(.easeInOut(duration: 1.0)) {
                         creditScoreValue = targetCreditScore
                         totalNetWorthValue = targetNetWorth

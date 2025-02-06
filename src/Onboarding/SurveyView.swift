@@ -109,7 +109,7 @@ struct SurveyContainerView: View {
     @State private var done: Bool = false
     @State var showingAlert = false
     @Environment(\.dismiss) private var dismiss
-    
+    @State var showStats = false
     init() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.systemGray4
@@ -283,6 +283,12 @@ struct SurveyContainerView: View {
                 }),
                 secondaryButton: .cancel(Text("Cancel"))
             )
+        }
+        .onChange(of: done) { _ in
+            showStats = true
+        }
+        .sheet(isPresented: $showStats) {
+            RatingsView()
         }
     }
 }
