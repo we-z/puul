@@ -57,7 +57,8 @@ struct RatingsView: View {
                 }
                 .padding()
             }
-            
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
             // Credit Score (Total = 850)
             HStack {
                 VStack(alignment: .leading) {
@@ -85,6 +86,8 @@ struct RatingsView: View {
                 }
                 .padding()
             }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
             
             // Debt to Income Ratio (Total = 100)
             HStack {
@@ -113,6 +116,8 @@ struct RatingsView: View {
                 }
                 .padding()
             }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
             
             Spacer()
         }
