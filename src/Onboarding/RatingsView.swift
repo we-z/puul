@@ -18,7 +18,7 @@ struct RatingsView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-                .padding()
+                .padding(.bottom)
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
@@ -33,7 +33,7 @@ struct RatingsView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Overall")
+                        Text("Total Net Worth")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
@@ -46,7 +46,7 @@ struct RatingsView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Overall")
+                        Text("Credit Score")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
@@ -57,7 +57,7 @@ struct RatingsView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Overall")
+                        Text("Diversity Score")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
@@ -70,7 +70,7 @@ struct RatingsView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Overall")
+                        Text("Debt to Income")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
@@ -81,7 +81,7 @@ struct RatingsView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Overall")
+                        Text("Retirement Score")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
