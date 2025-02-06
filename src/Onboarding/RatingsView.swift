@@ -10,11 +10,12 @@ import SwiftUI
 struct RatingsView: View {
     var body: some View {
         VStack {
-            Text("Ratings")
+            Text("My Financial Stats")
+                .multilineTextAlignment(.center)
                 .font(.largeTitle)
                 .bold()
                 .padding()
-            Image(systemName: "list.clipboard")
+            Image(systemName: "chart.bar.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
@@ -70,7 +71,7 @@ struct RatingsView: View {
                 }
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Debt to Income")
+                        Text("Debt to Income Ratio")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
@@ -81,7 +82,7 @@ struct RatingsView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Retirement Score")
+                        Text("Retirement Readiness")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
