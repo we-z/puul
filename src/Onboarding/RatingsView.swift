@@ -57,7 +57,7 @@ struct RatingsView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Diversity Score")
+                        Text("Portfolio Diversity")
                             .bold()
                         Text("99")
                             .font(.largeTitle)
