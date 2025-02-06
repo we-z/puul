@@ -116,6 +116,33 @@ struct RatingsView: View {
                     .minimumScaleFactor(0.5)
                     
                 }
+                HStack {
+                    HStack {
+                        Text("Save")
+                        Image(systemName: "arrow.down.circle")
+                    }
+                    .bold()
+                    .font(.title2)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.primary)
+                    .colorInvert()
+                    .background(.primary)
+                    .cornerRadius(18)
+                    HStack {
+                        Text("Share")
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .bold()
+                    .font(.title2)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.primary)
+                    .colorInvert()
+                    .background(.primary)
+                    .cornerRadius(18)
+                }
+                .padding()
             }
             .navigationTitle("My Financial Stats")
         }
