@@ -119,7 +119,7 @@ struct RatingsView: View {
                 HStack {
                     HStack {
                         Text("Save")
-                        Image(systemName: "arrow.down.circle")
+                        Image(systemName: "arrow.down.circle.fill")
                     }
                     .bold()
                     .font(.title2)
