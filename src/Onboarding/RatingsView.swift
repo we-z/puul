@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+let hapticManager = HapticManager.instance
+
+class HapticManager {
+    static let instance = HapticManager()
+    private init() {}
+
+    func notification(type: UINotificationFeedbackGenerator.FeedbackType) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(type)
+    }
+
+    func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+        let generator = UIImpactFeedbackGenerator(style: style)
+        generator.impactOccurred()
+    }
+}
+
 struct RatingsView: View {
     // Animated progress values start at 0.
     @State private var overallValue: Double = 0
@@ -191,7 +208,8 @@ struct RatingsView: View {
                 let targetOverall = (creditScorePercent + targetPortfolioDiversity + targetDebtToIncome + targetRetirementReadiness + netWorthPercent) / 5
                 
                 // Animate all values from 0 to their target values.
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                DispatchQueue.main.async {
+                    hapticManager.notification(type: .error)
                     withAnimation(.easeInOut(duration: 1.0)) {
                         creditScoreValue = targetCreditScore
                         totalNetWorthValue = targetNetWorth
