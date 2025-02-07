@@ -137,7 +137,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul AI model is 1.32GB in size. Download to continue and run the private LLM locally on your device.")
+                Text("Puul puts the AI (1.32GB in size) on your device to protect your financial data and privacy. Download to continue.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)
