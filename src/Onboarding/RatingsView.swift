@@ -25,6 +25,9 @@ class HapticManager {
 }
 
 struct RatingsView: View {
+    
+    @Environment(\.displayScale) var displayScale
+    
     // Animated progress values start at 0.
     @State private var overallValue: Double = 0
     @State private var totalNetWorthValue: Double = 0
@@ -32,120 +35,117 @@ struct RatingsView: View {
     @State private var portfolioDiversityValue: Double = 0
     @State private var debtToIncomeValue: Double = 0
     @State private var retirementReadinessValue: Double = 0
+    @State var shareSheetIsPresented: Bool = false
+    
+    private func statsView() -> some View {
+        VStack {
+            Image(systemName: "chart.bar.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.bottom)
+            
+            // Overall ProgressView (Total = 100)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Overall")
+                        .bold()
+                    Text("\(Int(overallValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: overallValue, total: 100)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+                
+                // Total Net Worth (Total = 1,000,000)
+                VStack(alignment: .leading) {
+                    Text("Total Net Worth")
+                        .bold()
+                    Text("$\(Int(totalNetWorthValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: totalNetWorthValue, total: 1_000_000)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+            // Credit Score (Total = 850)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Credit Score")
+                        .bold()
+                    Text("\(Int(creditScoreValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: creditScoreValue, total: 850)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+                
+                // Portfolio Diversity (Total = 100)
+                VStack(alignment: .leading) {
+                    Text("Portfolio Diversity")
+                        .bold()
+                    Text("\(Int(portfolioDiversityValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: portfolioDiversityValue, total: 100)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+            
+            // Debt to Income Ratio (Total = 100)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Debt to Income Ratio")
+                        .bold()
+                    Text("\(Int(debtToIncomeValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: debtToIncomeValue, total: 100)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+                
+                // Retirement Readiness (Total = 100)
+                VStack(alignment: .leading) {
+                    Text("Retirement Readiness")
+                        .bold()
+                    Text("\(Int(retirementReadinessValue))")
+                        .font(.largeTitle)
+                        .bold()
+                    ProgressView(value: retirementReadinessValue, total: 100)
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .accentColor(.primary)
+                }
+                .padding()
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+                
+        }
+    }
 
     var body: some View {
         NavigationStack {
             VStack {
                 ScrollView {
-                    Image(systemName: "chart.bar.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                        .padding(.bottom)
-                    
-                    // Overall ProgressView (Total = 100)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Overall")
-                                .bold()
-                            Text("\(Int(overallValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: overallValue, total: 100)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                        
-                        // Total Net Worth (Total = 1,000,000)
-                        VStack(alignment: .leading) {
-                            Text("Total Net Worth")
-                                .bold()
-                            Text("$\(Int(totalNetWorthValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: totalNetWorthValue, total: 1_000_000)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                    }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    // Credit Score (Total = 850)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Credit Score")
-                                .bold()
-                            Text("\(Int(creditScoreValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: creditScoreValue, total: 850)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                        
-                        // Portfolio Diversity (Total = 100)
-                        VStack(alignment: .leading) {
-                            Text("Portfolio Diversity")
-                                .bold()
-                            Text("\(Int(portfolioDiversityValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: portfolioDiversityValue, total: 100)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                    }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    
-                    // Debt to Income Ratio (Total = 100)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Debt to Income Ratio")
-                                .bold()
-                            Text("\(Int(debtToIncomeValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: debtToIncomeValue, total: 100)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                        
-                        // Retirement Readiness (Total = 100)
-                        VStack(alignment: .leading) {
-                            Text("Retirement Readiness")
-                                .bold()
-                            Text("\(Int(retirementReadinessValue))")
-                                .font(.largeTitle)
-                                .bold()
-                            ProgressView(value: retirementReadinessValue, total: 100)
-                                .progressViewStyle(LinearProgressViewStyle())
-                                .accentColor(.primary)
-                        }
-                        .padding()
-                    }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    
+                    statsView()
                 }
-                HStack {
-                    HStack {
-                        Text("Save")
-                        Image(systemName: "arrow.down.circle.fill")
-                    }
-                    .bold()
-                    .font(.title2)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.primary)
-                    .colorInvert()
-                    .background(.primary)
-                    .cornerRadius(18)
+                Button {
+                    shareSheetIsPresented = true
+                } label: {
                     HStack {
                         Text("Share")
                         Image(systemName: "square.and.arrow.up")
@@ -158,12 +158,14 @@ struct RatingsView: View {
                     .colorInvert()
                     .background(.primary)
                     .cornerRadius(18)
+                    .padding()
                 }
-                .padding()
+                .buttonStyle(HapticButtonStyle())
             }
             .navigationTitle("My Financial Stats")
         }
         .onAppear {
+            hapticManager.notification(type: .error)
             // Load persisted SurveyAnswers
             if let answers = SurveyPersistenceManager.loadAnswers() {
                 // --- Credit Score ---
@@ -209,7 +211,7 @@ struct RatingsView: View {
                 
                 // Animate all values from 0 to their target values.
                 DispatchQueue.main.async {
-                    hapticManager.notification(type: .error)
+                    
                     withAnimation(.easeInOut(duration: 1.0)) {
                         creditScoreValue = targetCreditScore
                         totalNetWorthValue = targetNetWorth
@@ -221,6 +223,22 @@ struct RatingsView: View {
                 }
             }
         }
+        .sheet(isPresented: $shareSheetIsPresented, content: {
+            if let data = render() {
+                ShareView(activityItems: [data])
+            }
+
+        })
+        .ignoresSafeArea()
+    }
+    
+    @MainActor
+    private func render() -> UIImage? {
+        let renderer = ImageRenderer(content: statsView())
+
+        renderer.scale = displayScale
+
+        return renderer.uiImage
     }
 }
 
