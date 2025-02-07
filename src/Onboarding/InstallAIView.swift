@@ -238,7 +238,7 @@ struct InstallAIView: View {
             // Stop any active download when leaving this view
             downloadTask?.cancel()
         }
-//        .offset(x: done ? -deviceWidth : 0)
+        .offset(x: done ? -deviceWidth : 0)
         .alert("Are you sure?",
                        isPresented: $showingAlert,
                        actions: {

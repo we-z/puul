@@ -230,3 +230,27 @@ struct RatingsView_Previews: PreviewProvider {
         RatingsView()
     }
 }
+
+struct ShareView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context _: Context) -> UIActivityViewController {
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        activityViewController.completionWithItemsHandler = { _, completed, _, _ in
+            // Handle completion here
+            if completed {
+                print("Share completed successfully!")
+            } else {
+                print("User canceled the share.")
+            }
+        }
+        return activityViewController
+    }
+
+    func updateUIViewController(_: UIActivityViewController,
+                                context _: UIViewControllerRepresentableContext<ShareView>)
+    {
+        // empty
+    }
+}
