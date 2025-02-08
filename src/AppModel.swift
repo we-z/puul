@@ -115,18 +115,19 @@ class AppModel: ObservableObject {
 }
 
 struct HapticButtonStyle: ButtonStyle {
+    @StateObject public var model: AppModel = AppModel()
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .opacity(configuration.isPressed ? 0.3 : 1.0)
             .onChange(of: configuration.isPressed) { isPressed in
 
                 if isPressed {
-//                    if model.hapticModeOn {
+                    if model.hapticModeOn {
                         // Trigger haptic feedback
                     let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
                         feedbackGenerator.prepare()
                         feedbackGenerator.impactOccurred()
-//                    }
+                    }
                 }
             }
     }

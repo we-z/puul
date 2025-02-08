@@ -148,7 +148,7 @@ struct AccountView: View {
             },
                    content: {
                 AppInfoView()
-                    .buttonStyle(HapticButtonStyle())
+//                    .buttonStyle(HapticButtonStyle())
             })
             .fullScreenCover(isPresented: $showSurvey) {
                 SurveyView()
