@@ -26,7 +26,26 @@ struct AccountView: View {
         NavigationView {
             VStack {
                 List {
-                    Section(header: Text("Q&A")) {
+                    Section(header: Text("Personal")) {
+                        Button(action: {
+                            showStats = true
+                        }) {
+                            HStack {
+                                Image(systemName: "chart.bar")
+                                Text("Financial Stats")
+                            }
+                        }
+                        Button(action: {
+                            showSurvey = true
+                        }) {
+                            HStack {
+                                Image(systemName: "checklist")
+                                Text("Survey")
+                            }
+                        }
+                        
+                    }
+                    Section(header: Text("About")) {
                         
                         Button(action: {
                             self.showDataInfo = true
@@ -38,37 +57,7 @@ struct AccountView: View {
                         }
                     }
                     
-                    Section(header: Text("Personal")) {
-    
-                        Button(action: {
-                            showSurvey = true
-                        }) {
-                            HStack {
-                                Image(systemName: "checklist")
-                                Text("Survey")
-                            }
-                        }
-                        Button(action: {
-                            showStats = true
-                        }) {
-                            HStack {
-                                Image(systemName: "chart.bar")
-                                Text("Financial Stats")
-                            }
-                        }
-                    }
                     Section(header: Text("Settings")) {
-                        Button(action: {
-                            showManageSubscriptions = true
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.clockwise")
-                                Text("Subscription")
-                                Spacer()
-                                Text("View")
-                                    .foregroundColor(.gray)
-                            }
-                        }
     
 //                        Toggle(isOn: $model.isLightMode) {
 //                            HStack {
@@ -78,8 +67,6 @@ struct AccountView: View {
 //                        }
                         HStack {
                             Image(systemName: "sun.max")
-                            Text("Theme")
-                            Spacer()
                             Picker("Appearance", selection: $selectedTheme) {
                                 ForEach(themes, id: \.self) {
                                     Text($0)
@@ -93,9 +80,20 @@ struct AccountView: View {
                                 Text("Haptic Feedback")
                             }
                         }
+                        Button(action: {
+                            showManageSubscriptions = true
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.clockwise")
+                                Text("Subscription")
+                                Spacer()
+                                Text("View")
+                                    .foregroundColor(.gray)
+                            }
+                        }
                     }
                     //                .listRowBackground(Color.primary.opacity(0.12))
-                    Section(header: Text("About")) {
+                    Section(header: Text("external")) {
                         Button(action: {
                             if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
                                 UIApplication.shared.open(url)
