@@ -54,8 +54,7 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: overallValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
                 
@@ -67,13 +66,13 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: totalNetWorthValue, total: 1_000_000)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
             }
             .lineLimit(1)
             .minimumScaleFactor(0.5)
+            
             // Credit Score (Total = 850)
             HStack {
                 VStack(alignment: .leading) {
@@ -83,8 +82,7 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: creditScoreValue, total: 850)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
                 
@@ -96,8 +94,7 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: portfolioDiversityValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
             }
@@ -113,8 +110,7 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: debtToIncomeValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
                 
@@ -126,8 +122,7 @@ struct RatingsView: View {
                         .font(.largeTitle)
                         .bold()
                     ProgressView(value: retirementReadinessValue, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .accentColor(.primary)
+                        .progressViewStyle(SolidProgressViewStyle(fillColor: .primary))
                 }
                 .padding()
             }
@@ -143,6 +138,7 @@ struct RatingsView: View {
                 ScrollView {
                     statsView()
                 }
+                // Removed .colorInvert() from here because it can cause unexpected color changes
                 Button {
                     shareSheetIsPresented = true
                 } label: {
@@ -201,7 +197,7 @@ struct RatingsView: View {
                 // --- Overall ---
                 // Overall is computed as the average of five metrics (all scaled to 100):
                 //   1. Credit Score Percentage = (creditScore / 850 * 100)
-                //   2. Net Worth Percentage = (totalNetWorth / 1,000,000 * 100)
+                //   2. Net Worth Percentage = (totalNetWorth / 1_000_000 * 100)
                 //   3. Portfolio Diversity (already percentage)
                 //   4. Debt to Income (already percentage)
                 //   5. Retirement Readiness (already percentage)
@@ -211,7 +207,6 @@ struct RatingsView: View {
                 
                 // Animate all values from 0 to their target values.
                 DispatchQueue.main.async {
-                    
                     withAnimation(.easeInOut(duration: 1.0)) {
                         creditScoreValue = targetCreditScore
                         totalNetWorthValue = targetNetWorth
@@ -226,23 +221,48 @@ struct RatingsView: View {
         .sheet(isPresented: $shareSheetIsPresented, content: {
             if let data = render() {
                 ShareView(activityItems: [data])
+                    .ignoresSafeArea()
             }
-
         })
-        .ignoresSafeArea()
     }
     
     @MainActor
     private func render() -> UIImage? {
         let renderer = ImageRenderer(content: statsView())
-
         renderer.scale = displayScale
-
+        // Nonlinear color mode can sometimes produce environment-based color changes.
+        // Try .extendedLinear if .nonLinear still picks up accent colors:
+        renderer.colorMode = .extendedLinear
         return renderer.uiImage
     }
 }
 
-// For preview purposes only.
+// A custom ProgressViewStyle that never uses the system accent color,
+// ensuring a consistent fill in any environment:
+struct SolidProgressViewStyle: ProgressViewStyle {
+    var fillColor: Color
+    
+    func makeBody(configuration: Configuration) -> some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                // Background track
+                RoundedRectangle(cornerRadius: 4)
+                    .foregroundColor(Color.secondary.opacity(0.3))
+                    .frame(height: 9)
+                
+                // Filled portion
+                if let fraction = configuration.fractionCompleted {
+                    RoundedRectangle(cornerRadius: 4)
+                        .foregroundColor(fillColor)
+                        .frame(width: geometry.size.width * CGFloat(fraction),
+                               height: 9)
+                }
+            }
+        }
+        .frame(height: 8)
+    }
+}
+
 struct RatingsView_Previews: PreviewProvider {
     static var previews: some View {
         RatingsView()
@@ -269,6 +289,6 @@ struct ShareView: UIViewControllerRepresentable {
     func updateUIViewController(_: UIActivityViewController,
                                 context _: UIViewControllerRepresentableContext<ShareView>)
     {
-        // empty
+        // no-op
     }
 }
