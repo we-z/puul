@@ -244,9 +244,10 @@ struct SurveyContainerView: View {
                     withAnimation(.easeInOut) {
                         done = true
                         // -- CHANGE HERE: save the final answers to local storage
-                        SurveyPersistenceManager.saveAnswers(surveyVM.answers)
                         dismiss()
                     }
+                    SurveyPersistenceManager.saveAnswers(surveyVM.answers)
+                    showStats = true
                 }
             }) {
                 Text(surveyVM.currentStep == surveyVM.totalSteps
@@ -284,9 +285,9 @@ struct SurveyContainerView: View {
                 secondaryButton: .cancel(Text("Cancel"))
             )
         }
-        .onChange(of: done) { _ in
-            showStats = true
-        }
+//        .onChange(of: done) { _ in
+//            showStats = true
+//        }
         .sheet(isPresented: $showStats) {
             RatingsView()
         }
