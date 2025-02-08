@@ -16,20 +16,48 @@ struct AccountView: View {
     @EnvironmentObject public var model: AppModel
     @Environment(\.requestReview) private var requestReview
     @State private var showManageSubscriptions = false
+    @State var showStats = false
+    
+    @State private var selectedTheme = "Dark"
+    let themes = ["Dark", "Light", "Automatic"]
+    
 
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    Section(header: Text("Account")) {
+                    Section(header: Text("Q&A")) {
+                        
+                        Button(action: {
+                            self.showDataInfo = true
+                        }) {
+                            HStack {
+                                Image(systemName: "questionmark.circle")
+                                Text("About Puul")
+                            }
+                        }
+                    }
+                    
+                    Section(header: Text("Personal")) {
+    
                         Button(action: {
                             showSurvey = true
                         }) {
                             HStack {
                                 Image(systemName: "checklist")
-                                Text("Client Questionnaire")
+                                Text("Survey")
                             }
                         }
+                        Button(action: {
+                            showStats = true
+                        }) {
+                            HStack {
+                                Image(systemName: "chart.bar")
+                                Text("Financial Stats")
+                            }
+                        }
+                    }
+                    Section(header: Text("Settings")) {
                         Button(action: {
                             showManageSubscriptions = true
                         }) {
@@ -41,31 +69,31 @@ struct AccountView: View {
                                     .foregroundColor(.gray)
                             }
                         }
-                        Button(action: {
-                            self.showDataInfo = true
-                        }) {
+    
+//                        Toggle(isOn: $model.isLightMode) {
+//                            HStack {
+//                                Image(systemName: "sun.max")
+//                                Text("Theme")
+//                            }
+//                        }
+                        HStack {
+                            Image(systemName: "sun.max")
+                            Text("Theme")
+                            Spacer()
+                            Picker("Appearance", selection: $selectedTheme) {
+                                ForEach(themes, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            
+                        }
+                        Toggle(isOn: $model.hapticModeOn) {
                             HStack {
-                                Image(systemName: "info.circle")
-                                Text("About Puul")
+                                Image(systemName: "waveform")
+                                Text("Haptic Feedback")
                             }
                         }
                     }
-                    //                .listRowBackground(Color.primary.opacity(0.12))
-                    //                Section(header: Text("Settings")) {
-                    //
-                    //                    Toggle(isOn: $model.isLightMode) {
-                    //                        HStack {
-                    //                            Image(systemName: "sun.max")
-                    //                            Text("Light Mode")
-                    //                        }
-                    //                    }
-                    //                    Toggle(isOn: $model.hapticModeOn) {
-                    //                        HStack {
-                    //                            Image(systemName: "waveform")
-                    //                            Text("Haptic Feedback")
-                    //                        }
-                    //                    }
-                    //                }
                     //                .listRowBackground(Color.primary.opacity(0.12))
                     Section(header: Text("About")) {
                         Button(action: {
@@ -74,7 +102,7 @@ struct AccountView: View {
                             }
                         }) {
                             HStack {
-                                Image(systemName: "newspaper")
+                                Image(systemName: "doc")
                                 Text("Terms of Use")
                             }
                         }
@@ -97,7 +125,7 @@ struct AccountView: View {
                             
                         }) {
                             HStack {
-                                Image(systemName: "questionmark.circle")
+                                Image(systemName: "message")
                                 Text("Contact Us")
                             }
                         }
@@ -130,7 +158,9 @@ struct AccountView: View {
             }
             .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
         }
-        // .environmentObject(StoreVM())
+        .sheet(isPresented: $showStats) {
+            RatingsView()
+        }
     }
 }
 
