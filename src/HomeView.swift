@@ -31,6 +31,8 @@ struct HomeView: View {
     /// Temporary offset during a drag gesture.
     @GestureState private var dragOffset: CGFloat = 0
     
+    @StateObject public var model: AppModel = AppModel()
+    
     func close_chat() {
         aiChatModel.stop_predict()
     }
@@ -108,7 +110,9 @@ struct HomeView: View {
                     .onTapGesture {
                         if xOffset == chatListViewOffset {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                            impactMedium.impactOccurred()
+                            if model.hapticModeOn {
+                                impactMedium.impactOccurred()
+                            }
                             xOffset = chatViewOffset
                         }
                     }
@@ -120,7 +124,9 @@ struct HomeView: View {
         .offset(x: xOffset + dragOffset)
         .animation(.linear(duration: 0.1), value: xOffset)
         .onChange(of: xOffset) { _ in
-            impactMedium.impactOccurred()
+            if model.hapticModeOn {
+                impactMedium.impactOccurred()
+            }
         }
         // DRAG GESTURE
         .gesture(

@@ -39,6 +39,7 @@ struct ChatView: View {
     @FocusState var isTextFieldFocused: Bool
     
     @Namespace var bottomID
+    @StateObject public var model: AppModel = AppModel()
     
     let financialQuestions = [
         "How can I improve\nmy credit score?",
@@ -96,169 +97,171 @@ struct ChatView: View {
     }
     
     var body: some View {
-            VStack {
-                ScrollViewReader { scrollView in
-                    NavigationStack {
-                        VStack {
-                            if aiChatModel.messages.isEmpty {
-                                // Prompt area for new user
-                                VStack {
+        VStack {
+            ScrollViewReader { scrollView in
+                NavigationStack {
+                    VStack {
+                        if aiChatModel.messages.isEmpty {
+                            // Prompt area for new user
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text("Ask your AI financial advisor any question")
                                     Spacer()
-                                    HStack {
-                                        Text("Ask your AI financial advisor any question")
+                                    VStack {
                                         Spacer()
-                                        VStack {
-                                            Spacer()
-                                                .frame(maxHeight: 120)
-                                            Image(systemName: "arrow.turn.right.down")
-                                        }
+                                            .frame(maxHeight: 120)
+                                        Image(systemName: "arrow.turn.right.down")
                                     }
-                                    .padding(.vertical)
-                                    .font(.system(size: UIScreen.main.bounds.width * 0.1))
-                                    .padding(.horizontal, 35)
-                                    
-                                    ScrollView(.horizontal) {
-                                        HStack(spacing: 10) {
-                                            ForEach(financialQuestions, id: \.self) { question in
-                                                Button {
-                                                    sendMessage(message: question.replacingOccurrences(of: "\n", with: " "))
-                                                } label: {
-                                                    Text(question)
-                                                        .colorInvert()
-                                                        .font(.system(size: 15))
-                                                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                                                        .multilineTextAlignment(.leading)
-                                                        .padding()
-                                                        .background(Color.primary)
-                                                        .cornerRadius(20)
-                                                        .padding(.vertical, 5)
-                                                }
-                                                .buttonStyle(HapticButtonStyle())
-                                            }
-                                        }
-                                        .padding(.horizontal)
-                                    }
-                                    .scrollIndicators(.hidden)
-                                    .padding(.bottom)
-                                    
                                 }
-                                .background(.primary.opacity(0.001))
-                                .onTapGesture {
-                                    isTextFieldFocused.toggle()
-                                }
-                            } else {
-                                ScrollView {
-                                    ForEach(aiChatModel.messages, id: \.id) { message in
-                                        MessageView(message: message, chatStyle: $chatStyle, status: nil)
-                                            .id(message.id)
-                                            .padding()
-                                            .contextMenu {
-                                                Button {
-                                                    UIPasteboard.general.string = message.text
-                                                } label: {
-                                                    HStack {
-                                                        Text("Copy")
-                                                        Spacer()
-                                                        Image(systemName: "square.on.square")
-                                                    }
-                                                }
-                                            }
-                                    }
-                                    Text("").id("latest")
-                                }
-                                .simultaneousGesture(
-                                   DragGesture()
-                                    .onEnded { _ in
-                                        self.autoScroll = false
-                                   }
-                                )
-                                .scrollIndicators(.hidden)
-                                .onTapGesture {
-                                    isTextFieldFocused = false
-                                }
+                                .padding(.vertical)
+                                .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                                .padding(.horizontal, 35)
                                 
-                                .onAppear {
-                                    scrollProxy = scrollView
-                                    scrollToBottom()
-                                }
-                            }
-                        }
-                        .navigationTitle("Puul")
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    isTextFieldFocused = false
-                                    xOffset = chatListViewOffset
-                                } label: {
-                                    Image(systemName: "sidebar.left")
-                                }
-                                .buttonStyle(HapticButtonStyle())
-                            }
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    if !aiChatModel.messages.isEmpty {
-                                        withAnimation(.easeInOut) {
-                                            newChat()
+                                ScrollView(.horizontal) {
+                                    HStack(spacing: 10) {
+                                        ForEach(financialQuestions, id: \.self) { question in
+                                            Button {
+                                                sendMessage(message: question.replacingOccurrences(of: "\n", with: " "))
+                                            } label: {
+                                                Text(question)
+                                                    .colorInvert()
+                                                    .font(.system(size: 15))
+                                                    .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                                                    .multilineTextAlignment(.leading)
+                                                    .padding()
+                                                    .background(Color.primary)
+                                                    .cornerRadius(20)
+                                                    .padding(.vertical, 5)
+                                            }
+                                            .buttonStyle(HapticButtonStyle())
                                         }
                                     }
-                                } label: {
-                                    Image(systemName: "square.and.pencil")
+                                    .padding(.horizontal)
                                 }
-                                .disabled(aiChatModel.messages.isEmpty)
-                                .opacity(aiChatModel.messages.isEmpty ? 0.3 : 1)
-                                .buttonStyle(HapticButtonStyle())
+                                .scrollIndicators(.hidden)
+                                .padding(.bottom)
+                                
+                            }
+                            .background(.primary.opacity(0.001))
+                            .onTapGesture {
+                                isTextFieldFocused.toggle()
+                            }
+                        } else {
+                            ScrollView {
+                                ForEach(aiChatModel.messages, id: \.id) { message in
+                                    MessageView(message: message, chatStyle: $chatStyle, status: nil)
+                                        .id(message.id)
+                                        .padding()
+                                        .contextMenu {
+                                            Button {
+                                                UIPasteboard.general.string = message.text
+                                            } label: {
+                                                HStack {
+                                                    Text("Copy")
+                                                    Spacer()
+                                                    Image(systemName: "square.on.square")
+                                                }
+                                            }
+                                        }
+                                }
+                                Text("").id("latest")
+                            }
+                            .simultaneousGesture(
+                               DragGesture()
+                                .onEnded { _ in
+                                    self.autoScroll = false
+                               }
+                            )
+                            .scrollIndicators(.hidden)
+                            .onTapGesture {
+                                isTextFieldFocused = false
                             }
                             
+                            .onAppear {
+                                scrollProxy = scrollView
+                                scrollToBottom()
+                            }
                         }
                     }
-                }
-                .frame(maxHeight: .infinity)
-                .onChange(of: aiChatModel.AI_typing) { _ in
-                    if autoScroll {
-                        scrollToBottom()
+                    .navigationTitle("Puul")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                isTextFieldFocused = false
+                                xOffset = chatListViewOffset
+                            } label: {
+                                Image(systemName: "sidebar.left")
+                            }
+                            .buttonStyle(HapticButtonStyle())
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                if !aiChatModel.messages.isEmpty {
+                                    withAnimation(.easeInOut) {
+                                        newChat()
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .disabled(aiChatModel.messages.isEmpty)
+                            .opacity(aiChatModel.messages.isEmpty ? 0.3 : 1)
+                            .buttonStyle(HapticButtonStyle())
+                        }
+                        
                     }
                 }
+            }
+            .frame(maxHeight: .infinity)
+            .onChange(of: aiChatModel.AI_typing) { _ in
+                if autoScroll {
+                    scrollToBottom()
+                }
+            }
+            
+            // Input bar
+            HStack(alignment: .bottom) {
+                TextField(placeholderString, text: $inputTextValue, axis: .vertical)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 17))
+                    .padding(9)
+                    .padding(.horizontal, 9)
+                    .background(Color.primary.opacity(0.15))
+                    .cornerRadius(24)
+                    .focused($isTextFieldFocused)
+                    .lineLimit(1...5)
                 
-                // Input bar
-                HStack(alignment: .bottom) {
-                    TextField(placeholderString, text: $inputTextValue, axis: .vertical)
-                        .textFieldStyle(.plain)
-                        .font(.system(size: 17))
-                        .padding(9)
-                        .padding(.horizontal, 9)
-                        .background(Color.primary.opacity(0.15))
-                        .cornerRadius(24)
-                        .focused($isTextFieldFocused)
-                        .lineLimit(1...5)
-                    
-                    Button(action: { sendMessage(message: inputTextValue) }) {
-                        Image(systemName: aiChatModel.predicting ? "stop.circle.fill" : "arrow.up.circle.fill")
-                            .font(.system(size: 33))
-                    }
-                    .buttonStyle(HapticButtonStyle())
-                    .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
+                Button(action: { sendMessage(message: inputTextValue) }) {
+                    Image(systemName: aiChatModel.predicting ? "stop.circle.fill" : "arrow.up.circle.fill")
+                        .font(.system(size: 33))
                 }
-                .padding(.horizontal)
-                .padding(.top, 3)
-                .padding(.bottom, 9)
-                .onTapGesture {
-                    isTextFieldFocused = true
-                }
-                .onChange(of: isTextFieldFocused) { _ in
+                .buttonStyle(HapticButtonStyle())
+                .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
+            }
+            .padding(.horizontal)
+            .padding(.top, 3)
+            .padding(.bottom, 9)
+            .onTapGesture {
+                isTextFieldFocused = true
+            }
+            .onChange(of: isTextFieldFocused) { _ in
+                if model.hapticModeOn {
                     impactMedium.impactOccurred()
                 }
             }
-            .onDisappear {
-                isTextFieldFocused = false
+        }
+        .onDisappear {
+            isTextFieldFocused = false
+        }
+        .onChange(of: chatSelection) { _ in
+            Task {
+                await reload()
             }
-            .onChange(of: chatSelection) { _ in
-                Task {
-                    await reload()
-                }
-            }
-            .onChange(of: swiping) { _ in
-                isTextFieldFocused = false
-            }
+        }
+        .onChange(of: swiping) { _ in
+            isTextFieldFocused = false
+        }
     }
     
     private func sendMessage(message: String) {

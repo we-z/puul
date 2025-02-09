@@ -353,7 +353,7 @@ struct SegmentedSingleChoiceList: View {
 struct MultiChoiceList: View {
     let choices: [String]
     @Binding var selections: [String]
-    
+    @StateObject public var model: AppModel = AppModel()
     var body: some View {
         VStack {
             Text("Multiple Selection")
@@ -370,7 +370,9 @@ struct MultiChoiceList: View {
                 .contentShape(Rectangle())
                 .padding()
                 .onTapGesture {
-                    impactMedium.impactOccurred()
+                    if model.hapticModeOn {
+                        impactMedium.impactOccurred()
+                    }
                     if selections.contains(choice) {
                         selections.removeAll(where: { $0 == choice })
                     } else {
@@ -424,6 +426,8 @@ struct AssetsQuestionView: View {
         return formatter
     }()
     
+    @StateObject public var model: AppModel = AppModel()
+
     var body: some View {
         ScrollViewReader { scrollProxy in
             ScrollView {
@@ -479,8 +483,9 @@ struct AssetsQuestionView: View {
                                 }
                                 .contentShape(Rectangle()) // Makes entire row tappable
                                 .onTapGesture {
-                                    let impactMedium = UIImpactFeedbackGenerator(style: .medium)
-                                    impactMedium.impactOccurred()
+                                    if model.hapticModeOn {
+                                        impactMedium.impactOccurred()
+                                    }
                                     
                                     if isSelected {
                                         // Deselect

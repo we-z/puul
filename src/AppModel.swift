@@ -36,11 +36,7 @@ class AppModel: ObservableObject {
         }
     }
 
-    @Published public var hapticModeOn: Bool = true {
-        didSet {
-            saveHapticSetting()
-        }
-    }
+    @AppStorage("hapticModeKey") var hapticModeOn: Bool = true
 
     func savelightSetting() {
         if let lightSetting = try? JSONEncoder().encode(isLightMode) {
