@@ -12,10 +12,13 @@ let hapticManager = HapticManager.instance
 class HapticManager {
     static let instance = HapticManager()
     private init() {}
+    @StateObject public var model: AppModel = AppModel()
 
     func notification(type: UINotificationFeedbackGenerator.FeedbackType) {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(type)
+        if model.hapticModeOn {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(type)
+        }
     }
 
     func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
