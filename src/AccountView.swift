@@ -18,8 +18,8 @@ struct AccountView: View {
     @State private var showManageSubscriptions = false
     @State var showStats = false
     
-    @State private var selectedTheme = "Dark"
-    let themes = ["Dark", "Light", "Automatic"]
+    @AppStorage("selectedTheme") private var selectedTheme: String = "Dark"
+    let themes = ["Dark", "Light", "System"]
     
 
     var body: some View {
@@ -58,16 +58,9 @@ struct AccountView: View {
                     }
                     
                     Section(header: Text("Settings")) {
-    
-//                        Toggle(isOn: $model.isLightMode) {
-//                            HStack {
-//                                Image(systemName: "sun.max")
-//                                Text("Theme")
-//                            }
-//                        }
                         HStack {
                             Image(systemName: "sun.max")
-                            Picker("Appearance", selection: $selectedTheme) {
+                            Picker("Theme", selection: $selectedTheme) {
                                 ForEach(themes, id: \.self) {
                                     Text($0)
                                 }

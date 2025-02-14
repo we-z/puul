@@ -27,6 +27,9 @@ struct ChatListView: View {
     @State var chats_previews: [Dictionary<String, String>] = []
     @State private var toggleSettings = false
     @State private var toggleAddChat = false
+    
+    // In ChatListView.swift, add this property (if not already present):
+    @AppStorage("selectedTheme") private var selectedTheme: String = "System"
 
     var filteredChats: [Dictionary<String, String>] {
         if searchText.isEmpty {
@@ -189,6 +192,10 @@ struct ChatListView: View {
         .sheet(isPresented: $showSettings) {
             AccountView()
                 .environmentObject(AppModel())
+                .preferredColorScheme(
+                    selectedTheme == "Automatic" ? nil : (selectedTheme == "Dark" ? .dark : .light)
+                )
+                .id(selectedTheme)
 //                .presentationDetents([.height(600)])
         }
     }
