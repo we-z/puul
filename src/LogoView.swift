@@ -33,9 +33,9 @@ struct LogoView: View {
 //            .offset(y: -45)
             Color(.white)
                 .aspectRatio(contentMode: .fit)
-            Image(systemName:"chart.line.uptrend.xyaxis")
-                .foregroundColor(.black)
-                .font(.system(size: 240))
+            Text("Puul")
+                .bold()
+                .font(.system(size: 180))
         }
 //        .fontWeight(.heavy)
 //        .bold()
