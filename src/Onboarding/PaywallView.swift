@@ -80,7 +80,7 @@ struct PaywallView: View {
                     
                     // Title
                     HStack {
-                        Text("Invest in Your Future.")
+                        Text("Invest in Your Future")
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)

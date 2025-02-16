@@ -4,12 +4,12 @@ import SwiftUI
 @main
 struct PuulApp: App {
     // Read the persisted theme setting.
-    @AppStorage("selectedTheme") private var selectedTheme: String = "Dark"
+    @AppStorage("selectedTheme") private var selectedTheme: String = "System"
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentView()
+                HomeView()
                     .environmentObject(StoreVM())
                     .environmentObject(AppModel())
             }

@@ -193,7 +193,7 @@ struct ChatListView: View {
             AccountView()
                 .environmentObject(AppModel())
                 .preferredColorScheme(
-                    selectedTheme == "Automatic" ? nil : (selectedTheme == "Dark" ? .dark : .light)
+                    selectedTheme == "System" ? nil : (selectedTheme == "Dark" ? .dark : .light)
                 )
                 .id(selectedTheme)
 //                .presentationDetents([.height(600)])

@@ -137,7 +137,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul local LLM (1.32GB in size) runs on your device to protect your financial data and privacy. Download to continue.")
+                Text("Puul local LLM (1.32GB in size) runs on your device to protect your data and privacy. Download to continue.")
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)

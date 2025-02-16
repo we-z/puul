@@ -18,7 +18,7 @@ struct AccountView: View {
     @State private var showManageSubscriptions = false
     @State var showStats = false
     
-    @AppStorage("selectedTheme") private var selectedTheme: String = "Dark"
+    @AppStorage("selectedTheme") private var selectedTheme: String = "System"
     let themes = ["Dark", "Light", "System"]
     
 

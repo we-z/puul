@@ -29,7 +29,7 @@ struct OnboardingView: View {
         ),
         OnboardingPage(
             systemName: "list.bullet.clipboard",
-            title: "Financial Planning Made Simple",
+            title: "Wealth Planning Made Simple",
             description: "Achieve your financial goals with personalized plans and actionable insights tailored to you."
         ),
         OnboardingPage(
