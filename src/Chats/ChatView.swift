@@ -106,7 +106,7 @@ struct ChatView: View {
                             VStack {
                                 Spacer()
                                 HStack {
-                                    Text("Ask your AI financial advisor any question")
+                                    Text("Ask your AI wealth advisor any question")
                                     Spacer()
                                     VStack {
                                         Spacer()
@@ -115,7 +115,7 @@ struct ChatView: View {
                                     }
                                 }
                                 .padding(.vertical)
-                                .font(.system(size: UIScreen.main.bounds.width * 0.1))
+                                .font(.system(size: UIScreen.main.bounds.width * 0.11))
                                 .padding(.horizontal, 35)
                                 
                                 ScrollView(.horizontal) {

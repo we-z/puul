@@ -24,8 +24,8 @@ struct OnboardingView: View {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             systemName: "brain.head.profile",
-            title: "AI Financial Advisor",
-            description: "Leverage the power of AI to analyze your finances and provide expert guidance for smarter decisions."
+            title: "AI Wealth Advisor",
+            description: "Leverage the power of AI to analyze your wealth and provide expert guidance for smarter decisions."
         ),
         OnboardingPage(
             systemName: "list.bullet.clipboard",

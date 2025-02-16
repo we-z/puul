@@ -87,7 +87,7 @@ struct PaywallView: View {
                             .padding()
                             .padding(.top)
                     }
-                    Text("Strategize with your personal AI financial advisor today. financial literacy on tap.")
+                    Text("Strategize with your personal AI wealth advisor today. financial literacy on tap.")
                         .bold()
                         .multilineTextAlignment(.center)
                         .padding([.horizontal, .bottom])

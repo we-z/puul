@@ -30,7 +30,7 @@ struct AppInfoView: View {
                     .padding()
                     
                     HStack {
-                        Text("Puul is your Ai financial advisor and partner that can help you plan for the future. Whether you are planning for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nPuul gives you personally tailored advice based on your current financial state and desired risk level")
+                        Text("Puul is your Ai wealth advisor and partner that can help you plan for the future. Whether you are planning for retirement, or simply creating a personal budget, it doesn't hurt to get help from an expert. \n\nPuul gives you personally tailored advice based on your current financial state and desired risk level")
                             .font(.system(size: 18))
                             .multilineTextAlignment(.leading)
 
