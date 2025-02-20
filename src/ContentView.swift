@@ -16,8 +16,8 @@ struct ContentView: View {
             if !storeVM.hasUnlockedPro {
                 PaywallView()
                     .environmentObject(StoreVM())
-                DemoView()
-                    .environmentObject(AIChatModel())
+//                DemoView()
+//                    .environmentObject(AIChatModel())
                 SurveyView()
                     .environmentObject(StoreVM())
                 OnboardingView()

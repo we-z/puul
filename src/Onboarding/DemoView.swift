@@ -22,6 +22,10 @@ struct DemoView: View {
     @State private var chevronOffset: CGFloat = 0.0
     @State private var done: Bool = false
     
+    @State var placeholderString: String = "Message"
+    @State private var inputText: String = "Message"
+    @State private var inputTextValue: String = ""
+    
     @FocusState var isTextFieldFocused: Bool
         
     let financialQuestions = [
@@ -118,6 +122,31 @@ struct DemoView: View {
                             }
                             .scrollIndicators(.hidden)
                             .padding(.bottom)
+                            
+                            HStack(alignment: .bottom) {
+                                TextField(placeholderString, text: $inputTextValue, axis: .vertical)
+                                    .textFieldStyle(.plain)
+                                    .font(.system(size: 17))
+                                    .padding(9)
+                                    .padding(.horizontal, 9)
+                                    .background(Color.primary.opacity(0.15))
+                                    .cornerRadius(24)
+                                    .focused($isTextFieldFocused)
+                                    .lineLimit(1...5)
+                                
+                                Button(action: { sendMessage(message: inputTextValue) }) {
+                                    Image(systemName: aiChatModel.predicting ? "stop.circle.fill" : "arrow.up.circle.fill")
+                                        .font(.system(size: 33))
+                                }
+                                .buttonStyle(HapticButtonStyle())
+                                .disabled(inputTextValue.isEmpty && !aiChatModel.predicting)
+                            }
+                            .padding(.horizontal)
+                            .padding(.top, 3)
+                            .padding(.bottom, 9)
+                            .onTapGesture {
+                                isTextFieldFocused = true
+                            }
                             
                         }
                         .background(.primary.opacity(0.001))
