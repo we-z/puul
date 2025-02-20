@@ -103,6 +103,11 @@ struct MessageView: View {
                     switch chatStyle {
                     case "DocC":
                         Markdown(processedText).markdownTheme(.docC)
+//                        TextView(
+//                            text: .constant(processedText),
+//                            textStyle: .constant(.body)
+//                        )
+//                        .frame(height: 30) // Adjust as needed
                     case "Basic":
                         Markdown(processedText).markdownTheme(.basic)
                     case "GitHub":

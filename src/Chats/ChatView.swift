@@ -151,19 +151,9 @@ struct ChatView: View {
                             ScrollView {
                                 ForEach(aiChatModel.messages, id: \.id) { message in
                                     MessageView(message: message, chatStyle: $chatStyle, status: nil)
+                                        .frame(width: deviceWidth)
                                         .id(message.id)
                                         .padding()
-                                        .contextMenu {
-                                            Button {
-                                                UIPasteboard.general.string = message.text
-                                            } label: {
-                                                HStack {
-                                                    Text("Copy")
-                                                    Spacer()
-                                                    Image(systemName: "square.on.square")
-                                                }
-                                            }
-                                        }
                                 }
                                 Text("").id("latest")
                             }

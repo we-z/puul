@@ -9,7 +9,7 @@ struct PuulApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                TempView()
+                ContentView()
                     .environmentObject(StoreVM())
                     .environmentObject(AppModel())
             }
