@@ -198,7 +198,7 @@ struct RatingsView: View {
                 // Then, scale that to a maximum target of 1,000,000 (capped at 100).
                 let yearsToRetirement = max(65 - answers.age, 0)
                 let estimatedCorpus = Double(answers.savingMonthly) * 12 * Double(yearsToRetirement)
-                let targetRetirementReadiness = min((estimatedCorpus / 1_000_000) * 100, 100)
+                let targetRetirementReadiness = min((estimatedCorpus / 5_000_000) * 100, 100)
                 
                 // --- Overall ---
                 // Overall is computed as the average of five metrics (all scaled to 100):
