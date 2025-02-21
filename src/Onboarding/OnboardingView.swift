@@ -10,6 +10,10 @@ import StoreKit
 
 struct OnboardingView: View {
     @EnvironmentObject var storeVM: StoreVM
+    @AppStorage("OnboardingView") var done: Bool = false
+    // Internal state used solely for driving smooth animations.
+    @State private var animateDone: Bool = false
+    
     // MARK: - Internal model for each onboarding page
     struct OnboardingPage {
         let systemName: String
@@ -18,9 +22,8 @@ struct OnboardingView: View {
     }
     
     @State private var tabSelection: Int = 0
-    @AppStorage("OnboardingView") var done: Bool = false
     
-    // MARK: - Updated pages with SF Symbol icons, titles, and descriptions
+    // Updated pages with SF Symbol icons, titles, and descriptions.
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             systemName: "brain.head.profile",
@@ -50,8 +53,6 @@ struct OnboardingView: View {
             TabView(selection: $tabSelection) {
                 ForEach(pages.indices, id: \.self) { index in
                     VStack {
-                        
-                        
                         // Large SF Symbol icon
                         Image(systemName: pages[index].systemName)
                             .resizable()
@@ -60,18 +61,16 @@ struct OnboardingView: View {
                             .padding()
                         
                         if index == pages.count - 1 {
-                            HStack{
+                            HStack {
                                 ForEach(0..<5, id: \.self) { _ in
                                     Image(systemName: "star.fill")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 45, height: 45) // Adjust the size as needed
+                                        .frame(width: 45, height: 45) // Adjust size as needed
                                         .foregroundColor(.yellow)
-                                        
                                 }
                             }
                             .padding()
-                            
                         }
                         
                         // Title
@@ -79,7 +78,6 @@ struct OnboardingView: View {
                             .font(.largeTitle)
                             .bold()
                             .multilineTextAlignment(.center)
-                            
                             .padding()
                         
                         // Description
@@ -98,15 +96,16 @@ struct OnboardingView: View {
             // MARK: - Next / Rate Us Button
             Button(action: {
                 if tabSelection < pages.count - 1 {
-                    // Move to the next page
+                    // Move to the next page.
                     tabSelection += 1
                 } else {
-                    // Implement your "Rate us" action here
+                    // Implement your "Rate us" action.
                     if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
                         DispatchQueue.main.async {
                             SKStoreReviewController.requestReview(in: scene)
                         }
                     }
+                    // Update the AppStorage value with animation.
                     withAnimation(.easeInOut) {
                         done = true
                     }
@@ -119,7 +118,7 @@ struct OnboardingView: View {
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.primary)
                     .colorInvert()
-                    .background(.primary)
+                    .background(Color.primary)
                     .cornerRadius(18)
                     .padding()
             }
@@ -127,11 +126,23 @@ struct OnboardingView: View {
         }
         .background(Color.primary.ignoresSafeArea().colorInvert())
         .animation(.spring, value: tabSelection)
-        .offset(x: done ? -deviceWidth : 0)
+        // Use the internal state for the offset animation.
+        .offset(x: animateDone ? -deviceWidth : 0)
+        // Sync the internal state with the AppStorage value.
+        .onAppear {
+            animateDone = done
+        }
+        .onChange(of: done) { newValue in
+            withAnimation(.easeInOut) {
+                animateDone = newValue
+            }
+        }
     }
 }
 
-#Preview {
-    OnboardingView()
-        .environmentObject(StoreVM())
+struct OnboardingView_Previews: PreviewProvider {
+    static var previews: some View {
+        OnboardingView()
+            .environmentObject(StoreVM())
+    }
 }
