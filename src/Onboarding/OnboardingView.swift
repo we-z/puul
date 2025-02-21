@@ -18,7 +18,7 @@ struct OnboardingView: View {
     }
     
     @State private var tabSelection: Int = 0
-    @State var done: Bool = false
+    @AppStorage("OnboardingView") var done: Bool = false
     
     // MARK: - Updated pages with SF Symbol icons, titles, and descriptions
     private let pages: [OnboardingPage] = [

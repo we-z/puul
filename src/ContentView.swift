@@ -18,8 +18,10 @@ struct ContentView: View {
                     .environmentObject(StoreVM())
 //                DemoView()
 //                    .environmentObject(AIChatModel())
-                SurveyView()
-                    .environmentObject(StoreVM())
+                if SurveyPersistenceManager.loadAnswers() == nil {
+                    SurveyView()
+                        .environmentObject(StoreVM())
+                }
                 OnboardingView()
                     .environmentObject(StoreVM())
             }
