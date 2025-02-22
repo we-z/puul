@@ -10,7 +10,7 @@ import SwiftUI
 struct LogoView: View {
     var body: some View {
         ZStack {
-            Color(.black)
+            Color(.white)
 //            Color(.white)
 //                .opacity(0.15)
 //                .ignoresSafeArea()
@@ -31,11 +31,12 @@ struct LogoView: View {
 //                    .offset(x: 10)
 //            }
 //            .offset(y: -45)
-            Color(.white)
+            Color(.black)
                 .aspectRatio(contentMode: .fit)
             Text("Puul")
+                .foregroundColor(.white)
                 .bold()
-                .font(.system(size: 180))
+                .font(.system(size: 150))
         }
 //        .fontWeight(.heavy)
 //        .bold()

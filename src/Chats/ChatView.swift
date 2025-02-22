@@ -154,6 +154,17 @@ struct ChatView: View {
                                         .frame(width: deviceWidth)
                                         .id(message.id)
                                         .padding()
+                                        .contextMenu {
+                                            Button {
+                                                UIPasteboard.general.string = message.text
+                                            } label: {
+                                                HStack {
+                                                    Text("Copy")
+                                                    Spacer()
+                                                    Image(systemName: "square.on.square")
+                                                }
+                                            }
+                                        }
                                 }
                                 Text("").id("latest")
                             }
