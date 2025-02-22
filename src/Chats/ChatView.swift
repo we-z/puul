@@ -41,6 +41,11 @@ struct ChatView: View {
     @Namespace var bottomID
     @StateObject public var model: AppModel = AppModel()
     
+    // New state variables for the sheet
+    @State private var isShowingTextSheet: Bool = false
+    @State private var selectedMessageText: String = ""
+    @State private var selectedTextStyle: UIFont.TextStyle = .body
+    
     let financialQuestions = [
         "How can I improve\nmy credit score?",
         "Should I refinance\nmy mortgage?",
@@ -53,20 +58,17 @@ struct ChatView: View {
         "How much should I be\nsaving each month?"
     ]
         
-    func scrollToBottom(with_animation:Bool = false) {
-        let last_msg = aiChatModel.messages.last // try to fixscrolling and  specialized Array._checkSubscript(_:wasNativeTypeChecked:)
-        if last_msg != nil && last_msg?.id != nil && scrollProxy != nil{
-            if with_animation{
+    func scrollToBottom(with_animation: Bool = false) {
+        let last_msg = aiChatModel.messages.last // try to fixscrolling and specialized Array._checkSubscript(_:wasNativeTypeChecked:)
+        if last_msg != nil && last_msg?.id != nil && scrollProxy != nil {
+            if with_animation {
                 withAnimation {
-                    //                    scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
                     scrollProxy?.scrollTo("latest")
                 }
-            }else{
-                //                scrollProxy?.scrollTo(last_msg?.id, anchor: .bottom)
+            } else {
                 scrollProxy?.scrollTo("latest")
             }
         }
-        
     }
     
     func reload() async {
@@ -84,7 +86,6 @@ struct ChatView: View {
         
         // 2) Clear out in-memory chat data for a new empty session
         aiChatModel.chat = nil
-        
         aiChatModel.chat_name = ""
         aiChatModel.model_name = ""
         aiChatModel.Title = ""
@@ -164,21 +165,31 @@ struct ChatView: View {
                                                     Image(systemName: "square.on.square")
                                                 }
                                             }
+                                            Button {
+                                                // Set the selected text and show the sheet
+                                                selectedMessageText = message.text
+                                                isShowingTextSheet = true
+                                            } label: {
+                                                HStack {
+                                                    Text("Select Text")
+                                                    Spacer()
+                                                    Image(systemName: "text.cursor")
+                                                }
+                                            }
                                         }
                                 }
                                 Text("").id("latest")
                             }
                             .simultaneousGesture(
-                               DragGesture()
-                                .onEnded { _ in
-                                    self.autoScroll = false
-                               }
+                                DragGesture()
+                                    .onEnded { _ in
+                                        self.autoScroll = false
+                                    }
                             )
                             .scrollIndicators(.hidden)
                             .onTapGesture {
                                 isTextFieldFocused = false
                             }
-                            
                             .onAppear {
                                 scrollProxy = scrollView
                                 scrollToBottom()
@@ -210,7 +221,6 @@ struct ChatView: View {
                             .opacity(aiChatModel.messages.isEmpty ? 0.3 : 1)
                             .buttonStyle(HapticButtonStyle())
                         }
-                        
                     }
                 }
             }
@@ -263,6 +273,26 @@ struct ChatView: View {
         .onChange(of: swiping) { _ in
             isTextFieldFocused = false
         }
+        // Sheet presenting the selected message text using TextView
+        .sheet(isPresented: $isShowingTextSheet) {
+            NavigationView {
+                VStack {
+                    TextView(text: $selectedMessageText, textStyle: $selectedTextStyle)
+                        .frame(height: 1000)
+                        .padding()
+                        .padding(.top, 60)
+                }
+                .navigationTitle("Selected Text")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            isShowingTextSheet = false
+                        }
+                        .accentColor(.primary)
+                    }
+                }
+            }
+        }
     }
     
     private func sendMessage(message: String) {
@@ -296,5 +326,25 @@ struct ChatView_Previews: PreviewProvider {
             swiping: .constant(false)
         )
         .environmentObject(AIChatModel())
+    }
+}
+
+struct TextView: UIViewRepresentable {
+    @Binding var text: String
+    @Binding var textStyle: UIFont.TextStyle
+
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.font = UIFont.preferredFont(forTextStyle: textStyle)
+        textView.isEditable = false
+        textView.isSelectable = true
+        // ADD THIS:
+        textView.text = text
+        return textView
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
+        uiView.font = UIFont.preferredFont(forTextStyle: textStyle)
     }
 }
