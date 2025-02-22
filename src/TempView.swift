@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TempView: View {
     @State private var message = """
-    hello how are you\nare you ok? email: hung.phuoc.tran@gmail.com
+    hello how are you\nare you ok? email: hung.phuoc.tran@gmail.comdwdq
     """
     @State private var textStyle: UIFont.TextStyle = .body
 

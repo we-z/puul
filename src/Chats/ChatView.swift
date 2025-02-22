@@ -278,11 +278,8 @@ struct ChatView: View {
             NavigationView {
                 VStack {
                     TextView(text: $selectedMessageText, textStyle: $selectedTextStyle)
-                        .frame(height: 1000)
-                        .padding()
-                        .padding(.top, 60)
                 }
-                .navigationTitle("Selected Text")
+                .navigationTitle("Select Text")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Done") {
@@ -338,13 +335,16 @@ struct TextView: UIViewRepresentable {
         textView.font = UIFont.preferredFont(forTextStyle: textStyle)
         textView.isEditable = false
         textView.isSelectable = true
-        // ADD THIS:
         textView.text = text
+        // Add padding to the text view
+        textView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return textView
     }
 
     func updateUIView(_ uiView: UITextView, context: Context) {
         uiView.text = text
         uiView.font = UIFont.preferredFont(forTextStyle: textStyle)
+        // Ensure the padding remains updated
+        uiView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     }
 }
