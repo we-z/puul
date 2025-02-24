@@ -477,19 +477,19 @@ final class AIChatModel: ObservableObject {
                 
                 // Our base system prompt
                 let baseSystemPrompt = """
-                You are an AI. Your name is Puul. You are a wealth advisor. You are an expert in finance. You know everything about finance. You are a conversational AI. You are kind. You are motivational.
+                You are an AI. Your name is Puul. You are a wealth advisor. You are an expert in finance. You are a conversational AI. You are kind. You are motivational.
                 """
                 
                 let finalSystemPrompt = """
-                Keep responses concise and to the point. Respond to greetings with greetings. Be Biased. Be Subjective. Be Optimistic. The conversation starts NOW.
+                Keep responses concise and to the point. Respond to greetings with greetings. Be realistic. The conversation starts NOW.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
-                let combinedSystemPrompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\n\(surveyPrompt)\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+                let combinedSystemPrompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\(baseSystemPrompt)\n\(surveyPrompt)\n\(finalSystemPrompt)<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
                 
                 // 4) Put that into chatOptions
                 let chatOptions: [String: Any] = [
-                    "model": "Llama-3.2-1B-Instruct-Uncensored.Q8_0.gguf",
+                    "model": String(modelSourceUrl.split(separator: "/").last ?? ""),
                             
                     // ---- General plugin/config settings ----
                     "use_clip_metal": false,

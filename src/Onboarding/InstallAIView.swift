@@ -11,11 +11,13 @@
 import SwiftUI
 import llmfarm_core
 
+let modelSourceUrl: String = "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q5_K_S.gguf"
+
 struct InstallAIView: View {
     @State private var done: Bool = false
-    @State private var modelUrl: String = "https://huggingface.co/mradermacher/Llama-3.2-1B-Instruct-Uncensored-GGUF/resolve/main/Llama-3.2-1B-Instruct-Uncensored.Q8_0.gguf"
+    @State private var modelUrl: String = modelSourceUrl
     @State private var status: String = ""
-    @State private var filename: String = "Llama-3.2-1B-Instruct-Uncensored.Q8_0.gguf"
+    @State private var filename: String = String(modelSourceUrl.split(separator: "/").last ?? "")
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var downloadDelegate = ModelDownloadDelegate()
         
@@ -129,15 +131,14 @@ struct InstallAIView: View {
                 HStack {
                     Text("Welcome to Puul")
                         .bold()
-                    Image(systemName: "hand.wave")
                 }
                     .font(.largeTitle)
-                    
                     .multilineTextAlignment(.center)
                     .padding()
                 
                 // Description
-                Text("Puul local LLM (1.32GB in size) runs on your device to protect your data and privacy. Download to continue.")
+                Text("Puul local LLM (1.32GB in size) works offline to protect your data and privacy. Download to continue.")
+                    .foregroundColor(.gray)
                     .bold()
                     .font(.body)
                     .multilineTextAlignment(.center)

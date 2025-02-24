@@ -46,6 +46,8 @@ struct ChatView: View {
     @State private var selectedMessageText: String = ""
     @State private var selectedTextStyle: UIFont.TextStyle = .body
     
+    @State private var inputBarId = UUID()
+    
     let financialQuestions = [
         "How can I improve\nmy credit score?",
         "Should I refinance\nmy mortgage?",
@@ -253,6 +255,7 @@ struct ChatView: View {
             .padding(.horizontal)
             .padding(.top, 3)
             .padding(.bottom, 9)
+            .id(inputBarId)
             .onTapGesture {
                 isTextFieldFocused = true
             }
@@ -260,6 +263,11 @@ struct ChatView: View {
                 if model.hapticModeOn {
                     impactMedium.impactOccurred()
                 }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                inputBarId = UUID()
             }
         }
         .onDisappear {
