@@ -24,8 +24,8 @@ struct ContentView: View {
                 }
                 OnboardingView()
                     .environmentObject(StoreVM())
+                InstallAIView()
             }
-            InstallAIView()
         }
         .onChange(of: scenePhase) { _ in
             Task {

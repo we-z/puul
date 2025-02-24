@@ -225,7 +225,6 @@ struct InstallAIView: View {
             if FileManager.default.fileExists(atPath: fileURL.path) {
                 done = true
             }
-            // Cycle through icons every 3 seconds
             Task {
                 while !done {
                     try await Task.sleep(for: .seconds(6))
