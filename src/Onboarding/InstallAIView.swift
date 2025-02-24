@@ -137,7 +137,7 @@ struct InstallAIView: View {
                     .padding()
                 
                 // Description
-                Text("Puul local LLM (1.32GB in size) works offline to protect your data and privacy. Download to continue.")
+                Text("Puul local LLM (2.27GB in size) works offline to protect your data and privacy. Download to continue.")
                     .foregroundColor(.gray)
                     .bold()
                     .font(.body)
