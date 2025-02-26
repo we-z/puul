@@ -333,26 +333,3 @@ struct ChatView_Previews: PreviewProvider {
         .environmentObject(AIChatModel())
     }
 }
-
-struct TextView: UIViewRepresentable {
-    @Binding var text: String
-    @Binding var textStyle: UIFont.TextStyle
-
-    func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
-        textView.font = UIFont.preferredFont(forTextStyle: textStyle)
-        textView.isEditable = false
-        textView.isSelectable = true
-        textView.text = text
-        // Add padding to the text view
-        textView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        return textView
-    }
-
-    func updateUIView(_ uiView: UITextView, context: Context) {
-        uiView.text = text
-        uiView.font = UIFont.preferredFont(forTextStyle: textStyle)
-        // Ensure the padding remains updated
-        uiView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-    }
-}
