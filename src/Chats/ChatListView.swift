@@ -111,6 +111,7 @@ struct ChatListView: View {
                                         title: $title,
                                         close_chat: close_chat
                                     )
+                                    .background(.primary.opacity(0.001))
                                 }
                                 Spacer()
                             }

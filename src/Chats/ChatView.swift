@@ -157,6 +157,7 @@ struct ChatView: View {
                                         .frame(width: deviceWidth)
                                         .id(message.id)
                                         .padding()
+                                        .background(.primary.opacity(0.001))
                                         .contextMenu {
                                             Button {
                                                 UIPasteboard.general.string = message.text
