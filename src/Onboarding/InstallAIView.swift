@@ -65,7 +65,7 @@ struct InstallAIView: View {
     @State private var downloadDelegate = ModelDownloadDelegate()
     
     // Use the icons in the carousel.
-    private let icons = ["dollarsign.circle", "chart.line.uptrend.xyaxis", "person.crop.circle", "sparkles", "brain"]
+    private let icons = ["dollarsign.circle", "chart.line.uptrend.xyaxis", "list.bullet.clipboard", "chart.bar.fill", "chart.pie", "sparkles", "chart.xyaxis.line", "brain"]
     
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
