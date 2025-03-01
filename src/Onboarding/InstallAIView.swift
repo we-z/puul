@@ -114,36 +114,33 @@ struct InstallAIView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            VStack {
-                // Large icon (animated every 3 seconds)
-                ZStack {
-                    Image(systemName: icons[currentIconIndex])
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                        .padding()
-                        .transition(.opacity)
-                        .id(currentIconIndex)
-                }
-                
-                // Title
-                HStack {
-                    Text("Welcome to Puul")
-                        .bold()
-                }
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                
-                // Description
-                Text("Puul local LLM (2.27GB in size) works offline to protect your data and privacy. Download to continue.")
-                    .foregroundColor(.gray)
+            // Title
+            HStack {
+                Text("Welcome to Puul")
                     .bold()
-                    .font(.body)
+                    .font(.system(size: 36))
                     .multilineTextAlignment(.center)
                     .padding()
+                Spacer()
             }
+            
+            // Description
+            HStack{
+                Text("Puul local LLM (2.27GB in size) works offline to protect your data and privacy. Download to continue.")
+                    .bold()
+                    .font(.system(size: 21))
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal)
+                Spacer()
+            }
+            Spacer()
+            Image(systemName: icons[currentIconIndex])
+                .resizable()
+                .scaledToFit()
+                .frame(width: 210, height: 210)
+                .padding()
+                .transition(.opacity)
+                .id(currentIconIndex)
             Spacer()
             
             // Progress Section
@@ -181,7 +178,7 @@ struct InstallAIView: View {
             
             Text("(Wi-Fi connection recommended)")
                 .bold()
-                .font(.body)
+                .font(.system(size: 21))
                 .multilineTextAlignment(.center)
             
             // Download / Stop Button
@@ -196,7 +193,7 @@ struct InstallAIView: View {
                     Text(status.isEmpty ? "Download AI" : "Stop Download")
                 }
                 .bold()
-                .font(.title)
+                .font(.system(size: 36))
                 .padding()
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.primary)
@@ -212,7 +209,7 @@ struct InstallAIView: View {
                 } label: {
                     Text("Cancel to Exit")
                         .bold()
-                        .font(.title2)
+                        .font(.system(size: 30))
                         .padding(.bottom)
                 }
                 .buttonStyle(HapticButtonStyle())
