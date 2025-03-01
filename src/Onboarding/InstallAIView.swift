@@ -240,17 +240,17 @@ struct InstallAIView: View {
                 .padding()
             }
             .buttonStyle(HapticButtonStyle())
-            if status != "downloading" {
-                Button {
-                    exit(0)
-                } label: {
-                    Text("Cancel & Exit")
-                        .bold()
-                        .font(.system(size: 18))
-                        .padding(.bottom)
-                }
-                .buttonStyle(HapticButtonStyle())
-            }
+//            if status != "downloading" {
+//                Button {
+//                    exit(0)
+//                } label: {
+//                    Text("Cancel & Exit")
+//                        .bold()
+//                        .font(.system(size: 18))
+//                        .padding(.bottom)
+//                }
+//                .buttonStyle(HapticButtonStyle())
+//            }
         }
         .background(Color.primary.colorInvert().ignoresSafeArea())
         .onAppear {
