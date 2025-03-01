@@ -13,6 +13,49 @@ import llmfarm_core
 
 let modelSourceUrl: String = "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q5_K_S.gguf"
 
+/// A new view that shows a horizontally spinning carousel of icons.
+/// It duplicates the icons to ensure the first icon is rendered and ready to loop seamlessly.
+struct SpinningCarousel: View {
+    let icons: [String]
+    // Large spacing between icons
+    let spacing: CGFloat = 100
+    // Icon size (same as original design)
+    let iconSize: CGFloat = 210
+    // Speed in points per second (adjusted for a fast loop)
+    let speed: CGFloat = 90
+    
+    @State private var xOffset: CGFloat = 0
+    
+    var body: some View {
+        // One complete cycle width (one set of icons)
+        let cycleWidth = CGFloat(icons.count) * (iconSize + spacing)
+        GeometryReader { _ in
+            HStack(spacing: spacing) {
+                // Duplicate icons array for seamless looping
+                ForEach(0..<icons.count * 2, id: \.self) { index in
+                    Image(systemName: icons[index % icons.count])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: iconSize, height: iconSize)
+                }
+            }
+            .offset(x: xOffset)
+            .onAppear {
+                // Animate from offset 0 to -cycleWidth continuously.
+                let duration = Double(cycleWidth / speed)
+                // Start at 0 then animate to -cycleWidth; because the icons are duplicated,
+                // the transition is seamless.
+                xOffset = 0
+                withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: false)) {
+                    xOffset = -cycleWidth
+                }
+            }
+        }
+        .frame(height: iconSize)
+        .clipped()
+    }
+}
+
 struct InstallAIView: View {
     @State private var done: Bool = false
     @State private var modelUrl: String = modelSourceUrl
@@ -20,97 +63,97 @@ struct InstallAIView: View {
     @State private var filename: String = String(modelSourceUrl.split(separator: "/").last ?? "")
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var downloadDelegate = ModelDownloadDelegate()
-        
+    
+    // Removed the currentIconIndex state since the carousel now shows all icons.
+    // private let icons to use in the carousel.
+    private let icons = ["person.crop.circle", "sparkles", "brain", "dollarsign.circle", "chart.line.uptrend.xyaxis"]
+    
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
     @State private var showingAlert = false
     
-    // Icons to cycle through
-    private let icons = ["person.crop.circle", "sparkles", "brain", "dollarsign.circle", "chart.line.uptrend.xyaxis"]
-    @State private var currentIconIndex = 0
-    
     /// Initiates the download and handles the copy/move on completion.
     private func download() {
-            withAnimation(.easeInOut) {
-                status = "downloading"
-            }
-            
-            print("Downloading model from \(modelUrl)")
-            guard let url = URL(string: modelUrl) else { return }
-            
-            // Create the directory before writing the file:
-            do {
-                try createDirectoryIfNeeded(dir: "models")
-            } catch {
-                print("Failed to create 'models' directory: \(error.localizedDescription)")
-                return
-            }
-            
-            // Build the final fileURL
-            let fileURL = getFileURLFormPathStr(dir: "models", filename: filename)
-            
-            // Prepare the background config
-            let config = URLSessionConfiguration.background(withIdentifier: "com.yourapp.backgroundDownload.model")
-            config.timeoutIntervalForRequest = 300     // 5 minutes
-            config.timeoutIntervalForResource = 3600   // 1 hour
-            config.isDiscretionary = false
-            config.sessionSendsLaunchEvents = true
-            config.waitsForConnectivity = true
-            
-            // Assign the final destination to our delegate so it knows where to copy
-            downloadDelegate.destinationFileURL = fileURL
-            
-            // Provide closures to update SwiftUI on main thread
-            downloadDelegate.onProgress = { fraction in
-                DispatchQueue.main.async {
-                    self.progress = fraction * 100
-                }
-            }
-            downloadDelegate.onComplete = { finalFileURL in
-                DispatchQueue.main.async {
-                    print("Writing to \(self.filename) completed.")
-                    
-                    // Mark the status to show "downloaded"
-                    withAnimation(.easeInOut) {
-                        self.status = "downloaded"
-                    }
-                    
-                    // Immediately load the model in the background
-                    let ephemeralAI = AI(_modelPath: finalFileURL.path,
-                                         _chatName: "AutoLoadBackgroundChat")
-                    
-                    ephemeralAI.initModel(.LLama_gguf)
-                    
-                    ephemeralAI.model?.modelLoadProgressCallback = { progress in
-                        print("Auto-load progress: \(progress)")
-                        return true
-                    }
-                    
-                    ephemeralAI.model?.modelLoadCompleteCallback = { loadResult in
-                        print("Auto-load complete: \(loadResult)")
-                    }
-                    
-                    ephemeralAI.loadModel()
-                }
-            }
-            downloadDelegate.onError = { errorMsg in
-                DispatchQueue.main.async {
-                    print("Background download error: \(errorMsg)")
-                    withAnimation(.easeInOut) {
-                        self.status = ""
-                    }
-                }
-            }
-            
-            // Create a URLSession with our delegate
-            let customSession = URLSession(configuration: config,
-                                           delegate: downloadDelegate,
-                                           delegateQueue: nil)
-            
-            // Start the download task
-            downloadTask = customSession.downloadTask(with: url)
-            downloadTask?.resume()
+        withAnimation(.easeInOut) {
+            status = "downloading"
         }
+        
+        print("Downloading model from \(modelUrl)")
+        guard let url = URL(string: modelUrl) else { return }
+        
+        // Create the directory before writing the file:
+        do {
+            try createDirectoryIfNeeded(dir: "models")
+        } catch {
+            print("Failed to create 'models' directory: \(error.localizedDescription)")
+            return
+        }
+        
+        // Build the final fileURL
+        let fileURL = getFileURLFormPathStr(dir: "models", filename: filename)
+        
+        // Prepare the background config
+        let config = URLSessionConfiguration.background(withIdentifier: "com.yourapp.backgroundDownload.model")
+        config.timeoutIntervalForRequest = 300     // 5 minutes
+        config.timeoutIntervalForResource = 3600   // 1 hour
+        config.isDiscretionary = false
+        config.sessionSendsLaunchEvents = true
+        config.waitsForConnectivity = true
+        
+        // Assign the final destination to our delegate so it knows where to copy
+        downloadDelegate.destinationFileURL = fileURL
+        
+        // Provide closures to update SwiftUI on main thread
+        downloadDelegate.onProgress = { fraction in
+            DispatchQueue.main.async {
+                self.progress = fraction * 100
+            }
+        }
+        downloadDelegate.onComplete = { finalFileURL in
+            DispatchQueue.main.async {
+                print("Writing to \(self.filename) completed.")
+                
+                // Mark the status to show "downloaded"
+                withAnimation(.easeInOut) {
+                    self.status = "downloaded"
+                }
+                
+                // Immediately load the model in the background
+                let ephemeralAI = AI(_modelPath: finalFileURL.path,
+                                     _chatName: "AutoLoadBackgroundChat")
+                
+                ephemeralAI.initModel(.LLama_gguf)
+                
+                ephemeralAI.model?.modelLoadProgressCallback = { progress in
+                    print("Auto-load progress: \(progress)")
+                    return true
+                }
+                
+                ephemeralAI.model?.modelLoadCompleteCallback = { loadResult in
+                    print("Auto-load complete: \(loadResult)")
+                }
+                
+                ephemeralAI.loadModel()
+            }
+        }
+        downloadDelegate.onError = { errorMsg in
+            DispatchQueue.main.async {
+                print("Background download error: \(errorMsg)")
+                withAnimation(.easeInOut) {
+                    self.status = ""
+                }
+            }
+        }
+        
+        // Create a URLSession with our delegate
+        let customSession = URLSession(configuration: config,
+                                       delegate: downloadDelegate,
+                                       delegateQueue: nil)
+        
+        // Start the download task
+        downloadTask = customSession.downloadTask(with: url)
+        downloadTask?.resume()
+    }
     
     var body: some View {
         VStack {
@@ -125,7 +168,7 @@ struct InstallAIView: View {
             }
             
             // Description
-            HStack{
+            HStack {
                 Text("Puul local LLM (2.27GB in size) works offline to protect your data and privacy. Download to continue.")
                     .bold()
                     .font(.system(size: 21))
@@ -134,13 +177,8 @@ struct InstallAIView: View {
                 Spacer()
             }
             Spacer()
-            Image(systemName: icons[currentIconIndex])
-                .resizable()
-                .scaledToFit()
-                .frame(width: 210, height: 210)
-                .padding()
-                .transition(.opacity)
-                .id(currentIconIndex)
+            // Replace the fading single icon with the spinning carousel.
+            SpinningCarousel(icons: icons)
             Spacer()
             
             // Progress Section
@@ -222,14 +260,7 @@ struct InstallAIView: View {
             if FileManager.default.fileExists(atPath: fileURL.path) {
                 done = true
             }
-            Task {
-                while !done {
-                    try await Task.sleep(for: .seconds(6))
-                    withAnimation(.easeInOut(duration: 1.0)) {
-                        currentIconIndex = (currentIconIndex + 1) % icons.count
-                    }
-                }
-            }
+            // Removed the previous Task that cycled icons.
         }
         .onDisappear {
             // Stop any active download when leaving this view
@@ -237,20 +268,20 @@ struct InstallAIView: View {
         }
         .offset(x: done ? -deviceWidth : 0)
         .alert("Are you sure?",
-                       isPresented: $showingAlert,
-                       actions: {
-                    Button("Stop", role: .destructive) {
-                        withAnimation {
-                            status = ""
-                        }
+               isPresented: $showingAlert,
+               actions: {
+                Button("Stop", role: .destructive) {
+                    withAnimation {
+                        status = ""
                     }
-                    Button("Cancel", role: .cancel) {
-                        // Do nothing, just dismiss
-                    }
-                },
-                       message: {
-                    Text("Downloading the model is required to continue. Puul AI is safe and will not harm your device.")
-                })
+                }
+                Button("Cancel", role: .cancel) {
+                    // Do nothing, just dismiss
+                }
+            },
+               message: {
+                Text("Downloading the model is required to continue. Puul AI is safe and will not harm your device.")
+            })
         .onChange(of: status) { newStatus in
             if newStatus == "" {
                 progress = 0
@@ -328,4 +359,3 @@ final class ModelDownloadDelegate: NSObject, URLSessionDelegate, URLSessionDownl
         }
     }
 }
-
