@@ -65,7 +65,7 @@ struct InstallAIView: View {
     @State private var downloadDelegate = ModelDownloadDelegate()
     
     // Use the icons in the carousel.
-    private let icons = ["dollarsign.circle", "chart.line.uptrend.xyaxis", "list.bullet.clipboard", "chart.bar.fill", "house", "chart.pie", "sparkles", "chart.xyaxis.line", "brain", "airplane", "car"]
+    private let icons = ["dollarsign.circle", "chart.line.uptrend.xyaxis", "creditcard", "building.columns", "banknote", "list.bullet.clipboard", "chart.bar.fill", "house", "chart.pie", "car", "sparkles", "chart.xyaxis.line", "brain", "airplane"]
     
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
@@ -244,9 +244,9 @@ struct InstallAIView: View {
                 Button {
                     exit(0)
                 } label: {
-                    Text("Cancel to Exit")
+                    Text("Cancel & Exit")
                         .bold()
-                        .font(.system(size: 30))
+                        .font(.system(size: 18))
                         .padding(.bottom)
                 }
                 .buttonStyle(HapticButtonStyle())
