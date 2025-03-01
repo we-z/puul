@@ -15,6 +15,8 @@ let modelSourceUrl: String = "https://huggingface.co/bartowski/Llama-3.2-3B-Inst
 
 /// A new view that shows a horizontally spinning carousel of icons.
 /// It duplicates the icons to ensure the first icon is rendered and ready to loop seamlessly.
+/// The first icon is centered on the screen initially.
+/// This version uses a TimelineView to keep the animation running continuously.
 struct SpinningCarousel: View {
     let icons: [String]
     // Large spacing between icons
@@ -24,31 +26,29 @@ struct SpinningCarousel: View {
     // Speed in points per second (adjusted for a fast loop)
     let speed: CGFloat = 90
     
-    @State private var xOffset: CGFloat = 0
-    
     var body: some View {
-        // One complete cycle width (one set of icons)
-        let cycleWidth = CGFloat(icons.count) * (iconSize + spacing)
-        GeometryReader { _ in
-            HStack(spacing: spacing) {
-                // Duplicate icons array for seamless looping
-                ForEach(0..<icons.count * 2, id: \.self) { index in
-                    Image(systemName: icons[index % icons.count])
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: iconSize, height: iconSize)
+        GeometryReader { geometry in
+            // Calculate the initial offset so that the first icon is centered
+            let initialOffset = (geometry.size.width - iconSize) / 2
+            // One complete cycle width (one set of icons)
+            let cycleWidth = CGFloat(icons.count) * (iconSize + spacing)
+            let duration = Double(cycleWidth / speed)
+            
+            TimelineView(.animation) { timeline in
+                // Calculate current time in the cycle
+                let time = timeline.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: duration)
+                // Compute the offset that continuously decreases then resets for seamless looping.
+                let offset = initialOffset - CGFloat(time) * speed
+                HStack(spacing: spacing) {
+                    // Duplicate icons array for seamless looping
+                    ForEach(0..<icons.count * 2, id: \.self) { index in
+                        Image(systemName: icons[index % icons.count])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: iconSize, height: iconSize)
+                    }
                 }
-            }
-            .offset(x: xOffset)
-            .onAppear {
-                // Animate from offset 0 to -cycleWidth continuously.
-                let duration = Double(cycleWidth / speed)
-                // Start at 0 then animate to -cycleWidth; because the icons are duplicated,
-                // the transition is seamless.
-                xOffset = 0
-                withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: false)) {
-                    xOffset = -cycleWidth
-                }
+                .offset(x: offset)
             }
         }
         .frame(height: iconSize)
@@ -64,9 +64,8 @@ struct InstallAIView: View {
     @State private var downloadTask: URLSessionDownloadTask?
     @State private var downloadDelegate = ModelDownloadDelegate()
     
-    // Removed the currentIconIndex state since the carousel now shows all icons.
-    // private let icons to use in the carousel.
-    private let icons = ["person.crop.circle", "sparkles", "brain", "dollarsign.circle", "chart.line.uptrend.xyaxis"]
+    // Use the icons in the carousel.
+    private let icons = ["dollarsign.circle", "chart.line.uptrend.xyaxis", "person.crop.circle", "sparkles", "brain"]
     
     @State private var observation: NSKeyValueObservation?
     @State private var progress: Double = 0
@@ -260,7 +259,6 @@ struct InstallAIView: View {
             if FileManager.default.fileExists(atPath: fileURL.path) {
                 done = true
             }
-            // Removed the previous Task that cycled icons.
         }
         .onDisappear {
             // Stop any active download when leaving this view
