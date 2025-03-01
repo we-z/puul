@@ -168,9 +168,9 @@ struct InstallAIView: View {
             
             // Description
             HStack {
-                Text("Puul local LLM (2.27GB in size) works offline to protect your data and privacy. Download to continue.")
+                Text("Puul works offline. Your privacy is our top priority. The AI is only 2.27GB in size. Download to continue.")
                     .bold()
-                    .font(.system(size: 21))
+                    .font(.system(size: 19))
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
                 Spacer()
