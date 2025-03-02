@@ -1,37 +1,59 @@
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct TempView: View {
-    @State private var message = """
-    Here is the revised suggestion:
-
-    **Slide 1: "Investing Strategies The Ultra Wealthy Use"**
-     Title slide, let's get started!
-
-    **Slide 2: "1. Rely On Experts"**
-    The ultra wealthy often seek guidance from top experts.
-
-    **Slide 3: "2. Diversify Across Asset Classes"**
-    Spread investments across stocks, bonds, real estate & more.
-
-    **Slide 4: "3. Invest in Yourself First"**
-    Prioritize personal growth for higher returns.
-
-    **Slide 5: "4. Leverage Tax-Advantaged Strategies"**
-    Minimize taxes with smart investing tactics.
-
-    **Slide 6: "5. Long-Term Focus"**
-    Wealthy investors look decades ahead, not just quarters.
-
-    Please consider completing your Puul questionnaire on the account page for more accurate and personalized advice!
-    """
-    @State private var textStyle: UIFont.TextStyle = .body
+    @State private var animationsRunning = false
 
     var body: some View {
-        TextView(text: $message, textStyle: $textStyle)
-            .padding(.horizontal)
+        VStack {
+
+            HStack {
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.iterative, value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.cumulative, value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.reversing.iterative, value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.reversing.cumulative, value: animationsRunning)
+            }
+            .padding()
+
+            HStack {
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.iterative, options: .repeating, value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.cumulative, options: .repeat(3), value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.reversing.iterative, options: .speed(3), value: animationsRunning)
+
+                Image(systemName: "square.stack.3d.up")
+                    .symbolEffect(.variableColor.reversing.cumulative, options: .repeat(3).speed(3), value: animationsRunning)
+            }
+            .padding()
+        }
+        .font(.largeTitle)
+        .onAppear {
+            // Start animation instantly when the view appears.
+//            withAnimation(.linear(duration: 2)) {
+                animationsRunning.toggle()
+//            }
+//            // Automatically start the animations by repeatedly toggling the state every 2 seconds.
+//            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+//                withAnimation(.linear(duration: 2)) {
+//                    animationsRunning.toggle()
+//                }
+//            }
+        }
     }
 }
 
+@available(iOS 17.0, *)
 struct TempView_Previews: PreviewProvider {
     static var previews: some View {
         TempView()
