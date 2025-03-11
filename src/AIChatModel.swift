@@ -443,7 +443,7 @@ final class AIChatModel: ObservableObject {
                 let surveyPrompt: String
                 if let answers = loadedAnswers {
                     surveyPrompt = """
-                    Keep the following informarion about the user in mind when responding there questions:
+                    Only use the following informarion about the user when responding to there personal questions:
 
                     • Age: \(answers.age)
                     • Salary: \(answers.salary)
@@ -463,8 +463,7 @@ final class AIChatModel: ObservableObject {
                     • Tax Tool: \(answers.taxTool)
                     • Has Debts: \(answers.hasDebts)
                     
-                    When the user asks a question, ALWAYS use the above information to give them personaly tailored advice. 
-                    Start with "based on your finances" then proceed to advise them.
+                    Only use the above information when needed for answering the questioning. 
                     """
                 } else {
                     // The user never completed the survey
@@ -481,7 +480,7 @@ final class AIChatModel: ObservableObject {
                 """
                 
                 let finalSystemPrompt = """
-                Keep responses concise and to the point. Respond to greetings with greetings. Be realistic. The conversation starts NOW.
+                Keep responses concise, short, and to the point. Respond to greetings with greetings. Be realistic. The conversation starts NOW.
                 """
                 
                 // 3) Combine the normal system text plus our survey prompt
